@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprIappinformation" table="CPR_IAPPINFORMATION">
+        <id name="idIappinformation" type="java.lang.Long">
+            <column name="ID_IAPPINFORMATION" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprCountrycode" type="string">
+            <column name="CPR_COUNTRYCODE" length="3" />
+        </property>
+        <property name="cprIndicator1" type="string">
+            <column name="CPR_INDICATOR1" length="3" />
+        </property>
+        <property name="cprIndicator2" type="string">
+            <column name="CPR_INDICATOR2" length="3" />
+        </property>
+        <property name="cprAction1" type="string">
+            <column name="CPR_ACTION1" length="3" />
+        </property>
+        <property name="cprAction2" type="string">
+            <column name="CPR_ACTION2" length="3" />
+        </property>
+        <property name="cprQualifier" type="string">
+            <column name="CPR_QUALIFIER" length="3" />
+        </property>
+        <property name="cprInformationtype" type="string">
+            <column name="CPR_INFORMATIONTYPE" length="4" />
+        </property>
+        <property name="cprLanguage" type="string">
+            <column name="CPR_LANGUAGE" length="3" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="3600" />
+        </property>
+    </class>
+</hibernate-mapping>

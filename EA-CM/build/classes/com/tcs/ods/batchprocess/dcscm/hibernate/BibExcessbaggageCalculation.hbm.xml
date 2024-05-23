@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibExcessbaggageCalculation" table="BIB_EXCESSBAGGAGE_CALCULATION">
+        <id name="idExcessbaggcalc" type="java.lang.Long">
+            <column name="ID_EXCESSBAGGCALC" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibExcessbaggageGroup" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibExcessbaggageGroup" fetch="select">
+            <column name="ID_XSBAGGGROUP" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibStatusType" type="string">
+            <column name="BIB_STATUS_TYPE" length="3" />
+        </property>
+        <property name="bibStatusDesc" type="string">
+            <column name="BIB_STATUS_DESC" length="4" />
+        </property>
+        <property name="bibStatusIndicator" type="string">
+            <column name="BIB_STATUS_INDICATOR" length="3" />
+        </property>
+        <property name="bibStatusAction" type="string">
+            <column name="BIB_STATUS_ACTION" length="3" />
+        </property>
+        <property name="bibXsbQualifier" type="string">
+            <column name="BIB_XSB_QUALIFIER" length="3" />
+        </property>
+        <property name="bibXsbPrimeid" type="string">
+            <column name="BIB_XSB_PRIMEID" length="16" />
+        </property>
+        <property name="bibChargesQualifier" type="string">
+            <column name="BIB_CHARGES_QUALIFIER" length="3" />
+        </property>
+        <property name="bibChargesAmount" type="java.lang.Long">
+            <column name="BIB_CHARGES_AMOUNT" precision="11" scale="0" />
+        </property>
+        <property name="bibChargesCurrency" type="string">
+            <column name="BIB_CHARGES_CURRENCY" length="3" />
+        </property>
+        <property name="bibInteractiveQualifier" type="string">
+            <column name="BIB_INTERACTIVE_QUALIFIER" length="3" />
+        </property>
+        <property name="bibInteractiveLanguage" type="string">
+            <column name="BIB_INTERACTIVE_LANGUAGE" length="3" />
+        </property>
+        <property name="bibInteractiveFreetext" type="string">
+            <column name="BIB_INTERACTIVE_FREETEXT" length="70" />
+        </property>
+        <property name="bibFormType" type="string">
+            <column name="BIB_FORM_TYPE" length="10" />
+        </property>
+        <property name="bibFormVendorcode" type="string">
+            <column name="BIB_FORM_VENDORCODE" length="35" />
+        </property>
+        <property name="bibFrequentCarrier" type="string">
+            <column name="BIB_FREQUENT_CARRIER" length="35" />
+        </property>
+        <property name="bibFrequentNumber" type="string">
+            <column name="BIB_FREQUENT_NUMBER" length="25" />
+        </property>
+        <property name="bibFrequentTierlevel" type="string">
+            <column name="BIB_FREQUENT_TIERLEVEL" length="35" />
+        </property>
+        <property name="bibFrequentPrioritycode" type="string">
+            <column name="BIB_FREQUENT_PRIORITYCODE" length="12" />
+        </property>
+        <property name="bibFrequentTierdesc" type="string">
+            <column name="BIB_FREQUENT_TIERDESC" length="35" />
+        </property>
+        <property name="bibTravellerSurname" type="string">
+            <column name="BIB_TRAVELLER_SURNAME" length="70" />
+        </property>
+        <property name="bibTravellerType" type="string">
+            <column name="BIB_TRAVELLER_TYPE" length="3" />
+        </property>
+        <property name="bibTravellerQuantity" type="java.lang.Byte">
+            <column name="BIB_TRAVELLER_QUANTITY" precision="2" scale="0" />
+        </property>
+        <property name="bibTravellerGender" type="string">
+            <column name="BIB_TRAVELLER_GENDER" length="3" />
+        </property>
+        <property name="bibTravellerGivenname" type="string">
+            <column name="BIB_TRAVELLER_GIVENNAME" length="70" />
+        </property>
+        <property name="bibTravellerType1" type="string">
+            <column name="BIB_TRAVELLER_TYPE1" length="1" />
+        </property>
+        <property name="bibTravellerTitle" type="string">
+            <column name="BIB_TRAVELLER_TITLE" length="20" />
+        </property>
+        <property name="bibEnchanceQuantity" type="java.lang.Long">
+            <column name="BIB_ENCHANCE_QUANTITY" precision="15" scale="0" />
+        </property>
+        <property name="bibEnchanceType" type="string">
+            <column name="BIB_ENCHANCE_TYPE" length="3" />
+        </property>
+        <property name="bibEnchanceIndicator" type="string">
+            <column name="BIB_ENCHANCE_INDICATOR" length="1" />
+        </property>
+        <property name="bibEnchanceOthername" type="string">
+            <column name="BIB_ENCHANCE_OTHERNAME" length="70" />
+        </property>
+        <property name="bibEnchanceGender" type="string">
+            <column name="BIB_ENCHANCE_GENDER" length="3" />
+        </property>
+        <property name="bibEnchanceAge" type="java.lang.Short">
+            <column name="BIB_ENCHANCE_AGE" precision="3" scale="0" />
+        </property>
+        <property name="bibBagindicator1" type="string">
+            <column name="BIB_BAGINDICATOR1" length="5" />
+        </property>
+        <property name="bibBagindicator2" type="string">
+            <column name="BIB_BAGINDICATOR2" length="5" />
+        </property>
+        <property name="bibBagindicator3" type="string">
+            <column name="BIB_BAGINDICATOR3" length="5" />
+        </property>
+        <property name="bibBagindicator4" type="string">
+            <column name="BIB_BAGINDICATOR4" length="5" />
+        </property>
+        <property name="bibBagindicator5" type="string">
+            <column name="BIB_BAGINDICATOR5" length="5" />
+        </property>
+        <property name="bibBagindicator6" type="string">
+            <column name="BIB_BAGINDICATOR6" length="5" />
+        </property>
+        <property name="bibBagindicator7" type="string">
+            <column name="BIB_BAGINDICATOR7" length="5" />
+        </property>
+        <property name="bibBagindicator8" type="string">
+            <column name="BIB_BAGINDICATOR8" length="5" />
+        </property> 
+    </class>
+</hibernate-mapping>

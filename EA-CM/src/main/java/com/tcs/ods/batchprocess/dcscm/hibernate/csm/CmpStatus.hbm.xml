@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpStatus" table="CMP_STATUS">
+        <id name="idStatus" type="java.lang.Long">
+            <column name="ID_STATUS" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpIdDetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpIdDetail" fetch="select">
+            <column name="ID_IDDETAIL" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpStatus" type="string">
+            <column name="CMP_STATUS" length="12" />
+        </property>
+        <property name="cmpAction" type="string">
+            <column name="CMP_ACTION" length="200" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

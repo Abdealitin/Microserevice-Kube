@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprGrpdError" table="CPR_GRPD_ERROR">
+        <id name="idGrpdError" type="java.lang.Long">
+            <column name="ID_GRPD_ERROR" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprGrpdSwiperesponse" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprGrpdSwiperesponse" fetch="select">
+            <column name="ID_SWIPERESPONSE" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprErrorcode" type="string">
+            <column name="CPR_ERRORCODE" length="5" />
+        </property>
+        <property name="cprErrorcatg" type="string">
+            <column name="CPR_ERRORCATG" length="3" />
+        </property>
+        <property name="cprErrcodeowner" type="string">
+            <column name="CPR_ERRCODEOWNER" length="3" />
+        </property>
+  
+        <property name="cprTxtsubqual" type="string">
+            <column name="CPR_TXTSUBQUAL" length="3" />
+        </property>
+        <property name="cprLanguage" type="string">
+            <column name="CPR_LANGUAGE" length="3" />
+        </property>
+        <property name="cprSource" type="string">
+            <column name="CPR_SOURCE" length="3" />
+        </property>
+        <property name="cprEncoding" type="string">
+            <column name="CPR_ENCODING" length="3" />
+        </property>
+        <property name="cprLngfreetext" type="string">
+            <column name="CPR_LNGFREETEXT" length="2000" />
+        </property>
+    </class>
+</hibernate-mapping>

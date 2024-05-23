@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprFlightintrManifest" table="CPR_FLIGHTINTR_MANIFEST">
+        <id name="idFlightintrManifest" type="java.lang.Long">
+            <column name="ID_FLIGHTINTR_MANIFEST" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprDatetimequalifier" type="string">
+            <column name="CPR_DATETIMEQUALIFIER" length="3" />
+        </property>
+        <property name="cprDatetimedetails" type="string">
+            <column name="CPR_DATETIMEDETAILS" length="35" />
+        </property>
+        <property name="cprCodeformat" type="string">
+            <column name="CPR_CODEFORMAT" length="3" />
+        </property>
+        <property name="cprNumber" type="string">
+            <column name="CPR_NUMBER" length="14" />
+        </property>
+        <property name="cprSourcequalifier" type="string">
+            <column name="CPR_SOURCEQUALIFIER" length="3" />
+        </property>
+        <property name="cprInhouseid" type="string">
+            <column name="CPR_INHOUSEID" length="9" />
+        </property>
+        <property name="cprCodedindicator" type="string">
+            <column name="CPR_CODEDINDICATOR" length="3" />
+        </property>
+        <property name="cprCodedaction" type="string">
+            <column name="CPR_CODEDACTION" length="3" />
+        </property>
+        <property name="cprLoctype" type="java.lang.Character">
+            <column name="CPR_LOCTYPE" length="1" />
+        </property>
+        <property name="cprLocnamecode" type="string">
+            <column name="CPR_LOCNAMECODE" length="3" />
+        </property>
+        <property name="cprTextsubqualifier" type="string">
+            <column name="CPR_TEXTSUBQUALIFIER" length="3" />
+        </property>
+        <property name="cprInformationtype" type="string">
+            <column name="CPR_INFORMATIONTYPE" length="4" />
+        </property>
+        <property name="cprCodedlanguage" type="string">
+            <column name="CPR_CODEDLANGUAGE" length="3" />
+        </property>
+        <property name="cprCodedsource" type="string">
+            <column name="CPR_CODEDSOURCE" length="3" />
+        </property>
+        <property name="cprEncoding" type="string">
+            <column name="CPR_ENCODING" length="3" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="199" />
+        </property>
+        <property name="cprNoofunit" type="java.lang.Long">
+            <column name="CPR_NOOFUNIT" precision="15" scale="0" />
+        </property>
+        <property name="cprUnitqualifier" type="string">
+            <column name="CPR_UNITQUALIFIER" length="3" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

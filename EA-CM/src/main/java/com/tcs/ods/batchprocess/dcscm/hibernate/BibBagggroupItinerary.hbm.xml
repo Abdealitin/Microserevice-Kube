@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibBagggroupItinerary" table="BIB_BAGGGROUP_ITINERARY">
+        <id name="idBagggroupitinerary" type="java.lang.Long">
+            <column name="ID_BAGGGROUPITINERARY" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibBaggageinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibBaggageinfo" fetch="select">
+            <column name="ID_BAGGAGEINFO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibMarketingcarrier" type="string">
+            <column name="BIB_MARKETINGCARRIER" length="12" />
+        </property>
+        <property name="bibFlightnumber" type="java.lang.Short">
+            <column name="BIB_FLIGHTNUMBER" precision="4" scale="0" />
+        </property>
+        <property name="bibOperationalsuffix" type="string">
+            <column name="BIB_OPERATIONALSUFFIX" length="4" />
+        </property>
+        <property name="bibDeparturedate" type="date">
+            <column name="BIB_DEPARTUREDATE" />
+        </property>
+        <property name="bibBoardpoint" type="string">
+            <column name="BIB_BOARDPOINT" length="20" />
+        </property>
+        <property name="bibOffpoint" type="string">
+            <column name="BIB_OFFPOINT" length="20" />
+        </property>
+        <property name="bibArrivaldate" type="date">
+            <column name="BIB_ARRIVALDATE"  />
+        </property>
+        <property name="bibFlightbagStatusindicator1" type="string">
+            <column name="BIB_FLIGHTBAG_STATUSINDICATOR1" length="12" />
+        </property>
+        <property name="bibFlightbagStatusaction1" type="string">
+            <column name="BIB_FLIGHTBAG_STATUSACTION1" length="400" />
+        </property>
+        <property name="bibFlightbagStatusindicator2" type="string">
+            <column name="BIB_FLIGHTBAG_STATUSINDICATOR2" length="12" />
+        </property>
+        <property name="bibFlightbagStatusaction2" type="string">
+            <column name="BIB_FLIGHTBAG_STATUSACTION2" length="12" />
+        </property>
+      
+    </class>
+</hibernate-mapping>

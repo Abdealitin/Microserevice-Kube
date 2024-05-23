@@ -1,0 +1,1221 @@
+<?xml version="1.0"?>
+<smooks-resource-list
+	xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd"
+	xmlns:edi="http://www.milyn.org/xsd/smooks/edi-1.1.xsd"
+	xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.2.xsd">
+
+    <!--
+    Configure the EDI Reader to parse the message stream into a stream of SAX events.
+    -->
+    <edi:reader mappingModel="editag/edi-map-csmprr.xml" />
+
+	
+	<jb:bean beanId="csmprr" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.Csmprr" createOnElement="Csmprr">
+        <jb:wiring property="ediGroupHeader" beanIdRef="UNG" />
+        <jb:wiring property="ediHeader" beanIdRef="UNH" />  
+        <jb:wiring property="errorOrWarningCodeDetails" beanIdRef="GERRLIST" />  
+        <jb:wiring property="iatciIndicator" beanIdRef="STX" />
+		<jb:wiring property="flightDateInformation" beanIdRef="FLGDATE-LIST" />
+        <jb:wiring property="ediTrailer" beanIdRef="UNT" />
+        <jb:wiring property="ediGroupTrailer" beanIdRef="UNE" />
+    </jb:bean>
+    
+    <!--  STANDARD UNG HEADER -->
+    <jb:bean beanId="UNG" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.EdiGroupHeader" createOnElement="ediGroupHeader">
+        <jb:value property="messageGroupId" decoder="String" data="#/messageGroupId" />
+        <jb:value property="applicationSenderId" decoder="String" data="#/applicationSender/applicationSenderId" />
+        <jb:value property="senderIdQualifier" decoder="String" data="#/applicationSender/senderIdQualifier" />
+        <jb:value property="applicationRecipientId" decoder="String" data="#/applicationRecipient/applicationRecipientId" />
+        <jb:value property="recipientIdQualifier" decoder="String" data="#/applicationRecipient/recipientIdQualifier" />
+        <jb:value property="preparationDate" decoder="String" data="#/preparationDateAndTime/preparationDate" />
+        <jb:value property="preparationTime" decoder="String" data="#/preparationDateAndTime/preparationTime" />
+        <jb:value property="groupReferenceNumber" decoder="String" data="#/groupReferenceNumber" />
+        <jb:value property="controllingAgency" decoder="String" data="#/controllingAgency" />
+        <jb:value property="messageVersionNumber" decoder="String" data="#/messageVersion/messageVersionNumber" />
+        <jb:value property="messageReleaseNumber" decoder="String" data="#/messageVersion/messageReleaseNumber" />
+        <jb:value property="assignedAssociation" decoder="String" data="#/messageVersion/assignedAssociation" />
+        <jb:value property="applicationPassword" decoder="String" data="#/applicationPassword" />
+    </jb:bean>
+    
+  	<!--  STANDARD UNH HEADER -->
+    <jb:bean beanId="UNH" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.EdiHeader" createOnElement="ediHeader">
+        <jb:value property="messageRefNumber" decoder="String" data="#/MessageReferenceNumber" />
+        <jb:value property="messageType" decoder="String" data="#/MessageIdentifier/Messagetype" />
+        <jb:value property="messageVersionNumber" decoder="String" data="#/MessageIdentifier/MessageVersionNbr" />
+        <jb:value property="messageRelaseNumber" decoder="String" data="#/MessageIdentifier/MessageReleaseNbr" />
+        <jb:value property="controllingAgency" decoder="String" data="#/MessageIdentifier/ControllingAgency" />
+        <jb:value property="associationAssignedCode" decoder="String" data="#/MessageIdentifier/AssociationAssignedCode" />
+        <jb:value property="commonAccessReference" decoder="String" data="#/CommonAccessRef" />
+        <jb:value property="sequenceofTransfer" decoder="Integer" data="#/StatusofTransfer/Sequenceoftransfer" />
+        <jb:value property="firstAndLastTransfer" decoder="String" data="#/StatusofTransfer/FirstandlastTransfer" />
+    </jb:bean>
+    
+  	<!--  GERR/ERC 1A 02.1.2 (NGD) -Error Group/APPLICATION ERROR INFORMATION-->
+    <jb:bean beanId="GERRLIST" class="java.util.ArrayList" createOnElement="Csmprr">
+       <jb:wiring beanIdRef="ERC" />
+    </jb:bean> 
+    
+    <jb:bean beanId="ERC" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.ErrorOrWarningCodeDetails" createOnElement="errorOrWarningCodeDetails">
+     	<jb:value property="errorCode" decoder="String" data="#/errorDetails/errorCode" />
+     	<jb:value property="errorCategory" decoder="String" data="#/errorDetails/errorCategory" />
+     	<jb:value property="codeListResponsibleAgency" decoder="String" data="#/errorDetails/codeListResponsibleAgency" />
+     	<jb:wiring property="errorWarningDescription" beanIdRef="TXF" />
+    </jb:bean> 
+	
+	<!--  GERR/ERC 1A 02.1.2 (NGD)/TXF 1A 03.1.10 (NGD) -Error Group/APPLICATION ERROR INFORMATION/Free Text information -->
+	<jb:bean beanId="TXF" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.PriceDescription" createOnElement="errorWarningDescription">
+     	<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+     	<jb:value property="companyId" decoder="String" data="#/freeTextDetails/companyId" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+     	<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+     	<jb:value property="freeText" decoder="String" data="#/freeText" />
+    </jb:bean>  
+    
+    
+    <jb:bean beanId="STX" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.StatusDetails" createOnElement="iatciIndicator">
+		<jb:value property="indicatorAndAction" decoder="String" data="#/statusInformation/indicatorAndAction" />
+	</jb:bean> 
+	
+	<!--  Group 2/TVL IA 01.2.2 (STM)	 -SeatmapGroup/TRAVEL PRODUCT INFORMATION -->
+	<jb:bean beanId="FLGDATE-LIST" class="java.util.ArrayList" createOnElement="Csmprr">
+       <jb:wiring beanIdRef="FLGDATE-TVL" />
+    </jb:bean> 
+	
+	<jb:bean beanId="FLGDATE-TVL" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.FlightDateInformation" createOnElement="flightDateInformation">
+     	<jb:value property="departureDate" decoder="String" data="#/productDateOrTime/departureDate" />
+        <jb:value property="departureTime" decoder="Integer" data="#/productDateOrTime/departureTime" />
+		<jb:value property="secondDate" decoder="String" data="#/productDateOrTime/secondDate" />
+        <jb:value property="secondTime" decoder="Integer" data="#/productDateOrTime/secondTime" />
+        <jb:value property="dateVariation" decoder="Integer" data="#/productDateOrTime/dateVariation" />
+		<jb:value property="location1" decoder="String" data="#/departureLocation/location1" />
+		<jb:value property="place1" decoder="String" data="#/departureLocation/place1" />
+		<jb:value property="location2" decoder="String" data="#/arrivalLocation/location2" />
+		<jb:value property="place2" decoder="String" data="#/arrivalLocation/place2" />
+		<jb:value property="marketingAirline" decoder="String" data="#/companyIdent/marketingAirline" />
+		<jb:value property="operatingAirline" decoder="String" data="#/companyIdent/operatingAirline" />
+		<jb:value property="companyIdentification1" decoder="String" data="#/companyIdent/companyIdentification1" />
+		<jb:value property="flightNumber" decoder="String" data="#/productIdentification/flightNumber" />
+		<jb:value property="characteristicIdentification" decoder="String" data="#/productIdentification/reservationDesignator" />		
+		<jb:value property="operationalSuffix" decoder="String" data="#/productIdentification/operationalSuffix" />
+		<jb:value property="itemDescriptionIdentification" decoder="String" data="#/productIdentification/itemDescriptionIdentification" />
+		<jb:value property="sequenceNumber" decoder="String" data="#/productTypeDetails/sequenceNumber" />
+		<jb:value property="lineItemNumber1" decoder="Integer" data="#/lineItemNumber1"/>
+		<jb:value property="processingIndicator" decoder="String" data="#/processingIndicator" />
+		<jb:value property="relation1" decoder="String" data="#/marriageControlDetails/relation1" />
+		<jb:value property="groupNumber" decoder="Integer" data="#/marriageControlDetails/groupNumber" />
+		<jb:value property="lineItemNumber2" decoder="Integer" data="#/marriageControlDetails/lineItemNumber2" />
+		<jb:value property="relation2" decoder="String" data="#/marriageControlDetails/relation2" />
+		<jb:value property="companyIdentification2" decoder="String" data="#/marriageControlDetails/companyIdentification2" />
+		<jb:wiring property="marketingFlightDetails" beanIdRef="FLGDATECARLIST" />
+		<jb:wiring property="terminalInfo" beanIdRef="FLGDATEANILIST" />
+		<jb:wiring property="structuredDateTimeInfo" beanIdRef="FLGDATESDILIST" />
+		<jb:wiring property="statusDetails" beanIdRef="FLGDATESTXLIST" />
+		<jb:wiring property="departureGate" beanIdRef="FLGDATETLCLIST" />
+		<jb:wiring property="equipmentInformation" beanIdRef="FLGDATEEQI" />
+		<jb:wiring property="compartmentDetails" beanIdRef="FLGDATECOMPARTMENTDET-LIST" />
+		<jb:wiring property="rowDetailsI" beanIdRef="FLGDATEROWDET-LIST" />
+		<jb:wiring property="customer" beanIdRef="FLGDATECUSTOMER-LIST" />
+		<jb:wiring property="saleableConfiguration" beanIdRef="FLGDATESEALABLECONFIG" />
+		<jb:wiring property="dummySegment" beanIdRef="FLGDATEDUMMYSEG" />
+	</jb:bean> 
+	
+	<!--  Group 0/TVL IA 01.2.2 (STM)/CAR IA 04.1.1 (DCS_1)	 -SeatmapGroup/TRAVEL PRODUCT INFORMATION /COMMERCIAL AGREEMENTS-->
+	<jb:bean beanId="FLGDATECARLIST" class="java.util.ArrayList" createOnElement="flightDateInformation">
+       <jb:wiring beanIdRef="FLGDATECAR" />
+    </jb:bean> 
+    
+    <jb:bean beanId="FLGDATECAR" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.MarketingFlightDetails" createOnElement="marketingFlightDetails">
+     	<jb:value property="transportStageQualifier1" decoder="String" data="#/codeshareDetails/transportStageQualifier1" />
+     	<jb:value property="airlineDesignator" decoder="String" data="#/codeshareDetails/airlineDesignator" />
+		<jb:value property="flightNumber" decoder="String" data="#/codeshareDetails/flightNumber" />
+     	<jb:value property="operationalSuffix" decoder="String" data="#/codeshareDetails/operationalSuffix" />
+     	<jb:value property="codeshareType1" decoder="String" data="#/codeshareDetails/codeshareType1" />
+     	<jb:value property="transportStageQualifier2" decoder="String" data="#/companyRoleIdentification/transportStageQualifier2" />
+     	<jb:value property="companyIdentification" decoder="String" data="#/companyRoleIdentification/companyIdentification" />
+     	<jb:value property="productIdentification" decoder="String" data="#/companyRoleIdentification/productIdentification" />
+     	<jb:value property="productIdentificationCharacteristic" decoder="String" data="#/companyRoleIdentification/productIdentificationCharacteristic" />
+     	<jb:value property="codeshareType2" decoder="String" data="#/companyRoleIdentification/codeshareType2" />
+    </jb:bean> 
+    
+    <jb:bean beanId="FLGDATEANILIST" class="java.util.ArrayList" createOnElement="flightDateInformation">
+       <jb:wiring beanIdRef="FLGDATEANI" />
+    </jb:bean> 
+    
+	<!--  Group 0/TVL IA 01.2.2 (STM)/ANI 1A 04.1.1 (DCS_BO)	 -SeatmapGroup/TRAVEL PRODUCT INFORMATION /Airport Node Information-->
+	<jb:bean beanId="FLGDATEANI" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.TerminalInfo" createOnElement="terminalInfo">
+     	<jb:value property="airportCode" decoder="String" data="#/airportCode" />
+     	<jb:value property="place" decoder="String" data="#/place" />
+		<jb:value property="locationIdentification" decoder="String" data="#/locationIdentification" />		
+     	<jb:value property="name" decoder="String" data="#/terminalInformation/name" />
+     	<jb:value property="relatedPlace" decoder="String" data="#/buildingInformation/relatedPlace" />
+    </jb:bean> 
+	 
+	<!--  Group 0/TVL IA 01.2.2 (STM)/SDI 1A 02.1.4 (DCS) - SeatmapGroup/TRAVEL PRODUCT INFORMATION /STRUCTURED DATE TIME INFORMATION-->
+	<jb:bean beanId="FLGDATESDILIST" class="java.util.ArrayList" createOnElement="flightDateInformation">
+       <jb:wiring beanIdRef="FLGDATESDI" />
+    </jb:bean> 
+    
+    <jb:bean beanId="FLGDATESDI" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.StructuredDateTimeInfo" createOnElement="structuredDateTimeInfo">
+	    <jb:value property="businessSemantic" decoder="String" data="#/businessSemantic" />
+	    <jb:value property="timeMode" decoder="String" data="#/timeMode" />
+	    <jb:value property="year" decoder="Integer" data="#/dateTime/year" />
+	    <jb:value property="month" decoder="Integer" data="#/dateTime/month" />
+	    <jb:value property="day" decoder="Integer" data="#/dateTime/day" />
+	    <jb:value property="hour" decoder="Integer" data="#/dateTime/hour" />
+	    <jb:value property="minutes" decoder="Integer" data="#/dateTime/minutes" />
+	    <jb:value property="seconds" decoder="Integer" data="#/dateTime/seconds" />
+	    <jb:value property="milliSeconds" decoder="Integer" data="#/dateTime/milliSeconds" />
+	    <jb:value property="country" decoder="String" data="#/timeZoneInformation/country" />
+	    <jb:value property="timeZoneCode" decoder="Integer" data="#/timeZoneInformation/timeZoneCode" />
+	    <jb:value property="timeZoneSuffix" decoder="String" data="#/timeZoneInformation/timeZoneSuffix" />
+	</jb:bean> 
+	
+	<!--  Group 0/TVL IA 01.2.2 (STM)/STX 1A 10.1.1 (DCS_FLT_STATUS) - SeatmapGroup/TRAVEL PRODUCT INFORMATION /STATUS DETAILS-->
+	<jb:bean beanId="FLGDATESTXLIST" class="java.util.ArrayList" createOnElement="flightDateInformation">
+       <jb:wiring beanIdRef="FLGDATESTX" />
+    </jb:bean> 
+    
+    <jb:bean beanId="FLGDATESTX" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.StatusDetails" createOnElement="statusDetails">
+	    <jb:value property="indicatorAndAction" decoder="String" data="#/statusInformation/indicatorAndAction" />
+	</jb:bean> 
+	
+	<!--  Group 0/TVL IA 01.2.2 (STM)/TLC 1A 02.1.1 (DCS_GTE) - SeatmapGroup/TRAVEL PRODUCT INFORMATION /TERMINAL LOCATION-->
+	<jb:bean beanId="FLGDATETLCLIST" class="java.util.ArrayList" createOnElement="flightDateInformation">
+       <jb:wiring beanIdRef="FLGDATETLC" />
+    </jb:bean>
+     
+    <jb:bean beanId="FLGDATETLC" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.DepartureGate" createOnElement="departureGate">
+	    <jb:value property="zoneCode" decoder="String" data="#/terminalZoneInformation/zoneCode" />
+	    <jb:value property="zoneDescription" decoder="String" data="#/terminalZoneInformation/zoneDescription" />
+		<jb:value property="type" decoder="String" data="#/facilityDetails/type" />
+	    <jb:value property="identifier" decoder="String" data="#/facilityDetails/identifier" />
+		<jb:value property="facilityDescription" decoder="String" data="#/facilityDetails/facilityDescription" />
+	    <jb:value property="workstationId" decoder="String" data="#/facilityDetails/workstationId" />
+	</jb:bean>
+	 
+	<!--  Group 0/TVL IA 01.2.2 (STM)/EQI IA 01.2.2 (STM) - SeatmapGroup/TRAVEL PRODUCT INFORMATION /ERROR INFORMATION-->
+	<jb:bean beanId="FLGDATEEQI" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.EquipmentInformation" createOnElement="equipmentInformation">
+	    <jb:value property="cabinCode1" decoder="String" data="#/fittedConfiguration1/cabinCode1" />
+	    <jb:value property="cabinCapacity1" decoder="Integer" data="#/fittedConfiguration1/cabinCapacity1" />
+		<jb:value property="configCharacteristic1" decoder="String" data="#/fittedConfiguration1/configCharacteristic1" />
+		<jb:value property="cabinCode2" decoder="String" data="#/fittedConfiguration2/cabinCode2" />
+	    <jb:value property="cabinCapacity2" decoder="Integer" data="#/fittedConfiguration2/cabinCapacity2" />
+		<jb:value property="configCharacteristic2" decoder="String" data="#/fittedConfiguration2/configCharacteristic2" />
+		<jb:value property="cabinCode3" decoder="String" data="#/fittedConfiguration3/cabinCode3" />
+	    <jb:value property="cabinCapacity3" decoder="Integer" data="#/fittedConfiguration3/cabinCapacity3" />
+		<jb:value property="configCharacteristic3" decoder="String" data="#/fittedConfiguration3/configCharacteristic3" />
+		<jb:value property="cabinCode4" decoder="String" data="#/fittedConfiguration4/cabinCode4" />
+	    <jb:value property="cabinCapacity4" decoder="Integer" data="#/fittedConfiguration4/cabinCapacity4" />
+		<jb:value property="configCharacteristic4" decoder="String" data="#/fittedConfiguration4/configCharacteristic4" />
+		<jb:value property="cabinCode5" decoder="String" data="#/fittedConfiguration5/cabinCode5" />
+	    <jb:value property="cabinCapacity5" decoder="Integer" data="#/fittedConfiguration5/cabinCapacity5" />
+		<jb:value property="configCharacteristic5" decoder="String" data="#/fittedConfiguration5/configCharacteristic5" />
+		
+		<jb:value property="iataAircraftTypeCode" decoder="String" data="#/iataAircraftTypeCode" />
+		<jb:value property="acvVersionNumber" decoder="String" data="#/acvDetails/acvVersionNumber" />
+	    <jb:value property="defaultConfigurationCode" decoder="String" data="#/acvDetails/defaultConfigurationCode" />
+		<jb:value property="airlineDetails" decoder="String" data="#/acvDetails/airlineDetails" />
+		<jb:value property="acvCode" decoder="String" data="#/acvDetails/acvCode" />
+	    <jb:value property="acvCharacteristic1" decoder="String" data="#/acvDetails/acvCharacteristic1" />
+		<jb:value property="acvCharacteristic2" decoder="String" data="#/acvDetails/acvCharacteristic2" />
+		<jb:value property="acvDescription" decoder="String" data="#/acvDescription" />
+	</jb:bean>  
+	
+	<jb:bean beanId="FLGDATECOMPARTMENTDET-LIST" class="java.util.ArrayList" createOnElement="flightDateInformation">
+       <jb:wiring beanIdRef="FLGDATECBD" />
+    </jb:bean>
+	
+	<!--  GrouP 0/TVL IA 01.2.2 (STM)/CBD IA 01.2.2 (STM) - SeatmapGroup/TRAVEL PRODUCT INFORMATION /WARNING INFORMATION-->
+	<jb:bean beanId="FLGDATECBD" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.CompartmentDetails" createOnElement="compartmentDetails">
+	    <jb:value property="cabinCode" decoder="String" data="#/cabinClassDesignation/cabinCode" />
+	    <jb:value property="resBookingDesignator" decoder="String" data="#/cabinClassDesignation/resBookingDesignator" />
+	    <jb:value property="cabinClass" decoder="Integer" data="#/cabinClassDesignation/cabinClass" />
+	    <jb:value property="compartmentDesignator" decoder="String" data="#/cabinClassDesignation/compartmentDesignator" />
+	    <jb:value property="cabinSection" decoder="String" data="#/cabinClassDesignation/cabinSection" />
+	    <jb:value property="cabinClassSeatRow1" decoder="Integer" data="#/seatRowRange/cabinClassSeatRow1" />
+	    <jb:value property="cabinClassSeatRow2" decoder="Integer" data="#/seatRowRange/cabinClassSeatRow2" />
+	    <jb:value property="cabinClassLocation" decoder="String" data="#/cabinClassLocation" />
+	    <jb:value property="smokingSeatRowNumber" decoder="Integer" data="#/smokingAreaSeatRowRangeDetails/smokingSeatRowNumber" />
+	    <jb:value property="seatOccupationDefaultIndicator" decoder="String" data="#/seatOccupationDefaultIndicator" />
+	    <jb:value property="overWingSeatNumber" decoder="Integer" data="#/overWingSeatRowRange/overWingSeatNumber" />
+	    <jb:value property="seatColumn1" decoder="String" data="#/columnDetails1/seatColumn1" />
+	    <jb:value property="columnDescription1" decoder="String" data="#/columnDetails1/columnDescription1" />
+	    <jb:value property="columnAdditionalInfo1" decoder="String" data="#/columnDetails1/columnAdditionalInfo1" />
+	    <jb:value property="seatColumn2" decoder="String" data="#/columnDetails2/seatColumn2" />
+	    <jb:value property="columnDescription2" decoder="String" data="#/columnDetails2/columnDescription2" />
+	    <jb:value property="columnAdditionalInfo2" decoder="String" data="#/columnDetails2/columnAdditionalInfo2" />
+	    <jb:value property="seatColumn3" decoder="String" data="#/columnDetails3/seatColumn3" />
+	    <jb:value property="columnDescription3" decoder="String" data="#/columnDetails3/columnDescription3" />
+	    <jb:value property="columnAdditionalInfo3" decoder="String" data="#/columnDetails3/columnAdditionalInfo3" />
+	    <jb:value property="seatColumn4" decoder="String" data="#/columnDetails4/seatColumn4" />
+	    <jb:value property="columnDescription4" decoder="String" data="#/columnDetails4/columnDescription4" />
+	    <jb:value property="columnAdditionalInfo4" decoder="String" data="#/columnDetails4/columnAdditionalInfo4" />
+	    <jb:value property="seatColumn5" decoder="String" data="#/columnDetails5/seatColumn5" />
+	    <jb:value property="columnDescription5" decoder="String" data="#/columnDetails5/columnDescription5" />
+	    <jb:value property="columnAdditionalInfo5" decoder="String" data="#/columnDetails5/columnAdditionalInfo5" />
+	    <jb:value property="seatColumn6" decoder="String" data="#/columnDetails6/seatColumn6" />
+	    <jb:value property="columnDescription6" decoder="String" data="#/columnDetails6/columnDescription6" />
+	    <jb:value property="columnAdditionalInfo6" decoder="String" data="#/columnDetails6/columnAdditionalInfo6" />
+	    <jb:value property="seatColumn7" decoder="String" data="#/columnDetails7/seatColumn7" />
+	    <jb:value property="columnDescription7" decoder="String" data="#/columnDetails7/columnDescription7" />
+	    <jb:value property="columnAdditionalInfo7" decoder="String" data="#/columnDetails7/columnAdditionalInfo7" />
+	    <jb:value property="seatColumn8" decoder="String" data="#/columnDetails8/seatColumn8" />
+	    <jb:value property="columnDescription8" decoder="String" data="#/columnDetails8/columnDescription8" />
+	    <jb:value property="columnAdditionalInfo8" decoder="String" data="#/columnDetails8/columnAdditionalInfo8" />
+	    <jb:value property="seatColumn9" decoder="String" data="#/columnDetails9/seatColumn9" />
+	    <jb:value property="columnDescription9" decoder="String" data="#/columnDetails9/columnDescription9" />
+	    <jb:value property="columnAdditionalInfo9" decoder="String" data="#/columnDetails9/columnAdditionalInfo9" />
+	    <jb:value property="seatColumn10" decoder="String" data="#/columnDetails10/seatColumn10" />
+	    <jb:value property="columnDescription10" decoder="String" data="#/columnDetails10/columnDescription10" />
+	    <jb:value property="columnAdditionalInfo10" decoder="String" data="#/columnDetails10/columnAdditionalInfo10" />
+	    <jb:value property="seatColumn11" decoder="String" data="#/columnDetails11/seatColumn11" />
+	    <jb:value property="columnDescription11" decoder="String" data="#/columnDetails11/columnDescription11" />
+	    <jb:value property="columnAdditionalInfo11" decoder="String" data="#/columnDetails11/columnAdditionalInfo11" />
+	    <jb:value property="seatColumn12" decoder="String" data="#/columnDetails12/seatColumn12" />
+	    <jb:value property="columnDescription12" decoder="String" data="#/columnDetails12/columnDescription12" />
+	    <jb:value property="columnAdditionalInfo12" decoder="String" data="#/columnDetails12/columnAdditionalInfo12" />
+	    <jb:wiring property="tempoZoneName" beanIdRef="COMPARTMENTDETATRLIST" />
+	</jb:bean>  
+	
+	<jb:bean beanId="COMPARTMENTDETATRLIST" class="java.util.ArrayList" createOnElement="compartmentDetails">
+        <jb:wiring beanIdRef="COMPARTMENTDETATR" />
+    </jb:bean>
+    
+    <jb:bean beanId="COMPARTMENTDETATR" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.Attribute" createOnElement="tempoZoneName">
+	    <jb:value property="criteriaSetType" decoder="String" data="#/criteriaSetType" />
+	    <jb:value property="attributeDetails" decoder="String" data="#/criteriaDetails/attributeDetails" />
+	</jb:bean>
+	 
+	<jb:bean beanId="FLGDATEROWDET-LIST" class="java.util.ArrayList" createOnElement="flightDateInformation">
+        <jb:wiring beanIdRef="FLGDATEROD" />
+    </jb:bean>
+	
+	<jb:bean beanId="FLGDATEROD" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.RowDetailsI" createOnElement="rowDetailsI">
+	    <jb:value property="seatRowNumber" decoder="Integer" data="#/seatRowNumber" />
+	    <jb:value property="rowCharacteristic1" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic1" />
+	    <jb:value property="rowCharacteristic2" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic2" />
+	    <jb:value property="rowCharacteristic3" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic3" />
+	    <jb:value property="rowCharacteristic4" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic4" />
+	    <jb:value property="rowCharacteristic5" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic5" />
+	    <jb:value property="rowCharacteristic6" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic6" />
+	    <jb:value property="rowCharacteristic7" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic7" />
+	    <jb:value property="rowCharacteristic8" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic8" />
+	    <jb:value property="rowCharacteristic9" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic9" />
+        <jb:value property="seatColumn1" decoder="String" data="#/seatOccupationDetails1/seatColumn1" />
+		<jb:value property="seatOccupation1" decoder="String" data="#/seatOccupationDetails1/seatOccupation1" />
+		<jb:value property="seatCharacteristic1" decoder="String" data="#/seatOccupationDetails1/seatCharacteristic1" />
+		<jb:value property="seatColumn2" decoder="String" data="#/seatOccupationDetails2/seatColumn2" />
+		<jb:value property="seatOccupation2" decoder="String" data="#/seatOccupationDetails2/seatOccupation2" />
+		<jb:value property="seatCharacteristic2" decoder="String" data="#/seatOccupationDetails2/seatCharacteristic2" />
+		<jb:value property="seatColumn3" decoder="String" data="#/seatOccupationDetails3/seatColumn3" />
+		<jb:value property="seatOccupation3" decoder="String" data="#/seatOccupationDetails3/seatOccupation3" />
+		<jb:value property="seatCharacteristic3" decoder="String" data="#/seatOccupationDetails3/seatCharacteristic3" />
+		<jb:value property="seatColumn4" decoder="String" data="#/seatOccupationDetails4/seatColumn4" />
+		<jb:value property="seatOccupation4" decoder="String" data="#/seatOccupationDetails4/seatOccupation4" />
+		<jb:value property="seatCharacteristic4" decoder="String" data="#/seatOccupationDetails4/seatCharacteristic4" />
+		<jb:value property="seatColumn5" decoder="String" data="#/seatOccupationDetails5/seatColumn5" />
+		<jb:value property="seatOccupation5" decoder="String" data="#/seatOccupationDetails5/seatOccupation5" />
+		<jb:value property="seatCharacteristic5" decoder="String" data="#/seatOccupationDetails5/seatCharacteristic5" />
+		<jb:value property="seatColumn6" decoder="String" data="#/seatOccupationDetails6/seatColumn6" />
+		<jb:value property="seatOccupation6" decoder="String" data="#/seatOccupationDetails6/seatOccupation6" />
+		<jb:value property="seatCharacteristic6" decoder="String" data="#/seatOccupationDetails6/seatCharacteristic6" />
+		<jb:value property="seatColumn7" decoder="String" data="#/seatOccupationDetails7/seatColumn7" />
+		<jb:value property="seatOccupation7" decoder="String" data="#/seatOccupationDetails7/seatOccupation7" />
+		<jb:value property="seatCharacteristic7" decoder="String" data="#/seatOccupationDetails7/seatCharacteristic7" />
+		<jb:value property="seatColumn8" decoder="String" data="#/seatOccupationDetails8/seatColumn8" />
+		<jb:value property="seatOccupation8" decoder="String" data="#/seatOccupationDetails8/seatOccupation8" />
+		<jb:value property="seatCharacteristic8" decoder="String" data="#/seatOccupationDetails8/seatCharacteristic8" />
+		<jb:value property="seatColumn9" decoder="String" data="#/seatOccupationDetails9/seatColumn9" />
+		<jb:value property="seatOccupation9" decoder="String" data="#/seatOccupationDetails9/seatOccupation9" />
+		<jb:value property="seatCharacteristic9" decoder="String" data="#/seatOccupationDetails9/seatCharacteristic9" />
+		<jb:value property="seatColumn10" decoder="String" data="#/seatOccupationDetails10/seatColumn10" />
+		<jb:value property="seatOccupation10" decoder="String" data="#/seatOccupationDetails10/seatOccupation10" />
+		<jb:value property="seatCharacteristic10" decoder="String" data="#/seatOccupationDetails10/seatCharacteristic10" />
+		<jb:value property="seatColumn11" decoder="String" data="#/seatOccupationDetails11/seatColumn11" />
+		<jb:value property="seatOccupation11" decoder="String" data="#/seatOccupationDetails11/seatOccupation11" />
+		<jb:value property="seatCharacteristic11" decoder="String" data="#/seatOccupationDetails11/seatCharacteristic11" />
+		<jb:value property="seatColumn12" decoder="String" data="#/seatOccupationDetails12/seatColumn12" />
+		<jb:value property="seatOccupation12" decoder="String" data="#/seatOccupationDetails12/seatOccupation12" />
+		<jb:value property="seatCharacteristic12" decoder="String" data="#/seatOccupationDetails12/seatCharacteristic12" />
+		<jb:wiring property="crossReference" beanIdRef="ROWDETREFLIST" />
+	</jb:bean>
+	
+	<jb:bean beanId="ROWDETREFLIST" class="java.util.ArrayList" createOnElement="rowDetailsI">
+        <jb:wiring beanIdRef="ROWDETREF" />
+    </jb:bean>
+    
+    <jb:bean beanId="ROWDETREF" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.CrossReference" createOnElement="crossReference">
+	    <jb:value property="qualifier1" decoder="String" data="#/referenceDetails1/qualifier1" />
+	    <jb:value property="number1" decoder="String" data="#/referenceDetails1/number1" />
+		<jb:value property="qualifier2" decoder="String" data="#/referenceDetails2/qualifier2" />
+	    <jb:value property="number2" decoder="String" data="#/referenceDetails2/number2" />
+		<jb:value property="qualifier3" decoder="String" data="#/referenceDetails3/qualifier3" />
+	    <jb:value property="number3" decoder="String" data="#/referenceDetails3/number3" />
+		<jb:value property="qualifier4" decoder="String" data="#/referenceDetails4/qualifier4" />
+	    <jb:value property="number4" decoder="String" data="#/referenceDetails4/number4" />
+		<jb:value property="qualifier5" decoder="String" data="#/referenceDetails5/qualifier5" />
+	    <jb:value property="number5" decoder="String" data="#/referenceDetails5/number5" />
+		<jb:value property="qualifier6" decoder="String" data="#/referenceDetails6/qualifier6" />
+	    <jb:value property="number6" decoder="String" data="#/referenceDetails6/number6" />
+	    <jb:wiring property="trainSeatNumbers" beanIdRef="GSCDRSR" />
+	    <jb:wiring property="seatCodeshareDetails" beanIdRef="GSCDCAR" />
+    </jb:bean>
+    
+    <jb:bean beanId="GSCDRSR" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.TrainSeatNumbers" createOnElement="trainSeatNumbers">
+	    <jb:value property="coachNumber" decoder="String" data="#/railSeatReferenceDetails/coachNumber" />
+	    <jb:value property="deckNumber" decoder="String" data="#/railSeatReferenceDetails/deckNumber" />
+        <jb:value property="seatNumber" decoder="String" data="#/railSeatReferenceDetails/seatNumber" />
+        <jb:value property="travellerReferenceNumber" decoder="String" data="#/railSeatReferenceDetails/travellerReferenceNumber" />
+	</jb:bean>
+	
+	<jb:bean beanId="GSCDCAR" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.MarketingFlightDetails" createOnElement="seatCodeshareDetails">
+	    <jb:value property="transportStageQualifier1" decoder="String" data="#/codeshareDetails/transportStageQualifier1" />
+     	<jb:value property="airlineDesignator" decoder="String" data="#/codeshareDetails/airlineDesignator" />
+		<jb:value property="flightNumber" decoder="String" data="#/codeshareDetails/flightNumber" />
+     	<jb:value property="operationalSuffix" decoder="String" data="#/codeshareDetails/operationalSuffix" />
+     	<jb:value property="codeshareType1" decoder="String" data="#/codeshareDetails/codeshareType1" />
+     	<jb:value property="transportStageQualifier2" decoder="String" data="#/companyRoleIdentification/transportStageQualifier2" />
+     	<jb:value property="companyIdentification" decoder="String" data="#/companyRoleIdentification/companyIdentification" />
+     	<jb:value property="productIdentification" decoder="String" data="#/companyRoleIdentification/productIdentification" />
+     	<jb:value property="productIdentificationCharacteristic" decoder="String" data="#/companyRoleIdentification/productIdentificationCharacteristic" />
+     	<jb:value property="codeshareType2" decoder="String" data="#/companyRoleIdentification/codeshareType2" />
+    </jb:bean>
+	
+	<jb:bean beanId="FLGDATECUSTOMER-LIST" class="java.util.ArrayList" createOnElement="flightDateInformation">
+        <jb:wiring beanIdRef="FLGDATE-IRV" />
+    </jb:bean> 
+    
+    <jb:bean beanId="FLGDATE-IRV" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.Customer" createOnElement="customer">
+	    <jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber1" decoder="String" data="#/referenceNumber1" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		
+		<jb:value property="deliveringSystemIdentification1" decoder="String" data="#/iDSection1/deliveringSystemIdentification1" />
+        <jb:value property="referenceVersionNumber1" decoder="Integer" data="#/iDSection1/referenceVersionNumber1" />
+		<jb:value property="idQualifier1" decoder="String" data="#/iDSection1/idQualifier1" />
+        <jb:value property="identifier1" decoder="String" data="#/iDSection1/identifier1" />
+		<jb:value property="iDreferenceNumber1" decoder="String" data="#/iDSection1/iDreferenceNumber1" />
+        <jb:value property="status1" decoder="String" data="#/iDSection1/status1" />
+		<jb:value property="yearNumber1" decoder="Integer" data="#/iDSection1/yearNumber1" />
+        <jb:value property="monthNumber1" decoder="Integer" data="#/iDSection1/monthNumber1" />
+		<jb:value property="dayNumber1" decoder="Integer" data="#/iDSection1/dayNumber1" />
+        <jb:value property="hours1" decoder="Integer" data="#/iDSection1/hours1" />
+		<jb:value property="minutes1" decoder="Integer" data="#/iDSection1/minutes1" />
+        <jb:value property="freeText1" decoder="String" data="#/iDSection1/freeText1" />
+		
+		<jb:value property="deliveringSystemIdentification2" decoder="String" data="#/iDSection2/deliveringSystemIdentification2" />
+        <jb:value property="referenceVersionNumber2" decoder="Integer" data="#/iDSection2/referenceVersionNumber2" />
+		<jb:value property="idQualifier2" decoder="String" data="#/iDSection2/idQualifier2" />
+        <jb:value property="identifier2" decoder="String" data="#/iDSection2/identifier2" />
+		<jb:value property="iDreferenceNumber2" decoder="String" data="#/iDSection2/iDreferenceNumber2" />
+        <jb:value property="status2" decoder="String" data="#/iDSection2/status2" />
+		<jb:value property="yearNumber2" decoder="Integer" data="#/iDSection2/yearNumber2" />
+        <jb:value property="monthNumber2" decoder="Integer" data="#/iDSection2/monthNumber2" />
+		<jb:value property="dayNumber2" decoder="Integer" data="#/iDSection2/dayNumber2" />
+        <jb:value property="hours2" decoder="Integer" data="#/iDSection2/hours2" />
+		<jb:value property="minutes2" decoder="Integer" data="#/iDSection2/minutes2" />
+        <jb:value property="freeText2" decoder="String" data="#/iDSection2/freeText2" />
+		
+		<jb:value property="deliveringSystemIdentification3" decoder="String" data="#/iDSection3/deliveringSystemIdentification3" />
+        <jb:value property="referenceVersionNumber3" decoder="Integer" data="#/iDSection3/referenceVersionNumber3" />
+		<jb:value property="idQualifier3" decoder="String" data="#/iDSection3/idQualifier3" />
+        <jb:value property="identifier3" decoder="String" data="#/iDSection3/identifier3" />
+		<jb:value property="iDreferenceNumber3" decoder="String" data="#/iDSection3/iDreferenceNumber3" />
+        <jb:value property="status3" decoder="String" data="#/iDSection3/status3" />
+		<jb:value property="yearNumber3" decoder="Integer" data="#/iDSection3/yearNumber3" />
+        <jb:value property="monthNumber3" decoder="Integer" data="#/iDSection3/monthNumber3" />
+		<jb:value property="dayNumber3" decoder="Integer" data="#/iDSection3/dayNumber3" />
+        <jb:value property="hours3" decoder="Integer" data="#/iDSection3/hours3" />
+		<jb:value property="minutes3" decoder="Integer" data="#/iDSection3/minutes3" />
+        <jb:value property="freeText3" decoder="String" data="#/iDSection3/freeText3" />
+		
+		<jb:value property="deliveringSystemIdentification4" decoder="String" data="#/iDSection4/deliveringSystemIdentification4" />
+        <jb:value property="referenceVersionNumber4" decoder="Integer" data="#/iDSection4/referenceVersionNumber4" />
+		<jb:value property="idQualifier4" decoder="String" data="#/iDSection4/idQualifier4" />
+        <jb:value property="identifier4" decoder="String" data="#/iDSection4/identifier4" />
+		<jb:value property="iDreferenceNumber4" decoder="String" data="#/iDSection4/iDreferenceNumber4" />
+        <jb:value property="status4" decoder="String" data="#/iDSection4/status4" />
+		<jb:value property="yearNumber4" decoder="Integer" data="#/iDSection4/yearNumber4" />
+        <jb:value property="monthNumber4" decoder="Integer" data="#/iDSection4/monthNumber4" />
+		<jb:value property="dayNumber4" decoder="Integer" data="#/iDSection4/dayNumber4" />
+        <jb:value property="hours4" decoder="Integer" data="#/iDSection4/hours4" />
+		<jb:value property="minutes4" decoder="Integer" data="#/iDSection4/minutes4" />
+        <jb:value property="freeText4" decoder="String" data="#/iDSection4/freeText4" />
+		
+		<jb:value property="deliveringSystemIdentification5" decoder="String" data="#/iDSection5/deliveringSystemIdentification5" />
+        <jb:value property="referenceVersionNumber5" decoder="Integer" data="#/iDSection5/referenceVersionNumber5" />
+		<jb:value property="idQualifier5" decoder="String" data="#/iDSection5/idQualifier5" />
+        <jb:value property="identifier5" decoder="String" data="#/iDSection5/identifier5" />
+		<jb:value property="iDreferenceNumber5" decoder="String" data="#/iDSection5/iDreferenceNumber5" />
+        <jb:value property="status5" decoder="String" data="#/iDSection5/status5" />
+		<jb:value property="yearNumber5" decoder="Integer" data="#/iDSection5/yearNumber5" />
+        <jb:value property="monthNumber5" decoder="Integer" data="#/iDSection5/monthNumber5" />
+		<jb:value property="dayNumber5" decoder="Integer" data="#/iDSection5/dayNumber5" />
+        <jb:value property="hours5" decoder="Integer" data="#/iDSection5/hours5" />
+		<jb:value property="minutes5" decoder="Integer" data="#/iDSection5/minutes5" />
+        <jb:value property="freeText5" decoder="String" data="#/iDSection5/freeText5" />
+		
+		<jb:value property="deliveringSystemIdentification6" decoder="String" data="#/iDSection6/deliveringSystemIdentification6" />
+        <jb:value property="referenceVersionNumber6" decoder="Integer" data="#/iDSection6/referenceVersionNumber6" />
+		<jb:value property="idQualifier6" decoder="String" data="#/iDSection6/idQualifier6" />
+        <jb:value property="identifier6" decoder="String" data="#/iDSection6/identifier6" />
+		<jb:value property="iDreferenceNumber6" decoder="String" data="#/iDSection6/iDreferenceNumber6" />
+        <jb:value property="status6" decoder="String" data="#/iDSection6/status6" />
+		<jb:value property="yearNumber6" decoder="Integer" data="#/iDSection6/yearNumber6" />
+        <jb:value property="monthNumber6" decoder="Integer" data="#/iDSection6/monthNumber6" />
+		<jb:value property="dayNumber6" decoder="Integer" data="#/iDSection6/dayNumber6" />
+        <jb:value property="hours6" decoder="Integer" data="#/iDSection6/hours6" />
+		<jb:value property="minutes6" decoder="Integer" data="#/iDSection6/minutes6" />
+        <jb:value property="freeText6" decoder="String" data="#/iDSection6/freeText6" />
+		
+		<jb:value property="deliveringSystemIdentification7" decoder="String" data="#/iDSection7/deliveringSystemIdentification7" />
+        <jb:value property="referenceVersionNumber7" decoder="Integer" data="#/iDSection7/referenceVersionNumber7" />
+		<jb:value property="idQualifier7" decoder="String" data="#/iDSection7/idQualifier7" />
+        <jb:value property="identifier7" decoder="String" data="#/iDSection7/identifier7" />
+		<jb:value property="iDreferenceNumber7" decoder="String" data="#/iDSection7/iDreferenceNumber7" />
+        <jb:value property="status7" decoder="String" data="#/iDSection7/status7" />
+		<jb:value property="yearNumber7" decoder="Integer" data="#/iDSection7/yearNumber7" />
+        <jb:value property="monthNumber7" decoder="Integer" data="#/iDSection7/monthNumber7" />
+		<jb:value property="dayNumber7" decoder="Integer" data="#/iDSection7/dayNumber7" />
+        <jb:value property="hours7" decoder="Integer" data="#/iDSection7/hours7" />
+		<jb:value property="minutes7" decoder="Integer" data="#/iDSection7/minutes7" />
+        <jb:value property="freeText7" decoder="String" data="#/iDSection7/freeText7" />
+		
+		<jb:value property="deliveringSystemIdentification8" decoder="String" data="#/iDSection8/deliveringSystemIdentification8" />
+        <jb:value property="referenceVersionNumber8" decoder="Integer" data="#/iDSection8/referenceVersionNumber8" />
+		<jb:value property="idQualifier8" decoder="String" data="#/iDSection8/idQualifier8" />
+        <jb:value property="identifier8" decoder="String" data="#/iDSection8/identifier8" />
+		<jb:value property="iDreferenceNumber8" decoder="String" data="#/iDSection8/iDreferenceNumber8" />
+        <jb:value property="status8" decoder="String" data="#/iDSection8/status8" />
+		<jb:value property="yearNumber8" decoder="Integer" data="#/iDSection8/yearNumber8" />
+        <jb:value property="monthNumber8" decoder="Integer" data="#/iDSection8/monthNumber8" />
+		<jb:value property="dayNumber8" decoder="Integer" data="#/iDSection8/dayNumber8" />
+        <jb:value property="hours8" decoder="Integer" data="#/iDSection8/hours8" />
+		<jb:value property="minutes8" decoder="Integer" data="#/iDSection8/minutes8" />
+        <jb:value property="freeText8" decoder="String" data="#/iDSection8/freeText8" />
+		
+		<jb:value property="deliveringSystemIdentification9" decoder="String" data="#/iDSection9/deliveringSystemIdentification9" />
+        <jb:value property="referenceVersionNumber9" decoder="Integer" data="#/iDSection9/referenceVersionNumber9" />
+		<jb:value property="idQualifier9" decoder="String" data="#/iDSection9/idQualifier9" />
+        <jb:value property="identifier9" decoder="String" data="#/iDSection9/identifier9" />
+		<jb:value property="iDreferenceNumber9" decoder="String" data="#/iDSection9/iDreferenceNumber9" />
+        <jb:value property="status9" decoder="String" data="#/iDSection9/status9" />
+		<jb:value property="yearNumber9" decoder="Integer" data="#/iDSection9/yearNumber9" />
+        <jb:value property="monthNumber9" decoder="Integer" data="#/iDSection9/monthNumber9" />
+		<jb:value property="dayNumber9" decoder="Integer" data="#/iDSection9/dayNumber9" />
+        <jb:value property="hours9" decoder="Integer" data="#/iDSection9/hours9" />
+		<jb:value property="minutes9" decoder="Integer" data="#/iDSection9/minutes9" />
+        <jb:value property="freeText9" decoder="String" data="#/iDSection9/freeText9" />
+        
+        <jb:wiring property="securityNumber" beanIdRef="CUSTOMER-REF1" /> 
+		<jb:wiring property="specialRequirementsDetails" beanIdRef="CUSTOMERSSR" />
+		<jb:wiring property="customerDetails" beanIdRef="CUSTOMERTIFLIST" />
+		<jb:wiring property="bookingClass" beanIdRef="CUSTOMER-CBD" />
+		<jb:wiring property="recordLocator" beanIdRef="CUSTOMER-RCI" />
+		<jb:wiring property="enhancedTravellerInformation" beanIdRef="CUSTOMER-ETI" />
+		<jb:wiring property="customerCharacteristics" beanIdRef="CUSTOMERSSRLIST1" />
+		<jb:wiring property="statusDetails1" beanIdRef="CUSTOMER-STX" />
+		<jb:wiring property="crossReference1" beanIdRef="CUSTOMER-REF" />
+	</jb:bean> 
+	
+	
+    <jb:bean beanId="CUSTOMER-REF1" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.CrossReference1" createOnElement="securityNumber">
+	    <jb:value property="qualifier1" decoder="String" data="#/referenceDetails1/qualifier1" />
+	    <jb:value property="number1" decoder="String" data="#/referenceDetails1/number1" />
+		<jb:value property="qualifier2" decoder="String" data="#/referenceDetails2/qualifier2" />
+	    <jb:value property="number2" decoder="String" data="#/referenceDetails2/number2" />
+		<jb:value property="qualifier3" decoder="String" data="#/referenceDetails3/qualifier3" />
+	    <jb:value property="number3" decoder="String" data="#/referenceDetails3/number3" />
+		<jb:value property="qualifier4" decoder="String" data="#/referenceDetails4/qualifier4" />
+	    <jb:value property="number4" decoder="String" data="#/referenceDetails4/number4" />
+		<jb:value property="qualifier5" decoder="String" data="#/referenceDetails5/qualifier5" />
+	    <jb:value property="number5" decoder="String" data="#/referenceDetails5/number5" />
+		<jb:value property="qualifier6" decoder="String" data="#/referenceDetails6/qualifier6" />
+	    <jb:value property="number6" decoder="String" data="#/referenceDetails6/number6" />
+    </jb:bean> 
+	
+	
+    
+	<jb:bean beanId="CUSTOMERSSR" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.SpecialRequirementsDetails" createOnElement="specialRequirementsDetails">
+	    <jb:value property="ssrType" decoder="String" data="#/ssrTypeDetails/ssrType" />
+	    <jb:value property="status" decoder="String" data="#/ssrTypeDetails/status" />
+	    <jb:value property="quantity" decoder="Integer" data="#/ssrTypeDetails/quantity" />
+	    <jb:value property="companyIdentification" decoder="String" data="#/ssrTypeDetails/companyIdentification" />
+	    <jb:value property="processIndicator1" decoder="String" data="#/ssrTypeDetails/processIndicator1" />
+	    <jb:value property="processIndicator2" decoder="String" data="#/ssrTypeDetails/processIndicator2" />
+	    <jb:value property="place1" decoder="String" data="#/ssrTypeDetails/place1" />
+	    <jb:value property="place2" decoder="String" data="#/ssrTypeDetails/place2" />
+	    <jb:value property="freeText" decoder="String" data="#/ssrTypeDetails/freeText" />
+	    <jb:value property="seatNumberDetails" decoder="String" data="#/ssrDataDetails/seatNumberDetails" />
+	</jb:bean>  
+	
+	<jb:bean beanId="CUSTOMERTIFLIST" class="java.util.ArrayList" createOnElement="customer">
+       <jb:wiring beanIdRef="CUSTOMERTIF" />
+    </jb:bean> 
+    
+    <jb:bean beanId="CUSTOMERTIF" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.CustomerDetails" createOnElement="customerDetails">
+	    <jb:value property="travellerSurname" decoder="String" data="#/travellerSurnameInfo/travellerSurname" />
+		<jb:value property="numberOfUnitsQualifier" decoder="String" data="#/travellerSurnameInfo/numberOfUnitsQualifier" />
+		<jb:value property="quantity" decoder="Integer" data="#/travellerSurnameInfo/quantity" />
+		<jb:value property="status" decoder="String" data="#/travellerSurnameInfo/status" />
+		<jb:value property="travelerInfo" decoder="String" data="#/travelerDetails/travelerInfo" />
+	
+	</jb:bean> 
+	
+	<jb:bean beanId="CUSTOMER-CBD" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.BookingClass" createOnElement="bookingClass">
+	    <jb:value property="cabinCode" decoder="String" data="#/cabinClassDesignation/cabinCode" />
+	    <jb:value property="resBookingDesignator" decoder="String" data="#/cabinClassDesignation/resBookingDesignator" />
+	    <jb:value property="cabinClass" decoder="Integer" data="#/cabinClassDesignation/cabinClass" />
+	    <jb:value property="compartmentDesignator" decoder="String" data="#/cabinClassDesignation/compartmentDesignator" />
+	   
+	    <jb:value property="cabinSection" decoder="String" data="#/cabinClassDesignation/cabinSection" />
+	    
+	    <jb:value property="cabinClassSeatRow1" decoder="Integer" data="#/seatRowRange/cabinClassSeatRow1" />
+	    <jb:value property="cabinClassSeatRow2" decoder="Integer" data="#/seatRowRange/cabinClassSeatRow2" />
+	    
+	    <jb:value property="cabinClassLocation" decoder="String" data="#/cabinClassLocation" />
+	    
+	    <jb:value property="smokingSeatRowNumber" decoder="Integer" data="#/smokingAreaSeatRowRangeDetails/smokingSeatRowNumber" />
+	    
+	    <jb:value property="seatOccupationDefaultIndicator" decoder="String" data="#/seatOccupationDefaultIndicator" />
+	    
+	    <jb:value property="overWingSeatNumber" decoder="Integer" data="#/overWingSeatRowRange/overWingSeatNumber" />
+	   
+	    <jb:value property="seatColumn1" decoder="String" data="#/columnDetails1/seatColumn1" />
+	    <jb:value property="columnDescription1" decoder="String" data="#/columnDetails1/columnDescription1" />
+	    <jb:value property="columnAdditionalInfo1" decoder="String" data="#/columnDetails1/columnAdditionalInfo1" />
+	    <jb:value property="seatColumn2" decoder="String" data="#/columnDetails2/seatColumn2" />
+	    <jb:value property="columnDescription2" decoder="String" data="#/columnDetails2/columnDescription2" />
+	    <jb:value property="columnAdditionalInfo2" decoder="String" data="#/columnDetails2/columnAdditionalInfo2" />
+	    <jb:value property="seatColumn3" decoder="String" data="#/columnDetails3/seatColumn3" />
+	    <jb:value property="columnDescription3" decoder="String" data="#/columnDetails3/columnDescription3" />
+	    <jb:value property="columnAdditionalInfo3" decoder="String" data="#/columnDetails3/columnAdditionalInfo3" />
+	    <jb:value property="seatColumn4" decoder="String" data="#/columnDetails4/seatColumn4" />
+	    <jb:value property="columnDescription4" decoder="String" data="#/columnDetails4/columnDescription4" />
+	    <jb:value property="columnAdditionalInfo4" decoder="String" data="#/columnDetails4/columnAdditionalInfo4" />
+	    <jb:value property="seatColumn5" decoder="String" data="#/columnDetails5/seatColumn5" />
+	    <jb:value property="columnDescription5" decoder="String" data="#/columnDetails5/columnDescription5" />
+	    <jb:value property="columnAdditionalInfo5" decoder="String" data="#/columnDetails5/columnAdditionalInfo5" />
+	    <jb:value property="seatColumn6" decoder="String" data="#/columnDetails6/seatColumn6" />
+	    <jb:value property="columnDescription6" decoder="String" data="#/columnDetails6/columnDescription6" />
+	    <jb:value property="columnAdditionalInfo6" decoder="String" data="#/columnDetails6/columnAdditionalInfo6" />
+	    <jb:value property="seatColumn7" decoder="String" data="#/columnDetails7/seatColumn7" />
+	    <jb:value property="columnDescription7" decoder="String" data="#/columnDetails7/columnDescription7" />
+	    <jb:value property="columnAdditionalInfo7" decoder="String" data="#/columnDetails7/columnAdditionalInfo7" />
+	    <jb:value property="seatColumn8" decoder="String" data="#/columnDetails8/seatColumn8" />
+	    <jb:value property="columnDescription8" decoder="String" data="#/columnDetails8/columnDescription8" />
+	    <jb:value property="columnAdditionalInfo8" decoder="String" data="#/columnDetails8/columnAdditionalInfo8" />
+	    <jb:value property="seatColumn9" decoder="String" data="#/columnDetails9/seatColumn9" />
+	    <jb:value property="columnDescription9" decoder="String" data="#/columnDetails9/columnDescription9" />
+	    <jb:value property="columnAdditionalInfo9" decoder="String" data="#/columnDetails9/columnAdditionalInfo9" />
+	    <jb:value property="seatColumn10" decoder="String" data="#/columnDetails10/seatColumn10" />
+	    <jb:value property="columnDescription10" decoder="String" data="#/columnDetails10/columnDescription10" />
+	    <jb:value property="columnAdditionalInfo10" decoder="String" data="#/columnDetails10/columnAdditionalInfo10" />
+	    <jb:value property="seatColumn11" decoder="String" data="#/columnDetails11/seatColumn11" />
+	    <jb:value property="columnDescription11" decoder="String" data="#/columnDetails11/columnDescription11" />
+	    <jb:value property="columnAdditionalInfo11" decoder="String" data="#/columnDetails11/columnAdditionalInfo11" />
+	    <jb:value property="seatColumn12" decoder="String" data="#/columnDetails12/seatColumn12" />
+	    <jb:value property="columnDescription12" decoder="String" data="#/columnDetails12/columnDescription12" />
+	    <jb:value property="columnAdditionalInfo12" decoder="String" data="#/columnDetails12/columnAdditionalInfo12" />
+	</jb:bean>
+	
+	<jb:bean beanId="CUSTOMER-RCI" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.RecordLocator" createOnElement="recordLocator">
+	    <jb:value property="companyIdentification" decoder="String" data="#/reservation/companyIdentification" />
+	    <jb:value property="controlNumber" decoder="String" data="#/reservation/controlNumber" />	    
+	    <jb:value property="controlType" decoder="String" data="#/reservation/controlType" />
+	    <jb:value property="firstDate" decoder="String" data="#/reservation/firstDate" />
+	    <jb:value property="time" decoder="Integer" data="#/reservation/time" />
+	    <jb:value property="elementType" decoder="String" data="#/reservation/elementType" />
+	</jb:bean>  	
+	
+	<jb:bean beanId="CUSTOMER-ETI" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.EnhancedTravellerInformation" createOnElement="enhancedTravellerInformation">
+	    <jb:value property="numberOfUnitsQualifier1" decoder="String" data="#/travellerNameInfo/numberOfUnitsQualifier1" />
+	    <jb:value property="quantity" decoder="Integer" data="#/travellerNameInfo/quantity" />	    
+	    <jb:value property="type" decoder="String" data="#/travellerNameInfo/type" />
+	    <jb:value property="numberOfUnitsQualifier2" decoder="String" data="#/travellerNameInfo/numberOfUnitsQualifier2" />
+	    <jb:value property="travellerReferenceNumber" decoder="String" data="#/travellerNameInfo/travellerReferenceNumber" />
+	    <jb:value property="infantIndicator" decoder="String" data="#/travellerNameInfo/infantIndicator" />
+	    <jb:value property="travellerIdentificationCode" decoder="String" data="#/travellerNameInfo/travellerIdentificationCode/" />
+	    <jb:value property="gender" decoder="String" data="#/travellerNameInfo/gender" />
+	    <jb:value property="age" decoder="Integer" data="#/travellerNameInfo/age" />
+		<jb:value property="nameType1" decoder="String" data="#/otherPaxNamesDetails1/nameType1" />
+		<jb:value property="referenceName1" decoder="String" data="#/otherPaxNamesDetails1/referenceName1" />
+		<jb:value property="displayedName1" decoder="String" data="#/otherPaxNamesDetails1/displayedName1" />
+		<jb:value property="romanizationMethod1" decoder="String" data="#/otherPaxNamesDetails1/romanizationMethod1" />
+		<jb:value property="surname1" decoder="String" data="#/otherPaxNamesDetails1/surname1" />
+		<jb:value property="givenName1" decoder="String" data="#/otherPaxNamesDetails1/givenName1" />
+		<jb:value property="title1" decoder="String" data="#/otherPaxNamesDetails1/title1" />	
+		<jb:value property="additionalTitle1" decoder="String" data="#/otherPaxNamesDetails1/additionalTitle1" />
+		<jb:value property="nameType2" decoder="String" data="#/otherPaxNamesDetails2/nameType2" />
+		<jb:value property="referenceName2" decoder="String" data="#/otherPaxNamesDetails2/referenceName2" />
+		<jb:value property="displayedName2" decoder="String" data="#/otherPaxNamesDetails2/displayedName2" />
+		<jb:value property="romanizationMethod2" decoder="String" data="#/otherPaxNamesDetails2/romanizationMethod2" />
+		<jb:value property="surname2" decoder="String" data="#/otherPaxNamesDetails2/surname2" />
+		<jb:value property="givenName2" decoder="String" data="#/otherPaxNamesDetails2/givenName2" />
+		<jb:value property="title2" decoder="String" data="#/otherPaxNamesDetails2/title2" />	
+		<jb:value property="additionalTitle2" decoder="String" data="#/otherPaxNamesDetails2/additionalTitle2" />
+		<jb:value property="nameType3" decoder="String" data="#/otherPaxNamesDetails3/nameType3" />
+		<jb:value property="referenceName3" decoder="String" data="#/otherPaxNamesDetails3/referenceName3" />
+		<jb:value property="displayedName3" decoder="String" data="#/otherPaxNamesDetails3/displayedName3" />
+		<jb:value property="romanizationMethod3" decoder="String" data="#/otherPaxNamesDetails3/romanizationMethod3" />
+		<jb:value property="surname3" decoder="String" data="#/otherPaxNamesDetails3/surname3" />
+		<jb:value property="givenName3" decoder="String" data="#/otherPaxNamesDetails3/givenName3" />
+		<jb:value property="title3" decoder="String" data="#/otherPaxNamesDetails3/title3" />	
+		<jb:value property="additionalTitle3" decoder="String" data="#/otherPaxNamesDetails3/additionalTitle3" />
+		<jb:value property="nameType4" decoder="String" data="#/otherPaxNamesDetails4/nameType4" />
+		<jb:value property="referenceName4" decoder="String" data="#/otherPaxNamesDetails4/referenceName4" />
+		<jb:value property="displayedName4" decoder="String" data="#/otherPaxNamesDetails4/displayedName4" />
+		<jb:value property="romanizationMethod4" decoder="String" data="#/otherPaxNamesDetails4/romanizationMethod4" />
+		<jb:value property="surname4" decoder="String" data="#/otherPaxNamesDetails4/surname4" />
+		<jb:value property="givenName4" decoder="String" data="#/otherPaxNamesDetails4/givenName4" />
+		<jb:value property="title4" decoder="String" data="#/otherPaxNamesDetails4/title4" />	
+		<jb:value property="additionalTitle4" decoder="String" data="#/otherPaxNamesDetails4/additionalTitle4" />
+		<jb:value property="nameType5" decoder="String" data="#/otherPaxNamesDetails5/nameType5" />
+		<jb:value property="referenceName5" decoder="String" data="#/otherPaxNamesDetails5/referenceName5" />
+		<jb:value property="displayedName5" decoder="String" data="#/otherPaxNamesDetails5/displayedName5" />
+		<jb:value property="romanizationMethod5" decoder="String" data="#/otherPaxNamesDetails5/romanizationMethod5" />
+		<jb:value property="surname5" decoder="String" data="#/otherPaxNamesDetails5/surname5" />
+		<jb:value property="givenName5" decoder="String" data="#/otherPaxNamesDetails5/givenName5" />
+		<jb:value property="title5" decoder="String" data="#/otherPaxNamesDetails5/title5" />	
+		<jb:value property="additionalTitle5" decoder="String" data="#/otherPaxNamesDetails5/additionalTitle5" />		
+	</jb:bean>     
+	
+	<jb:bean beanId="CUSTOMERSSRLIST1" class="java.util.ArrayList" createOnElement="customer">
+       <jb:wiring beanIdRef="CUSTOMERSSR1" />
+    </jb:bean> 
+    
+	<jb:bean beanId="CUSTOMERSSR1" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.SpecialRequirementsDetails" createOnElement="customerCharacteristics">
+	    <jb:value property="ssrType" decoder="String" data="#/ssrTypeDetails/ssrType" />
+	    <jb:value property="status" decoder="String" data="#/ssrTypeDetails/status" />
+	    <jb:value property="quantity" decoder="Integer" data="#/ssrTypeDetails/quantity" />
+	    <jb:value property="companyIdentification" decoder="String" data="#/ssrTypeDetails/companyIdentification" />
+	    <jb:value property="processIndicator1" decoder="String" data="#/ssrTypeDetails/processIndicator1" />
+	    <jb:value property="processIndicator2" decoder="String" data="#/ssrTypeDetails/processIndicator2" />
+	    <jb:value property="place1" decoder="String" data="#/ssrTypeDetails/place1" />
+	    <jb:value property="place2" decoder="String" data="#/ssrTypeDetails/place2" />
+	    <jb:value property="freeText" decoder="String" data="#/ssrTypeDetails/freeText" />
+	    <jb:value property="seatNumberDetails" decoder="String" data="#/ssrDataDetails/seatNumberDetails" />
+	</jb:bean>  
+	
+	<jb:bean beanId="CUSTOMER-STX" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.StatusDetails" createOnElement="statusDetails1">
+	    <jb:value property="indicatorAndAction" decoder="String" data="#/statusInformation/indicatorAndAction" />
+	</jb:bean> 
+	
+	<jb:bean beanId="CUSTOMER-REF" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.CrossReference1" createOnElement="crossReference1">
+	    <jb:value property="qualifier1" decoder="String" data="#/referenceDetails1/qualifier1" />
+	    <jb:value property="number1" decoder="String" data="#/referenceDetails1/number1" />
+		<jb:value property="qualifier2" decoder="String" data="#/referenceDetails2/qualifier2" />
+	    <jb:value property="number2" decoder="String" data="#/referenceDetails2/number2" />
+		<jb:value property="qualifier3" decoder="String" data="#/referenceDetails3/qualifier3" />
+	    <jb:value property="number3" decoder="String" data="#/referenceDetails3/number3" />
+		<jb:value property="qualifier4" decoder="String" data="#/referenceDetails4/qualifier4" />
+	    <jb:value property="number4" decoder="String" data="#/referenceDetails4/number4" />
+		<jb:value property="qualifier5" decoder="String" data="#/referenceDetails5/qualifier5" />
+	    <jb:value property="number5" decoder="String" data="#/referenceDetails5/number5" />
+		<jb:value property="qualifier6" decoder="String" data="#/referenceDetails6/qualifier6" />
+	    <jb:value property="number6" decoder="String" data="#/referenceDetails6/number6" />
+    </jb:bean> 
+	
+	<jb:bean beanId="FLGDATESEALABLECONFIG" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.SaleableConfiguration" createOnElement="saleableConfiguration">
+	    <jb:value property="cabinCode1" decoder="String" data="#/configurationDetails1/cabinCode1" />
+	    <jb:value property="cabinCapacity1" decoder="Integer" data="#/configurationDetails1/cabinCapacity1" />
+		<jb:value property="configCharacteristic1_1" decoder="String" data="#/configurationDetails1/configCharacteristic1_1" />
+		
+		<jb:value property="cabinCode2" decoder="String" data="#/configurationDetails2/cabinCode2" />
+	    <jb:value property="cabinCapacity2" decoder="Integer" data="#/configurationDetails2/cabinCapacity2" />
+		<jb:value property="configCharacteristic1_2" decoder="String" data="#/configurationDetails2/configCharacteristic1_2" />
+		
+		<jb:value property="cabinCode3" decoder="String" data="#/configurationDetails3/cabinCode3" />
+	    <jb:value property="cabinCapacity3" decoder="Integer" data="#/configurationDetails3/cabinCapacity3" />
+		<jb:value property="configCharacteristic1_3" decoder="String" data="#/configurationDetails3/configCharacteristic1_3" />
+		
+		<jb:value property="cabinCode4" decoder="String" data="#/configurationDetails4/cabinCode4" />
+	    <jb:value property="cabinCapacity4" decoder="Integer" data="#/configurationDetails4/cabinCapacity4" />
+		<jb:value property="configCharacteristic1_4" decoder="String" data="#/configurationDetails4/configCharacteristic1_4" />
+		
+		<jb:value property="cabinCode5" decoder="String" data="#/configurationDetails5/cabinCode5" />
+	    <jb:value property="cabinCapacity5" decoder="Integer" data="#/configurationDetails5/cabinCapacity5" />
+		<jb:value property="configCharacteristic1_5" decoder="String" data="#/configurationDetails5/configCharacteristic1_5" />
+		
+		<jb:value property="configurationCode" decoder="String" data="#/configurationCode" />
+		<jb:value property="cabinVersion" decoder="String" data="#/cabinVersion" />
+		<jb:value property="configurationDescription" decoder="String" data="#/configurationDescription" />
+		<jb:wiring property="seatBlock" beanIdRef="SEALABLECONFIG-EQI" />	
+	</jb:bean>
+	
+	<jb:bean beanId="SEALABLECONFIG-EQI" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.EquipmentInformation" createOnElement="seatBlock">
+	    <jb:value property="cabinCode1" decoder="String" data="#/fittedConfiguration1/cabinCode1" />
+	    <jb:value property="cabinCapacity1" decoder="Integer" data="#/fittedConfiguration1/cabinCapacity1" />
+		<jb:value property="configCharacteristic1" decoder="String" data="#/fittedConfiguration1/configCharacteristic1" />
+		<jb:value property="cabinCode2" decoder="String" data="#/fittedConfiguration2/cabinCode2" />
+	    <jb:value property="cabinCapacity2" decoder="Integer" data="#/fittedConfiguration2/cabinCapacity2" />
+		<jb:value property="configCharacteristic2" decoder="String" data="#/fittedConfiguration2/configCharacteristic2" />
+		<jb:value property="cabinCode3" decoder="String" data="#/fittedConfiguration3/cabinCode3" />
+	    <jb:value property="cabinCapacity3" decoder="Integer" data="#/fittedConfiguration3/cabinCapacity3" />
+		<jb:value property="configCharacteristic3" decoder="String" data="#/fittedConfiguration3/configCharacteristic3" />
+		<jb:value property="cabinCode4" decoder="String" data="#/fittedConfiguration4/cabinCode4" />
+	    <jb:value property="cabinCapacity4" decoder="Integer" data="#/fittedConfiguration4/cabinCapacity4" />
+		<jb:value property="configCharacteristic4" decoder="String" data="#/fittedConfiguration4/configCharacteristic4" />
+		<jb:value property="cabinCode5" decoder="String" data="#/fittedConfiguration5/cabinCode5" />
+	    <jb:value property="cabinCapacity5" decoder="Integer" data="#/fittedConfiguration5/cabinCapacity5" />
+		<jb:value property="configCharacteristic5" decoder="String" data="#/fittedConfiguration5/configCharacteristic5" />
+		
+		<jb:value property="iataAircraftTypeCode" decoder="String" data="#/iataAircraftTypeCode" />
+		<jb:value property="acvVersionNumber" decoder="String" data="#/acvDetails/acvVersionNumber" />
+	    <jb:value property="defaultConfigurationCode" decoder="String" data="#/acvDetails/defaultConfigurationCode" />
+		<jb:value property="airlineDetails" decoder="String" data="#/acvDetails/airlineDetails" />
+		<jb:value property="acvCode" decoder="String" data="#/acvDetails/acvCode" />
+	    <jb:value property="acvCharacteristic1" decoder="String" data="#/acvDetails/acvCharacteristic1" />
+		<jb:value property="acvCharacteristic2" decoder="String" data="#/acvDetails/acvCharacteristic2" />
+		<jb:value property="acvDescription" decoder="String" data="#/acvDescription" />
+	</jb:bean>
+	
+	<jb:bean beanId="FLGDATEDUMMYSEG" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.DummySegment" createOnElement="dummySegment">
+	    <jb:wiring property="priceDescription" beanIdRef="DUMMYSEGTXFLIST" />
+	    <jb:wiring property="customerSeatPrice" beanIdRef="DUMMYSEGCUSTSEAT-IRVLIST" />
+	</jb:bean>	
+	
+	<jb:bean beanId="DUMMYSEGTXFLIST" class="java.util.ArrayList" createOnElement="dummySegment">
+       <jb:wiring beanIdRef="DUMMYSEGTXF" />
+    </jb:bean>
+	
+	<jb:bean beanId="DUMMYSEGTXF" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.PriceDescription" createOnElement="priceDescription">
+     	<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+     	<jb:value property="companyId" decoder="String" data="#/freeTextDetails/companyId" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+     	<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+     	<jb:value property="freeText" decoder="String" data="#/freeText" />
+    </jb:bean>
+	
+	<jb:bean beanId="DUMMYSEGCUSTSEAT-IRVLIST" class="java.util.ArrayList" createOnElement="dummySegment">
+       <jb:wiring beanIdRef="DUMMYSEGCUSTSEAT-IRV" />
+    </jb:bean>
+    
+    <jb:bean beanId="DUMMYSEGCUSTSEAT-IRV" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.CustomerSeatPrice" createOnElement="customerSeatPrice">
+	    <jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber1" decoder="String" data="#/referenceNumber1" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		
+		<jb:value property="deliveringSystemIdentification1" decoder="String" data="#/iDSection1/deliveringSystemIdentification1" />
+        <jb:value property="referenceVersionNumber1" decoder="Integer" data="#/iDSection1/referenceVersionNumber1" />
+		<jb:value property="idQualifier1" decoder="String" data="#/iDSection1/idQualifier1" />
+        <jb:value property="identifier1" decoder="String" data="#/iDSection1/identifier1" />
+		<jb:value property="iDreferenceNumber1" decoder="String" data="#/iDSection1/iDreferenceNumber1" />
+        <jb:value property="status1" decoder="String" data="#/iDSection1/status1" />
+		<jb:value property="yearNumber1" decoder="Integer" data="#/iDSection1/yearNumber1" />
+        <jb:value property="monthNumber1" decoder="Integer" data="#/iDSection1/monthNumber1" />
+		<jb:value property="dayNumber1" decoder="Integer" data="#/iDSection1/dayNumber1" />
+        <jb:value property="hours1" decoder="Integer" data="#/iDSection1/hours1" />
+		<jb:value property="minutes1" decoder="Integer" data="#/iDSection1/minutes1" />
+        <jb:value property="freeText1" decoder="String" data="#/iDSection1/freeText1" />
+		
+		<jb:value property="deliveringSystemIdentification2" decoder="String" data="#/iDSection2/deliveringSystemIdentification2" />
+        <jb:value property="referenceVersionNumber2" decoder="Integer" data="#/iDSection2/referenceVersionNumber2" />
+		<jb:value property="idQualifier2" decoder="String" data="#/iDSection2/idQualifier2" />
+        <jb:value property="identifier2" decoder="String" data="#/iDSection2/identifier2" />
+		<jb:value property="iDreferenceNumber2" decoder="String" data="#/iDSection2/iDreferenceNumber2" />
+        <jb:value property="status2" decoder="String" data="#/iDSection2/status2" />
+		<jb:value property="yearNumber2" decoder="Integer" data="#/iDSection2/yearNumber2" />
+        <jb:value property="monthNumber2" decoder="Integer" data="#/iDSection2/monthNumber2" />
+		<jb:value property="dayNumber2" decoder="Integer" data="#/iDSection2/dayNumber2" />
+        <jb:value property="hours2" decoder="Integer" data="#/iDSection2/hours2" />
+		<jb:value property="minutes2" decoder="Integer" data="#/iDSection2/minutes2" />
+        <jb:value property="freeText2" decoder="String" data="#/iDSection2/freeText2" />
+		
+		<jb:value property="deliveringSystemIdentification3" decoder="String" data="#/iDSection3/deliveringSystemIdentification3" />
+        <jb:value property="referenceVersionNumber3" decoder="Integer" data="#/iDSection3/referenceVersionNumber3" />
+		<jb:value property="idQualifier3" decoder="String" data="#/iDSection3/idQualifier3" />
+        <jb:value property="identifier3" decoder="String" data="#/iDSection3/identifier3" />
+		<jb:value property="iDreferenceNumber3" decoder="String" data="#/iDSection3/iDreferenceNumber3" />
+        <jb:value property="status3" decoder="String" data="#/iDSection3/status3" />
+		<jb:value property="yearNumber3" decoder="Integer" data="#/iDSection3/yearNumber3" />
+        <jb:value property="monthNumber3" decoder="Integer" data="#/iDSection3/monthNumber3" />
+		<jb:value property="dayNumber3" decoder="Integer" data="#/iDSection3/dayNumber3" />
+        <jb:value property="hours3" decoder="Integer" data="#/iDSection3/hours3" />
+		<jb:value property="minutes3" decoder="Integer" data="#/iDSection3/minutes3" />
+        <jb:value property="freeText3" decoder="String" data="#/iDSection3/freeText3" />
+		
+		<jb:value property="deliveringSystemIdentification4" decoder="String" data="#/iDSection4/deliveringSystemIdentification4" />
+        <jb:value property="referenceVersionNumber4" decoder="Integer" data="#/iDSection4/referenceVersionNumber4" />
+		<jb:value property="idQualifier4" decoder="String" data="#/iDSection4/idQualifier4" />
+        <jb:value property="identifier4" decoder="String" data="#/iDSection4/identifier4" />
+		<jb:value property="iDreferenceNumber4" decoder="String" data="#/iDSection4/iDreferenceNumber4" />
+        <jb:value property="status4" decoder="String" data="#/iDSection4/status4" />
+		<jb:value property="yearNumber4" decoder="Integer" data="#/iDSection4/yearNumber4" />
+        <jb:value property="monthNumber4" decoder="Integer" data="#/iDSection4/monthNumber4" />
+		<jb:value property="dayNumber4" decoder="Integer" data="#/iDSection4/dayNumber4" />
+        <jb:value property="hours4" decoder="Integer" data="#/iDSection4/hours4" />
+		<jb:value property="minutes4" decoder="Integer" data="#/iDSection4/minutes4" />
+        <jb:value property="freeText4" decoder="String" data="#/iDSection4/freeText4" />
+		
+		<jb:value property="deliveringSystemIdentification5" decoder="String" data="#/iDSection5/deliveringSystemIdentification5" />
+        <jb:value property="referenceVersionNumber5" decoder="Integer" data="#/iDSection5/referenceVersionNumber5" />
+		<jb:value property="idQualifier5" decoder="String" data="#/iDSection5/idQualifier5" />
+        <jb:value property="identifier5" decoder="String" data="#/iDSection5/identifier5" />
+		<jb:value property="iDreferenceNumber5" decoder="String" data="#/iDSection5/iDreferenceNumber5" />
+        <jb:value property="status5" decoder="String" data="#/iDSection5/status5" />
+		<jb:value property="yearNumber5" decoder="Integer" data="#/iDSection5/yearNumber5" />
+        <jb:value property="monthNumber5" decoder="Integer" data="#/iDSection5/monthNumber5" />
+		<jb:value property="dayNumber5" decoder="Integer" data="#/iDSection5/dayNumber5" />
+        <jb:value property="hours5" decoder="Integer" data="#/iDSection5/hours5" />
+		<jb:value property="minutes5" decoder="Integer" data="#/iDSection5/minutes5" />
+        <jb:value property="freeText5" decoder="String" data="#/iDSection5/freeText5" />
+		
+		<jb:value property="deliveringSystemIdentification6" decoder="String" data="#/iDSection6/deliveringSystemIdentification6" />
+        <jb:value property="referenceVersionNumber6" decoder="Integer" data="#/iDSection6/referenceVersionNumber6" />
+		<jb:value property="idQualifier6" decoder="String" data="#/iDSection6/idQualifier6" />
+        <jb:value property="identifier6" decoder="String" data="#/iDSection6/identifier6" />
+		<jb:value property="iDreferenceNumber6" decoder="String" data="#/iDSection6/iDreferenceNumber6" />
+        <jb:value property="status6" decoder="String" data="#/iDSection6/status6" />
+		<jb:value property="yearNumber6" decoder="Integer" data="#/iDSection6/yearNumber6" />
+        <jb:value property="monthNumber6" decoder="Integer" data="#/iDSection6/monthNumber6" />
+		<jb:value property="dayNumber6" decoder="Integer" data="#/iDSection6/dayNumber6" />
+        <jb:value property="hours6" decoder="Integer" data="#/iDSection6/hours6" />
+		<jb:value property="minutes6" decoder="Integer" data="#/iDSection6/minutes6" />
+        <jb:value property="freeText6" decoder="String" data="#/iDSection6/freeText6" />
+		
+		<jb:value property="deliveringSystemIdentification7" decoder="String" data="#/iDSection7/deliveringSystemIdentification7" />
+        <jb:value property="referenceVersionNumber7" decoder="Integer" data="#/iDSection7/referenceVersionNumber7" />
+		<jb:value property="idQualifier7" decoder="String" data="#/iDSection7/idQualifier7" />
+        <jb:value property="identifier7" decoder="String" data="#/iDSection7/identifier7" />
+		<jb:value property="iDreferenceNumber7" decoder="String" data="#/iDSection7/iDreferenceNumber7" />
+        <jb:value property="status7" decoder="String" data="#/iDSection7/status7" />
+		<jb:value property="yearNumber7" decoder="Integer" data="#/iDSection7/yearNumber7" />
+        <jb:value property="monthNumber7" decoder="Integer" data="#/iDSection7/monthNumber7" />
+		<jb:value property="dayNumber7" decoder="Integer" data="#/iDSection7/dayNumber7" />
+        <jb:value property="hours7" decoder="Integer" data="#/iDSection7/hours7" />
+		<jb:value property="minutes7" decoder="Integer" data="#/iDSection7/minutes7" />
+        <jb:value property="freeText7" decoder="String" data="#/iDSection7/freeText7" />
+		
+		<jb:value property="deliveringSystemIdentification8" decoder="String" data="#/iDSection8/deliveringSystemIdentification8" />
+        <jb:value property="referenceVersionNumber8" decoder="Integer" data="#/iDSection8/referenceVersionNumber8" />
+		<jb:value property="idQualifier8" decoder="String" data="#/iDSection8/idQualifier8" />
+        <jb:value property="identifier8" decoder="String" data="#/iDSection8/identifier8" />
+		<jb:value property="iDreferenceNumber8" decoder="String" data="#/iDSection8/iDreferenceNumber8" />
+        <jb:value property="status8" decoder="String" data="#/iDSection8/status8" />
+		<jb:value property="yearNumber8" decoder="Integer" data="#/iDSection8/yearNumber8" />
+        <jb:value property="monthNumber8" decoder="Integer" data="#/iDSection8/monthNumber8" />
+		<jb:value property="dayNumber8" decoder="Integer" data="#/iDSection8/dayNumber8" />
+        <jb:value property="hours8" decoder="Integer" data="#/iDSection8/hours8" />
+		<jb:value property="minutes8" decoder="Integer" data="#/iDSection8/minutes8" />
+        <jb:value property="freeText8" decoder="String" data="#/iDSection8/freeText8" />
+		
+		<jb:value property="deliveringSystemIdentification9" decoder="String" data="#/iDSection9/deliveringSystemIdentification9" />
+        <jb:value property="referenceVersionNumber9" decoder="Integer" data="#/iDSection9/referenceVersionNumber9" />
+		<jb:value property="idQualifier9" decoder="String" data="#/iDSection9/idQualifier9" />
+        <jb:value property="identifier9" decoder="String" data="#/iDSection9/identifier9" />
+		<jb:value property="iDreferenceNumber9" decoder="String" data="#/iDSection9/iDreferenceNumber9" />
+        <jb:value property="status9" decoder="String" data="#/iDSection9/status9" />
+		<jb:value property="yearNumber9" decoder="Integer" data="#/iDSection9/yearNumber9" />
+        <jb:value property="monthNumber9" decoder="Integer" data="#/iDSection9/monthNumber9" />
+		<jb:value property="dayNumber9" decoder="Integer" data="#/iDSection9/dayNumber9" />
+        <jb:value property="hours9" decoder="Integer" data="#/iDSection9/hours9" />
+		<jb:value property="minutes9" decoder="Integer" data="#/iDSection9/minutes9" />
+        <jb:value property="freeText9" decoder="String" data="#/iDSection9/freeText9" />
+		<jb:wiring property="otherCustomersSeatPrice" beanIdRef="CUSTCENTRICDATAIRV-LIST" />
+		<jb:wiring property="seatPrice" beanIdRef="CUSTCENTRICDATA-MONLIST" />
+    </jb:bean>
+    
+    <jb:bean beanId="CUSTCENTRICDATAIRV-LIST" class="java.util.ArrayList" createOnElement="customerSeatPrice">
+       <jb:wiring beanIdRef="CUSTCENTRICDATAIRV" />
+    </jb:bean>  
+    
+    <jb:bean beanId="CUSTCENTRICDATAIRV" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.OtherCustomersSeatPrice" createOnElement="otherCustomersSeatPrice">
+	    <jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber1" decoder="String" data="#/referenceNumber1" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="deliveringSystemIdentification1" decoder="String" data="#/iDSection1/deliveringSystemIdentification1" />
+        <jb:value property="referenceVersionNumber1" decoder="Integer" data="#/iDSection1/referenceVersionNumber1" />
+		<jb:value property="idQualifier1" decoder="String" data="#/iDSection1/idQualifier1" />
+        <jb:value property="identifier1" decoder="String" data="#/iDSection1/identifier1" />
+		<jb:value property="iDreferenceNumber1" decoder="String" data="#/iDSection1/iDreferenceNumber1" />
+        <jb:value property="status1" decoder="String" data="#/iDSection1/status1" />
+		<jb:value property="yearNumber1" decoder="Integer" data="#/iDSection1/yearNumber1" />
+        <jb:value property="monthNumber1" decoder="Integer" data="#/iDSection1/monthNumber1" />
+		<jb:value property="dayNumber1" decoder="Integer" data="#/iDSection1/dayNumber1" />
+        <jb:value property="hours1" decoder="Integer" data="#/iDSection1/hours1" />
+		<jb:value property="minutes1" decoder="Integer" data="#/iDSection1/minutes1" />
+        <jb:value property="freeText1" decoder="String" data="#/iDSection1/freeText1" />
+		<jb:value property="deliveringSystemIdentification2" decoder="String" data="#/iDSection2/deliveringSystemIdentification2" />
+        <jb:value property="referenceVersionNumber2" decoder="Integer" data="#/iDSection2/referenceVersionNumber2" />
+		<jb:value property="idQualifier2" decoder="String" data="#/iDSection2/idQualifier2" />
+        <jb:value property="identifier2" decoder="String" data="#/iDSection2/identifier2" />
+		<jb:value property="iDreferenceNumber2" decoder="String" data="#/iDSection2/iDreferenceNumber2" />
+        <jb:value property="status2" decoder="String" data="#/iDSection2/status2" />
+		<jb:value property="yearNumber2" decoder="Integer" data="#/iDSection2/yearNumber2" />
+        <jb:value property="monthNumber2" decoder="Integer" data="#/iDSection2/monthNumber2" />
+		<jb:value property="dayNumber2" decoder="Integer" data="#/iDSection2/dayNumber2" />
+        <jb:value property="hours2" decoder="Integer" data="#/iDSection2/hours2" />
+		<jb:value property="minutes2" decoder="Integer" data="#/iDSection2/minutes2" />
+        <jb:value property="freeText2" decoder="String" data="#/iDSection2/freeText2" />
+		<jb:value property="deliveringSystemIdentification3" decoder="String" data="#/iDSection3/deliveringSystemIdentification3" />
+        <jb:value property="referenceVersionNumber3" decoder="Integer" data="#/iDSection3/referenceVersionNumber3" />
+		<jb:value property="idQualifier3" decoder="String" data="#/iDSection3/idQualifier3" />
+        <jb:value property="identifier3" decoder="String" data="#/iDSection3/identifier3" />
+		<jb:value property="iDreferenceNumber3" decoder="String" data="#/iDSection3/iDreferenceNumber3" />
+        <jb:value property="status3" decoder="String" data="#/iDSection3/status3" />
+		<jb:value property="yearNumber3" decoder="Integer" data="#/iDSection3/yearNumber3" />
+        <jb:value property="monthNumber3" decoder="Integer" data="#/iDSection3/monthNumber3" />
+		<jb:value property="dayNumber3" decoder="Integer" data="#/iDSection3/dayNumber3" />
+        <jb:value property="hours3" decoder="Integer" data="#/iDSection3/hours3" />
+		<jb:value property="minutes3" decoder="Integer" data="#/iDSection3/minutes3" />
+        <jb:value property="freeText3" decoder="String" data="#/iDSection3/freeText3" />
+		<jb:value property="deliveringSystemIdentification4" decoder="String" data="#/iDSection4/deliveringSystemIdentification4" />
+        <jb:value property="referenceVersionNumber4" decoder="Integer" data="#/iDSection4/referenceVersionNumber4" />
+		<jb:value property="idQualifier4" decoder="String" data="#/iDSection4/idQualifier4" />
+        <jb:value property="identifier4" decoder="String" data="#/iDSection4/identifier4" />
+		<jb:value property="iDreferenceNumber4" decoder="String" data="#/iDSection4/iDreferenceNumber4" />
+        <jb:value property="status4" decoder="String" data="#/iDSection4/status4" />
+		<jb:value property="yearNumber4" decoder="Integer" data="#/iDSection4/yearNumber4" />
+        <jb:value property="monthNumber4" decoder="Integer" data="#/iDSection4/monthNumber4" />
+		<jb:value property="dayNumber4" decoder="Integer" data="#/iDSection4/dayNumber4" />
+        <jb:value property="hours4" decoder="Integer" data="#/iDSection4/hours4" />
+		<jb:value property="minutes4" decoder="Integer" data="#/iDSection4/minutes4" />
+        <jb:value property="freeText4" decoder="String" data="#/iDSection4/freeText4" />
+		<jb:value property="deliveringSystemIdentification5" decoder="String" data="#/iDSection5/deliveringSystemIdentification5" />
+        <jb:value property="referenceVersionNumber5" decoder="Integer" data="#/iDSection5/referenceVersionNumber5" />
+		<jb:value property="idQualifier5" decoder="String" data="#/iDSection5/idQualifier5" />
+        <jb:value property="identifier5" decoder="String" data="#/iDSection5/identifier5" />
+		<jb:value property="iDreferenceNumber5" decoder="String" data="#/iDSection5/iDreferenceNumber5" />
+        <jb:value property="status5" decoder="String" data="#/iDSection5/status5" />
+		<jb:value property="yearNumber5" decoder="Integer" data="#/iDSection5/yearNumber5" />
+        <jb:value property="monthNumber5" decoder="Integer" data="#/iDSection5/monthNumber5" />
+		<jb:value property="dayNumber5" decoder="Integer" data="#/iDSection5/dayNumber5" />
+        <jb:value property="hours5" decoder="Integer" data="#/iDSection5/hours5" />
+		<jb:value property="minutes5" decoder="Integer" data="#/iDSection5/minutes5" />
+        <jb:value property="freeText5" decoder="String" data="#/iDSection5/freeText5" />
+		<jb:value property="deliveringSystemIdentification6" decoder="String" data="#/iDSection6/deliveringSystemIdentification6" />
+        <jb:value property="referenceVersionNumber6" decoder="Integer" data="#/iDSection6/referenceVersionNumber6" />
+		<jb:value property="idQualifier6" decoder="String" data="#/iDSection6/idQualifier6" />
+        <jb:value property="identifier6" decoder="String" data="#/iDSection6/identifier6" />
+		<jb:value property="iDreferenceNumber6" decoder="String" data="#/iDSection6/iDreferenceNumber6" />
+        <jb:value property="status6" decoder="String" data="#/iDSection6/status6" />
+		<jb:value property="yearNumber6" decoder="Integer" data="#/iDSection6/yearNumber6" />
+        <jb:value property="monthNumber6" decoder="Integer" data="#/iDSection6/monthNumber6" />
+		<jb:value property="dayNumber6" decoder="Integer" data="#/iDSection6/dayNumber6" />
+        <jb:value property="hours6" decoder="Integer" data="#/iDSection6/hours6" />
+		<jb:value property="minutes6" decoder="Integer" data="#/iDSection6/minutes6" />
+        <jb:value property="freeText6" decoder="String" data="#/iDSection6/freeText6" />
+		<jb:value property="deliveringSystemIdentification7" decoder="String" data="#/iDSection7/deliveringSystemIdentification7" />
+        <jb:value property="referenceVersionNumber7" decoder="Integer" data="#/iDSection7/referenceVersionNumber7" />
+		<jb:value property="idQualifier7" decoder="String" data="#/iDSection7/idQualifier7" />
+        <jb:value property="identifier7" decoder="String" data="#/iDSection7/identifier7" />
+		<jb:value property="iDreferenceNumber7" decoder="String" data="#/iDSection7/iDreferenceNumber7" />
+        <jb:value property="status7" decoder="String" data="#/iDSection7/status7" />
+		<jb:value property="yearNumber7" decoder="Integer" data="#/iDSection7/yearNumber7" />
+        <jb:value property="monthNumber7" decoder="Integer" data="#/iDSection7/monthNumber7" />
+		<jb:value property="dayNumber7" decoder="Integer" data="#/iDSection7/dayNumber7" />
+        <jb:value property="hours7" decoder="Integer" data="#/iDSection7/hours7" />
+		<jb:value property="minutes7" decoder="Integer" data="#/iDSection7/minutes7" />
+        <jb:value property="freeText7" decoder="String" data="#/iDSection7/freeText7" />
+		<jb:value property="deliveringSystemIdentification8" decoder="String" data="#/iDSection8/deliveringSystemIdentification8" />
+        <jb:value property="referenceVersionNumber8" decoder="Integer" data="#/iDSection8/referenceVersionNumber8" />
+		<jb:value property="idQualifier8" decoder="String" data="#/iDSection8/idQualifier8" />
+        <jb:value property="identifier8" decoder="String" data="#/iDSection8/identifier8" />
+		<jb:value property="iDreferenceNumber8" decoder="String" data="#/iDSection8/iDreferenceNumber8" />
+        <jb:value property="status8" decoder="String" data="#/iDSection8/status8" />
+		<jb:value property="yearNumber8" decoder="Integer" data="#/iDSection8/yearNumber8" />
+        <jb:value property="monthNumber8" decoder="Integer" data="#/iDSection8/monthNumber8" />
+		<jb:value property="dayNumber8" decoder="Integer" data="#/iDSection8/dayNumber8" />
+        <jb:value property="hours8" decoder="Integer" data="#/iDSection8/hours8" />
+		<jb:value property="minutes8" decoder="Integer" data="#/iDSection8/minutes8" />
+        <jb:value property="freeText8" decoder="String" data="#/iDSection8/freeText8" />
+		<jb:value property="deliveringSystemIdentification9" decoder="String" data="#/iDSection9/deliveringSystemIdentification9" />
+        <jb:value property="referenceVersionNumber9" decoder="Integer" data="#/iDSection9/referenceVersionNumber9" />
+		<jb:value property="idQualifier9" decoder="String" data="#/iDSection9/idQualifier9" />
+        <jb:value property="identifier9" decoder="String" data="#/iDSection9/identifier9" />
+		<jb:value property="iDreferenceNumber9" decoder="String" data="#/iDSection9/iDreferenceNumber9" />
+        <jb:value property="status9" decoder="String" data="#/iDSection9/status9" />
+		<jb:value property="yearNumber9" decoder="Integer" data="#/iDSection9/yearNumber9" />
+        <jb:value property="monthNumber9" decoder="Integer" data="#/iDSection9/monthNumber9" />
+		<jb:value property="dayNumber9" decoder="Integer" data="#/iDSection9/dayNumber9" />
+        <jb:value property="hours9" decoder="Integer" data="#/iDSection9/hours9" />
+		<jb:value property="minutes9" decoder="Integer" data="#/iDSection9/minutes9" />
+        <jb:value property="freeText9" decoder="String" data="#/iDSection9/freeText9" />     	
+    </jb:bean>
+	
+	<jb:bean beanId="CUSTCENTRICDATA-MONLIST" class="java.util.ArrayList" createOnElement="customerSeatPrice">
+       <jb:wiring beanIdRef="CUSTCENTRICDATA-MON" />
+    </jb:bean> 
+    
+    <jb:bean beanId="CUSTCENTRICDATA-MON" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.SeatPrice" createOnElement="seatPrice">
+	    <jb:value property="typeQualifier" decoder="String" data="#/monetaryDetails/typeQualifier" />
+	    <jb:value property="amount" decoder="String" data="#/monetaryDetails/amount" />
+	    <jb:value property="currency" decoder="String" data="#/monetaryDetails/currency" />
+	    <jb:value property="location" decoder="String" data="#/monetaryDetails/location" />
+	    <jb:value property="otherTypeQualifier1" decoder="String" data="#/otherMonetaryDetails1/otherTypeQualifier1" />
+	    <jb:value property="otherAmount1" decoder="String" data="#/otherMonetaryDetails1/otherAmount1" />
+	    <jb:value property="otherCurrency1" decoder="String" data="#/otherMonetaryDetails1/otherCurrency1" />
+	    <jb:value property="otherLocation1" decoder="String" data="#/otherMonetaryDetails1/otherLocation1" />	
+		<jb:value property="otherTypeQualifier2" decoder="String" data="#/otherMonetaryDetails2/otherTypeQualifier2" />
+	    <jb:value property="otherAmount2" decoder="String" data="#/otherMonetaryDetails2/otherAmount2" />
+	    <jb:value property="otherCurrency2" decoder="String" data="#/otherMonetaryDetails2/otherCurrency2" />
+	    <jb:value property="otherLocation2" decoder="String" data="#/otherMonetaryDetails2/otherLocation2" />	
+		<jb:value property="otherTypeQualifier3" decoder="String" data="#/otherMonetaryDetails3/otherTypeQualifier3" />
+	    <jb:value property="otherAmount3" decoder="String" data="#/otherMonetaryDetails3/otherAmount3" />
+	    <jb:value property="otherCurrency3" decoder="String" data="#/otherMonetaryDetails3/otherCurrency3" />
+	    <jb:value property="otherLocation3" decoder="String" data="#/otherMonetaryDetails3/otherLocation3" />	
+		<jb:value property="otherTypeQualifier4" decoder="String" data="#/otherMonetaryDetails4/otherTypeQualifier4" />
+	    <jb:value property="otherAmount4" decoder="String" data="#/otherMonetaryDetails4/otherAmount4" />
+	    <jb:value property="otherCurrency4" decoder="String" data="#/otherMonetaryDetails4/otherCurrency4" />
+	    <jb:value property="otherLocation4" decoder="String" data="#/otherMonetaryDetails4/otherLocation4" />	
+		<jb:value property="otherTypeQualifier5" decoder="String" data="#/otherMonetaryDetails5/otherTypeQualifier5" />
+	    <jb:value property="otherAmount5" decoder="String" data="#/otherMonetaryDetails5/otherAmount5" />
+	    <jb:value property="otherCurrency5" decoder="String" data="#/otherMonetaryDetails5/otherCurrency5" />
+	    <jb:value property="otherLocation5" decoder="String" data="#/otherMonetaryDetails5/otherLocation5" />	
+		<jb:value property="otherTypeQualifier6" decoder="String" data="#/otherMonetaryDetails6/otherTypeQualifier6" />
+	    <jb:value property="otherAmount6" decoder="String" data="#/otherMonetaryDetails6/otherAmount6" />
+	    <jb:value property="otherCurrency6" decoder="String" data="#/otherMonetaryDetails6/otherCurrency6" />
+	    <jb:value property="otherLocation6" decoder="String" data="#/otherMonetaryDetails6/otherLocation6" />	
+		<jb:value property="otherTypeQualifier7" decoder="String" data="#/otherMonetaryDetails7/otherTypeQualifier7" />
+	    <jb:value property="otherAmount7" decoder="String" data="#/otherMonetaryDetails7/otherAmount7" />
+	    <jb:value property="otherCurrency7" decoder="String" data="#/otherMonetaryDetails7/otherCurrency7" />
+	    <jb:value property="otherLocation7" decoder="String" data="#/otherMonetaryDetails7/otherLocation7" />	
+		<jb:value property="otherTypeQualifier8" decoder="String" data="#/otherMonetaryDetails8/otherTypeQualifier8" />
+	    <jb:value property="otherAmount8" decoder="String" data="#/otherMonetaryDetails8/otherAmount8" />
+	    <jb:value property="otherCurrency8" decoder="String" data="#/otherMonetaryDetails8/otherCurrency8" />
+	    <jb:value property="otherLocation8" decoder="String" data="#/otherMonetaryDetails8/otherLocation8" />	
+		<jb:value property="otherTypeQualifier9" decoder="String" data="#/otherMonetaryDetails9/otherTypeQualifier9" />
+	    <jb:value property="otherAmount9" decoder="String" data="#/otherMonetaryDetails9/otherAmount9" />
+	    <jb:value property="otherCurrency9" decoder="String" data="#/otherMonetaryDetails9/otherCurrency9" />
+	    <jb:value property="otherLocation9" decoder="String" data="#/otherMonetaryDetails9/otherLocation9" />	
+		<jb:value property="otherTypeQualifier10" decoder="String" data="#/otherMonetaryDetails10/otherTypeQualifier10" />
+	    <jb:value property="otherAmount10" decoder="String" data="#/otherMonetaryDetails10/otherAmount10" />
+	    <jb:value property="otherCurrency10" decoder="String" data="#/otherMonetaryDetails10/otherCurrency10" />
+	    <jb:value property="otherLocation10" decoder="String" data="#/otherMonetaryDetails10/otherLocation10" />	
+		<jb:value property="otherTypeQualifier11" decoder="String" data="#/otherMonetaryDetails11/otherTypeQualifier11" />
+	    <jb:value property="otherAmount11" decoder="String" data="#/otherMonetaryDetails11/otherAmount11" />
+	    <jb:value property="otherCurrency11" decoder="String" data="#/otherMonetaryDetails11/otherCurrency11" />
+	    <jb:value property="otherLocation11" decoder="String" data="#/otherMonetaryDetails11/otherLocation11" />	
+		<jb:value property="otherTypeQualifier12" decoder="String" data="#/otherMonetaryDetails12/otherTypeQualifier12" />
+	    <jb:value property="otherAmount12" decoder="String" data="#/otherMonetaryDetails12/otherAmount12" />
+	    <jb:value property="otherCurrency12" decoder="String" data="#/otherMonetaryDetails12/otherCurrency12" />
+	    <jb:value property="otherLocation12" decoder="String" data="#/otherMonetaryDetails12/otherLocation12" />	
+		<jb:value property="otherTypeQualifier13" decoder="String" data="#/otherMonetaryDetails13/otherTypeQualifier13" />
+	    <jb:value property="otherAmount13" decoder="String" data="#/otherMonetaryDetails13/otherAmount13" />
+	    <jb:value property="otherCurrency13" decoder="String" data="#/otherMonetaryDetails13/otherCurrency13" />
+	    <jb:value property="otherLocation13" decoder="String" data="#/otherMonetaryDetails13/otherLocation13" />	
+		<jb:value property="otherTypeQualifier14" decoder="String" data="#/otherMonetaryDetails14/otherTypeQualifier14" />
+	    <jb:value property="otherAmount14" decoder="String" data="#/otherMonetaryDetails14/otherAmount14" />
+	    <jb:value property="otherCurrency14" decoder="String" data="#/otherMonetaryDetails14/otherCurrency14" />
+	    <jb:value property="otherLocation14" decoder="String" data="#/otherMonetaryDetails14/otherLocation14" />	
+		<jb:value property="otherTypeQualifier15" decoder="String" data="#/otherMonetaryDetails15/otherTypeQualifier15" />
+	    <jb:value property="otherAmount15" decoder="String" data="#/otherMonetaryDetails15/otherAmount15" />
+	    <jb:value property="otherCurrency15" decoder="String" data="#/otherMonetaryDetails15/otherCurrency15" />
+	    <jb:value property="otherLocation15" decoder="String" data="#/otherMonetaryDetails15/otherLocation15" />	
+		<jb:value property="otherTypeQualifier16" decoder="String" data="#/otherMonetaryDetails16/otherTypeQualifier16" />
+	    <jb:value property="otherAmount16" decoder="String" data="#/otherMonetaryDetails16/otherAmount16" />
+	    <jb:value property="otherCurrency16" decoder="String" data="#/otherMonetaryDetails16/otherCurrency16" />
+	    <jb:value property="otherLocation16" decoder="String" data="#/otherMonetaryDetails16/otherLocation16" />	
+		<jb:value property="otherTypeQualifier17" decoder="String" data="#/otherMonetaryDetails17/otherTypeQualifier17" />
+	    <jb:value property="otherAmount17" decoder="String" data="#/otherMonetaryDetails17/otherAmount17" />
+	    <jb:value property="otherCurrency17" decoder="String" data="#/otherMonetaryDetails17/otherCurrency17" />
+	    <jb:value property="otherLocation17" decoder="String" data="#/otherMonetaryDetails17/otherLocation17" />	
+		<jb:value property="otherTypeQualifier18" decoder="String" data="#/otherMonetaryDetails18/otherTypeQualifier18" />
+	    <jb:value property="otherAmount18" decoder="String" data="#/otherMonetaryDetails18/otherAmount18" />
+	    <jb:value property="otherCurrency18" decoder="String" data="#/otherMonetaryDetails18/otherCurrency18" />
+	    <jb:value property="otherLocation18" decoder="String" data="#/otherMonetaryDetails18/otherLocation18" />	
+		<jb:value property="otherTypeQualifier19" decoder="String" data="#/otherMonetaryDetails19/otherTypeQualifier19" />
+	    <jb:value property="otherAmount19" decoder="String" data="#/otherMonetaryDetails19/otherAmount19" />
+	    <jb:value property="otherCurrency19" decoder="String" data="#/otherMonetaryDetails19/otherCurrency19" />
+	    <jb:value property="otherLocation19" decoder="String" data="#/otherMonetaryDetails19/otherLocation19" />	
+	    <jb:wiring property="taxDetails" beanIdRef="CUSTSEATMAP-TXD" />
+		<jb:wiring property="rowPriceDetails" beanIdRef="CUSTSEATMAP-RODLIST" />
+		<jb:wiring property="pricingRuleAttributes" beanIdRef="CUSTSEATMAP-ATR" />
+		<jb:wiring property="priceSolutionDescription" beanIdRef="CUSTSEATMAP-TXF" />   	
+    </jb:bean>
+    
+    <jb:bean beanId="CUSTSEATMAP-TXD" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.TaxDetails" createOnElement="taxDetails">	    	    
+	    <jb:value property="feeCategory" decoder="String" data="#/feeCategory" />
+	    <jb:value property="taxRateDetails" decoder="String" data="#/feeDetails/taxRateDetails" />	    
+    </jb:bean>
+	
+	<jb:bean beanId="CUSTSEATMAP-RODLIST" class="java.util.ArrayList" createOnElement="customerSeatPrice">
+       <jb:wiring beanIdRef="CUSTSEATMAP-ROD" />
+    </jb:bean>
+    
+    <jb:bean beanId="CUSTSEATMAP-ROD" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.RowPriceDetails" createOnElement="rowPriceDetails">
+	    <jb:value property="seatRowNumber" decoder="Integer" data="#/seatRowNumber" />
+	    <jb:value property="rowCharacteristic1" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic1" />
+	    <jb:value property="rowCharacteristic2" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic2" />
+	    <jb:value property="rowCharacteristic3" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic3" />
+	    <jb:value property="rowCharacteristic4" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic4" />
+	    <jb:value property="rowCharacteristic5" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic5" />
+	    <jb:value property="rowCharacteristic6" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic6" />
+	    <jb:value property="rowCharacteristic7" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic7" />
+	    <jb:value property="rowCharacteristic8" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic8" />
+	    <jb:value property="rowCharacteristic9" decoder="String" data="#/rowCharacteristicDetails/rowCharacteristic9" />
+	   
+        <jb:value property="seatColumn1" decoder="String" data="#/seatOccupationDetails1/seatColumn1" />
+		<jb:value property="seatOccupation1" decoder="String" data="#/seatOccupationDetails1/seatOccupation1" />
+		<jb:value property="seatCharacteristic1" decoder="String" data="#/seatOccupationDetails1/seatCharacteristic1" />
+		<jb:value property="seatColumn2" decoder="String" data="#/seatOccupationDetails2/seatColumn2" />
+		<jb:value property="seatOccupation2" decoder="String" data="#/seatOccupationDetails2/seatOccupation2" />
+		<jb:value property="seatCharacteristic2" decoder="String" data="#/seatOccupationDetails2/seatCharacteristic2" />
+		<jb:value property="seatColumn3" decoder="String" data="#/seatOccupationDetails3/seatColumn3" />
+		<jb:value property="seatOccupation3" decoder="String" data="#/seatOccupationDetails3/seatOccupation3" />
+		<jb:value property="seatCharacteristic3" decoder="String" data="#/seatOccupationDetails3/seatCharacteristic3" />
+		<jb:value property="seatColumn4" decoder="String" data="#/seatOccupationDetails4/seatColumn4" />
+		<jb:value property="seatOccupation4" decoder="String" data="#/seatOccupationDetails4/seatOccupation4" />
+		<jb:value property="seatCharacteristic4" decoder="String" data="#/seatOccupationDetails4/seatCharacteristic4" />
+		<jb:value property="seatColumn5" decoder="String" data="#/seatOccupationDetails5/seatColumn5" />
+		<jb:value property="seatOccupation5" decoder="String" data="#/seatOccupationDetails5/seatOccupation5" />
+		<jb:value property="seatCharacteristic5" decoder="String" data="#/seatOccupationDetails5/seatCharacteristic5" />
+		<jb:value property="seatColumn6" decoder="String" data="#/seatOccupationDetails6/seatColumn6" />
+		<jb:value property="seatOccupation6" decoder="String" data="#/seatOccupationDetails6/seatOccupation6" />
+		<jb:value property="seatCharacteristic6" decoder="String" data="#/seatOccupationDetails6/seatCharacteristic6" />
+		<jb:value property="seatColumn7" decoder="String" data="#/seatOccupationDetails7/seatColumn7" />
+		<jb:value property="seatOccupation7" decoder="String" data="#/seatOccupationDetails7/seatOccupation7" />
+		<jb:value property="seatCharacteristic7" decoder="String" data="#/seatOccupationDetails7/seatCharacteristic7" />
+		<jb:value property="seatColumn8" decoder="String" data="#/seatOccupationDetails8/seatColumn8" />
+		<jb:value property="seatOccupation8" decoder="String" data="#/seatOccupationDetails8/seatOccupation8" />
+		<jb:value property="seatCharacteristic8" decoder="String" data="#/seatOccupationDetails8/seatCharacteristic8" />
+		<jb:value property="seatColumn9" decoder="String" data="#/seatOccupationDetails9/seatColumn9" />
+		<jb:value property="seatOccupation9" decoder="String" data="#/seatOccupationDetails9/seatOccupation9" />
+		<jb:value property="seatCharacteristic9" decoder="String" data="#/seatOccupationDetails9/seatCharacteristic9" />
+		<jb:value property="seatColumn10" decoder="String" data="#/seatOccupationDetails10/seatColumn10" />
+		<jb:value property="seatOccupation10" decoder="String" data="#/seatOccupationDetails10/seatOccupation10" />
+		<jb:value property="seatCharacteristic10" decoder="String" data="#/seatOccupationDetails10/seatCharacteristic10" />
+		<jb:value property="seatColumn11" decoder="String" data="#/seatOccupationDetails11/seatColumn11" />
+		<jb:value property="seatOccupation11" decoder="String" data="#/seatOccupationDetails11/seatOccupation11" />
+		<jb:value property="seatCharacteristic11" decoder="String" data="#/seatOccupationDetails11/seatCharacteristic11" />
+		<jb:value property="seatColumn12" decoder="String" data="#/seatOccupationDetails12/seatColumn12" />
+		<jb:value property="seatOccupation12" decoder="String" data="#/seatOccupationDetails12/seatOccupation12" />
+		<jb:value property="seatCharacteristic12" decoder="String" data="#/seatOccupationDetails12/seatCharacteristic12" />		
+    </jb:bean>
+    
+    <jb:bean beanId="CUSTSEATMAP-ATR" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.Attribute" createOnElement="pricingRuleAttributes">
+	    <jb:value property="criteriaSetType" decoder="String" data="#/criteriaSetType" />
+	    <jb:value property="attributeDetails" decoder="String" data="#/criteriaDetails/attributeDetails" />       	
+    </jb:bean>
+    
+    <jb:bean beanId="CUSTSEATMAP-TXF" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.PriceDescription" createOnElement="priceSolutionDescription">
+	    <jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+     	<jb:value property="companyId" decoder="String" data="#/freeTextDetails/companyId" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+     	<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+     	<jb:value property="freeText" decoder="String" data="#/freeText" />        	
+    </jb:bean> 
+	 
+    <!--  STANDARD UNT TRAILER   -->
+    <jb:bean beanId="UNT" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.EdiTrailer" createOnElement="ediTrailer">
+        <jb:value property="noofsegments" decoder="Integer" data="#/NoOfSegments" />
+        <jb:value property="Messagerefnumber" decoder="String" data="#/MessageReferenceNumber" />
+    </jb:bean>
+   
+    <!--  STANDARD UNE TRAILER -->
+    <jb:bean beanId="UNE" class="com.tcs.ods.batchprocess.dcscm.csmprr.smooks.EdiGroupTrailer" createOnElement="ediGroupTrailer">
+        <jb:value property="groupControlCount" decoder="Integer" data="#/groupControlCount" />
+        <jb:value property="groupReference" decoder="String" data="#/groupReference" />
+    </jb:bean>
+</smooks-resource-list>
+

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpDatetimeInfo" table="CMP_DATETIME_INFO">
+        <id name="idDatetimeinfo" type="java.lang.Long">
+            <column name="ID_DATETIMEINFO" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpSeatmapinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatmapinfo" fetch="select">
+            <column name="ID_SEATMAPINFO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpBusinesssemantic" type="string">
+            <column name="CMP_BUSINESSSEMANTIC" length="12" />
+        </property>
+        <property name="cmpTimemmode" type="string">
+            <column name="CMP_TIMEMMODE" length="12" />
+        </property>
+    <!--     <property name="cmpYear" type="java.lang.Short">
+            <column name="CMP_YEAR" precision="4" scale="0" />
+        </property>
+        <property name="cmpMonth" type="java.lang.Byte">
+            <column name="CMP_MONTH" precision="2" scale="0" />
+        </property>
+        <property name="cmpDay" type="java.lang.Byte">
+            <column name="CMP_DAY" precision="2" scale="0" />
+        </property>
+        <property name="cmpHour" type="java.lang.Byte">
+            <column name="CMP_HOUR" precision="2" scale="0" />
+        </property>
+        <property name="cmpMinutes" type="java.lang.Byte">
+            <column name="CMP_MINUTES" precision="2" scale="0" />
+        </property>
+        <property name="cmpSeconds" type="java.lang.Byte">
+            <column name="CMP_SECONDS" precision="2" scale="0" />
+        </property> -->
+        <property name="cmpDatetime" type="java.sql.Timestamp">
+            <column name="CMP_DATETIME" precision="10" />
+        </property>
+    </class>
+</hibernate-mapping>

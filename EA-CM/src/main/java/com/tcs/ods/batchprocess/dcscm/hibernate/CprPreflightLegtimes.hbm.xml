@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprPreflightLegtimes" table="CPR_PREFLIGHT_LEGTIMES">
+        <id name="idPreflightLegtimes" type="java.lang.Long">
+            <column name="ID_PREFLIGHT_LEGTIMES" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprLeglevelLegrouting" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLeglevelLegrouting" fetch="select">
+            <column name="ID_LEGLEVEL_LEGROUTING" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprBusisemantic" type="string">
+            <column name="CPR_BUSISEMANTIC" length="3" />
+        </property>
+        <property name="cprTimemode" type="string">
+            <column name="CPR_TIMEMODE" length="3" />
+        </property>
+        <property name="cprDatetime" type="java.sql.Timestamp">
+            <column name="CPR_DATETIME" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprConinfoConfinfochecks" table="CPR_CONINFO_CONFINFOCHECKS">
+        <id name="idConinfoConfinfochecks" type="java.lang.Long">
+            <column name="ID_CONINFO_CONFINFOCHECKS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprConformanceinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprConformanceinfo" fetch="select">
+            <column name="ID_CONFORMANCEINFO" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprAttributetype" type="string">
+            <column name="CPR_ATTRIBUTETYPE" length="3" />
+        </property>
+        <property name="cprAttridescription" type="string">
+            <column name="CPR_ATTRIDESCRIPTION" length="256" />
+        </property>
+    </class>
+</hibernate-mapping>

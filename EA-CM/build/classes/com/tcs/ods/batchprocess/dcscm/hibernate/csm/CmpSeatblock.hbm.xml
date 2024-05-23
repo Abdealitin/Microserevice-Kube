@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatblock" table="CMP_SEATBLOCK">
+        <id name="idSeatblock" type="java.lang.Long">
+            <column name="ID_SEATBLOCK" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="CmpCabinconfig" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpCabinconfig" fetch="select">
+            <column name="ID_CABINCONFIG" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpCabincode" type="string">
+            <column name="CMP_CABINCODE" length="4" />
+        </property>
+        <property name="cmpCabincapacity" type="java.lang.Short">
+            <column name="CMP_CABINCAPACITY" precision="3" scale="0" />
+        </property>
+        
+        <property name="cmpConfigcharact" type="string">
+            <column name="CMP_CONFIGCHARACT" length="2250" />
+        </property>
+    </class>
+</hibernate-mapping>

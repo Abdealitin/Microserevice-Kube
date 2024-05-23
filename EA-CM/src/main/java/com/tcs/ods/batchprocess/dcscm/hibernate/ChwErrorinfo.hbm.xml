@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ChwErrorinfo" table="CHW_ERRORINFO">
+        <id name="idErrorinfo" type="java.lang.Long">
+            <column name="ID_ERRORINFO" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="chwMessage" class="com.tcs.ods.batchprocess.dcscm.hibernate.ChwMessage" fetch="select">
+            <column name="ID_CHW_MESSAGE" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="chwErrorcode" type="string">
+            <column name="CHW_ERRORCODE" length="20" />
+        </property>
+        <property name="chwErrorcategory" type="string">
+            <column name="CHW_ERRORCATEGORY" length="12" />
+        </property>
+        <property name="chwErrorcodeowner" type="string">
+            <column name="CHW_ERRORCODEOWNER" length="12" />
+        </property>
+        <property name="chwErrortextqualifier" type="string">
+            <column name="CHW_ERRORTEXTQUALIFIER" length="12" />
+        </property>
+        <property name="chwErrortextSource" type="string">
+            <column name="CHW_ERRORTEXT_SOURCE" length="12" />
+        </property>
+        <property name="chwErrortextEncoding" type="string">
+            <column name="CHW_ERRORTEXT_ENCODING" length="12" />
+        </property>
+        <property name="chwErrortext" type="string">
+            <column name="CHW_ERRORTEXT" length="796" />
+        </property>        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprOnloadDetails" table="CPR_ONLOAD_DETAILS">
+        <id name="idOnloadDetails" type="java.lang.Long">
+            <column name="ID_ONLOAD_DETAILS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprLeglevelLegrouting" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLeglevelLegrouting" fetch="select">
+            <column name="ID_LEGLEVEL_LEGROUTING" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprCodedattritype" type="string">
+            <column name="CPR_CODEDATTRITYPE" length="5" />
+        </property>
+        <property name="cprPriorityqualifier" type="string">
+            <column name="CPR_PRIORITYQUALIFIER" length="3" />
+        </property>
+        <property name="cprDescription" type="string">
+            <column name="CPR_DESCRIPTION" length="35" />
+        </property>
+        <property name="cprClassdesignator" type="java.lang.Character">
+            <column name="CPR_CLASSDESIGNATOR" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpCriteriaDetails" table="CMP_CRITERIA_DETAILS">
+        <id name="idCriteriadetails" type="java.lang.Long">
+            <column name="ID_CRITERIADETAILS" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpSeatPrice" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatPrice" fetch="select">
+            <column name="ID_SEATPRICE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpAttributeType" type="string">
+            <column name="CMP_ATTRIBUTE_TYPE" length="100" />
+        </property>
+        <property name="cmpAttributeDesc" type="string">
+            <column name="CMP_ATTRIBUTE_DESC" length="1024" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

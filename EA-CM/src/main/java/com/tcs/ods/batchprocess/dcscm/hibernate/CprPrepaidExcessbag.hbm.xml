@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprPrepaidExcessbag" table="CPR_PREPAID_EXCESSBAG">
+        <id name="idPrepaidExcessbag" type="java.lang.Long">
+            <column name="ID_PREPAID_EXCESSBAG" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprNumber" type="java.lang.Integer">
+            <column name="CPR_NUMBER" precision="3" scale="0" />
+        </property>
+        <property name="cprWeight" type="java.lang.Integer">
+            <column name="CPR_WEIGHT" precision="4" scale="0" />
+        </property>
+        <property name="cprUnitqual" type="string">
+            <column name="CPR_UNITQUAL" precision="3" scale="0" />
+        </property>
+        <property name="cprTxtsubqual" type="string">
+            <column name="CPR_TXTSUBQUAL" length="3" />
+        </property>
+        <property name="cprInfotype" type="string">
+            <column name="CPR_INFOTYPE" length="4" />
+        </property>
+        <property name="cprLanguage" type="string">
+            <column name="CPR_LANGUAGE" length="3" />
+        </property>
+        <property name="cprFreetext1" type="string">
+            <column name="CPR_FREETEXT1" length="70" />
+        </property>
+        <property name="cprFreetext2" type="string">
+            <column name="CPR_FREETEXT2" length="70" />
+        </property>
+        <property name="cprRefqualifier" type="string">
+            <column name="CPR_REFQUALIFIER" length="3" />
+        </property>
+        <property name="cprPrimeid" type="string">
+            <column name="CPR_PRIMEID" length="16" />
+        </property>
+    </class>
+</hibernate-mapping>

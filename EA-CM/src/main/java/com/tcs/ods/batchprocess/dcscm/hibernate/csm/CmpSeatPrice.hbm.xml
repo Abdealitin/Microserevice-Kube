@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatPrice" table="CMP_SEAT_PRICE">
+        <id name="idSeatprice" type="java.lang.Long">
+            <column name="ID_SEATPRICE" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpCustomerSeatprice" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpCustomerSeatprice" fetch="select">
+            <column name="ID_CUSTOMERSEATPRICE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpTypequalifier" type="string">
+            <column name="CMP_TYPEQUALIFIER" length="12" />
+        </property>
+        <property name="cmpAmount" type="string">
+            <column name="CMP_AMOUNT" length="140" />
+        </property>
+        <property name="cmpCurrency" type="string">
+            <column name="CMP_CURRENCY" length="12" />
+        </property>
+        <property name="cmpLocation" type="string">
+            <column name="CMP_LOCATION" length="100" />
+        </property>
+        <property name="cmpSetType" type="string">
+            <column name="CMP_SET_TYPE" length="12" />
+        </property>
+        <property name="cmpQualifier" type="string">
+            <column name="CMP_QUALIFIER" length="12" />
+        </property>
+        <property name="cmpInformationType" type="string">
+            <column name="CMP_INFORMATION_TYPE" length="16" />
+        </property>
+        <property name="cmpStatus" type="string">
+            <column name="CMP_STATUS" length="12" />
+        </property>
+        <property name="cmpCompanyid" type="string">
+            <column name="CMP_COMPANYID" length="140" />
+        </property>
+        <property name="cmpLanguage" type="string">
+            <column name="CMP_LANGUAGE" length="12" />
+        </property>
+        <property name="cmpSource" type="string">
+            <column name="CMP_SOURCE" length="12" />
+        </property>
+        <property name="cmpEncoding" type="string">
+            <column name="CMP_ENCODING" length="12" />
+        </property>
+        <property name="cmpTaxCategory" type="string">
+            <column name="CMP_TAX_CATEGORY" length="12" />
+        </property>
+        <property name="cmpSeatRownumber" type="string">
+            <column name="CMP_SEAT_ROWNUMBER" length="12" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

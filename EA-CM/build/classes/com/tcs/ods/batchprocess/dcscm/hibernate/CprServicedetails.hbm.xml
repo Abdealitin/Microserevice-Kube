@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprServicedetails" table="CPR_SERVICEDETAILS">
+        <id name="idServicedetails" type="java.lang.Long">
+            <column name="ID_SERVICEDETAILS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprCode" type="string">
+            <column name="CPR_CODE" length="4" />
+        </property>
+        <property name="cprActionCode" type="string">
+            <column name="CPR_ACTIONCODE" length="3" />
+        </property>
+        <property name="cprQuantity" type="java.lang.Long">
+            <column name="CPR_QUANTITY" precision="15" scale="0" />
+        </property>
+        <property name="cprServiceType" type="string">
+            <column name="CPR_SERVICETYPE" length="3" />
+        </property>
+        <property name="cprFreeText" type="string">
+            <column name="CPR_FREETEXT" length="8000" />
+        </property>
+        <property name="cprServiceFunc" type="string">
+            <column name="CPR_SERVICE_FUNCTION" length="3" />
+        </property>
+        <property name="cprType" type="string">
+            <column name="CPR_SERVICE_TYPE" length="3" />
+        </property>
+        <property name="cprAttriDesc" type="string">
+            <column name="CPR_SERVICE_DESC" length="4" />
+        </property>
+        <property name="cprSsrCode" type="string">
+            <column name="CPR_SSR_CODE" length="4" />
+        </property>
+        <property name="cprSsrAction" type="string">
+            <column name="CPR_SSR_ACTION" length="3" />
+        </property>
+        <property name="cprSsrQuantity" type="java.lang.Long">
+            <column name="CPR_SSR_QUANTITY" precision="15" scale="0" />
+        </property>
+        <property name="cprSsrAirlincecode" type="string">
+            <column name="CPR_SSR_AIRLINCECODE" length="35" />
+        </property>
+        <property name="cprSsrType" type="string">
+            <column name="CPR_SSR_TYPE" length="3" />
+        </property>
+        <property name="cprSsrOthertype" type="string">
+            <column name="CPR_SSR_OTHERTYPE" length="3" />
+        </property>
+        <property name="cprSsrBoardpoint" type="string">
+            <column name="CPR_SSR_BOARDPOINT" length="25" />
+        </property>
+        <property name="cprSsrOffpoint" type="string">
+            <column name="CPR_SSR_OFFPOINT" length="25" />
+        </property>
+        <property name="cprSsrFreetext" type="string">
+            <column name="CPR_SSR_FREETEXT" length="109" />
+        </property>
+        <property name="cprChargeQualifier" type="string">
+            <column name="CPR_CHARGE_QUALIFIER" length="35" />
+        </property>
+        <property name="cprChargeVersion" type="string">
+            <column name="CPR_CHARGE_VERSION" length="35" />
+        </property>
+        <property name="cprChargeRefqual" type="string">
+            <column name="CPR_CHARGE_REFQUAL" length="3" />
+        </property>
+        <property name="cprChargePrimeid" type="string">
+            <column name="CPR_CHARGE_PRIMEID" length="35" />
+        </property>
+        <property name="cprChargeSecid" type="string">
+            <column name="CPR_CHARGE_SECID" length="35" />
+        </property>
+        <property name="cprChargeStatus" type="string">
+            <column name="CPR_CHARGE_STATUS" length="3" />
+        </property>
+        <property name="cprChargeDate" type="java.sql.Timestamp">
+            <column name="CPR_CHARGE_DATE" />
+        </property>
+        <property name="cprDescription" type="string">
+            <column name="CPR_DESCRIPTION" length="70" />
+        </property>
+        <property name="cprTypequalifier" type="string">
+            <column name="CPR_TYPEQUALIFIER" length="3" />
+        </property>
+        <property name="cprAmount" type="string">
+            <column name="CPR_AMOUNT" length="35" />
+        </property>
+        <property name="cprCurrency" type="string">
+            <column name="CPR_CURRENCY" length="3" />
+        </property>
+        <property name="cprLocation" type="string">
+            <column name="CPR_LOCATION" length="25" />
+        </property>
+        <property name="cprConversiontype" type="string">
+            <column name="CPR_CONVERSIONTYPE" length="3" />
+        </property>
+        <property name="cprExchangecurr" type="string">
+            <column name="CPR_EXCHANGECURR" length="3" />
+        </property>
+        <property name="cprRatetype" type="string">
+            <column name="CPR_RATETYPE" length="3" />
+        </property>
+        <property name="cprPricingamt" type="java.lang.Long">
+            <column name="CPR_PRICINGAMT" precision="18" scale="0" />
+        </property>
+        <property name="cprConvertedvalue" type="java.lang.Long">
+            <column name="CPR_CONVERTEDVALUE" precision="18" scale="0" />
+        </property>
+        <property name="cprDutytax" type="string">
+            <column name="CPR_DUTYTAX" length="3" />
+        </property>
+        <property name="cprMeasurementvalue" type="java.lang.Long">
+            <column name="CPR_MEASUREMENTVALUE" precision="18" scale="0" />
+        </property>
+        <property name="cprSignificance" type="string">
+            <column name="CPR_SIGNIFICANCE" length="3" />
+        </property>
+        <property name="cprFormtype" type="string">
+            <column name="CPR_FORMTYPE" length="10" />
+        </property>
+        <property name="cprIndicator" type="string">
+            <column name="CPR_INDICATOR" length="3" />
+        </property>
+        <property name="cprPaymentamt" type="java.lang.Long">
+            <column name="CPR_PAYMENTAMT" precision="18" scale="0" />
+        </property>
+        <property name="cprVendorcode" type="string">
+            <column name="CPR_VENDORCODE" length="35" />
+        </property>
+        <property name="cprCreditcardno" type="string">
+            <column name="CPR_CREDITCARDNO" length="35" />
+        </property>
+        <property name="cprExpirydate" type="string">
+            <column name="CPR_EXPIRYDATE" length="35" />
+        </property>
+        <property name="cprApprovalcode" type="string">
+            <column name="CPR_APPROVALCODE" length="17" />
+        </property>
+        <property name="cprSourcecode" type="string">
+            <column name="CPR_SOURCECODE" length="3" />
+        </property>
+        <property name="cprAuthorisedamt" type="java.lang.Long">
+            <column name="CPR_AUTHORISEDAMT" precision="18" scale="0" />
+        </property>
+        <property name="cprAddressver" type="string">
+            <column name="CPR_ADDRESSVER" length="3" />
+        </property>
+        <property name="cprCustomeracc" type="string">
+            <column name="CPR_CUSTOMERACC" length="70" />
+        </property>
+        <property name="cprExtendedpayment" type="string">
+            <column name="CPR_EXTENDEDPAYMENT" length="3" />
+        </property>
+        <property name="cprFopfreetext" type="string">
+            <column name="CPR_FOPFREETEXT" length="70" />
+        </property>
+        <property name="cprMemberstatus" type="string">
+            <column name="CPR_MEMBERSTATUS" length="3" />
+        </property>
+        <property name="cprTransacinfo" type="string">
+            <column name="CPR_TRANSACINFO" length="35" />
+        </property>
+        <property name="cprPincode" type="string">
+            <column name="CPR_PINCODE" length="100" />
+        </property>
+        <property name="cprPintype" type="string">
+            <column name="CPR_PINTYPE" length="8" />
+        </property>
+        <property name="cprPaymentno" type="string">
+            <column name="CPR_PAYMENTNO" length="35" />
+        </property>
+        <property name="cprPaymenttype" type="string">
+            <column name="CPR_PAYMENTTYPE" length="3" />
+        </property>
+        <property name="cprNoofbooklets" type="java.lang.Long">
+            <column name="CPR_NOOFBOOKLETS" precision="15" scale="0" />
+        </property>
+        <property name="cprDataindic" type="string">
+            <column name="CPR_DATAINDIC" length="3" />
+        </property>
+        <property name="cprReqnotifi" type="string">
+            <column name="CPR_REQNOTIFI" length="3" />
+        </property>
+        <property name="cprInconnection" type="string">
+            <column name="CPR_INCONNECTION" length="35" />
+        </property>
+        <property name="cprStatus" type="string">
+            <column name="CPR_STATUS" length="3" />
+        </property>
+        <property name="cprServApprovalcode" type="string">
+            <column name="CPR_SERV_APPROVALCODE" length="20" />
+        </property>
+        <property name="cprServSourcecode" type="string">
+            <column name="CPR_SERV_SOURCECODE" length="3" />
+        </property>
+        <property name="cprAttrtype1" type="string">
+            <column name="CPR_ATTRTYPE1" length="5" />
+        </property>
+        <property name="cprAttrtype2" type="string">
+            <column name="CPR_ATTRTYPE2" length="5" />
+        </property>
+        <property name="cprAttrdesc1" type="string">
+            <column name="CPR_ATTRDESC1" length="256" />
+        </property>
+        <property name="cprAttrdesc2" type="string">
+            <column name="CPR_ATTRDESC2" length="256" />
+        </property>
+        <property name="cprLanguage1" type="string">
+            <column name="CPR_LANGUAGE1" length="3" />
+        </property>
+        <property name="cprLanguae2" type="string">
+            <column name="CPR_LANGUAE2" length="3" />
+        </property>
+        <property name="cprEncoding1" type="string">
+            <column name="CPR_ENCODING1" length="8" />
+        </property>
+        <property name="cprEncoding2" type="string">
+            <column name="CPR_ENCODING2" length="8" />
+        </property>
+        <property name="cprSourcecode1" type="string">
+            <column name="CPR_SOURCECODE1" length="3" />
+        </property>
+        <property name="cprSourcecode2" type="string">
+            <column name="CPR_SOURCECODE2" length="3" />
+        </property>
+        <property name="cprServQualifier" type="string">
+            <column name="CPR_SERV_QUALIFIER" length="3" />
+        </property>
+        <property name="cprServPrimeid" type="string">
+            <column name="CPR_SERV_PRIMEID" length="16" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLeglevelLegrouting" table="CPR_LEGLEVEL_LEGROUTING">
+        <id name="idLeglevelLegrouting" type="java.lang.Long">
+            <column name="ID_LEGLEVEL_LEGROUTING" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprOrigin" type="string">
+            <column name="CPR_ORIGIN" length="3" />
+        </property>
+        <property name="cprDestination" type="string">
+            <column name="CPR_DESTINATION" length="3" />
+        </property>
+        <property name="cprIdentiterminal" type="string">
+            <column name="CPR_IDENTITERMINAL" length="3" />
+        </property>
+        <property name="cprLocidenterminal" type="string">
+            <column name="CPR_LOCIDENTERMINAL" length="3" />
+        </property>
+        <property name="cprTransstagequalifier" type="string">
+            <column name="CPR_TRANSSTAGEQUALIFIER" length="3" />
+        </property>
+        <property name="cprAirlinedesignator" type="string">
+            <column name="CPR_AIRLINEDESIGNATOR" length="3" />
+        </property>
+        <property name="cprFlightnumber" type="string">
+            <column name="CPR_FLIGHTNUMBER" length="4" />
+        </property>
+        <property name="cprOpersuffix" type="string">
+            <column name="CPR_OPERSUFFIX" length="1" />
+        </property>
+        <property name="cprUniquereference" type="java.lang.Long">
+            <column name="CPR_UNIQUEREFERENCE" precision="10" scale="0" />
+        </property>
+        <property name="cprAttributetype" type="string">
+            <column name="CPR_ATTRIBUTETYPE" length="3" />
+        </property>
+        <property name="cprAttridescription" type="string">
+            <column name="CPR_ATTRIDESCRIPTION" length="256" />
+        </property>
+        <property name="cprClassdesignator" type="java.lang.Character">
+            <column name="CPR_CLASSDESIGNATOR" length="1" />
+        </property>
+        <property name="cprType1" type="string">
+            <column name="CPR_TYPE1" length="3" />
+        </property>
+        <property name="cprType2" type="string">
+            <column name="CPR_TYPE2" length="3" />
+        </property>
+        <property name="cprValue1" type="string">
+            <column name="CPR_VALUE1" length="16" />
+        </property>
+        <property name="cprValue2" type="string">
+            <column name="CPR_VALUE2" length="16" />
+        </property>
+        <property name="cprTextsubqualifier" type="string">
+            <column name="CPR_TEXTSUBQUALIFIER" length="3" />
+        </property>
+        <property name="cprCodedlanguage" type="string">
+            <column name="CPR_CODEDLANGUAGE" length="3" />
+        </property>
+        <property name="cprCodedsource" type="string">
+            <column name="CPR_CODEDSOURCE" length="3" />
+        </property>
+        <property name="cprEncoding" type="string">
+            <column name="CPR_ENCODING" length="3" />
+        </property>
+        <property name="cprTextfreetext" type="string">
+            <column name="CPR_TEXTFREETEXT" length="199" />
+        </property>
+        <property name="cprActionreqcode" type="string">
+            <column name="CPR_ACTIONREQCODE" length="3" />
+        </property>
+        <property name="cprTextsemantic" type="string">
+            <column name="CPR_TEXTSEMANTIC" length="3" />
+        </property>
+        <property name="cprTextlanguage" type="string">
+            <column name="CPR_TEXTLANGUAGE" length="3" />
+        </property>
+        <property name="cprTextsource" type="string">
+            <column name="CPR_TEXTSOURCE" length="3" />
+        </property>
+        <property name="cprTextencoding" type="string">
+            <column name="CPR_TEXTENCODING" length="3" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="70" />
+        </property>
+        <property name="cprClsofservice" type="java.lang.Character">
+            <column name="CPR_CLSOFSERVICE" length="1" />
+        </property>
+        <property name="cprCoachnumber" type="string">
+            <column name="CPR_COACHNUMBER" length="3" />
+        </property>
+        <property name="cprTextsubqualifier1" type="string">
+            <column name="CPR_TEXTSUBQUALIFIER1" length="3" />
+        </property>
+        <property name="cprInformationtype1" type="string">
+            <column name="CPR_INFORMATIONTYPE1" length="4" />
+        </property>
+        <property name="cprCodedlanguage1" type="string">
+            <column name="CPR_CODEDLANGUAGE1" length="3" />
+        </property>
+        <property name="cprCodedsource1" type="string">
+            <column name="CPR_CODEDSOURCE1" length="3" />
+        </property>
+        <property name="cprEncoding1" type="string">
+            <column name="CPR_ENCODING1" length="3" />
+        </property>
+        <property name="cprFreetext1" type="string">
+            <column name="CPR_FREETEXT1" length="3200" />
+        </property>
+        <property name="cprCodedindicator" type="string">
+            <column name="CPR_CODEDINDICATOR" length="3" />
+        </property>
+        <property name="cprCodedaction" type="string">
+            <column name="CPR_CODEDACTION" length="3" />
+        </property>
+         <property name="cprCodedstatusreason" type="string">
+            <column name="CPR_CODEDSTATUSREASON" length="3" />
+        </property>
+        <property name="cprSeatnumber" type="string">
+            <column name="CPR_SEATNUMBER" length="3" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

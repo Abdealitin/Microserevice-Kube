@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medi:edimap xmlns:medi="http://www.milyn.org/schema/edi-message-mapping-1.3.xsd">
+
+	<medi:description name="chdwrr" version="12.2" />
+
+	<medi:delimiters segment="&#39;" field="+" component=":" sub-component="~"/>
+
+	<medi:segments xmltag="Chdwrr">
+
+ 		 <!--  STANDARD UNH HEADER   -->
+ 		 <medi:segment segcode="UNG" xmltag="ediGroupHeader">
+			<medi:field xmltag="messageGroupId" />
+			<medi:field xmltag="applicationSender">
+				<medi:component xmltag="applicationSenderId" />
+				<medi:component xmltag="senderIdQualifier" />
+			</medi:field>
+			<medi:field xmltag="applicationRecipient">
+				<medi:component xmltag="applicationRecipientId" />
+				<medi:component xmltag="recipientIdQualifier" />
+			</medi:field>
+			<medi:field xmltag="preparationDateAndTime">
+				<medi:component xmltag="preparationDate" />
+				<medi:component xmltag="preparationTime" />
+			</medi:field>
+			<medi:field xmltag="groupReferenceNumber" />
+			<medi:field xmltag="controllingAgency" />
+			<medi:field xmltag="messageVersion">
+				<medi:component xmltag="messageVersionNumber" />
+				<medi:component xmltag="messageReleaseNumber" />
+				<medi:component xmltag="assignedAssociation" />
+			</medi:field>
+			<medi:field xmltag="applicationPassword" />
+		</medi:segment>
+ 		 
+		<!--  STANDARD UNH HEADER   -->
+		<medi:segment segcode="UNH" xmltag="ediHeader">
+			<medi:field xmltag="MessageReferenceNumber" />
+			<medi:field xmltag="MessageIdentifier">
+				<medi:component xmltag="Messagetype" />
+				<medi:component xmltag="MessageVersionNbr" />
+				<medi:component xmltag="MessageReleaseNbr" />
+				<medi:component xmltag="ControllingAgency" />
+				<medi:component xmltag="AssociationAssignedCode" />
+			</medi:field>
+			<medi:field xmltag="CommonAccessRef" />
+			<medi:field xmltag="StatusofTransfer">
+				<medi:component xmltag="Sequenceoftransfer" />
+				<medi:component xmltag="FirstandlastTransfer" />
+			</medi:field>
+		</medi:segment>
+		
+		<!-- ERRG/ ERC 1A 02.1.1 (HIS) -EdiGeneralErrors/APPLICATION ERROR INFORMATION -->
+		<medi:segment segcode="ERC" xmltag="errorCode">
+			<medi:field xmltag="errorDetails">
+				<medi:component xmltag="errorCode" />
+				<medi:component xmltag="errorCategory" />
+				<medi:component xmltag="errorCodeOwner" />
+			</medi:field>
+		</medi:segment>
+		
+		<!-- ERRG/ ERC 1A 02.1.1 (HIS)/TXF 1A 03.1.1 (HIS) -EdiGeneralErrors/APPLICATION ERROR INFORMATION/Free Text information -->
+		<medi:segment segcode="TXF" xmltag="errorText" >
+			<medi:field xmltag="freeTextDetails">
+				<medi:component xmltag="textSubjectQualifier" />
+				<medi:component xmltag="informationType" />
+				<medi:component xmltag="status" />
+				<medi:component xmltag="companyIdentification" />
+				<medi:component xmltag="language" />
+				<medi:component xmltag="source" />
+				<medi:component xmltag="encoding" />
+			</medi:field>
+			<medi:field xmltag="freeText"/>
+		</medi:segment>
+		
+		<!--HSTI/APL 1A 02.1.2 (HIS) -History Item/APPLICATION ERROR INFORMATION /APPLICATION-->
+	  	<medi:segment segcode="APL" xmltag="application" >
+			<medi:field xmltag="applicationDetails">
+				<medi:component xmltag="referenceNumber" />
+				<medi:component xmltag="referenceVersionNumber" />
+				<medi:component xmltag="label" />
+				<medi:component xmltag="entityDescription" />
+				<medi:component xmltag="statusIndicator" />
+			</medi:field>
+		</medi:segment>	
+		
+		<!--  Group 3/ATR 1A 10.1.1 (DCS_HISTORY)	 -HSTI 1A 10 1Group 3/ATTRIBUTE-->
+		<medi:segment segcode="ATR" xmltag="firstHistoryLine" >
+			<medi:field xmltag="criteriaSetType"/>
+ 		    <medi:field xmltag="criteriaDetails">
+				<medi:component xmltag="attributeDetails" />
+			</medi:field>
+		</medi:segment>	
+			
+		<!--  Group 3/ATR 1A 10.1.1 (DCS_HISTORY)/ATR 1A 10.1.1 (DCS_HISTORY)	 -HSTI 1A 10 1Group 3/ATTRIBUTE/ATTRIBUTE-->
+		<medi:segment segcode="ATR" xmltag="secondHistoryLine" >
+			<medi:field xmltag="criteriaSetType"/>
+ 		    <medi:field xmltag="criteriaDetails">
+				<medi:component xmltag="attributeDetails" />
+			</medi:field>
+		</medi:segment>	
+		
+		<!--  Group 3/ATR 1A 10.1.1 (DCS_HISTORY)/ANI 1A 04.1.1 (DCS_BO) -HSTI 1A 10 1Group 3/ATTRIBUTE/Airport Node Information-->
+		<medi:segment segcode="ANI" xmltag="airportTerminal" >
+			<medi:field xmltag="airportCode"/>
+			<medi:field xmltag="place"/>
+			<medi:field xmltag="locationIdentification"/>
+ 		    <medi:field xmltag="terminalInformation">
+				<medi:component xmltag="name" />
+			</medi:field>
+		</medi:segment>	
+		
+		<!--  Group 3/ATR 1A 10.1.1 (DCS_HISTORY)/DCD IA 05.1.1 (DCS_PRINTER) -HSTI 1A 10 1Group 3/ATTRIBUTE/DEVICE CONTROL DETAILS-->
+		<medi:segment segcode="DCD" xmltag="deviceAddress" >
+ 		    <medi:field xmltag="companyIdentification" />
+ 		    <medi:field xmltag="deviceIdentification">
+				<medi:component xmltag="address" />
+				<medi:component xmltag="qualifier" />
+			</medi:field>
+ 		    <medi:field xmltag="statusIndicator" />
+			<medi:field xmltag="sequenceNumber" />
+ 		    <medi:field xmltag="materialType" />
+			<medi:field xmltag="dataIndicator" />
+		</medi:segment>
+		
+		<!--  Group 3/ATR 1A 10.1.1 (DCS_HISTORY)/IRV 1A 10.1.1 (DCS_HISTORY) -HSTI 1A 10 1Group 3/ATTRIBUTE/ITEM REFERENCES AND VERSIONS-->
+		<medi:segment segcode="IRV" xmltag="historyAssociation" >
+			<medi:field xmltag="referenceQualifier1"/>
+			<medi:field xmltag="referenceNumber1"/>
+			<medi:field xmltag="actionRequest"/>
+			<medi:field xmltag="idSection">
+				<medi:component xmltag="idSectionDetails" />				
+			</medi:field>
+		</medi:segment>
+		
+		<!--  HSTI/SDI 1A 10.1.1 (HIS) -History Item/STRUCTURED DATE TIME INFORMATION-->
+		<medi:segment segcode="SDI" xmltag="structuredDateTimeInformation" >
+			<medi:field xmltag="businessSemantic"/>
+			<medi:field xmltag="periodQualifier"/>
+				<medi:field xmltag="dateTime">
+					<medi:component xmltag="year" />
+					<medi:component xmltag="month" />
+					<medi:component xmltag="day" />
+					<medi:component xmltag="hour" />
+					<medi:component xmltag="minutes" />
+					<medi:component xmltag="seconds" />
+					<medi:component xmltag="milliSeconds" />
+				</medi:field>
+				<medi:field xmltag="timeZoneInformation">
+					<medi:component xmltag="country" />
+					<medi:component xmltag="timeZoneCode" />
+					<medi:component xmltag="timeZoneSuffix" />
+				</medi:field>
+		</medi:segment> 
+		
+		<!--  HSTI/UID 1A 02.1.1 (HIS) -History Item/USER IDENTIFICATION-->
+		<medi:segment segcode="UID" xmltag="userIdentification" >
+				<medi:field xmltag="originIdentification">
+					<medi:component xmltag="travelAgentIdentificationDetails" />
+					<medi:component xmltag="inHouseIdentification1" />
+					<medi:component xmltag="inHouseIdentification2" />
+					<medi:component xmltag="inHouseIdentification3" />
+				</medi:field>
+				<medi:field xmltag="originatorTypeCode"/>
+				<medi:field xmltag="originator"/>
+		</medi:segment>
+		
+		<!--  HSTI/CPY 1A 05.1.1 (HIS)-History Item/Company Information-->
+		<medi:segment segcode="CPY" xmltag="organisation" >
+			<medi:field xmltag="industrySector"/>
+			<medi:field xmltag="codeListResponsibleAgency"/>
+			<medi:field xmltag="companyIdentification1"/>
+			<medi:field xmltag="companyName"/>
+			<medi:field xmltag="accessLevel"/>
+			<medi:field xmltag="companyIdentification2"/>
+			<medi:field xmltag="companyIdentificationNumber"/>			
+		</medi:segment>	
+		
+		<!--  HSTI/STX IA 02.2.1 (HIS)-History Item/STATUS DETAILS-->
+		<medi:segment segcode="STX" xmltag="action" >
+			<medi:field xmltag="statusDetails1">
+				<medi:component xmltag="statusIndicator1" />
+				<medi:component xmltag="actionRequestNotification1" />
+				<medi:component xmltag="statusType1" />
+				<medi:component xmltag="description" />
+			</medi:field>
+			<medi:field xmltag="statusDetails2">
+				<medi:component xmltag="statusIndicator2" />
+				<medi:component xmltag="actionRequestNotification2" />
+				<medi:component xmltag="statusType2" />
+				<medi:component xmltag="freeText" />
+			</medi:field>
+		</medi:segment>	
+		
+		<!--HISD/ATR 1A 10.1.1 (HIS) -History Data/ATTRIBUTE-->
+		<medi:segment segcode="ATR" xmltag="column" >
+			<medi:field xmltag="criteriaSetType"/>
+ 		    <medi:field xmltag="criteriaDetails">
+				<medi:component xmltag="attributeDetails" />
+			</medi:field>
+		</medi:segment>
+
+		<!--HISD/ATR 1A 10.1.1 (HIS)/LTS IA 02.2.1 (HIS) -History Data/ATTRIBUTE/LONG TEXT STRING-->
+		<medi:segment segcode="LTS" xmltag="stringValue" >
+			<medi:field xmltag="text"/>
+ 		</medi:segment>
+ 		
+		<!--HISD/ATR 1A 10.1.1 (HIS)/EQN IA 02.2.1 (HIS) -History Data/ATTRIBUTE/NUMBER OF UNITS-->
+		<medi:segment segcode="EQN" xmltag="integerValue" >
+ 		    <medi:field xmltag="quantityDetails">
+				<medi:component xmltag="numberOfUnit" />
+				<medi:component xmltag="numberOfUnitsQualifier1" />
+			</medi:field>
+			<medi:field xmltag="numberOfUnitDetails1">
+				<medi:component xmltag="numberOfUnits11" />
+				<medi:component xmltag="numberOfUnitsQualifier12" />
+			</medi:field>
+			<medi:field xmltag="numberOfUnitDetails2">
+				<medi:component xmltag="numberOfUnits21" />
+				<medi:component xmltag="numberOfUnitsQualifier22" />
+			</medi:field>
+			<medi:field xmltag="numberOfUnitDetails3">
+				<medi:component xmltag="numberOfUnits31" />
+				<medi:component xmltag="numberOfUnitsQualifier32" />
+			</medi:field>
+			<medi:field xmltag="numberOfUnitDetails4">
+				<medi:component xmltag="numberOfUnits41" />
+				<medi:component xmltag="numberOfUnitsQualifier42" />
+			</medi:field>
+			<medi:field xmltag="numberOfUnitDetails5">
+				<medi:component xmltag="numberOfUnits51" />
+				<medi:component xmltag="numberOfUnitsQualifier52" />
+			</medi:field>
+			<medi:field xmltag="numberOfUnitDetails6">
+				<medi:component xmltag="numberOfUnits61" />
+				<medi:component xmltag="numberOfUnitsQualifier62" />
+			</medi:field>
+			<medi:field xmltag="numberOfUnitDetails7">
+				<medi:component xmltag="numberOfUnits71" />
+				<medi:component xmltag="numberOfUnitsQualifier72" />
+			</medi:field>
+			<medi:field xmltag="numberOfUnitDetails8">
+				<medi:component xmltag="numberOfUnits81" />
+				<medi:component xmltag="numberOfUnitsQualifier82" />
+			</medi:field>
+		</medi:segment>	
+		
+		<!--HISD/ATR 1A 10.1.1 (HIS)/SDI 1A 10.1.1 (HIS) -History Data/ATTRIBUTE/STRUCTURED DATE TIME INFORMATION-->	
+		<medi:segment segcode="SDI" xmltag="dateValue" >
+			<medi:field xmltag="businessSemantic"/>
+			<medi:field xmltag="periodQualifier"/>
+				<medi:field xmltag="dateTime">
+					<medi:component xmltag="year" />
+					<medi:component xmltag="month" />
+					<medi:component xmltag="day" />
+					<medi:component xmltag="hour" />
+					<medi:component xmltag="minutes" />
+					<medi:component xmltag="seconds" />
+					<medi:component xmltag="milliSeconds" />
+				</medi:field>
+				<medi:field xmltag="timeZoneInformation">
+					<medi:component xmltag="country" />
+					<medi:component xmltag="timeZoneCode" />
+					<medi:component xmltag="timeZoneSuffix" />
+				</medi:field>
+		</medi:segment> 	
+			
+		<!--  STANDARD UNT TRAILER  -->
+		<medi:segment segcode="UNT" xmltag="ediTrailer" >
+ 		    <medi:field xmltag="NoOfSegments" />
+ 		    <medi:field xmltag="MessageReferenceNumber" />
+		</medi:segment>
+		
+		<!--  STANDARD UNE TRAILER  -->
+		<medi:segment segcode="UNE" xmltag="ediGroupTrailer" >
+ 		    <medi:field xmltag="groupControlCount" />
+ 		    <medi:field xmltag="groupReference" />
+		</medi:segment>
+		
+	</medi:segments>
+	
+</medi:edimap>

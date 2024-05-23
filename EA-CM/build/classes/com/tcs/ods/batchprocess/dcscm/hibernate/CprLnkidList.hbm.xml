@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLnkidList" table="CPR_LNKID_LIST">
+        <id name="idLnkidList" type="java.lang.Long">
+            <column name="ID_LNKID_LIST" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprCustprdtLinks" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCustprdtLinks" fetch="select">
+            <column name="ID_CUSTPRDT_LINKS" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprLnkIndicator" type="string">
+            <column name="CPR_LNK_INDICATOR" length="3" />
+        </property>
+        <property name="cprLnkAction" type="string">
+            <column name="CPR_LNK_ACTION" length="3" />
+        </property>
+        <property name="cprLnkRefqual" type="string">
+            <column name="CPR_LNK_REFQUAL" length="3" />
+        </property>
+        <property name="cprLnkPrimeid" type="string">
+            <column name="CPR_LNK_PRIMEID" length="16" />
+        </property>
+    </class>
+</hibernate-mapping>

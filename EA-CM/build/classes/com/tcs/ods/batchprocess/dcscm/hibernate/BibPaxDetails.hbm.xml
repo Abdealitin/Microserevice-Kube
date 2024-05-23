@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibPaxDetails" table="BIB_PAX_DETAILS">
+        <id name="idOtherpaxdetails" type="java.lang.Long">
+            <column name="ID_OTHERPAXDETAILS" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibRespCustDetails" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibRespCustDetails" fetch="select">
+            <column name="ID_RESPCUSTDETAILS" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibNametype" type="string">
+            <column name="BIB_NAMETYPE" length="20" />
+        </property>
+        <property name="bibReferrencename" type="string">
+            <column name="BIB_REFERRENCENAME" length="4" />
+        </property>
+        <property name="bibDisplayedName" type="string">
+            <column name="BIB_DISPLAYED_NAME" length="4" />
+        </property>
+        <property name="bibRomanizationMethod" type="string">
+            <column name="BIB_ROMANIZATION_METHOD" length="16" />
+        </property>
+        <property name="bibSurname" type="string">
+            <column name="BIB_SURNAME" length="280" />
+        </property>
+        <property name="bibGivenName" type="string">
+            <column name="BIB_GIVEN_NAME" length="280" />
+        </property>
+        <property name="bibTitle" type="string">
+            <column name="BIB_TITLE" length="280" />
+        </property>
+        <property name="bibTitle1" type="string">
+            <column name="BIB_TITLE1" length="280" />
+        </property>
+    </class>
+</hibernate-mapping>

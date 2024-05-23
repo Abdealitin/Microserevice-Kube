@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprFlightRepservice" table="CPR_FLIGHT_REPSERVICE">
+        <id name="idFlightRepservice" type="java.lang.Long">
+            <column name="ID_FLIGHT_REPSERVICE" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprFimcommongroup" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprFimcommongroup" fetch="select">
+            <column name="ID_FIMCOMMONGROUP" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprMarketingcomp" type="string">
+            <column name="CPR_MARKETINGCOMP" length="3" />
+        </property>
+        <property name="cprOthercompany" type="string">
+            <column name="CPR_OTHERCOMPANY" length="3" />
+        </property>
+        <property name="cprFlightnumber" type="string">
+            <column name="CPR_FLIGHTNUMBER" length="35" />
+        </property>
+        <property name="cprBookingclass" type="string">
+            <column name="CPR_BOOKINGCLASS" length="2" />
+        </property>
+        <property name="cprOpersuffix" type="string">
+            <column name="CPR_OPERSUFFIX" length="1" />
+        </property>
+        <property name="cprCharacId" type="string">
+            <column name="CPR_BOOKINGCLASS1" length="1" />
+        </property>
+        <property name="cprClsofservice" type="java.lang.Character">
+            <column name="CPR_CLSOFSERVICE" length="1" />
+        </property>
+        <property name="cprCodcabinclass" type="java.lang.Integer">
+            <column name="CPR_CODCABINCLASS" precision="1" scale="0" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

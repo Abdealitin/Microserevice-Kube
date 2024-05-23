@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibExcessbagsector" table="BIB_EXCESSBAGSECTOR">
+        <id name="idExcessbaggsector" type="java.lang.Long">
+            <column name="ID_EXCESSBAGGSECTOR" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibExcessbaggageCalculation" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibExcessbaggageCalculation" fetch="select">
+            <column name="ID_EXCESSBAGGCALC" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibOrigin" type="string">
+            <column name="BIB_ORIGIN" length="12" />
+        </property>
+        <property name="bibDestination" type="string">
+            <column name="BIB_DESTINATION" length="12" />
+        </property>
+        <property name="bibFlagIndicator" type="string">
+            <column name="BIB_FLAG_INDICATOR" length="12" />
+        </property>
+        <property name="bibFlagAction" type="string">
+            <column name="BIB_FLAG_ACTION" length="12" />
+        </property>                
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibSecuritydetail" table="BIB_SECURITYDETAIL">
+        <id name="idSecuritydetail" type="java.lang.Long">
+            <column name="ID_SECURITYDETAIL" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibFlightinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibFlightinfo" fetch="select">
+            <column name="ID_FLIGHTINFO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibSecurityView" type="string">
+            <column name="BIB_SECURITY_VIEW" length="4" />
+        </property>
+        <property name="bibSecuritySource" type="string">
+            <column name="BIB_SECURITY_SOURCE" length="12" />
+        </property>
+        <property name="bibSecurityInstruction" type="string">
+            <column name="BIB_SECURITY_INSTRUCTION" length="12" />
+        </property>
+        <property name="bibSecurityMethod" type="string">
+            <column name="BIB_SECURITY_METHOD" length="8" />
+        </property>
+        <property name="bibSecurityResult" type="string">
+            <column name="BIB_SECURITY_RESULT" length="12" />
+        </property>
+        <property name="bibSecurityReason" type="string">
+            <column name="BIB_SECURITY_REASON" length="12" />
+        </property>
+        <property name="bibSecurityAutograph" type="string">
+            <column name="BIB_SECURITY_AUTOGRAPH" length="280" />
+        </property>
+        <property name="bibSecurityFreetext" type="string">
+            <column name="BIB_SECURITY_FREETEXT" length="280" />
+        </property>
+    </class>
+</hibernate-mapping>

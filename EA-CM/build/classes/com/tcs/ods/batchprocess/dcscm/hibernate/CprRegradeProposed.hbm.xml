@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprRegradeProposed" table="CPR_REGRADE_PROPOSED">
+        <id name="idRegradeProposed" type="java.lang.Long">
+            <column name="ID_REGRADE_PROPOSED" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprLeglevelLegrouting" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLeglevelLegrouting" fetch="select">
+            <column name="ID_LEGLEVEL_LEGROUTING" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprClassdesignator" type="java.lang.Character">
+            <column name="CPR_CLASSDESIGNATOR" length="1" />
+        </property>
+        <property name="cprIndicator1" type="string">
+            <column name="CPR_INDICATOR1" length="3" />
+        </property>
+        <property name="cprIndicator2" type="string">
+            <column name="CPR_INDICATOR2" length="3" />
+        </property>
+        <property name="cprIndicator3" type="string">
+            <column name="CPR_INDICATOR3" length="3" />
+        </property>
+        <property name="cprAction1" type="string">
+            <column name="CPR_ACTION1" length="3" />
+        </property>
+        <property name="cprAction2" type="string">
+            <column name="CPR_ACTION2" length="3" />
+        </property>
+        <property name="cprAction3" type="string">
+            <column name="CPR_ACTION3" length="3" />
+        </property>
+        <property name="cprPriorityqualifier" type="string">
+            <column name="CPR_PRIORITYQUALIFIER" length="3" />
+        </property>
+        <property name="cprPriordescription" type="string">
+            <column name="CPR_PRIORDESCRIPTION" length="35" />
+        </property>
+        <property name="cprTextsubqualifier" type="string">
+            <column name="CPR_TEXTSUBQUALIFIER" length="3" />
+        </property>
+        <property name="cprCodedlanguage" type="string">
+            <column name="CPR_CODEDLANGUAGE" length="3" />
+        </property>
+        <property name="cprCodedsource" type="string">
+            <column name="CPR_CODEDSOURCE" length="3" />
+        </property>
+        <property name="cprEncoding" type="string">
+            <column name="CPR_ENCODING" length="3" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="70" />
+        </property>
+        <property name="cprCodeoriginator" type="string">
+            <column name="CPR_CODEORIGINATOR" length="30" />
+        </property>
+        <property name="cprActionreqcode" type="string">
+            <column name="CPR_ACTIONREQCODE" length="3" />
+        </property>
+        <property name="cprStatusreason" type="string">
+            <column name="CPR_STATUSREASON" length="3" />
+        </property>
+    </class>
+</hibernate-mapping>

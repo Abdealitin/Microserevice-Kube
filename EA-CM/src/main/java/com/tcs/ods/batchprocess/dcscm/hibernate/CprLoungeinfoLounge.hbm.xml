@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2017 4:21:21 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLoungeinfoLounge" table="CPR_LOUNGEINFO_LOUNGE">
+        <id name="idLoungeinfoLounge" type="java.lang.Long">
+            <column name="ID_LOUNGEINFO_LOUNGE" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+         <many-to-one name="idLeglevelLegrouting" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLeglevelLegrouting" fetch="select">
+            <column name="ID_LEGLEVEL_LEGROUTING" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprLocationname" type="string">
+            <column name="CPR_LOCATIONNAME" length="256" />
+        </property>
+        <property name="cprLocationcode" type="string">
+            <column name="CPR_LOCATIONCODE" length="25" />
+        </property>
+        <property name="cprTerminal" type="string">
+            <column name="CPR_TERMINAL" length="2" />
+        </property>
+        <property name="cprCapacity" type="java.lang.Integer">
+            <column name="CPR_CAPACITY" precision="3" scale="0" />
+        </property>
+        <property name="cprCompany" type="string">
+            <column name="CPR_COMPANY" length="35" />
+        </property>
+        <property name="cprOpentime" type="java.lang.Integer">
+            <column name="CPR_OPENTIME" precision="4" scale="0" />
+        </property>
+        <property name="cprClosetime" type="java.lang.Integer">
+            <column name="CPR_CLOSETIME" precision="4" scale="0" />
+        </property>
+        <property name="cprNounits1" type="java.lang.Long">
+            <column name="CPR_NOUNITS1" precision="15" scale="0" />
+        </property>
+        <property name="cprNounits2" type="java.lang.Long">
+            <column name="CPR_NOUNITS2" precision="15" scale="0" />
+        </property>
+        <property name="cprUnitqualifier1" type="string">
+            <column name="CPR_UNITQUALIFIER1" length="3" />
+        </property>
+        <property name="cprUnitqualifier2" type="string">
+            <column name="CPR_UNITQUALIFIER2" length="3" />
+        </property>
+        <property name="cprCodedindicator" type="string">
+            <column name="CPR_CODEDINDICATOR" length="3" />
+        </property>
+        <property name="cprCodedaction" type="string">
+            <column name="CPR_CODEDACTION" length="3" />
+        </property>
+        <property name="cprName" type="string">
+            <column name="CPR_NAME" length="70" />
+        </property>
+    </class>
+</hibernate-mapping>

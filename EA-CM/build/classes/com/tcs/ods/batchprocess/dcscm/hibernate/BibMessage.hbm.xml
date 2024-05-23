@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibMessage" table="BIB_MESSAGE">
+        <id name="idBibmessage" type="java.lang.Long">
+            <column name="ID_BIBMESSAGE" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmInputfile" class="com.tcs.ods.batchprocess.dcscm.hibernate.CmInputfile" fetch="select">
+            <column name="ID_INPUTFILES" scale="0" not-null="true" />
+        </many-to-one>
+ 		<property name="bibMsgLineno" type="string">
+            <column name="BIB_MSG_LINENO" length="10" />
+        </property>
+        <property name="bibMsgVersionno" type="string">
+            <column name="BIB_MSG_VERSIONNO" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

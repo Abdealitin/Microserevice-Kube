@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibLoadingindicators" table="BIB_LOADINGINDICATORS">
+        <id name="idLoadingindicators" type="java.lang.Long">
+            <column name="ID_LOADINGINDICATORS" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibLoadingdetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibLoadingdetail" fetch="select">
+            <column name="ID_LOADINGDETAIL" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibStatusindicator1" type="string">
+            <column name="BIB_STATUSINDICATOR1" length="3" />
+        </property>
+        <property name="bibStatusindicator2" type="string">
+            <column name="BIB_STATUSINDICATOR2" length="3" />
+        </property>
+        <property name="bibStatusindicator3" type="string">
+            <column name="BIB_STATUSINDICATOR3" length="3" />
+        </property>
+        <property name="bibCodeaction1" type="string">
+            <column name="BIB_CODEDACTION1" length="3" />
+        </property>
+        <property name="bibCodeaction2" type="string">
+            <column name="BIB_CODEDACTION2" length="3" />
+        </property>
+        <property name="bibCodeaction3" type="string">
+            <column name="BIB_CODEDACTION3" length="3" />
+        </property>
+    </class>
+</hibernate-mapping>

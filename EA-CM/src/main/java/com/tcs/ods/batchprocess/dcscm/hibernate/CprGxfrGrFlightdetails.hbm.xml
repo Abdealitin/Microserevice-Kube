@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprGxfrGrFlightdetails" table="CPR_GXFR_GR_FLIGHTDETAILS">
+        <id name="idGxfrGrFlightdetails" type="java.lang.Long">
+            <column name="ID_GXFR_GR_FLIGHTDETAILS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprGxfrGrTransdetails" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprGxfrGrTransdetails" fetch="select">
+            <column name="ID_GXFR_GR_TRANSDETAILS" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprMarketingcarrier" type="string">
+            <column name="CPR_MARKETINGCARRIER" length="3" />
+        </property>
+        <property name="cprFlightnumber" type="java.lang.Integer">
+            <column name="CPR_FLIGHTNUMBER" precision="4" scale="0" />
+        </property>
+        <property name="cprOperasuffix" type="java.lang.Character">
+            <column name="CPR_OPERASUFFIX" length="1" />
+        </property>
+        <property name="cprDepdate" type="date">
+            <column name="CPR_DEPDATE" precision="8" scale="0" />
+        </property>
+        <property name="cprBoardpoint" type="string">
+            <column name="CPR_BOARDPOINT" length="5" />
+        </property>
+        <property name="cprOffpoint" type="string">
+            <column name="CPR_OFFPOINT" length="5" />
+        </property>
+        <property name="cprArrdate" type="date">
+            <column name="CPR_ARRDATE" precision="8" scale="0" />
+        </property>
+        <property name="cprDeparttime1" type="java.lang.Integer">
+            <column name="CPR_DEPARTTIME1" precision="4" scale="0" />
+        </property>
+        <property name="cprDeparttime2" type="java.lang.Integer">
+            <column name="CPR_DEPARTTIME2" precision="4" scale="0" />
+        </property>
+        <property name="cprArrtime1" type="java.lang.Integer">
+            <column name="CPR_ARRTIME1" precision="4" scale="0" />
+        </property>
+        <property name="cprArrtime2" type="java.lang.Integer">
+            <column name="CPR_ARRTIME2" precision="4" scale="0" />
+        </property>
+        <property name="cprCompanyid" type="string">
+            <column name="CPR_COMPANYID" length="3" />
+        </property>
+        <property name="cprFlightno" type="string">
+            <column name="CPR_FLIGHTNO" length="4" />
+        </property>
+        <property name="cprOpersuffix" type="string">
+            <column name="CPR_OPERSUFFIX" length="1" />
+        </property>
+        <property name="cprRefqualifier" type="string">
+            <column name="CPR_REFQUALIFIER" length="3" />
+        </property>
+        <property name="cprPrimeid" type="string">
+            <column name="CPR_PRIMEID" length="35" />
+        </property>
+    </class>
+</hibernate-mapping>

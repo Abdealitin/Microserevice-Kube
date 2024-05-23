@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibExcessbagallowance" table="BIB_EXCESSBAGALLOWANCE">
+        <id name="idExcessbagallowance" type="java.lang.Long">
+            <column name="ID_EXCESSBAGALLOWANCE" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibExcessbagsector" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibExcessbagsector" fetch="select">
+            <column name="ID_EXCESSBAGGSECTOR" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibPassengerNumber" type="java.lang.Integer">
+            <column name="BIB_PASSENGER_NUMBER" precision="6" scale="0" />
+        </property>
+        <property name="bibPassengerWeight" type="java.lang.Integer">
+            <column name="BIB_PASSENGER_WEIGHT" precision="6" scale="0" />
+        </property>
+        <property name="bibPassengerQualifier" type="string">
+            <column name="BIB_PASSENGER_QUALIFIER" length="1" />
+        </property>               
+        <property name="bibAttributetype1" type="string">
+            <column name="BIB_ATTRIBUTETYPE1" length="5" />
+        </property>         
+        <property name="bibAttributetype2" type="string">
+            <column name="BIB_ATTRIBUTETYPE2" length="5" />
+        </property>  
+        <property name="bibAttributetype3" type="string">
+            <column name="BIB_ATTRIBUTETYPE3" length="5" />
+        </property>  
+        <property name="bibAttributetype4" type="string">
+            <column name="BIB_ATTRIBUTETYPE4" length="5" />
+        </property>  
+        <property name="bibAttributetype5" type="string">
+            <column name="BIB_ATTRIBUTETYPE5" length="5" />
+        </property>  
+        <property name="bibAttributetype6" type="string">
+            <column name="BIB_ATTRIBUTETYPE6" length="5" />
+        </property>  
+        <property name="bibAttributetype7" type="string">
+            <column name="BIB_ATTRIBUTETYPE7" length="5" />
+        </property>  
+        <property name="bibAttributetype8" type="string">
+            <column name="BIB_ATTRIBUTETYPE8" length="5" />
+        </property>          
+    </class>
+</hibernate-mapping>

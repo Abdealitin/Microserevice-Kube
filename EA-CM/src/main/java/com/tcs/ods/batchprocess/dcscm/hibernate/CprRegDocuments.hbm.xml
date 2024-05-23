@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprRegDocuments" table="CPR_REG_DOCUMENTS">
+        <id name="idRegDocuments" type="java.lang.Long">
+            <column name="ID_REG_DOCUMENTS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprRegGender" type="string">
+            <column name="CPR_REG_GENDER" length="3" />
+        </property>
+        <property name="cprRegFirstname" type="string">
+            <column name="CPR_REG_FIRSTNAME" length="64" />
+        </property>
+        <property name="cprSurname" type="string">
+            <column name="CPR_SURNAME" length="64" />
+        </property>
+        <property name="cprFirstname" type="string">
+            <column name="CPR_FIRSTNAME" length="64" />
+        </property>
+        <property name="cprRegSurname" type="string">
+            <column name="CPR_REG_SURNAME" length="64" />
+        </property>
+        <property name="cprPhonenumber" type="string">
+            <column name="CPR_PHONENUMBER" length="25" />
+        </property>
+        <property name="cprComment" type="string">
+            <column name="CPR_COMMENT" length="70" />
+        </property>
+        <property name="cprDoctype" type="string">
+            <column name="CPR_DOCTYPE" length="3" />
+        </property>
+        <property name="cprDocnumber" type="string">
+            <column name="CPR_DOCNUMBER" length="35" />
+        </property>
+        <property name="cprCountry" type="string">
+            <column name="CPR_COUNTRY" length="3" />
+        </property>
+        <property name="cprDesc" type="string">
+            <column name="CPR_DESC" length="70" />
+        </property>
+        <property name="cprDatetimequal1" type="string">
+            <column name="CPR_DATETIMEQUAL1" length="3" />
+        </property>
+        <property name="cprDatetimequal2" type="string">
+            <column name="CPR_DATETIMEQUAL2" length="3" />
+        </property>
+        <property name="cprDatetimequal3" type="string">
+            <column name="CPR_DATETIMEQUAL3" length="3" />
+        </property>
+        <property name="cprDatetimequal4" type="string">
+            <column name="CPR_DATETIMEQUAL4" length="3" />
+        </property>
+        <property name="cprDatetimedtls1" type="string">
+            <column name="CPR_DATETIMEDTLS1" length="35" />
+        </property>
+        <property name="cprDatetimedtls2" type="string">
+            <column name="CPR_DATETIMEDTLS2" length="35" />
+        </property>
+        <property name="cprDatetimedtls3" type="string">
+            <column name="CPR_DATETIMEDTLS3" length="35" />
+        </property>
+        <property name="cprDatetimedtls4" type="string">
+            <column name="CPR_DATETIMEDTLS4" length="35" />
+        </property>
+        <property name="cprDttimeformat1" type="string">
+            <column name="CPR_DTTIMEFORMAT1" length="3" />
+        </property>
+        <property name="cprDttimeformat2" type="string">
+            <column name="CPR_DTTIMEFORMAT2" length="3" />
+        </property>
+        <property name="cprDttimeformat3" type="string">
+            <column name="CPR_DTTIMEFORMAT3" length="3" />
+        </property>
+        <property name="cprDttimeformat4" type="string">
+            <column name="CPR_DTTIMEFORMAT4" length="3" />
+        </property>
+        <property name="cprLoctype" type="string">
+            <column name="CPR_LOCTYPE" length="3" />
+        </property>
+        <property name="cprLoccode" type="string">
+            <column name="CPR_LOCCODE" length="3" />
+        </property>
+        <property name="cprLocqual" type="string">
+            <column name="CPR_LOCQUAL" length="17" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

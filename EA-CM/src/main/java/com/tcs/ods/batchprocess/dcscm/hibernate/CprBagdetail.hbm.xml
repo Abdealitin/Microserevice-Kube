@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 3, 2017 5:11:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBagdetail" table="CPR_BAGDETAIL">
+        <id name="idBagdetail" type="java.lang.Long">
+            <column name="ID_BAGDETAIL" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        
+        <many-to-one name="idCprmessage" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprMessage" fetch="select">
+            <column name="ID_CPRMESSAGE" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprCabinclass" type="string">
+            <column name="CPR_CABINCLASS" length="1" />
+        </property>
+        <property name="cprBagtypeDesc" type="string">
+            <column name="CPR_BAGTYPE_DESC" length="70" />
+        </property>
+        <property name="cprSourcetype" type="string">
+            <column name="CPR_SOURCETYPE" length="3" />
+        </property>
+        <property name="cprBagtagCompany" type="string">
+            <column name="CPR_BAGTAG_COMPANY" length="3" />
+        </property>
+        <property name="cprBagtagIdentifier" type="java.lang.Integer">
+            <column name="CPR_BAGTAG_IDENTIFIER" precision="1" scale="0" />
+        </property>
+        <property name="cprBagtypeNumber" type="java.lang.Integer">
+            <column name="CPR_BAGTYPE_NUMBER" precision="6" scale="0" />
+        </property>
+        <property name="cprBagtypeLocation" type="string">
+            <column name="CPR_BAGTYPE_LOCATION" length="3" />
+        </property>
+        <property name="cprBagtypeCompanynumber" type="string">
+            <column name="CPR_BAGTYPE_COMPANYNUMBER" length="3" />
+        </property>
+        <property name="cprBagtypeIndicator" type="java.lang.Integer">
+            <column name="CPR_BAGTYPE_INDICATOR" precision="1" scale="0" />
+        </property>
+        <property name="cprBagtypeCharacteristics" type="string">
+            <column name="CPR_BAGTYPE_CHARACTERISTICS" length="3" />
+        </property>
+        <property name="cprBagtypeRequirement" type="string">
+            <column name="CPR_BAGTYPE_REQUIREMENT" length="4" />
+        </property>
+        <property name="cprBagtypeIssuanceday" type="java.lang.Short">
+            <column name="CPR_BAGTYPE_ISSUANCEDAY" precision="3" scale="0" />
+        </property>
+        <property name="cprBagtypeTagno" type="string">
+            <column name="CPR_BAGTYPE_TAGNO" length="35" />
+        </property>
+        <property name="cprBagtypePrintaddrss" type="string">
+            <column name="CPR_BAGTYPE_PRINTADDRSS" length="8" />
+        </property>
+        <property name="cprBagtypeWeight" type="java.lang.Long">
+            <column name="CPR_BAGTYPE_WEIGHT" precision="4" scale="5" />
+        </property>
+        <property name="cprBagtypeQualifier" type="string">
+            <column name="CPR_BAGTYPE_QUALIFIER" length="3" />
+        </property>
+        <property name="cprBagtypeStatus" type="string">
+            <column name="CPR_BAGTYPE_STATUS" length="2" />
+        </property>
+        <property name="cprBagtypeUniqueid" type="string">
+            <column name="CPR_BAGTYPE_UNIQUEID" length="16" />
+        </property>
+        <property name="cprBagtagActreqbagtyp" type="string">
+            <column name="CPR_BAGTAG_ACTREQBAGTYP" length="3" />
+        </property>
+        <property name="cprBagtagSerialno" type="java.lang.Integer">
+            <column name="CPR_BAGTAG_SERIALNO" precision="6" scale="0" />
+        </property>
+        <property name="cprBagtagCarrierno" type="java.lang.Short">
+            <column name="CPR_BAGTAG_CARRIERNO" precision="3" scale="0" />
+        </property>
+        <property name="cprBagtagUniqueid" type="string">
+            <column name="CPR_BAGTAG_UNIQUEID" length="16" />
+        </property>
+        <property name="cprDimensionQualifier" type="string">
+            <column name="CPR_DIMENSION_QUALIFIER" length="3" />
+        </property>
+        <property name="cprDimensionUnit" type="string">
+            <column name="CPR_DIMENSION_UNIT" length="2" />
+        </property>
+        <property name="cprDimensionLength" type="java.lang.Integer">
+            <column name="CPR_DIMENSION_LENGTH" precision="5" scale="0" />
+        </property>
+        <property name="cprDimensionWidth" type="java.lang.Integer">
+            <column name="CPR_DIMENSION_WIDTH" precision="5" scale="0" />
+        </property>
+        <property name="cprDimensionHeight" type="java.lang.Integer">
+            <column name="CPR_DIMENSION_HEIGHT" precision="5" scale="0" />
+        </property>
+        <property name="cprStatusIndicator" type="string">
+            <column name="CPR_STATUS_INDICATOR" length="3" />
+        </property>
+        <property name="cprStatusAction" type="string">
+            <column name="CPR_STATUS_ACTION" length="3" />
+        </property>
+       
+        <property name="cprBagtagIndc" type="string">
+            <column name="CPR_BAGTAG_INDC" length="3" />
+        </property>
+        <property name="cprBagtagAct" type="string">
+            <column name="CPR_BAGTAG_ACT" length="2" />
+        </property>
+        <property name="cprBagtagFreetext" type="string">
+            <column name="CPR_BAGTAG_FREETEXT" length="4" />
+        </property>
+        <property name="cprBagtagCarriercode" type="string">
+            <column name="CPR_BAGTAG_CARRIERCODE" length="3" />
+        </property>
+        <property name="cprBagtagFnldest" type="string">
+            <column name="CPR_BAGTAG_FNLDEST" length="3" />
+        </property>
+        <property name="cprBagtagIntrindc" type="java.lang.Integer">
+            <column name="CPR_BAGTAG_INTRINDC" precision="1" scale="0" />
+        </property>
+        <property name="cprBagtagIssunday" type="java.lang.Short">
+            <column name="CPR_BAGTAG_ISSUNDAY" precision="3" scale="0" />
+        </property>
+        <property name="cprOffarptIndc" type="string">
+            <column name="CPR_OFFARPT_INDC" length="3" />
+        </property>
+        <property name="cprBtiBagtype" type="string">
+            <column name="CPR_BTI_BAGTYPE" length="3" />
+        </property>
+        <property name="cprBtiActreq" type="string">
+            <column name="CPR_BTI_ACTREQ" length="2" />
+        </property>
+        <property name="cprBtiDesc" type="string">
+            <column name="CPR_BTI_DESC" length="4" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

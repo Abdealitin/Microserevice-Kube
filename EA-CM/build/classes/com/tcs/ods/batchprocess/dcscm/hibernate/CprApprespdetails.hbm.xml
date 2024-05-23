@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprApprespdetails" table="CPR_APPRESPDETAILS">
+        <id name="idApprespdetails" type="java.lang.Long">
+            <column name="ID_APPRESPDETAILS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprCountrycode" type="string">
+            <column name="CPR_COUNTRYCODE" length="3" />
+        </property>
+        <property name="cprIndicator" type="string">
+            <column name="CPR_INDICATOR" length="3" />
+        </property>
+        <property name="cprAction" type="string">
+            <column name="CPR_ACTION" length="3" />
+        </property>
+        <property name="cprDatatype" type="string">
+            <column name="CPR_DATATYPE" length="3" />
+        </property>
+        <property name="cprQuantity" type="java.lang.Short">
+            <column name="CPR_QUANTITY" precision="4" scale="0" />
+        </property>
+        <property name="cprTextsubqualifier" type="string">
+            <column name="CPR_TEXTSUBQUALIFIER" length="3" />
+        </property>
+        <property name="cprLanguage" type="string">
+            <column name="CPR_LANGUAGE" length="3" />
+        </property>
+        <property name="cprSource" type="string">
+            <column name="CPR_SOURCE" length="3" />
+        </property>
+        <property name="cprEncoding" type="string">
+            <column name="CPR_ENCODING" length="3" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="70" />
+        </property>
+        <property name="cprStatusIndic" type="string">
+            <column name="CPR_STATUS_INDIC" length="3" />
+        </property>
+        <property name="cprStatusAction" type="string">
+            <column name="CPR_STATUS_ACTION" length="3" />
+        </property>
+        <property name="cprItemno" type="java.lang.Byte">
+            <column name="CPR_ITEMNO" precision="2" scale="0" />
+        </property>
+        <property name="cprItemtype" type="string">
+            <column name="CPR_ITEMTYPE" length="1" />
+        </property>
+        <property name="cprBusinesssemantic" type="string">
+            <column name="CPR_BUSINESSSEMANTIC" length="3" />
+        </property>
+        <property name="cprTimemode" type="string">
+            <column name="CPR_TIMEMODE" length="3" />
+        </property>
+        <property name="cprConveydate" type="java.sql.Timestamp">
+            <column name="CPR_CONVEYDATE" />
+        </property>
+        <property name="cprOriginator" type="string">
+            <column name="CPR_ORIGINATOR" length="25" />
+        </property>
+        <property name="cprReasonQualifier" type="string">
+            <column name="CPR_REASON_QUALIFIER" length="3" />
+        </property>
+        <property name="cprReasonType" type="string">
+            <column name="CPR_REASON_TYPE" length="4" />
+        </property>
+        <property name="cprReasonLanguage" type="string">
+            <column name="CPR_REASON_LANGUAGE" length="3" />
+        </property>
+        <property name="cprReasonFreetext" type="string">
+            <column name="CPR_REASON_FREETEXT" length="3600" />
+        </property>
+        <property name="cprTypeIndi" type="string">
+            <column name="CPR_TYPE_INDI" length="3" />
+        </property>
+        <property name="cprTypeAction" type="string">
+            <column name="CPR_TYPE_ACTION" length="3" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

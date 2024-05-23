@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibOffloaddetail" table="BIB_OFFLOADDETAIL">
+        <id name="idOffloaddetail" type="java.lang.Long">
+            <column name="ID_OFFLOADDETAIL" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibFlightinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibFlightinfo" fetch="select">
+            <column name="ID_FLIGHTINFO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibLoctype" type="string">
+            <column name="BIB_LOCTYPE" length="3" />
+        </property>
+        <property name="bibLocname" type="string">
+            <column name="BIB_LOCNAME" length="70" />
+        </property>
+        <property name="bibIndicator1" type="string">
+            <column name="BIB_INDICATOR1" length="3" />
+        </property>
+        <property name="bibIndicator2" type="string">
+            <column name="BIB_INDICATOR2" length="3" />
+        </property>
+        <property name="bibCodedindicator1" type="string">
+            <column name="BIB_CODEDINDICATOR1" length="3" />
+        </property>
+        <property name="bibCodedindicator2" type="string">
+            <column name="BIB_CODEDINDICATOR2" length="3" />
+        </property>
+        <property name="bibTextsubjectQualifier1" type="string">
+            <column name="BIB_TEXTSUBJECT_QUALIFIER1" length="3" />
+        </property>
+        <property name="bibSource1" type="string">
+            <column name="BIB_SOURCE1" length="3" />
+        </property>
+        <property name="bibEncoding1" type="string">
+            <column name="BIB_ENCODING1" length="3" />
+        </property>
+        <property name="bibLongfreetext1" type="string">
+            <column name="BIB_LONGFREETEXT1" length="70" />
+        </property>
+        <property name="bibTextsubjectQualifier2" type="string">
+            <column name="BIB_TEXTSUBJECT_QUALIFIER2" length="3" />
+        </property>
+        <property name="bibSource2" type="string">
+            <column name="BIB_SOURCE2" length="3" />
+        </property>
+        <property name="bibEncoding2" type="string">
+            <column name="BIB_ENCODING2" length="3" />
+        </property>
+        <property name="bibLongfreetext2" type="string">
+            <column name="BIB_LONGFREETEXT2" length="70" />
+        </property>        
+    </class>
+</hibernate-mapping>

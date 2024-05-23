@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCreditCreditcarddetails" table="CPR_CREDIT_CREDITCARDDETAILS">
+        <id name="idCreditCreditcarddetails" type="java.lang.Long">
+            <column name="ID_CREDIT_CREDITCARDDETAILS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprType" type="string">
+            <column name="CPR_TYPE" length="3" />
+        </property>
+        <property name="cprAmount" type="java.lang.Long">
+            <column name="CPR_AMOUNT" precision="18" scale="0" />
+        </property>
+        <property name="cprVendorcode" type="string">
+            <column name="CPR_VENDORCODE" length="3" />
+        </property>
+        <property name="cprCreditcardnumber" type="string">
+            <column name="CPR_CREDITCARDNUMBER" length="20" />
+        </property>
+        <property name="cprExpirydate" type="string">
+            <column name="CPR_EXPIRYDATE" length="35" />
+        </property>
+        <property name="cprApprovalcode" type="string">
+            <column name="CPR_APPROVALCODE" length="6" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="70" />
+        </property>
+        <property name="cprIndicator" type="string">
+            <column name="CPR_INDICATOR" length="3" />
+        </property>
+        <property name="cprCodedaction" type="string">
+            <column name="CPR_CODEDACTION" length="3" />
+        </property>
+    </class>
+</hibernate-mapping>

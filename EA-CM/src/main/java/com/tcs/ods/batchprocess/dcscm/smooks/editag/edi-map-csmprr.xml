@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medi:edimap xmlns:medi="http://www.milyn.org/schema/edi-message-mapping-1.2.xsd">
+ 
+    <medi:import truncatableSegments="true" truncatableFields="true" truncatableComponents="true" resource="edi-to-java-order-mapping-csmprr.xml" namespace="def"/>
+ 
+    <medi:description name="csmprr" version="16.1.1" />
+ 
+    <medi:delimiters segment="&#39;" field="+" component=":" sub-component="~"/>
+ 
+    <medi:segments xmltag="Csmprr">  
+        <medi:segment minOccurs="0" maxOccurs="1" segref="def:UNG" segcode="UNG" xmltag="ediGroupHeader"/>
+        <medi:segment minOccurs="0" maxOccurs="1" segref="def:UNH" segcode="UNH" xmltag="ediHeader"/>  
+        <medi:segment minOccurs="0" maxOccurs="1" segref="def:RAD" segcode="RAD" xmltag="replyStatus"/>
+       <medi:segmentGroup xmltag="GERR" minOccurs="0" maxOccurs="5">
+			  <medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="errorOrWarningCodeDetails"/>
+			 <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="errorWarningDescription"/>
+		</medi:segmentGroup>
+		  <medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="iatciIndicator"/>
+		 <medi:segmentGroup xmltag="FLGDATE" minOccurs="0" maxOccurs="9">
+			  <medi:segment minOccurs="1" maxOccurs="1" segref="def:TVL" segcode="TVL" xmltag="flightDateInformation"/>
+			  <medi:segment minOccurs="0" maxOccurs="9" segref="def:CAR" segcode="CAR" xmltag="marketingFlightDetails"/>
+			 <medi:segment minOccurs="1" maxOccurs="2" segref="def:ANI" segcode="ANI" xmltag="terminalInfo"/>
+			 <medi:segment minOccurs="0" maxOccurs="9" segref="def:SDI" segcode="SDI" xmltag="structuredDateTimeInfo"/>
+			    <medi:segment minOccurs="0" maxOccurs="9" segref="def:STX" segcode="STX" xmltag="statusDetails"/>
+			 <medi:segment minOccurs="0" maxOccurs="5" segref="def:TLC" segcode="TLC" xmltag="departureGate"/>
+			  <medi:segment minOccurs="0" maxOccurs="1" segref="def:EQI" segcode="EQI" xmltag="equipmentInformation"/>
+			   <medi:segmentGroup xmltag="FLGDATECOMPARTMENTDET" minOccurs="0" maxOccurs="9">
+			  		<medi:segment minOccurs="1" maxOccurs="1" segref="def:CBD" segcode="CBD" xmltag="compartmentDetails"/>
+			 		<medi:segment minOccurs="0" maxOccurs="3" segref="def:ATR" segcode="ATR" xmltag="tempoZoneName"/>
+			   </medi:segmentGroup>
+			  <medi:segmentGroup xmltag="ROWDET" minOccurs="0" maxOccurs="999">
+	    	 	 	<medi:segment minOccurs="1" maxOccurs="1" segref="def:ROD" segcode="ROD" xmltag="rowDetailsI"/>
+			  		<medi:segmentGroup xmltag="GSCD" minOccurs="0" maxOccurs="12">
+			  			<medi:segment minOccurs="1" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="crossReference"/>
+			  			<medi:segment minOccurs="0" maxOccurs="1" segref="def:RSR" segcode="RSR" xmltag="trainSeatNumbers"/>
+						<medi:segment minOccurs="0" maxOccurs="1" segref="def:CAR" segcode="CAR" xmltag="seatCodeshareDetails"/>
+			  		</medi:segmentGroup>
+			  </medi:segmentGroup>
+			  <medi:segmentGroup xmltag="CUSTOMER" minOccurs="0" maxOccurs="999">
+				  	<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="customer"/>
+				  	 <medi:segment minOccurs="0" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="securityNumber"/>
+			  		 <medi:segment minOccurs="1" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="specialRequirementsDetails"/> 
+			  		<medi:segment minOccurs="0" maxOccurs="2" segref="def:TIF" segcode="TIF" xmltag="customerDetails"/>
+			  		<medi:segment minOccurs="0" maxOccurs="1" segref="def:CBD" segcode="CBD" xmltag="bookingClass"/>
+			  		<medi:segment minOccurs="0" maxOccurs="1" segref="def:RCI" segcode="RCI" xmltag="recordLocator"/>
+			  		<medi:segment minOccurs="0" maxOccurs="1" segref="def:ETI" segcode="ETI" xmltag="enhancedTravellerInformation"/>
+			  		<medi:segment minOccurs="0" maxOccurs="9" segref="def:SSR" segcode="SSR" xmltag="customerCharacteristics"/>
+			  		<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="statusDetails1"/>
+			  		<medi:segment minOccurs="0" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="crossReference1"/>
+			  </medi:segmentGroup>
+			 <medi:segmentGroup xmltag="SEALABLECONFIG" minOccurs="0" maxOccurs="1">
+				 	 <medi:segment minOccurs="1" maxOccurs="1" segref="def:EQD" segcode="EQD" xmltag="saleableConfiguration"/>
+			  		 <medi:segment minOccurs="0" maxOccurs="1" segref="def:EQI" segcode="EQI" xmltag="seatBlock"/>
+        	  </medi:segmentGroup>
+        	 <medi:segmentGroup xmltag="DUMMYSEG" minOccurs="0" maxOccurs="1">
+				 	<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="dummySegment"/>
+			  		<medi:segment minOccurs="0" maxOccurs="2" segref="def:TXF" segcode="TXF" xmltag="priceDescription"/>
+			  		 <medi:segmentGroup xmltag="CUSTSEAT" minOccurs="1" maxOccurs="99">
+			  			<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="customerSeatPrice"/>
+			  			<medi:segment minOccurs="0" maxOccurs="98" segref="def:IRV" segcode="IRV" xmltag="otherCustomersSeatPrice"/>
+			  			<medi:segmentGroup xmltag="CUSTCENTRICDATA" minOccurs="1" maxOccurs="1">
+			  				<medi:segment minOccurs="1" maxOccurs="1" segref="def:MON" segcode="MON" xmltag="seatPrice"/>
+			  				<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXD" segcode="TXD" xmltag="taxDetails"/>
+							<medi:segment minOccurs="1" maxOccurs="999" segref="def:ROD" segcode="ROD" xmltag="rowPriceDetails"/>
+			  				<medi:segment minOccurs="0" maxOccurs="1" segref="def:ATR" segcode="ATR" xmltag="pricingRuleAttributes"/>
+			  				<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="priceSolutionDescription"/>		  		
+      		  			</medi:segmentGroup>
+      		  		</medi:segmentGroup> 	
+        	</medi:segmentGroup> 		 
+        	  	</medi:segmentGroup>
+		<medi:segment minOccurs="0" maxOccurs="1" segref="def:UNT" segcode="UNT" xmltag="ediTrailer"/>
+		<medi:segment minOccurs="1" maxOccurs="1" segref="def:UNE" segcode="UNE" xmltag="ediGroupTrailer"/>
+    </medi:segments>
+ 
+</medi:edimap>

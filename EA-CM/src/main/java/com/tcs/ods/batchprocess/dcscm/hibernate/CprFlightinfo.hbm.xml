@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 3, 2017 11:07:00 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprFlightinfo" table="CPR_FLIGHTINFO">
+        <id name="idFlightinfo" type="java.lang.Long">
+            <column name="ID_FLIGHTINFO" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        
+        <many-to-one name="idBagdetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBagdetail" fetch="select">
+            <column name="ID_BAGDETAIL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprFlightCarrier" type="string">
+            <column name="CPR_FLIGHT_CARRIER" length="3" />
+        </property>
+        <property name="cprFlightNo" type="java.lang.Short">
+            <column name="CPR_FLIGHT_NO" precision="4" scale="0" />
+        </property>
+        <property name="cprOperationalSuffix" type="string">
+            <column name="CPR_OPERATIONAL_SUFFIX" length="1" />
+        </property>
+        <property name="cprDepatureDate" type="java.sql.Date">
+            <column name="CPR_DEPATURE_DATE" length="7" />
+        </property>
+        <property name="cprBoardPoint" type="string">
+            <column name="CPR_BOARD_POINT" length="5" />
+        </property>
+        <property name="cprOffPoint" type="string">
+            <column name="CPR_OFF_POINT" length="5" />
+        </property>
+        <property name="cprArrivalDate" type="java.sql.Date">
+            <column name="CPR_ARRIVAL_DATE" length="7" />
+        </property>
+        <property name="cprIdentificationFirstno" type="string">
+            <column name="CPR_IDENTIFICATION_FIRSTNO" length="4" />
+        </property>
+        <property name="cprIdentificationSecondno" type="string">
+            <column name="CPR_IDENTIFICATION_SECONDNO" length="12" />
+        </property>
+        <property name="cprDatetimeQualifier" type="string">
+            <column name="CPR_DATETIME_QUALIFIER" length="1" />
+        </property>
+        <property name="cprDate" type="string">
+            <column name="CPR_DATE" length="5" />
+        </property>
+        <property name="cprTime" type="java.lang.Integer">
+            <column name="CPR_TIME" precision="4" scale="0" />
+        </property>
+        <property name="cprDatetimeMovementtype" type="string">
+            <column name="CPR_DATETIME_MOVEMENTTYPE" length="2" />
+        </property>
+        <property name="cprDatetimeLocation" type="string">
+            <column name="CPR_DATETIME_LOCATION" length="12" />
+        </property>
+        <property name="cprDeviceAddress" type="string">
+            <column name="CPR_DEVICE_ADDRESS" length="7" />
+        </property>
+        <property name="cprDeviceSeqno" type="string">
+            <column name="CPR_DEVICE_SEQNO" length="3" />
+        </property>
+        <property name="cprTextQualifier" type="string">
+            <column name="CPR_TEXT_QUALIFIER" length="3" />
+        </property>
+        <property name="cprTextSource" type="string">
+            <column name="CPR_TEXT_SOURCE" length="3" />
+        </property>
+        <property name="cprTextEncoding" type="string">
+            <column name="CPR_TEXT_ENCODING" length="3" />
+        </property>
+        <property name="cprTextFreetext" type="string">
+            <column name="CPR_TEXT_FREETEXT" length="70" />
+        </property>
+        <property name="cprInteractiveFreetext" type="string">
+            <column name="CPR_INTERACTIVE_FREETEXT" length="70" />
+        </property>
+        <property name="cprTerminalType" type="string">
+            <column name="CPR_TERMINAL_TYPE" length="3" />
+        </property>
+        <property name="cprTerminalIdentifier" type="string">
+            <column name="CPR_TERMINAL_IDENTIFIER" length="5" />
+        </property>
+        <!-- <property name="idBagdetail" type="big_decimal">
+            <column name="ID_BAGDETAIL" precision="36" scale="0" not-null="true" />
+        </property> -->
+        <!-- <property name="dwhSnapshottimestamp" type="serializable">
+            <column name="DWH_SNAPSHOTTIMESTAMP" />
+        </property> -->
+        <property name="cprOfldLoctype" type="string">
+            <column name="CPR_OFLD_LOCTYPE" length="3" />
+        </property>
+        <property name="cprOfldLocname" type="string">
+            <column name="CPR_OFLD_LOCNAME" length="70" />
+        </property>
+        <property name="cprOfldInd1" type="string">
+            <column name="CPR_OFLD_IND1" length="3" />
+        </property>
+        <property name="cprOfldInd2" type="string">
+            <column name="CPR_OFLD_IND2" length="3" />
+        </property>
+        <property name="cprOfldAct1" type="string">
+            <column name="CPR_OFLD_ACT1" length="3" />
+        </property>
+        <property name="cprOfldAct2" type="string">
+            <column name="CPR_OFLD_ACT2" length="3" />
+        </property>
+        <property name="cprOfldTxtqual1" type="string">
+            <column name="CPR_OFLD_TXTQUAL1" length="3" />
+        </property>
+        <property name="cprOfldTxtqual2" type="string">
+            <column name="CPR_OFLD_TXTQUAL2" length="2" />
+        </property>
+        <property name="cprOfldSurc1" type="string">
+            <column name="CPR_OFLD_SURC1" length="3" />
+        </property>
+        <property name="cprOfldSurc2" type="string">
+            <column name="CPR_OFLD_SURC2" length="3" />
+        </property>
+        <property name="cprOfldEnc1" type="string">
+            <column name="CPR_OFLD_ENC1" length="3" />
+        </property>
+        <property name="cprOfldEnc2" type="string">
+            <column name="CPR_OFLD_ENC2" length="3" />
+        </property>
+        <property name="cprOfldFreetext1" type="string">
+            <column name="CPR_OFLD_FREETEXT1" length="70" />
+        </property>
+        <property name="cprOfldFreetext2" type="string">
+            <column name="CPR_OFLD_FREETEXT2" length="70" />
+        </property>
+        <property name="cprSecVw" type="string">
+            <column name="CPR_SEC_VW" length="1" />
+        </property>
+        <property name="cprSecUpdsrc" type="string">
+            <column name="CPR_SEC_UPDSRC" length="3" />
+        </property>
+        <property name="cprSecScrins" type="string">
+            <column name="CPR_SEC_SCRINS" length="3" />
+        </property>
+        <property name="cprSecScrmtd" type="string">
+            <column name="CPR_SEC_SCRMTD" length="2" />
+        </property>
+        <property name="cprSecScrres" type="string">
+            <column name="CPR_SEC_SCRRES" length="3" />
+        </property>
+        <property name="cprSecScrrea" type="string">
+            <column name="CPR_SEC_SCRREA" length="3" />
+        </property>
+        <property name="cprSecAutgph" type="string">
+            <column name="CPR_SEC_AUTGPH" length="70" />
+        </property>
+        <property name="cprSecFreetext" type="string">
+            <column name="CPR_SEC_FREETEXT" length="70" />
+        </property>
+        <property name="cprIftTxtqual" type="string">
+            <column name="CPR_IFT_TXTQUAL" length="3" />
+        </property>
+        <property name="cprTagRefqual" type="string">
+            <column name="CPR_TAG_REFQUAL" length="3" />
+        </property>
+        <property name="cprTagVal" type="string">
+            <column name="CPR_TAG_VAL" length="5" />
+        </property>
+        <property name="cprTagTxtsubqual" type="string">
+            <column name="CPR_TAG_TXTSUBQUAL" length="3" />
+        </property>
+        <property name="cprTagInfotype" type="string">
+            <column name="CPR_TAG_INFOTYPE" length="4" />
+        </property>
+        <property name="cprTagStatus" type="string">
+            <column name="CPR_TAG_STATUS" length="3" />
+        </property>
+        <property name="cprTagCmpnyid" type="string">
+            <column name="CPR_TAG_CMPNYID" length="35" />
+        </property>
+        <property name="cprTagLng" type="string">
+            <column name="CPR_TAG_LNG" length="3" />
+        </property>
+        <property name="cprTagSrc" type="string">
+            <column name="CPR_TAG_SRC" length="3" />
+        </property>
+        <property name="cprTagEncoding" type="string">
+            <column name="CPR_TAG_ENCODING" length="3" />
+        </property>
+        <property name="cprTagFreetext" type="string">
+            <column name="CPR_TAG_FREETEXT" length="180" />
+        </property>
+    </class>
+</hibernate-mapping>

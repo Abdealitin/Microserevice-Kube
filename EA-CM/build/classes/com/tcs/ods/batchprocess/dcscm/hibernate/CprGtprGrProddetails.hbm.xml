@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprGtprGrProddetails" table="CPR_GTPR_GR_PRODDETAILS">
+        <id name="idGtprGrProddetails" type="java.lang.Long">
+            <column name="ID_GTPR_GR_PRODDETAILS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprGtprJourneydetails" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprGtprJourneydetails" fetch="select">
+            <column name="ID_JOURNEYDETAILS" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprMarkcmpycarrier" type="string">
+            <column name="CPR_MARKCMPYCARRIER" length="3" />
+        </property>
+        <property name="cprFlightnumber" type="java.lang.Integer">
+            <column name="CPR_FLIGHTNUMBER" precision="4" scale="0" />
+        </property>
+        <property name="cprOperasuffix" type="java.lang.Character">
+            <column name="CPR_OPERASUFFIX" length="1" />
+        </property>
+        <property name="cprDepdate" type="date">
+            <column name="CPR_DEPDATE" />
+        </property>
+        <property name="cprBoardpoint" type="string">
+            <column name="CPR_BOARDPOINT" length="5" />
+        </property>
+        <property name="cprOffpoint" type="string">
+            <column name="CPR_OFFPOINT" length="5" />
+        </property>
+        <property name="cprMarketingcarrier" type="string">
+            <column name="CPR_MARKETINGCARRIER" length="3" />
+        </property>
+        <property name="cprFlightno" type="string">
+            <column name="CPR_FLIGHTNO" length="4" />
+        </property>
+        <property name="cprOpersuffix" type="string">
+            <column name="CPR_OPERSUFFIX" length="1" />
+        </property>
+        <property name="cprRefqualifier" type="string">
+            <column name="CPR_REFQUALIFIER" length="3" />
+        </property>
+        <property name="cprPrimeid" type="string">
+            <column name="CPR_PRIMEID" length="16" />
+        </property>
+    </class>
+</hibernate-mapping>

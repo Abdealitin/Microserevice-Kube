@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCalculations" table="CPR_CALCULATIONS">
+        <id name="idCalculations" type="java.lang.Long">
+            <column name="ID_CALCULATIONS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprCustomerlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCustomerlevel" fetch="select">
+            <column name="ID_CUSTOMERLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="ccpBagindictor1" type="string">
+            <column name="CCP_BAGINDICTOR1" length="5" />
+        </property>
+        <property name="ccpBagindictor2" type="string">
+            <column name="CCP_BAGINDICTOR2" length="5" />
+        </property>
+        <property name="ccpBagindictor3" type="string">
+            <column name="CCP_BAGINDICTOR3" length="5" />
+        </property>
+        <property name="ccpBagindictor4" type="string">
+            <column name="CCP_BAGINDICTOR4" length="5" />
+        </property>
+        <property name="ccpBagindictor5" type="string">
+            <column name="CCP_BAGINDICTOR5" length="5" />
+        </property>
+        <property name="ccpBagindictor6" type="string">
+            <column name="CCP_BAGINDICTOR6" length="5" />
+        </property>
+        <property name="ccpBagindictor7" type="string">
+            <column name="CCP_BAGINDICTOR7" length="5" />
+        </property>
+        <property name="ccpBagindictor8" type="string">
+            <column name="CCP_BAGINDICTOR8" length="5" />
+        </property>
+        <property name="cprIndicator" type="string">
+            <column name="CPR_INDICATOR" length="3" />
+        </property>
+        <property name="cprAction" type="string">
+            <column name="CPR_ACTION" length="3" />
+        </property>
+        <property name="cprRefqualifier" type="string">
+            <column name="CPR_REFQUALIFIER" length="3" />
+        </property>
+        <property name="cprPrimeid" type="string">
+            <column name="CPR_PRIMEID" length="16" />
+        </property>
+        <property name="cprTypequalifier" type="string">
+            <column name="CPR_TYPEQUALIFIER" length="3" />
+        </property>
+        <property name="cprAmount" type="java.lang.Long">
+            <column name="CPR_AMOUNT" precision="11" scale="0" />
+        </property>
+        <property name="cprCurrency" type="string">
+            <column name="CPR_CURRENCY" length="3" />
+        </property>
+        <property name="cprSubjectqualifier" type="string">
+            <column name="CPR_SUBJECTQUALIFIER" length="3" />
+        </property>
+        <property name="cprLanguage" type="string">
+            <column name="CPR_LANGUAGE" length="3" />
+        </property>
+        <property name="cprFreetext1" type="string">
+            <column name="CPR_FREETEXT1" length="70" />
+        </property>
+        <property name="cprFreetext2" type="string">
+            <column name="CPR_FREETEXT2" length="70" />
+        </property>
+        <property name="cprFreetext3" type="string">
+            <column name="CPR_FREETEXT3" length="70" />
+        </property>
+        <property name="cprFreetext4" type="string">
+            <column name="CPR_FREETEXT4" length="70" />
+        </property>
+        <property name="cprPaymenttype" type="string">
+            <column name="CPR_PAYMENTTYPE" length="10" />
+        </property>
+        <property name="cprVendorcode" type="string">
+            <column name="CPR_VENDORCODE" length="35" />
+        </property>
+        <property name="cprCarrier" type="string">
+            <column name="CPR_CARRIER" length="35" />
+        </property>
+        <property name="cprNumber" type="string">
+            <column name="CPR_NUMBER" length="25" />
+        </property>
+        <property name="cprTierlevel" type="string">
+            <column name="CPR_TIERLEVEL" length="35" />
+        </property>
+        <property name="cprPrioritycode" type="string">
+            <column name="CPR_PRIORITYCODE" length="12" />
+        </property>
+        <property name="cprTierdescription" type="string">
+            <column name="CPR_TIERDESCRIPTION" length="35" />
+        </property>
+        <property name="cprSurname" type="string">
+            <column name="CPR_SURNAME" length="70" />
+        </property>
+        <property name="cprType" type="string">
+            <column name="CPR_TYPE" length="3" />
+        </property>
+        <property name="cprQuantity" type="java.lang.Long">
+            <column name="CPR_QUANTITY" precision="2" scale="0" />
+        </property>
+        <property name="cprGender" type="string">
+            <column name="CPR_GENDER" length="3" />
+        </property>
+        <property name="cprGivenname" type="string">
+            <column name="CPR_GIVENNAME" length="70" />
+        </property>
+        <property name="cprType2" type="string">
+            <column name="CPR_TYPE2" length="1" />
+        </property>
+        <property name="cprTitle" type="string">
+            <column name="CPR_TITLE" length="20" />
+        </property>
+        <property name="cprPaxquantity" type="java.lang.Long">
+            <column name="CPR_PAXQUANTITY" precision="15" scale="0" />
+        </property>
+        <property name="cprType3" type="string">
+            <column name="CPR_TYPE3" length="3" />
+        </property>
+        <property name="cprInfantindicator" type="string">
+            <column name="CPR_INFANTINDICATOR" length="1" />
+        </property>
+        <property name="cprTravellerid" type="string">
+            <column name="CPR_TRAVELLERID" length="70" />
+        </property>
+        <property name="cprGender1" type="string">
+            <column name="CPR_GENDER1" length="3" />
+        </property>
+        <property name="cprAge2" type="java.lang.Integer">
+            <column name="CPR_AGE2" precision="3" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

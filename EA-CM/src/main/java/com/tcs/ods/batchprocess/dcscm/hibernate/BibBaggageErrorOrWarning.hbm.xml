@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibBaggageErrorOrWarning" table="BIB_BAGGAGE_ERROR_OR_WARNING">
+        <id name="idBaggerrorwarng" type="java.lang.Long">
+            <column name="ID_BAGGERRORWARNG" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibMessage" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibMessage" fetch="select">
+            <column name="ID_BIBMESSAGE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibErrorcode" type="string">
+            <column name="BIB_ERRORCODE" length="20" />
+        </property>
+        <property name="bibErrorcategory" type="string">
+            <column name="BIB_ERRORCATEGORY" length="12" />
+        </property>
+        <property name="bibQualifier" type="string">
+            <column name="BIB_QUALIFIER" length="12" />
+        </property>
+        <property name="bibLanguage" type="string">
+            <column name="BIB_LANGUAGE" length="200" />
+        </property>
+        <property name="bibSource" type="string">
+            <column name="BIB_SOURCE" length="12" />
+        </property>
+        <property name="bibEncoding" type="string">
+            <column name="BIB_ENCODING" length="12" />
+        </property>
+    
+        <property name="bibErrorowner" type="string">
+            <column name="BIB_ERROROWNER" length="3" />
+        </property>
+
+    </class>
+</hibernate-mapping>

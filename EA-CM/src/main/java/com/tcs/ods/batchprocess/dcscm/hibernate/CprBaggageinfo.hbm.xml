@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBaggageinfo" table="CPR_BAGGAGE_INFO">
+        <id name="idBaggageInfo" type="java.lang.Long">
+            <column name="ID_BAGGAGE_INFO" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprMessage" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprMessage" fetch="select">
+            <column name="ID_CPRMESSAGE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprChbagNoofpieces" type="java.lang.Integer">
+            <column name="CPR_CHBAG_NOOFPIECES" precision="4" scale="0" />
+        </property>
+        <property name="cprChbagWeight" type="java.lang.Integer">
+            <column name="CPR_CHBAG_WEIGHT" precision="4" scale="0" />
+        </property>
+        <property name="cprChbagUnqual" type="string">
+            <column name="CPR_CHBAG_UNQUAL" length="3" />
+        </property>
+        <property name="cprChbagStat" type="string">
+            <column name="CPR_CHBAG_STAT" length="2" />
+        </property>
+        <property name="cprHabagNoofpieces" type="java.lang.Integer">
+            <column name="CPR_HABAG_NOOFPIECES" precision="4" scale="0" />
+        </property>
+        <property name="cprHabagWeight" type="java.lang.Integer">
+            <column name="CPR_HABAG_WEIGHT" precision="4" scale="0" />
+        </property>
+        <property name="cprPaxSurname" type="string">
+            <column name="CPR_PAX_SURNAME" length="70" />
+        </property>
+        <property name="cprHabagUnqual" type="string">
+            <column name="CPR_HABAG_UNQUAL" length="3" />
+        </property>
+        <property name="cprBagrefIndic" type="string">
+            <column name="CPR_BAGREF_INDIC" length="3" />
+        </property>
+        <property name="cprBagrefNum" type="string">
+            <column name="CPR_BAGREF_NUM" length="16" />
+        </property>
+        <property name="cprPaxType" type="string">
+            <column name="CPR_PAX_TYPE" length="3" />
+        </property>
+        <property name="cprPaxGivenname" type="string">
+            <column name="CPR_PAX_GIVENNAME" length="70" />
+        </property>
+        <property name="cprPaxTitle" type="string">
+            <column name="CPR_PAX_TITLE" length="20" />
+        </property>
+        <property name="cprPaxQty" type="java.lang.Long">
+            <column name="CPR_PAX_QTY" precision="15" scale="0" />
+        </property>
+        <property name="cprPaxQultyp" type="string">
+            <column name="CPR_PAX_QULTYP" length="3" />
+        </property>
+        <property name="cprInfantInd" type="string">
+            <column name="CPR_INFANT_IND" length="1" />
+        </property>
+        <property name="cprTrvlidentCd" type="string">
+            <column name="CPR_TRVLIDENT_CD" length="70" />
+        </property>
+        <property name="cprGender" type="string">
+            <column name="CPR_GENDER" length="3" />
+        </property>
+        <property name="cprAge" type="java.lang.Long">
+            <column name="CPR_AGE" precision="3" />
+        </property>
+        <property name="cprUnqcustQual" type="string">
+            <column name="CPR_UNQCUST_QUAL" length="3" />
+        </property>
+        <property name="cprUnqcustId" type="string">
+            <column name="CPR_UNQCUST_ID" length="16" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

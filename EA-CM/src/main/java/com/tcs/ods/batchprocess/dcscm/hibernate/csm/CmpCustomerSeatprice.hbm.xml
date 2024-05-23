@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpCustomerSeatprice" table="CMP_CUSTOMER_SEATPRICE">
+        <id name="idCustomerseatprice" type="java.lang.Long">
+            <column name="ID_CUSTOMERSEATPRICE" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpSeatmapinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatmapinfo" fetch="select">
+            <column name="ID_SEATMAPINFO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpIdQualifier" type="string">
+            <column name="CMP_ID_QUALIFIER" length="12" />
+        </property>
+        <property name="cmpId" type="string">
+            <column name="CMP_ID" length="140" />
+        </property>
+        
+         <property name="cmpIdqualifier1" type="string">
+            <column name="CMP_IDQUALIFIER1" length="12" />
+        </property>
+        <property name="cmpId1" type="string">
+            <column name="CMP_ID1" length="140" />
+        </property>
+         <property name="cmpIdqualifier2" type="string">
+            <column name="CMP_IDQUALIFIER2" length="12" />
+        </property>
+        <property name="cmpId2" type="string">
+            <column name="CMP_ID2" length="140" />
+        </property>
+         <property name="cmpIdqualifier3" type="string">
+            <column name="CMP_IDQUALIFIER3" length="12" />
+        </property>
+        <property name="cmpId3" type="string">
+            <column name="CMP_ID3" length="140" />
+        </property>
+         <property name="cmpIdqualifier4" type="string">
+            <column name="CMP_IDQUALIFIER4" length="12" />
+        </property>
+        <property name="cmpId4" type="string">
+            <column name="CMP_ID4" length="140" />
+        </property>
+         <property name="cmpIdqualifier5" type="string">
+            <column name="CMP_IDQUALIFIER5" length="12" />
+        </property>
+        <property name="cmpId5" type="string">
+            <column name="CMP_ID5" length="140" />
+        </property>
+        <property name="cmpIdqualifier6" type="string">
+            <column name="CMP_IDQUALIFIER6" length="12" />
+        </property>
+        <property name="cmpId6" type="string">
+            <column name="CMP_ID6" length="140" />
+        </property>
+         <property name="cmpIdqualifier7" type="string">
+            <column name="CMP_IDQUALIFIER7" length="12" />
+        </property>
+        <property name="cmpId7" type="string">
+            <column name="CMP_ID7" length="140" />
+        </property>
+         <property name="cmpIdqualifier8" type="string">
+            <column name="CMP_IDQUALIFIER8" length="12" />
+        </property>
+        <property name="cmpId8" type="string">
+            <column name="CMP_ID8" length="140" />
+        </property>
+    </class>
+</hibernate-mapping>

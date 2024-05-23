@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibExcessbaggageitem" table="BIB_EXCESSBAGGAGEITEM">
+        <id name="idXsbaggitem" type="java.lang.Long">
+            <column name="ID_XSBAGGITEM" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibExcessbagsector" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibExcessbagsector" fetch="select">
+            <column name="ID_EXCESSBAGGSECTOR" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibRatecurrency" type="string">
+            <column name="BIB_RATECURRENCY" length="200" />
+        </property>
+        <property name="bibRateamount" type="java.lang.Long">
+            <column name="BIB_RATEAMOUNT" precision="18" scale="0" />
+        </property>
+        <property name="bibProcessingindicator" type="java.lang.Short">
+            <column name="BIB_PROCESSINGINDICATOR" precision="3" scale="0" />
+        </property>
+        <property name="bibMeasurement" type="java.lang.Long">
+            <column name="BIB_MEASUREMENT" precision="18" scale="0" />
+        </property>
+        <property name="bibQuantitycode" type="string">
+            <column name="BIB_QUANTITYCODE" length="4" />
+        </property>
+        <property name="bibQualifier" type="string">
+            <column name="BIB_QUALIFIER" length="8" />
+        </property>
+        <property name="bibPricingIndicator" type="string">
+            <column name="BIB_PRICING_INDICATOR" length="12" />
+        </property>
+        <property name="bibPricingType" type="string">
+            <column name="BIB_PRICING_TYPE" length="8" />
+        </property>
+        <property name="bibMarketingCompany" type="string">
+            <column name="BIB_MARKETING_COMPANY" length="12" />
+        </property>
+        <property name="bibOtherCompany" type="string">
+            <column name="BIB_OTHER_COMPANY" length="12" />
+        </property>
+        <property name="bibTransitOrigin" type="string">
+            <column name="BIB_TRANSIT_ORIGIN" length="100" />
+        </property>
+        <property name="bibTravelLocationid" type="string">
+            <column name="BIB_TRAVEL_LOCATIONID" length="12" />
+        </property>
+        <property name="bibOffpointLocationid" type="string">
+            <column name="BIB_OFFPOINT_LOCATIONID" length="12" />
+        </property>
+        <property name="bibMarketingCompany1" type="string">
+            <column name="BIB_MARKETING_COMPANY1" length="12" />
+        </property>
+        <property name="bibFlightIndicator" type="string">
+            <column name="BIB_FLIGHT_INDICATOR" length="4" />
+        </property>
+        <property name="bibRateQualifier" type="string">
+            <column name="BIB_RATE_QUALIFIER" length="12" />
+        </property>
+        <property name="bibRateAmount" type="java.lang.Long">
+            <column name="BIB_RATE_AMOUNT" precision="11" scale="0" />
+        </property>
+        <property name="bibRateCurrency" type="string">
+            <column name="BIB_RATE_CURRENCY" length="12" />
+        </property>
+        <property name="bibChargesQualifier" type="string">
+            <column name="BIB_CHARGES_QUALIFIER" length="12" />
+        </property>
+        <property name="bibChargesAmount" type="java.lang.Long">
+            <column name="BIB_CHARGES_AMOUNT" precision="11" scale="0" />
+        </property>
+        <property name="bibChargesCurrency" type="string">
+            <column name="BIB_CHARGES_CURRENCY" length="12" />
+        </property>
+        <property name="bibDocumentNumber" type="string">
+            <column name="BIB_DOCUMENT_NUMBER" length="68" />
+        </property>
+        <property name="bibDocumentType" type="string">
+            <column name="BIB_DOCUMENT_TYPE" length="12" />
+        </property>
+        <property name="bibDocumentIndicator" type="string">
+            <column name="BIB_DOCUMENT_INDICATOR" length="12" />
+        </property>
+        <property name="bibBagCarriercode" type="string">
+            <column name="BIB_BAG_CARRIERCODE" length="12" />
+        </property>
+        <property name="bibSerialNumber" type="java.lang.Integer">
+            <column name="BIB_SERIAL_NUMBER" precision="6" scale="0" />
+        </property>
+        <property name="bibCarrierNo" type="java.lang.Short">
+            <column name="BIB_CARRIER_NO" precision="3" scale="0" />
+        </property>
+        <property name="bibBagType" type="java.lang.Short">
+            <column name="BIB_BAG_TYPE" precision="1" scale="0" />
+        </property>
+        <property name="bibBagUniqueid" type="string">
+            <column name="BIB_BAG_UNIQUEID" length="64" />
+        </property>
+        <property name="bibStatusIndicator" type="string">
+            <column name="BIB_STATUS_INDICATOR" length="12" />
+        </property>
+        <property name="bibStatusAction" type="string">
+            <column name="BIB_STATUS_ACTION" length="12" />
+        </property>
+        <property name="bibExtraType" type="string">
+            <column name="BIB_EXTRA_TYPE" length="12" />
+        </property>
+        <property name="bibExtraValue" type="java.lang.Short">
+            <column name="BIB_EXTRA_VALUE" precision="3" scale="0" />
+        </property>
+        <property name="bibWaiveQualifier" type="string">
+            <column name="BIB_WAIVE_QUALIFIER" length="12" />
+        </property>
+        <property name="bibWaiveSource" type="string">
+            <column name="BIB_WAIVE_SOURCE" length="4" />
+        </property>
+        <property name="bibWaiveEncoding" type="string">
+            <column name="BIB_WAIVE_ENCODING" length="12" />
+        </property>
+        <property name="bibWaiveFreetext1" type="string">
+            <column name="BIB_WAIVE_FREETEXT1" length="280" />
+        </property>
+        <property name="bibWaiveFreetext2" type="string">
+            <column name="BIB_WAIVE_FREETEXT2" length="280" />
+        </property>
+        <property name="bibWaiveFreetext3" type="string">
+            <column name="BIB_WAIVE_FREETEXT3" length="280" />
+        </property>
+        <property name="bibPaymentType" type="string">
+            <column name="BIB_PAYMENT_TYPE" length="40" />
+        </property>
+        <property name="bibPaymentCode" type="string">
+            <column name="BIB_PAYMENT_CODE" length="140" />
+        </property>
+        <property name="bibValuemeasurement" type="java.lang.Short">
+            <column name="BIB_VALUEMEASUREMENT" precision="4" scale="0" />
+        </property>
+        <property name="bibUnitqualifier" type="string">
+            <column name="BIB_UNITQUALIFIER" length="2" />
+        </property>
+        <property name="bibPrimeid" type="string">
+            <column name="BIB_PRIMEID" length="3" />
+        </property>
+        <property name="bibFreetext" type="string">
+            <column name="BIB_FREETEXT" length="70" />
+        </property>
+        <property name="bibRefqualifier" type="string">
+            <column name="BIB_REFQUALIFIER" length="3" />
+        </property>
+        <property name="bibRefprimeid" type="string">
+            <column name="BIB_REFPRIMEID" length="35" />
+        </property>
+        <property name="bibMarkcompany" type="string">
+            <column name="BIB_MARKCOMPANY" length="3" />
+        </property>
+        <property name="bibOpercompany" type="string">
+            <column name="BIB_OPERCOMPANY" length="3" />
+        </property>        
+    </class>
+</hibernate-mapping>

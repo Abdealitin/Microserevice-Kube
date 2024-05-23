@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 3, 2017 11:07:00 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprSpecialBagAttribute" table="CPR_SPECIAL_BAG_ATTRIBUTE">
+        <id name="idSpecialBagAttribute" type="java.lang.Long">
+            <column name="ID_SPECIAL_BAG_ATTRIBUTE" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        
+         <many-to-one name="idFlightinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprFlightinfo" fetch="select">
+            <column name="ID_FLIGHTINFO" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprSpecialSsrcode" type="string">
+            <column name="CPR_SPECIAL_SSRCODE" length="4" />
+        </property>
+        <property name="cprSpecialActioncode" type="string">
+            <column name="CPR_SPECIAL_ACTIONCODE" length="1" />
+        </property>
+        <property name="cprSpecialServicetype" type="string">
+            <column name="CPR_SPECIAL_SERVICETYPE" length="3" />
+        </property>
+        <property name="cprSpecialBoardpoint" type="string">
+            <column name="CPR_SPECIAL_BOARDPOINT" length="4" />
+        </property>
+        <property name="cprSpecialOffpoint" type="string">
+            <column name="CPR_SPECIAL_OFFPOINT" length="4" />
+        </property>
+        <property name="cprSpecialFreetext" type="string">
+            <column name="CPR_SPECIAL_FREETEXT" length="20" />
+        </property>
+        <property name="cprSpecialStatus" type="string">
+            <column name="CPR_SPECIAL_STATUS" length="3" />
+        </property>
+        <property name="cprAttributeQualifier" type="java.lang.Integer">
+            <column name="CPR_ATTRIBUTE_QUALIFIER" precision="1" scale="0" />
+        </property>
+        <property name="cprAttributeSource" type="string">
+            <column name="CPR_ATTRIBUTE_SOURCE" length="1" />
+        </property>
+        <property name="cprAttributeEncoding" type="string">
+            <column name="CPR_ATTRIBUTE_ENCODING" length="3" />
+        </property>
+        <property name="cprAttributeFreetext" type="string">
+            <column name="CPR_ATTRIBUTE_FREETEXT" length="20" />
+        </property>
+        <property name="cprStatusIndicator" type="string">
+            <column name="CPR_STATUS_INDICATOR" length="3" />
+        </property>
+        <property name="cprStatusAction" type="string">
+            <column name="CPR_STATUS_ACTION" length="1" />
+        </property>
+        <!-- <property name="dwhSnapshottimestamp" type="serializable">
+            <column name="DWH_SNAPSHOTTIMESTAMP" />
+        </property>
+        <property name="idFlightinfo" type="big_decimal">
+            <column name="ID_FLIGHTINFO" precision="36" scale="0" not-null="true" />
+        </property> -->
+    </class>
+</hibernate-mapping>

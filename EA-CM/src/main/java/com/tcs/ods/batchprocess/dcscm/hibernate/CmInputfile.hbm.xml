@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.CmInputfile" table="CM_INPUTFILE">
+        <id name="idInputfiles" type="java.lang.Long">
+            <column name="ID_INPUTFILES" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="cmLoaddtetime" type="java.sql.Timestamp">
+            <column name="CM_LOADDTETIME" not-null="true" />
+        </property>
+        <property name="cmInputfilename" type="string">
+            <column name="CM_INPUTFILENAME" not-null="true" />
+        </property>
+        <property name="cmSrceenvironment" type="string">
+            <column name="CM_SRCEENVIRONMENT" length="10" not-null="true" />
+        </property>
+        <property name="cmMsgcode" type="string">
+            <column name="CM_MSGCODE" length="10" not-null="true" />
+        </property>
+        <property name="cmAlncode" type="string">
+            <column name="CM_ALNCODE" length="3" not-null="true" />
+        </property>
+        <property name="cmFltnum" type="long">
+            <column name="CM_FLTNUM" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="cmOplsuffix" type="java.lang.Character">
+            <column name="CM_OPLSUFFIX" length="1" />
+        </property>
+        <property name="cmBoardpt" type="string">
+            <column name="CM_BOARDPT" length="3" not-null="true" />
+        </property>
+        <property name="cmFlightdte" type="date">
+            <column name="CM_FLIGHTDTE" length="7" not-null="true" />
+        </property>
+        <property name="cmTriggerDatetime" type="java.sql.Timestamp">
+            <column name="CM_TRIGGER_DATETIME"/>
+        </property>        
+    </class>
+</hibernate-mapping>

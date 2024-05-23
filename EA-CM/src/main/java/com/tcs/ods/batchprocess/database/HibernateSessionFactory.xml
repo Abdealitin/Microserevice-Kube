@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- Hibernate session factory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+
+		<!-- <property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="show_sql">false</prop>
+				<prop key="format_sql">false</prop>
+				<prop key="use_sql_comments">false</prop>
+				<prop key="connection.autocommit">false</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.cache.use_minimal_puts">false</prop>
+				<prop key="hibernate.cache.use_structured_entries">false</prop>
+				<prop key="hibernate.jdbc.batch_size">2</prop>
+			</props>
+		</property> -->
+		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="show_sql">false</prop>
+				<prop key="format_sql">false</prop>
+				<prop key="use_sql_comments">false</prop>
+				<prop key="connection.autocommit">false</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.cache.use_minimal_puts">false</prop>
+				<prop key="hibernate.cache.use_structured_entries">false</prop>
+				<prop key="hibernate.jdbc.batch_size">200</prop>
+				<prop key="hibernate.default_schema">EA_DB</prop>
+			</props>
+		</property>
+
+		<property name="mappingResources">
+			<list>
+			
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/ApiFileLoad.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/DcsCmSmooksErrorTracker.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CmInputfile.hbm.xml
+				</value>
+		 		<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibMessage.hbm.xml
+				</value>
+				 <value>com/tcs/ods/batchprocess/dcscm/hibernate/BibBaggageErrorOrWarning.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibFreetextInfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibBaggageinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibBaggageIndicator.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibBagIdentifier.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibRespCustDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibRespOtherCustDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibPaxDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibPoolmember.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibOtherPaxDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibBagggroupItinerary.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibApplicationError.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibApplicationFreetext.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibBagdetail.hbm.xml  
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibLinkedbagprod.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibOwnerdetail.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibEnchanceOtherpax.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibLastseenLocation.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibFlightinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibBaglegindicator.hbm.xml 
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibOffloaddetail.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibSecuritydetail.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibLoadingdetail.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibPresortinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibSpecialBagAttribute.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibLoadingindicators.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibBaginfoErrorOrWarning.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibBagInfoFreetextInfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibExcessbaggageGroup.hbm.xml  
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibExcesspaymentflow.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibExcessbaggageCalculation.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibExcessCustomerupi.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibOtherCharges.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibTaxdetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibEnchanceOtherpaxDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibExcessbagsector.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibExcessbagallowance.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibExcessbaggageitem.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibExcessOtherrates.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibOthermonetarydetail.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/BibExcessAttributes.hbm.xml
+				</value>
+				
+				<!-- dcscm chdwrr hbms -->
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/ChwMessage.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/ChwErrorinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/ChwHistoryitem.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/ChwHistorydata.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/ChwHistoryassociation.hbm.xml
+				</value>				
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/ChwDataelement.hbm.xml
+				</value>
+				
+				<!--CSMPRR FILES  -->
+				
+				<!-- <value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmInputfile.hbm.xml
+				</value> -->
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpMessage.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpApplicationErrGrp.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpAcceptancebannerText.hbm.xml
+				</value> 
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpStatusIndicator.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpSeatmapinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpMarketingfltDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpDatetimeInfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpStatusDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpDeparturegate.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpFittedconfig.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpCompartment.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpColoumnDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpMoveablecurtainZone.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpRow.hbm.xml
+				</value>
+				 <value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpRowCharacteristics.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpSeatoccupationDetails.hbm.xml
+				</value> 
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpCrossreference.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpIdDetail.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpCustomercharact.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpSsrdetail.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpCustomerdetail.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpEnchancedNameDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpStatus.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpPaxcrossreference.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpCustomerSeatprice.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpSeatPrice.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpOtherCustSeatprice.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpOtherSeatPrice.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpTaxDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpTaxType.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpSeatOccupation.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpCriteriaDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpPriceDesc.hbm.xml 
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpCabinconfig.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpConfigDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpSeatblock.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/csm/CmpSeatSsrdetail.hbm.xml
+				</value>
+				<!-- CCPRRR HBM FILES -->
+				
+				<!-- <value>com/tcs/ods/batchprocess/dcscm/hibernate/CmInputfile.hbm.xml
+				</value> -->
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprMessage.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprErrorgroup.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCustomerlevel.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprOtherpaxdetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprEnhancedcustomer.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprEnhancedotherpax.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCustErrgroup.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGxfrTransferdetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGxfrGrTransdetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGxfrGrFlightdetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGcdtCustdetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGerrCustomererror.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGtprJourneydetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGtprGrProddetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGtprGrErrgroup.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprNonrevcustdetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprReslEdireslink.hbm.xml
+				</value>	
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRdocEdiregdoc.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRdocRegdocindi.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/cprCustindicator.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprStaffcompanyinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCustfqtvinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprApmcontactdetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPaymentflow.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCalculations.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprXsbcRespCustomer.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprTotalcharges.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGst.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprEnhancedcust.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprSectors.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprAllowances.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprExcessbaggageitem.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprExcessbaggageattr.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprExcessOthermon.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprChargeexcessitem.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCustomerleveladdress.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCustaccountinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCustlevelservices.hbm.xml
+				</value>
+				<!-- muhila Boffin-->
+				
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprProductlevel.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprEdiregdoc.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRdocDocdate.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRdocIssuecountry.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRdocRegindicator.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRdocPermquantity.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprFoiddetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprApnContactdetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPfdc.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprNtrContactdtls.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprProdupi.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRecordlocator.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprErrorInfo.hbm.xml 
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPrdlevelBkgdtls.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPrdlevelIndi.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprFlightstatus.hbm.xml 
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprTerminalloc.hbm.xml 
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCountry.hbm.xml 
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPrepaidExcessbag.hbm.xml 
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCompensationDtls.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCompensationAttr.hbm.xml 
+				</value>				
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGtpVoucher.hbm.xml 
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprDisruptedFlt.hbm.xml 
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprReplacementFlt.hbm.xml  
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprReplacementType.hbm.xml  
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprReslinkErrors.hbm.xml  
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCompAuthDtls.hbm.xml    
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCompAttr.hbm.xml    
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPrdlevelStaffinfo.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPrdlevelStfstatus.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprEmergencyContact.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRegprodstatus.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprAuthorizerFreetext.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprAdcMsg.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprAdcRefcode.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprNationality.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRegDocuments.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRegDocIssuecontry.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRegDocIndicator.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRegDocQuantity.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprApprespdetails.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprAppdError.hbm.xml   
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprTickets.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprEmds.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprIappinformation.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprServicedetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLostservices.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprFlightintrManifest.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprFimcommongroup.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprFimticketdetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBaggAllowancefin.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprDisrinfoDisstatus.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprDisflights.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprFlightRepservice.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprFqtvFreqflyerinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCreditCreditcarddetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprVccdCredetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCorpidClidinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCorpidEstimatetimes.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCorpidCliddata.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRevintegindicator.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBagInformation.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBaggindicator.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBaggitinDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRevintegfreetextdata.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprAssosiatecharges.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprChargeablestatus.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprFlightLegrestriction.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprFlightRepserdate.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprEmdInformation.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprVccVerifMethod.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprServices.hbm.xml
+				</value>
+				
+				<!-- navaneeth part -->
+				
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprExbagwaiver.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprAdddetailgroup.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCandidetickets.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLeglevelLegrouting.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprErrorsErrorwarncode.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPreflightSeatinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPreflightLevelindicator.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPreflightLegtimes.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLoungeinfoLounge.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLoungeProduct.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLoungeinfoStatus.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLoungeinfoDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprChseatdetServicedetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprChserviceMonentary.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprChserviceWaiverreason.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprChserviceChserstatus.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLostseatFflightdetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLostseatFltlegstatus.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCommentsRemark.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRegradeDelivered.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprRegradeProposed.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprOnloadDetails.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprAdcmessageGroup.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprAdcmsgRefcode.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprConformanceinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprConinfoConfinfochecks.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprSsrwarnings.hbm.xml
+				</value>
+				<!-- jagdeep -->
+				<!-- LNKS -->
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprCustprdtLinks.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLnkidList.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprSubLnks.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprSublnkAtc.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprSublnkUpi.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprAdjacencyLnk.hbm.xml
+				</value>
+				
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBaggageinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBagidentifiers.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBagind.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprOthspaxDtls.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBcusPool.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPoolOthspaxDtls.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBagItin.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBagErrors.hbm.xml
+				</value>
+				
+				<!-- //IBAG -->
+				 <value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBagdetail.hbm.xml
+				</value> 
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLnkbagPrdct.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprOwnerdetail.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLastseenLocation.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprFlightinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLoadingdeatil.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprLoadingIndc.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprPresortinfo.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprSpecialBagAttribute.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBagError.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprBaglegindicator.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprEnhancedotherpaxinfo.hbm.xml
+				</value>
+				 
+				 
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGrpdSwiperesponse.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprGrpdError.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprDecodeIdentityDoc.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprDecodedMsrdoc.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprDecodedfqtv.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprDecodedcreditcard.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprDecodedpectabDoc.hbm.xml
+				</value>
+				<value>com/tcs/ods/batchprocess/dcscm/hibernate/CprDecodedsegmentdetails.hbm.xml
+				</value>
+				
+				
+			</list>
+		</property>
+	</bean>
+
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>

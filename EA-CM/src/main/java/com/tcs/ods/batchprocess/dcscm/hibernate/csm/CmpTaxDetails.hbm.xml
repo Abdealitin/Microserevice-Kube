@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpTaxDetails" table="CMP_TAX_DETAILS">
+        <id name="idTaxdetails" type="java.lang.Long">
+            <column name="ID_TAXDETAILS" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpSeatPrice" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatPrice" fetch="select">
+            <column name="ID_SEATPRICE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpTaxRate" type="string">
+            <column name="CMP_TAX_RATE" length="68" />
+        </property>
+        <property name="cmpTaxCountrycode" type="string">
+            <column name="CMP_TAX_COUNTRYCODE" length="12" />
+        </property>
+        <property name="cmpTaxCurrencycode" type="string">
+            <column name="CMP_TAX_CURRENCYCODE" length="12" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

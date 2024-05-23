@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibBaggageinfo" table="BIB_BAGGAGEINFO">
+        <id name="idBaggageinfo" type="java.lang.Long">
+            <column name="ID_BAGGAGEINFO" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibMessage" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibMessage" fetch="select">
+            <column name="ID_BIBMESSAGE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibCheckedbaggagenumber" type="java.lang.Short">
+            <column name="BIB_CHECKEDBAGGAGENUMBER" precision="3" scale="0" />
+        </property>
+        <property name="bibCheckedbaggageweight" type="java.lang.Short">
+            <column name="BIB_CHECKEDBAGGAGEWEIGHT" precision="4" scale="0" />
+        </property>
+        <property name="bibCheckedbaggagequalifier" type="string">
+            <column name="BIB_CHECKEDBAGGAGEQUALIFIER" length="12" />
+        </property>
+        <property name="bibCheckedbaggagestatus" type="string">
+            <column name="BIB_CHECKEDBAGGAGESTATUS" length="8" />
+        </property>
+        <property name="bibHandbaggagenumber" type="java.lang.Short">
+            <column name="BIB_HANDBAGGAGENUMBER" precision="3" scale="0" />
+        </property>
+        <property name="bibHandbaggageweight" type="java.lang.Short">
+            <column name="BIB_HANDBAGGAGEWEIGHT" precision="4" scale="0" />
+        </property>
+        <property name="bibHandbaggagequalifier" type="string">
+            <column name="BIB_HANDBAGGAGEQUALIFIER" length="12" />
+        </property>
+        <property name="bibBaggagepoolindicator" type="string">
+            <column name="BIB_BAGGAGEPOOLINDICATOR" length="12" />
+        </property>
+        <property name="bibBaggagepoolidentity" type="string">
+            <column name="BIB_BAGGAGEPOOLIDENTITY" length="80" />
+        </property>
+     </class>
+</hibernate-mapping>

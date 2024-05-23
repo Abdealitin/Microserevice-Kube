@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCompensationDtls" table="CPR_COMPENSATION_DTLS">
+        <id name="idCompensationDtls" type="java.lang.Long">
+            <column name="ID_COMPENSATION_DTLS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprType" type="string">
+            <column name="CPR_TYPE" length="6" />
+        </property>
+        <property name="cprFormofpayment" type="string">
+            <column name="CPR_FORMOFPAYMENT" length="20" />
+        </property>
+        <property name="cprMonetaryamt" type="java.lang.Long">
+            <column name="CPR_MONETARYAMT" precision="35" scale="0" />
+        </property>
+        <property name="cprCurrency" type="string">
+            <column name="CPR_CURRENCY" length="3" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="70" />
+        </property>
+        <property name="cprStartdate" type="date">
+            <column name="CPR_STARTDATE" length="7" />
+        </property>
+        <property name="cprCompstatus" type="string">
+            <column name="CPR_COMPSTATUS" length="1" />
+        </property>
+        <property name="cprTxtsubqual" type="string">
+            <column name="CPR_TXTSUBQUAL" length="3" />
+        </property>
+        <property name="cprSource" type="string">
+            <column name="CPR_SOURCE" length="3" />
+        </property>
+        <property name="cprEncoding" type="string">
+            <column name="CPR_ENCODING" length="3" />
+        </property>
+        <property name="cprLongfreetext" type="string">
+            <column name="CPR_LONGFREETEXT" length="199" />
+        </property>
+        <property name="cprCmtTxtsubqual" type="string">
+            <column name="CPR_CMT_TXTSUBQUAL" length="3" />
+        </property>
+        <property name="cprCmtSource" type="string">
+            <column name="CPR_CMT_SOURCE" length="3" />
+        </property>
+        <property name="cprCmtEncoding" type="string">
+            <column name="CPR_CMT_ENCODING" length="3" />
+        </property>
+        <property name="cprCmtFreetext" type="string">
+            <column name="CPR_CMT_FREETEXT" length="199" />
+        </property>
+        <property name="cprOrigin" type="string">
+            <column name="CPR_ORIGIN" length="3" />
+        </property>
+        <property name="cprDestination" type="string">
+            <column name="CPR_DESTINATION" length="3" />
+        </property>
+        <property name="cprReftype1" type="string">
+            <column name="CPR_REFTYPE1" length="3" />
+        </property>
+        <property name="cprReftype2" type="string">
+            <column name="CPR_REFTYPE2" length="3" />
+        </property>
+        <property name="cprRefnumber1" type="string">
+            <column name="CPR_REFNUMBER1" length="20" />
+        </property>
+        <property name="cprRefnumber2" type="string">
+            <column name="CPR_REFNUMBER2" length="20" />
+        </property>
+        <property name="cprDocnumber" type="string">
+            <column name="CPR_DOCNUMBER" length="35" />
+        </property>
+        <property name="cprCpnnumber" type="string">
+            <column name="CPR_CPNNUMBER" length="6" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

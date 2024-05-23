@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCorpidEstimatetimes" table="CPR_CORPID_ESTIMATETIMES">
+        <id name="idCorpidEstimatetimes" type="java.lang.Long">
+            <column name="ID_CORPID_ESTIMATETIMES" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprBusisemantic1" type="string">
+            <column name="CPR_BUSISEMANTIC1" length="3" />
+        </property>
+        <property name="cprBusisemantic2" type="string">
+            <column name="CPR_BUSISEMANTIC2" length="3" />
+        </property>
+        <property name="cprBegindatetime1" type="java.sql.Timestamp">
+            <column name="CPR_BEGINDATETIME1" />
+        </property>
+        <property name="cprBegindatetime2" type="java.sql.Timestamp">
+            <column name="CPR_BEGINDATETIME2" />
+        </property>
+        <property name="cprEnddatetime1" type="java.sql.Timestamp">
+            <column name="CPR_ENDDATETIME1" />
+        </property>
+        <property name="cprEnddatetime2" type="java.sql.Timestamp">
+            <column name="CPR_ENDDATETIME2" />
+        </property>
+        <property name="cprTextsubqualifier1" type="string">
+            <column name="CPR_TEXTSUBQUALIFIER1" length="3" />
+        </property>
+        <property name="cprTextsubqualifier2" type="string">
+            <column name="CPR_TEXTSUBQUALIFIER2" length="3" />
+        </property>
+        <property name="cprInfomationtype1" type="string">
+            <column name="CPR_INFOMATIONTYPE1" length="4" />
+        </property>
+        <property name="cprInfomationtype2" type="string">
+            <column name="CPR_INFOMATIONTYPE2" length="4" />
+        </property>
+        <property name="cprStatus1" type="string">
+            <column name="CPR_STATUS1" length="3" />
+        </property>
+        <property name="cprStatus2" type="string">
+            <column name="CPR_STATUS2" length="3" />
+        </property>
+        <property name="cprCodedlanguage1" type="string">
+            <column name="CPR_CODEDLANGUAGE1" length="3" />
+        </property>
+        <property name="cprCodedlanguage2" type="string">
+            <column name="CPR_CODEDLANGUAGE2" length="3" />
+        </property>
+        <property name="cprSource1" type="string">
+            <column name="CPR_SOURCE1" length="3" />
+        </property>
+        <property name="cprSource2" type="string">
+            <column name="CPR_SOURCE2" length="3" />
+        </property>
+        <property name="cprEncoding1" type="string">
+            <column name="CPR_ENCODING1" length="3" />
+        </property>
+        <property name="cprEncoding2" type="string">
+            <column name="CPR_ENCODING2" length="3" />
+        </property>
+        <property name="cprFreetext1" type="string">
+            <column name="CPR_FREETEXT1" length="8000" />
+        </property>
+        <property name="cprFreetext2" type="string">
+            <column name="CPR_FREETEXT2" length="8000" />
+        </property>
+    </class>
+</hibernate-mapping>

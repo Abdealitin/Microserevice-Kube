@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprEnhancedcust" table="CPR_ENHANCEDCUST">
+        <id name="idEnhancedcust" type="java.lang.Long">
+            <column name="ID_ENHANCEDCUST" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprCalculations" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCalculations" fetch="select">
+            <column name="ID_CALCULATIONS" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprNametype" type="string">
+            <column name="CPR_NAMETYPE" length="5" />
+        </property>
+        <property name="cprReferencename" type="string">
+            <column name="CPR_REFERENCENAME" length="1" />
+        </property>
+        <property name="cprDispalyedname" type="string">
+            <column name="CPR_DISPALYEDNAME" length="1" />
+        </property>
+        <property name="cprRomanmethod" type="string">
+            <column name="CPR_ROMANMETHOD" length="4" />
+        </property>
+        <property name="cprSurname" type="string">
+            <column name="CPR_SURNAME" length="70" />
+        </property>
+        <property name="cprGivenname" type="string">
+            <column name="CPR_GIVENNAME" length="70" />
+        </property>
+        <property name="cprTitle1" type="string">
+            <column name="CPR_TITLE1" length="70" />
+        </property>
+        <property name="cprTitle2" type="string">
+            <column name="CPR_TITLE2" length="70" />
+        </property>
+    </class>
+</hibernate-mapping>

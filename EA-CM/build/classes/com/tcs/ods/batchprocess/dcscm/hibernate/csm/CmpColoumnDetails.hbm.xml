@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpColoumnDetails" table="CMP_COLOUMN_DETAILS">
+       
+        <id name="idColoumndetails" type="java.lang.Long">
+            <column name="ID_COLOUMNDETAILS" scale="0" />
+            <generator class="increment" />
+        </id>
+            
+        <many-to-one name="cmpCompartment" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpCompartment" fetch="select">
+            <column name="ID_COMPARTMENT" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpSeatColoumn" type="string">
+            <column name="CMP_SEAT_COLOUMN" length="4" />
+        </property>
+        <property name="cmpColoumnDesc1" type="string">
+            <column name="CMP_COLOUMN_DESC1" length="40" />
+        </property>
+        <property name="cmpColoumnDesc2" type="string">
+            <column name="CMP_COLOUMN_DESC2" length="40" />
+        </property>
+        
+    </class>
+</hibernate-mapping>
+
+

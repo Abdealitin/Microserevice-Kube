@@ -1,0 +1,109 @@
+package com.tcs.ods.batchprocess.dcscm.ccprrr.smooks;
+
+public class PassengerBaggageInformation {
+
+	private Integer number;
+	private Integer weight;
+	private String unitQualifier;
+	private String statusCode;
+	private Integer numberOfPieces;
+	private Integer weight1;
+	private String measureUnitQualifier;
+	private String indicatorCode;
+	private String identityNumber;
+	private String bagTagDetailsSection;
+	public PassengerBaggageInformation() {
+		//super();
+		// TODO Auto-generated constructor stub
+	}
+	public PassengerBaggageInformation(Integer number, Integer weight,
+			String unitQualifier, String statusCode, Integer numberOfPieces,
+			Integer weight1, String measureUnitQualifier, String indicatorCode,
+			String identityNumber, String bagTagDetailsSection) {
+		//super();
+		this.number = number;
+		this.weight = weight;
+		this.unitQualifier = unitQualifier;
+		this.statusCode = statusCode;
+		this.numberOfPieces = numberOfPieces;
+		this.weight1 = weight1;
+		this.measureUnitQualifier = measureUnitQualifier;
+		this.indicatorCode = indicatorCode;
+		this.identityNumber = identityNumber;
+		this.bagTagDetailsSection = bagTagDetailsSection;
+	}
+	public Integer getNumber() {
+		return number;
+	}
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+	public Integer getWeight() {
+		return weight;
+	}
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+	public String getUnitQualifier() {
+		return unitQualifier;
+	}
+	public void setUnitQualifier(String unitQualifier) {
+		this.unitQualifier = unitQualifier;
+	}
+	public String getStatusCode() {
+		return statusCode;
+	}
+	public void setStatusCode(String statusCode) {
+		this.statusCode = statusCode;
+	}
+	public Integer getNumberOfPieces() {
+		return numberOfPieces;
+	}
+	public void setNumberOfPieces(Integer numberOfPieces) {
+		this.numberOfPieces = numberOfPieces;
+	}
+	public Integer getWeight1() {
+		return weight1;
+	}
+	public void setWeight1(Integer weight1) {
+		this.weight1 = weight1;
+	}
+	public String getMeasureUnitQualifier() {
+		return measureUnitQualifier;
+	}
+	public void setMeasureUnitQualifier(String measureUnitQualifier) {
+		this.measureUnitQualifier = measureUnitQualifier;
+	}
+	public String getIndicatorCode() {
+		return indicatorCode;
+	}
+	public void setIndicatorCode(String indicatorCode) {
+		this.indicatorCode = indicatorCode;
+	}
+	public String getIdentityNumber() {
+		return identityNumber;
+	}
+	public void setIdentityNumber(String identityNumber) {
+		this.identityNumber = identityNumber;
+	}
+	public String getBagTagDetailsSection() {
+		return bagTagDetailsSection;
+	}
+	public void setBagTagDetailsSection(String bagTagDetailsSection) {
+		this.bagTagDetailsSection = bagTagDetailsSection;
+	}
+	@Override
+	public String toString() {
+		return "PassengerBaggageInformation [number=" + number + ", weight="
+				+ weight + ", unitQualifier=" + unitQualifier + ", statusCode="
+				+ statusCode + ", numberOfPieces=" + numberOfPieces
+				+ ", weight1=" + weight1 + ", measureUnitQualifier="
+				+ measureUnitQualifier + ", indicatorCode=" + indicatorCode
+				+ ", identityNumber=" + identityNumber
+				+ ", bagTagDetailsSection=" + bagTagDetailsSection + "]";
+	}
+	
+	
+	
+	
+}

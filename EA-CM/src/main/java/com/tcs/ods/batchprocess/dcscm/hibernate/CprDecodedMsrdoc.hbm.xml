@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprDecodedMsrdoc" table="CPR_DECODED_MSRDOC">
+        <id name="idDecodedMsrdoc" type="java.lang.Long">
+            <column name="ID_DECODED_MSRDOC" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprGrpdSwiperesponse" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprGrpdSwiperesponse" fetch="select">
+            <column name="ID_SWIPERESPONSE" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprNotdecodedfunction" type="string">
+            <column name="CPR_NOTDECODEDFUNCTION" length="12" />
+        </property>
+        <property name="cprNotdecodedtype" type="string">
+            <column name="CPR_NOTDECODEDTYPE" length="12" />
+        </property>
+        <property name="cprPaxsurname" type="string">
+            <column name="CPR_PAXSURNAME" length="280" />
+        </property>
+        <property name="cprPaxtype" type="string">
+            <column name="CPR_PAXTYPE" length="12" />
+        </property>
+        <property name="cprPaxgender" type="string">
+            <column name="CPR_PAXGENDER" length="12" />
+        </property>
+        <property name="cprPaxgivenname" type="string">
+            <column name="CPR_PAXGIVENNAME" length="280" />
+        </property>
+        <property name="cprPaxtitle" type="string">
+            <column name="CPR_PAXTITLE" length="280" />
+        </property>
+        <property name="cprDumind" type="string">
+            <column name="CPR_DUMIND" length="1" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

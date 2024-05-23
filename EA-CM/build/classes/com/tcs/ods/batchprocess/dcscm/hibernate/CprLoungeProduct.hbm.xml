@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLoungeProduct" table="CPR_LOUNGE_PRODUCT">
+        <id name="idLoungeProduct" type="java.lang.Long">
+            <column name="ID_LOUNGE_PRODUCT" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprLoungeinfoLounge" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLoungeinfoLounge" fetch="select">
+            <column name="ID_LOUNGEINFO_LOUNGE" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprCodedcode" type="string">
+            <column name="CPR_CODEDCODE" length="3" />
+        </property>
+        <property name="cprTextdescription" type="string">
+            <column name="CPR_TEXTDESCRIPTION" length="70" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprAdddetailgroup" table="CPR_ADDDETAILGROUP">
+        <id name="idAdddetailgroup" type="java.lang.Long">
+            <column name="ID_ADDDETAILGROUP" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprLocationtype" type="string">
+            <column name="CPR_LOCATIONTYPE" length="3" />
+        </property>
+        <property name="cprCodequalifier" type="string">
+            <column name="CPR_CODEQUALIFIER" length="3" />
+        </property>
+        <property name="cprBoxidstreet" type="string">
+            <column name="CPR_BOXIDSTREET" length="35" />
+        </property>
+        <property name="cprTravelercity" type="string">
+            <column name="CPR_TRAVELERCITY" length="35" />
+        </property>
+        <property name="cprCounsubentity" type="string">
+            <column name="CPR_COUNSUBENTITY" length="35" />
+        </property>
+        <property name="cprCounsubname" type="string">
+            <column name="CPR_COUNSUBNAME" length="35" />
+        </property>
+        <property name="cprTravelerpostcode" type="string">
+            <column name="CPR_TRAVELERPOSTCODE" length="35" />
+        </property>
+        <property name="cprTravelercouncode" type="string">
+            <column name="CPR_TRAVELERCOUNCODE" length="3" />
+        </property>
+        <property name="cprCodedindi" type="string">
+            <column name="CPR_CODEDINDI" length="3" />
+        </property>
+        <property name="cprCodedact" type="string">
+            <column name="CPR_CODEDACT" length="3" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibFlightinfo" table="BIB_FLIGHTINFO">
+        <id name="idFlightinfo" type="java.lang.Long">
+            <column name="ID_FLIGHTINFO" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibBagdetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibBagdetail" fetch="select">
+            <column name="ID_BAGDETAIL" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibFlightCarrier" type="string">
+            <column name="BIB_FLIGHT_CARRIER" length="12" />
+        </property>
+        <property name="bibFlightNo" type="java.lang.Short">
+            <column name="BIB_FLIGHT_NO" precision="4" scale="0" />
+        </property>
+        <property name="bibOperationalSuffix" type="string">
+            <column name="BIB_OPERATIONAL_SUFFIX" length="4" />
+        </property>
+        <property name="bibDepatureDate" type="date">
+            <column name="BIB_DEPATURE_DATE"  />
+        </property>
+        <property name="bibBoardPoint" type="string">
+            <column name="BIB_BOARD_POINT" length="20" />
+        </property>
+        <property name="bibOffPoint" type="string">
+            <column name="BIB_OFF_POINT" length="20" />
+        </property>
+        <property name="bibArrivalDate" type="date">
+            <column name="BIB_ARRIVAL_DATE"  />
+        </property>
+        <property name="bibIdentificationFirstno" type="string">
+            <column name="BIB_IDENTIFICATION_FIRSTNO" length="16" />
+        </property>
+        <property name="bibIdentificationSecondno" type="string">
+            <column name="BIB_IDENTIFICATION_SECONDNO" length="48" />
+        </property>
+        <property name="bibDatetimeQualifier" type="string">
+            <column name="BIB_DATETIME_QUALIFIER" length="4" />
+        </property>
+        <property name="bibDatetimeDate" type="string">
+            <column name="BIB_DATETIME_DATE"  />
+        </property>
+        <property name="bibDatetimeTime" type="java.lang.Short">
+            <column name="BIB_DATETIME_TIME" precision="4" scale="0" />
+        </property>
+        <property name="bibDatetimeMovementtype" type="string">
+            <column name="BIB_DATETIME_MOVEMENTTYPE" length="8" />
+        </property>
+        <property name="bibDatetimeLocation" type="string">
+            <column name="BIB_DATETIME_LOCATION" length="48" />
+        </property>
+        <property name="bibDeviceAddress" type="string">
+            <column name="BIB_DEVICE_ADDRESS" length="28" />
+        </property>
+        <property name="bibDeviceSeqno" type="string">
+            <column name="BIB_DEVICE_SEQNO" length="12" />
+        </property>
+        <property name="bibTextQualifier" type="string">
+            <column name="BIB_TEXT_QUALIFIER" length="12" />
+        </property>
+        <property name="bibTextSource" type="string">
+            <column name="BIB_TEXT_SOURCE" length="12" />
+        </property>
+        <property name="bibTextEncoding" type="string">
+            <column name="BIB_TEXT_ENCODING" length="12" />
+        </property>
+        <property name="bibTextFreetext" type="string">
+            <column name="BIB_TEXT_FREETEXT" length="280" />
+        </property>
+        <property name="bibInteractiveFreetext" type="string">
+            <column name="BIB_INTERACTIVE_FREETEXT" length="280" />
+        </property>
+        <property name="bibTerminalType" type="string">
+            <column name="BIB_TERMINAL_TYPE" length="12" />
+        </property>
+        <property name="bibTerminalIdentifier" type="string">
+            <column name="BIB_TERMINAL_IDENTIFIER" length="3" />
+        </property>
+        
+        <property name="bibReferenceType" type="string">
+            <column name="BIB_REFERENCETYPE" length="3" />
+        </property>
+        <property name="bibReferenceValue" type="string">
+            <column name="BIB_REFERENCEVALUE" length="5" />
+        </property>
+        
+        <property name="bibTextsubjectQualifier" type="string">
+            <column name="BIB_TEXTSUBJECT_QUALIFIER" length="3" />
+        </property>
+        <property name="bibInformationType" type="string">
+            <column name="BIB_INFORMATION_TYPE" length="4" />
+        </property>
+        <property name="bibCodedStatus" type="string">
+            <column name="BIB_CODED_STATUS" length="3" />
+        </property>
+        <property name="bibCompanyId" type="string">
+            <column name="BIB_COMPANY_ID" length="35" />
+        </property>
+        <property name="bibCodedLanguage" type="string">
+            <column name="BIB_CODED_LANGUAGE" length="3" />
+        </property>
+        <property name="bibCodedSource" type="string">
+            <column name="BIB_CODED_SOURCE" length="3" />
+        </property>
+        <property name="bibEncoding" type="string">
+            <column name="BIB_ENCODING" length="3" />
+        </property>
+        <property name="bibFreetext" type="string">
+            <column name="BIB_FREETEXT" length="180" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpOtherSeatPrice" table="CMP_OTHER_SEAT_PRICE">
+        <id name="idOtherseatprice" type="java.lang.Long">
+            <column name="ID_OTHERSEATPRICE" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpSeatPrice" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatPrice" fetch="select">
+            <column name="ID_SEATPRICE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpOtherTypequalifier" type="string">
+            <column name="CMP_OTHER_TYPEQUALIFIER" length="12" />
+        </property>
+        <property name="cmpOtherAmount" type="string">
+            <column name="CMP_OTHER_AMOUNT" length="140" />
+        </property>
+        <property name="cmpOtherCurrency" type="string">
+            <column name="CMP_OTHER_CURRENCY" length="12" />
+        </property>
+        <property name="cmpOtherLocation" type="string">
+            <column name="CMP_OTHER_LOCATION" length="100" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

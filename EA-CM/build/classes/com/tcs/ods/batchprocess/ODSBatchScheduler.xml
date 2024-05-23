@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:batch="http://www.springframework.org/schema/batch" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	                   http://www.springframework.org/schema/context
+	                   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.1.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	
+
+	<task:scheduler id="scheduler" />
+
+	<task:scheduled-tasks scheduler="scheduler">
+		<task:scheduled ref="springSchedulingLauncher" method="launch"
+			fixed-rate="540000" />
+	</task:scheduled-tasks>
+
+	<bean id="directoryListenerUtility" class="com.tcs.ods.batchprocess.util.DirectoryListenerUtility" />
+
+	<bean id="springSchedulingLauncher" class="com.tcs.ods.batchprocess.infra.BatchSchedulingLauncher">
+		<property name="directoryListenerUtility" ref="directoryListenerUtility" />
+		<property name="jobLauncher" ref="jobLauncher" />
+		<property name="jobParametersBuilder" ref="jobParametersBuilder" />
+		<property name="dcscmJob" ref="partitionImportDCSCMJob" />
+	</bean>
+
+
+</beans>

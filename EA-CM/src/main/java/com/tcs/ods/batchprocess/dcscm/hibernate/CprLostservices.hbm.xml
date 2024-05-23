@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLostservices" table="CPR_LOSTSERVICES">
+        <id name="idLostservices" type="java.lang.Long">
+            <column name="ID_LOSTSERVICES" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprOthercarrier" type="string">
+            <column name="CPR_OTHERCARRIER" length="3" />
+        </property>
+        <property name="cprFlightno" type="java.lang.Short">
+            <column name="CPR_FLIGHTNO" precision="4" scale="0" />
+        </property>
+        <property name="cprOpersuffix" type="java.lang.Character">
+            <column name="CPR_OPERSUFFIX" length="1" />
+        </property>
+        <property name="crpDepartdate" type="date">
+            <column name="CRP_DEPARTDATE" />
+        </property>
+        <property name="cprBoardpoint" type="string">
+            <column name="CPR_BOARDPOINT" length="3" />
+        </property>
+        <property name="cprOffpoint" type="string">
+            <column name="CPR_OFFPOINT" length="3" />
+        </property>
+        <property name="cprSsrcode" type="string">
+            <column name="CPR_SSRCODE" length="4" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

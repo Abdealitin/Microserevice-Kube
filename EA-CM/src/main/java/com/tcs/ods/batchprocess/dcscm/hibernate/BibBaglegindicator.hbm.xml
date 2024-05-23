@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibBaglegindicator" table="BIB_BAGLEGINDICATOR">
+        <id name="idSecurity" type="java.lang.Long">
+            <column name="ID_SECURITY" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibFlightinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibFlightinfo" fetch="select">
+            <column name="ID_FLIGHTINFO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibIndicator" type="string">
+            <column name="BIB_INDICATOR" length="12" />
+        </property>
+        <property name="bibAction" type="string">
+            <column name="BIB_ACTION" length="12" />
+        </property>
+
+    </class>
+</hibernate-mapping>

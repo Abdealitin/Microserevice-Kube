@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpCabinconfig" table="CMP_CABINCONFIG">
+        <id name="idCabinconfig" type="java.lang.Long">
+            <column name="ID_CABINCONFIG" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpSeatmapinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatmapinfo" fetch="select">
+            <column name="ID_SEATMAPINFO" scale="0" not-null="true" />
+        </many-to-one>
+        
+        <property name="cmpConfigCode" type="string">
+            <column name="CMP_CONFIG_CODE" length="12" />
+        </property>
+        <property name="cmpCabinVersion" type="string">
+            <column name="CMP_CABIN_VERSION" length="48" />
+        </property>
+        <property name="cmpConfigDesc" type="string">
+            <column name="CMP_CONFIG_DESC" length="280" />
+        </property>
+        
+        <property name="cmpIataaircrafttype" type="string">
+            <column name="CMP_IATAAIRCRAFTTYPE" length="32" />
+        </property>
+        <property name="cmpAcvversionno" type="string">
+            <column name="CMP_ACVVERSIONNO" length="48" />
+        </property>
+        <property name="cmpAcvdefaultconfigcode" type="string">
+            <column name="CMP_ACVDEFAULTCONFIGCODE" length="68" />
+        </property>
+        <property name="cmpAcvairlinedetail" type="string">
+            <column name="CMP_ACVAIRLINEDETAIL" length="140" />
+        </property>
+        <property name="cmpAcvcode" type="string">
+            <column name="CMP_ACVCODE" length="68" />
+        </property>
+        <property name="cmpAcvcharacteristic1" type="string">
+            <column name="CMP_ACVCHARACTERISTIC1" length="12" />
+        </property>
+        <property name="cmpAcvcharacteristic2" type="string">
+            <column name="CMP_ACVCHARACTERISTIC2" length="400" />
+        </property>
+        <property name="cmpAcvdescription" type="string">
+            <column name="CMP_ACVDESCRIPTION" length="280" />
+        </property>
+    </class>
+</hibernate-mapping>

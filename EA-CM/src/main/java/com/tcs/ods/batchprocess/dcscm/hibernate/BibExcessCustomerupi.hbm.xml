@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibExcessCustomerupi" table="BIB_EXCESS_CUSTOMERUPI">
+        <id name="idExcesscustomerupi" type="java.lang.Long">
+            <column name="ID_EXCESSCUSTOMERUPI" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibExcessbaggageCalculation" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibExcessbaggageCalculation" fetch="select">
+            <column name="ID_EXCESSBAGGCALC" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibCutomerupiQualifier" type="string">
+            <column name="BIB_CUTOMERUPI_QUALIFIER" length="12" />
+        </property>
+        <property name="bbiCustomerupiPrimeid" type="string">
+            <column name="BBI_CUSTOMERUPI_PRIMEID" length="64" />
+        </property>        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprVccdCredetails" table="CPR_VCCD_CREDETAILS">
+        <id name="idVccdetailCreditcarddetails" type="java.lang.Long">
+            <column name="ID_VCCDETAIL_CREDITCARDDETAILS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprVendorcode" type="string">
+            <column name="CPR_VENDORCODE" length="2" />
+        </property>
+        <property name="cprCardnumber" type="string">
+            <column name="CPR_CARDNUMBER" length="19" />
+        </property>
+        <property name="cprExpirydate" type="java.lang.Integer">
+            <column name="CPR_EXPIRYDATE" precision="4" />
+        </property>
+        <property name="cprTextsubqualifier" type="string">
+            <column name="CPR_TEXTSUBQUALIFIER" length="3" />
+        </property>
+        <property name="cprCodedlanguage" type="string">
+            <column name="CPR_CODEDLANGUAGE" length="3" />
+        </property>
+        <property name="cprCodedsource" type="string">
+            <column name="CPR_CODEDSOURCE" length="3" />
+        </property>
+        <property name="cprEncoding" type="string">
+            <column name="CPR_ENCODING" length="3" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="199" />
+        </property>
+        <property name="cprDatainditype" type="string">
+            <column name="CPR_DATAINDITYPE" length="6" />
+        </property>
+        <property name="cprPaymentform" type="string">
+            <column name="CPR_PAYMENTFORM" length="20" />
+        </property>
+        <property name="cprAmount" type="java.lang.Long">
+            <column name="CPR_AMOUNT" precision="35" scale="0" />
+        </property>
+        <property name="cprCodedcurrency" type="string">
+            <column name="CPR_CODEDCURRENCY" length="3" />
+        </property>
+        <property name="cprLongfreetext" type="string">
+            <column name="CPR_LONGFREETEXT" length="70" />
+        </property>
+        <property name="cprAttributetype" type="string">
+            <column name="CPR_ATTRIBUTETYPE" length="5" />
+        </property>
+        <property name="cprAttributetype1" type="string">
+            <column name="CPR_ATTRIBUTETYPE1" length="5" />
+        </property>
+    </class>
+</hibernate-mapping>

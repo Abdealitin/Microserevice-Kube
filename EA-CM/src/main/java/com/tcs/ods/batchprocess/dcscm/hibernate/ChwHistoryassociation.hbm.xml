@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ChwHistoryassociation" table="CHW_HISTORYASSOCIATION">
+        <id name="idHistassociation" type="java.lang.Long">
+            <column name="ID_HISTASSOCIATION" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="chwHistoryitem" class="com.tcs.ods.batchprocess.dcscm.hibernate.ChwHistoryitem" fetch="select">
+            <column name="ID_HISTORYITEM" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="chwId" type="string">
+            <column name="CHW_ID" length="140" />
+        </property>
+        <property name="chwDescription" type="string">
+            <column name="CHW_DESCRIPTION" length="280" />
+        </property>        
+    </class>
+</hibernate-mapping>

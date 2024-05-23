@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatoccupationDetails" table="CMP_SEATOCCUPATION_DETAILS">
+        <id name="idSeatoccupation"  type="java.lang.Long">
+        	<column name="ID_SEATOCCUPATION" scale="0" />
+            <generator class="increment" />
+         </id>   
+         
+        <many-to-one name="cmpRow" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpRow" fetch="select">
+            <column name="ID_ROWNO" scale="0" not-null="true" />
+        </many-to-one>   
+            <property name="cmpSeatcolumn" type="string">
+                <column name="CMP_SEATCOLUMN" length="4" />
+            </property>
+            <property name="cmpSeatoccupation" type="string">
+                <column name="CMP_SEATOCCUPATION" length="4" />
+            </property>
+            <property name="cmpSeatcharacteristic" type="string">
+                <column name="CMP_SEATCHARACTERISTIC" length="456" />
+            </property>
+                     
+        
+        
+    </class>
+</hibernate-mapping>
+
+

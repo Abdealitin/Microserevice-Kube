@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpApplicationErrGrp" table="CMP_APPLICATION_ERR_GRP">
+        <id name="idAerecnum" type="java.lang.Long">
+            <column name="ID_AERECNUM" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpMessage" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpMessage" fetch="select">
+            <column name="ID_CMPMESSAGE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpErrorcode" type="string">
+            <column name="CMP_ERRORCODE" length="20" />
+        </property>
+        <property name="cmpErrorcategory" type="string">
+            <column name="CMP_ERRORCATEGORY" length="12" />
+        </property>
+        <property name="cmpErrortextqualifier" type="string">
+            <column name="CMP_ERRORTEXTQUALIFIER" length="12" />
+        </property>
+        <property name="cmpErrortextlanguage" type="string">
+            <column name="CMP_ERRORTEXTLANGUAGE" length="12" />
+        </property>
+        <property name="cmpErrortextsource" type="string">
+            <column name="CMP_ERRORTEXTSOURCE" length="12" />
+        </property>
+        <property name="cmpErrortextencoding" type="string">
+            <column name="CMP_ERRORTEXTENCODING" length="12" />
+        </property>
+        
+        
+    </class>
+</hibernate-mapping>

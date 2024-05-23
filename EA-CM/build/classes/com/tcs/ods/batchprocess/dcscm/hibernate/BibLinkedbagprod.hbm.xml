@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibLinkedbagprod" table="BIB_LINKEDBAGPROD">
+        <id name="idLinkedbagprod" type="java.lang.Long">
+            <column name="ID_LINKEDBAGPROD" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibBagdetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibBagdetail" fetch="select">
+            <column name="ID_BAGDETAIL" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibRefqual" type="string">
+            <column name="BIB_REFQUAL" length="3" />
+        </property>
+        <property name="bibPrimeid" type="string">
+            <column name="BIB_PRIMEID" length="16" />
+        </property>
+    </class>
+</hibernate-mapping>

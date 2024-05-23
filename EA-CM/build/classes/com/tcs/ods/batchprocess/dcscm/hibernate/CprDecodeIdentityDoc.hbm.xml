@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprDecodeIdentityDoc" table="CPR_DECODE_IDENTITY_DOC">
+        <id name="idDecodeIdentityDoc" type="java.lang.Long">
+            <column name="ID_DECODE_IDENTITY_DOC" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprGrpdSwiperesponse" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprGrpdSwiperesponse" fetch="select">
+            <column name="ID_SWIPERESPONSE" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprNotdecodedfunction" type="string">
+            <column name="CPR_NOTDECODEDFUNCTION" length="12" />
+        </property>
+        <property name="cprNotdecodedtype" type="string">
+            <column name="CPR_NOTDECODEDTYPE" length="12" />
+        </property>
+        <property name="cprDocumentnumber" type="string">
+            <column name="CPR_DOCUMENTNUMBER" length="200" />
+        </property>
+        <property name="cprDocumnetstatus" type="string">
+            <column name="CPR_DOCUMNETSTATUS" length="12" />
+        </property>
+        <property name="cprDocumentdate" type="date">
+            <column name="CPR_DOCUMENTDATE" />
+        </property>
+        <property name="cprDocumentissuingcountry" type="string">
+            <column name="CPR_DOCUMENTISSUINGCOUNTRY" length="12" />
+        </property>
+        <property name="cprDocumenttype" type="string">
+            <column name="CPR_DOCUMENTTYPE" length="200" />
+        </property>
+        <property name="cprPaxsurname" type="string">
+            <column name="CPR_PAXSURNAME" length="280" />
+        </property>
+        <property name="cprPaxtype" type="string">
+            <column name="CPR_PAXTYPE" length="12" />
+        </property>
+        <property name="cprPaxgender" type="string">
+            <column name="CPR_PAXGENDER" length="12" />
+        </property>
+        <property name="cprPaxgivenname" type="string">
+            <column name="CPR_PAXGIVENNAME" length="280" />
+        </property>
+        <property name="cprPaxtitle" type="string">
+            <column name="CPR_PAXTITLE" length="80" />
+        </property>
+        <property name="cprBirthdateBusinesssemantic" type="string">
+            <column name="CPR_BIRTHDATE_BUSINESSSEMANTIC" length="12" />
+        </property>
+        <property name="cprBirthdate" type="date">
+            <column name="CPR_BIRTHDATE" length="7" />
+        </property>
+        <property name="cprNationalityqualifier" type="string">
+            <column name="CPR_NATIONALITYQUALIFIER" length="12" />
+        </property>
+        <property name="cprNationalitycode" type="string">
+            <column name="CPR_NATIONALITYCODE" length="12" />
+        </property>
+        <property name="cprStatusdetailindicator" type="string">
+            <column name="CPR_STATUSDETAILINDICATOR" length="12" />
+        </property>
+        <property name="cprStatusdetail" type="string">
+            <column name="CPR_STATUSDETAIL" length="280" />
+        </property>
+        <property name="cprOtherstatusdetailind1" type="string">
+            <column name="CPR_OTHERSTATUSDETAILIND1" length="12" />
+        </property>
+        <property name="cprOtherstatusdetail1" type="string">
+            <column name="CPR_OTHERSTATUSDETAIL1" length="280" />
+        </property>
+        <property name="cprOtherstatusdetailind2" type="string">
+            <column name="CPR_OTHERSTATUSDETAILIND2" length="12" />
+        </property>
+        <property name="cprOtherstatusdetail2" type="string">
+            <column name="CPR_OTHERSTATUSDETAIL2" length="280" />
+        </property>
+     
+    </class>
+</hibernate-mapping>

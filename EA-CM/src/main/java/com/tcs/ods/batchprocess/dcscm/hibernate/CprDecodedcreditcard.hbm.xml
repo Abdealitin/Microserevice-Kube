@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprDecodedcreditcard" table="CPR_DECODEDCREDITCARD">
+        <id name="idDecodedcreditcard" type="java.lang.Long">
+            <column name="ID_DECODEDCREDITCARD" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprDecodedMsrdoc" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprDecodedMsrdoc" fetch="select">
+            <column name="ID_DECODED_MSRDOC" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprVendorcode" type="string">
+            <column name="CPR_VENDORCODE" length="8" />
+        </property>
+        <property name="cprCardnumber" type="string">
+            <column name="CPR_CARDNUMBER" length="80" />
+        </property>
+        <property name="cprExpirydate" type="java.lang.Integer">
+            <column name="CPR_EXPIRYDATE" length="4" />
+        </property>
+        <property name="cprAuthorizationcode" type="string">
+            <column name="CPR_AUTHORIZATIONCODE" length="12" />
+        </property>
+        <property name="cprStatusindicator" type="string">
+            <column name="CPR_STATUSINDICATOR" length="12" />
+        </property>
+        <property name="cprStatusdescription" type="string">
+            <column name="CPR_STATUSDESCRIPTION" length="280" />
+        </property>
+        <property name="cprOtherstatusindicator1" type="string">
+            <column name="CPR_OTHERSTATUSINDICATOR1" length="12" />
+        </property>
+        <property name="cprOtherstatusdescription1" type="string">
+            <column name="CPR_OTHERSTATUSDESCRIPTION1" length="280" />
+        </property>
+        <property name="cprDiscretionarydataqualifier" type="string">
+            <column name="CPR_DISCRETIONARYDATAQUALIFIER" length="12" />
+        </property>
+        <property name="cprDiscretionarydatasource" type="string">
+            <column name="CPR_DISCRETIONARYDATASOURCE" length="12" />
+        </property>
+        <property name="cprDiscretionarydataencoding" type="string">
+            <column name="CPR_DISCRETIONARYDATAENCODING" length="12" />
+        </property>
+        <property name="cprDiscretionaryfreetext" type="string">
+            <column name="CPR_DISCRETIONARYFREETEXT" length="70" />
+        </property>
+        <property name="cprOtherstatusindicator2" type="string">
+            <column name="CPR_OTHERSTATUSINDICATOR2" length="12" />
+        </property>
+        <property name="cprOtherstatusdescription2" type="string">
+            <column name="CPR_OTHERSTATUSDESCRIPTION2" length="280" />
+        </property>
+    
+    </class>
+</hibernate-mapping>

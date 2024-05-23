@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprEnhancedcustomer" table="CPR_ENHANCEDCUSTOMER">
+        <id name="idEnhancedcustomer" type="java.lang.Long">
+            <column name="ID_ENHANCEDCUSTOMER" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprCustomerlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCustomerlevel" fetch="select">
+            <column name="ID_CUSTOMERLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprQuantity" type="java.lang.Long">
+            <column name="CPR_QUANTITY" precision="15" scale="0" />
+        </property>
+        <property name="cprType" type="string">
+            <column name="CPR_TYPE" length="3" />
+        </property>
+        <property name="cprInfantindicator" type="string">
+            <column name="CPR_INFANTINDICATOR" length="1" />
+        </property>
+        <property name="cprTravelleridcode" type="string">
+            <column name="CPR_TRAVELLERIDCODE" length="70" />
+        </property>
+        <property name="cprGender" type="string">
+            <column name="CPR_GENDER" length="3" />
+        </property>
+        <property name="cprAge" type="java.lang.Integer">
+            <column name="CPR_AGE" precision="3" scale="0" />
+        </property>       
+    </class>
+</hibernate-mapping>

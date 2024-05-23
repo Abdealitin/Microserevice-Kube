@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ChwHistorydata" table="CHW_HISTORYDATA">
+        <id name="idHistorydata" type="java.lang.Long">
+            <column name="ID_HISTORYDATA" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="chwHistoryitem" class="com.tcs.ods.batchprocess.dcscm.hibernate.ChwHistoryitem" fetch="select">
+            <column name="ID_HISTORYITEM" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="chwAttributetype" type="string">
+            <column name="CHW_ATTRIBUTETYPE" length="16" />
+        </property>
+        <property name="chwAttributedescription" type="string">
+            <column name="CHW_ATTRIBUTEDESCRIPTION" length="1024" />
+        </property>        
+        <property name="chwCriteriaSetType" type="string">
+            <column name="CHW_CRITERIA_SET_TYPE" length="40" />
+        </property>
+    </class>
+</hibernate-mapping>

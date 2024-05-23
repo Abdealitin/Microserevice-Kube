@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCustprdtLinks" table="CPR_CUSTPRDT_LINKS">
+        <id name="idCustprdtLinks" type="java.lang.Long">
+            <column name="ID_CUSTPRDT_LINKS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprMessage" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprMessage" fetch="select">
+            <column name="ID_CPRMESSAGE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprUnqlnkType" type="string">
+            <column name="CPR_UNQLNK_TYPE" length="3" />
+        </property>
+        <property name="cprUnqlnkValue" type="string">
+            <column name="CPR_UNQLNK_VALUE" length="16" />
+        </property>
+      <!--   <set name="cprLnkidLists" table="CPR_LNKID_LIST" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_CUSTPRDT_LINKS" precision="36" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLnkidList" />
+        </set>
+        <set name="cprSubLnkses" table="CPR_SUB_LNKS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_CUSTPRDT_LINKS" precision="36" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprSubLnks" />
+        </set> -->
+    </class>
+</hibernate-mapping>

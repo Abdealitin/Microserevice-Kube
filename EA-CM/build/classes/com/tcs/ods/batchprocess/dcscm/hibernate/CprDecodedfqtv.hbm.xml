@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprDecodedfqtv" table="CPR_DECODEDFQTV">
+        <id name="idDecodedfqtv" type="java.lang.Long">
+            <column name="ID_DECODEDFQTV" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprDecodedMsrdoc" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprDecodedMsrdoc" fetch="select">
+            <column name="ID_DECODED_MSRDOC" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprSubsidiaryfunction" type="string">
+            <column name="CPR_SUBSIDIARYFUNCTION" length="12" />
+        </property>
+        <property name="cprSubsidiarytype" type="string">
+            <column name="CPR_SUBSIDIARYTYPE" length="12" />
+        </property>
+        <property name="cprDatebusinesssemantic" type="string">
+            <column name="CPR_DATEBUSINESSSEMANTIC" length="12" />
+        </property>
+       <property name="cprDatetime" type="date">
+            <column name="CPR_DATETIME" />
+        </property >
+        <property name="cprNosmokingindicator" type="string">
+            <column name="CPR_NOSMOKINGINDICATOR" length="4" />
+        </property>
+        <property name="cprPreferredseatcolumn" type="string">
+            <column name="CPR_PREFERREDSEATCOLUMN" length="4" />
+        </property>
+        <property name="cprProcessingindicator" type="string">
+            <column name="CPR_PROCESSINGINDICATOR" length="12" />
+        </property>
+        <property name="cprReferencenumber" type="string">
+            <column name="CPR_REFERENCENUMBER" length="140" />
+        </property>
+        <property name="cprDescription" type="string">
+            <column name="CPR_DESCRIPTION" length="280" />
+        </property>
+        <property name="cprFqtvcarrier" type="string">
+            <column name="CPR_FQTVCARRIER" length="12" />
+        </property>
+        <property name="cprFqtvnumber" type="string">
+            <column name="CPR_FQTVNUMBER" length="108" />
+        </property>
+        <property name="cprFqtvstatus" type="string">
+            <column name="CPR_FQTVSTATUS" length="12" />
+        </property>
+        <property name="cprFqtvtier" type="string">
+            <column name="CPR_FQTVTIER" length="16" />
+        </property>
+        <property name="cprFqtvtierdescription" type="string">
+            <column name="CPR_FQTVTIERDESCRIPTION" length="140" />
+        </property>
+        <property name="cprFqtvcompanycode" type="string">
+            <column name="CPR_FQTVCOMPANYCODE" length="12" />
+        </property>
+        <property name="cprDumind" type="string">
+            <column name="CPR_DUMIND" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

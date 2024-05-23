@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpCompartment" table="CMP_COMPARTMENT">
+        <id name="idCompartment" type="java.lang.Long">
+            <column name="ID_COMPARTMENT" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpSeatmapinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatmapinfo" fetch="select">
+            <column name="ID_SEATMAPINFO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpCabincode" type="string">
+            <column name="CMP_CABINCODE" length="4" />
+        </property>
+        <property name="cmpResbookingdesignator" type="string">
+            <column name="CMP_RESBOOKINGDESIGNATOR" length="68" />
+        </property>
+        <property name="cmpCabinclass" type="java.lang.Integer">
+            <column name="CMP_CABINCLASS" precision="1" scale="0" />
+        </property>
+        <property name="cmpCompartmentdesignator" type="string">
+            <column name="CMP_COMPARTMENTDESIGNATOR" length="4" />
+        </property>
+        <property name="cmpSeatrownumber" type="java.lang.Integer">
+            <column name="CMP_SEATROWNUMBER" precision="3" scale="0" />
+        </property>
+        <property name="cmpSeatrownumber2" type="java.lang.Integer">
+            <column name="CMP_SEATROWNUMBER2" precision="3" scale="0" />
+        </property>
+        <property name="cmpCabinclasslocation" type="string">
+            <column name="CMP_CABINCLASSLOCATION" length="4" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

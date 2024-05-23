@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 3, 2017 11:07:00 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLnkbagPrdct" table="CPR_LNKBAG_PRDCT">
+        <id name="idLnkbagPrdct" type="java.lang.Long">
+            <column name="ID_LNKBAG_PRDCT" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        
+        <many-to-one name="idBagdetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBagdetail" fetch="select">
+            <column name="ID_BAGDETAIL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprRefqual" type="string">
+            <column name="CPR_REFQUAL" length="3" />
+        </property>
+        <property name="cprPrimedid" type="string">
+            <column name="CPR_PRIMEDID" length="16" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

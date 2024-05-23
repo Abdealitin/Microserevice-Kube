@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprDecodedsegmentdetails" table="CPR_DECODEDSEGMENTDETAILS">
+        <id name="idDecodesegdetail" type="java.lang.Long">
+            <column name="ID_DECODESEGDETAIL" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprDecodedpectabDoc" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprDecodedpectabDoc" fetch="select">
+            <column name="ID_DECODEDPECTAB_DOC" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprDeparturedate" type="date">
+            <column name="CPR_DEPARTUREDATE" length="7" />
+        </property>
+        <property name="cprBoardpoint" type="string">
+            <column name="CPR_BOARDPOINT" length="12" />
+        </property>
+        <property name="cprOffpoint" type="string">
+            <column name="CPR_OFFPOINT" length="12" />
+        </property>
+        <property name="cprMarketingcarriercode" type="string">
+            <column name="CPR_MARKETINGCARRIERCODE" length="12" />
+        </property>
+        <property name="cprFlightnumber" type="string">
+            <column name="CPR_FLIGHTNUMBER" length="16" />
+        </property>
+        <property name="cprBookingclass" type="string">
+            <column name="CPR_BOOKINGCLASS" length="8" />
+        </property>
+        <property name="cprOperationalsuffix" type="string">
+            <column name="CPR_OPERATIONALSUFFIX" length="4" />
+        </property>
+        <property name="cprRecordlocator" type="string">
+            <column name="CPR_RECORDLOCATOR" length="24" />
+        </property>
+        <property name="cprSeatnumber" type="string">
+            <column name="CPR_SEATNUMBER" length="16" />
+        </property>
+        <property name="cprBoardingid" type="string">
+            <column name="CPR_BOARDINGID" length="20" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

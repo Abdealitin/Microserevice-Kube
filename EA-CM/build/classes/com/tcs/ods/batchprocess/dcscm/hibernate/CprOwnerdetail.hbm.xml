@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 3, 2017 11:07:00 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprOwnerdetail" table="CPR_OWNERDETAIL">
+        <id name="idBagownerdetail" type="java.lang.Long">
+            <column name="ID_BAGOWNERDETAIL" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="idBagdetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBagdetail" fetch="select">
+            <column name="ID_BAGDETAIL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprPaxsurname" type="string">
+            <column name="CPR_PAXSURNAME" length="50" />
+        </property>
+        <property name="cprPaxtype" type="string">
+            <column name="CPR_PAXTYPE" length="3" />
+        </property>
+        <property name="cprOtherpaxGivenname" type="string">
+            <column name="CPR_OTHERPAX_GIVENNAME" length="70" />
+        </property>
+        <property name="cprOtherpaxTitle" type="string">
+            <column name="CPR_OTHERPAX_TITLE" length="20" />
+        </property>
+        <property name="cprEnchanceQuantity" type="java.lang.Long">
+            <column name="CPR_ENCHANCE_QUANTITY" precision="15" scale="0" />
+        </property>
+        <property name="cprEnchanceType" type="string">
+            <column name="CPR_ENCHANCE_TYPE" length="3" />
+        </property>
+        <property name="cprEnhinfantIndicator" type="string">
+            <column name="CPR_ENHINFANT_INDICATOR" length="1" />
+        </property>
+        <property name="cprEnchanceOthername" type="string">
+            <column name="CPR_ENCHANCE_OTHERNAME" length="70" />
+        </property>
+        <property name="cprEnchanceGender" type="string">
+            <column name="CPR_ENCHANCE_GENDER" length="3" />
+        </property>
+        <property name="cprEnchanceAge" type="java.lang.Short">
+            <column name="CPR_ENCHANCE_AGE" precision="3" scale="0" />
+        </property>
+        <property name="cprReferrenceQualifier" type="string">
+            <column name="CPR_REFERRENCE_QUALIFIER" length="3" />
+        </property>
+        <property name="cprPrimeId" type="string">
+            <column name="CPR_PRIME_ID" length="16" />
+        </property>
+        
+       
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprChargeexcessitem" table="CPR_CHARGEEXCESSITEM">
+        <id name="idChargeexcessitem" type="java.lang.Long">
+            <column name="ID_CHARGEEXCESSITEM" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprExcessbaggageitem" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprExcessbaggageitem" fetch="select">
+            <column name="ID_EXCESSBAGGAGEITEM" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprChargequal" type="string">
+            <column name="CPR_CHARGEQUAL" length="3" />
+        </property>
+        <property name="cprChargeamt" type="java.lang.Long">
+            <column name="CPR_CHARGEAMT" precision="11" scale="0" />
+        </property>
+        <property name="cprChargecurr" type="string">
+            <column name="CPR_CHARGECURR" length="3" />
+        </property>
+    </class>
+</hibernate-mapping>

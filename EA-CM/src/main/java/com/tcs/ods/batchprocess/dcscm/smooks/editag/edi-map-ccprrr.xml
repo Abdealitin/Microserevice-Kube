@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medi:edimap xmlns:medi="http://www.milyn.org/schema/edi-message-mapping-1.2.xsd">
+ 
+    <medi:import truncatableSegments="true" truncatableFields="true" truncatableComponents="true" resource="edi-to-java-order-mapping-ccprrr.xml" namespace="def"/>
+ 
+    <medi:description name="ccprrr" version="16.2" />
+ 
+    <medi:delimiters segment="&#39;" field="+" component=":" sub-component="~"/>
+ 
+    <medi:segments xmltag="Ccprrr">  
+        <medi:segment minOccurs="0" maxOccurs="1" segref="def:UNG" segcode="UNG" xmltag="ediGroupHeader"/>
+        <medi:segment minOccurs="1" maxOccurs="1" segref="def:UNH" segcode="UNH" xmltag="ediHeader"/>  
+        
+      <medi:segmentGroup xmltag="GERR_errors" minOccurs="0" maxOccurs="99">
+            <medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="GERR_errorWarningCodeDetails"/>
+            <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GERR_errorWarningDescription"/>
+       </medi:segmentGroup>  
+       
+        <medi:segmentGroup xmltag="CUST_customerLevel" minOccurs="0" maxOccurs="999">
+       		<medi:segment minOccurs="1" maxOccurs="1" segref="def:TIF" segcode="TIF" xmltag="CUST_customerDetails"/>
+       		<medi:segment minOccurs="0" maxOccurs="2" segref="def:ETI" segcode="ETI" xmltag="CUST_enhancedCustomerDetails"/>
+       		<medi:segment minOccurs="0" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="CUST_uniqueCustomerId"/>
+       		<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="CUST_jumpSeatAuthStatus"/>
+       		
+       		<medi:segmentGroup xmltag="CUST_GERR_errors" minOccurs="0" maxOccurs="99">
+            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="CUST_GERR_errorWarningCodeDetails"/>
+            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="CUST_GERR_errorWarningDescription"/>
+       		</medi:segmentGroup> 
+       		
+       		<medi:segmentGroup xmltag="GXFR_transferDetails" minOccurs="0" maxOccurs="20">
+       			<medi:segment minOccurs="1" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="GXFR_transferType"/>
+            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GXFR_transferReason"/>
+            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:RAD" segcode="RAD" xmltag="GXFR_transferStatus"/>            	
+            	
+       			<medi:segmentGroup xmltag="GR0_transferDetails" minOccurs="0" maxOccurs="2">
+       				<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR0_flightQualifier"/>
+       				
+       				<medi:segmentGroup xmltag="GR1_flightProductDetails" minOccurs="0" maxOccurs="5">
+            			<medi:segment minOccurs="1" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="GR1_flightDetails"/>
+            			<medi:segment minOccurs="0" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="GR1_marketingFlightInfo"/>
+            			<medi:segment minOccurs="0" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="GR1_productReference"/>
+            		</medi:segmentGroup>
+            	</medi:segmentGroup>	
+            </medi:segmentGroup>
+            
+    		<medi:segmentGroup xmltag="GCDT_customerTransferDataDetails" minOccurs="0" maxOccurs="99">
+            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:BPI" segcode="BPI" xmltag="cdtStatusCode"/>
+            	
+            	<medi:segmentGroup xmltag="GCDT_GERR_errors" minOccurs="0" maxOccurs="99">
+	            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="GCDT_GERR_errorWarningCodeDetails"/>
+	            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GCDT_GERR_errorWarningDescription"/>
+       			</medi:segmentGroup> 
+       			
+       			<medi:segmentGroup xmltag="GTRP_journeyDetailsGroup" minOccurs="1" maxOccurs="2">
+            		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GTRP_flightQualifier"/>            	
+            		            	
+            		<medi:segmentGroup xmltag="GR2_productDetailsGroup" minOccurs="1" maxOccurs="5">
+            			<medi:segment minOccurs="1" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="GR2_transferFlightDetails"/>
+            			<medi:segment minOccurs="0" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="GR2_marketingFlightInfo"/>
+            			<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="GR2_productReference"/>
+            	
+            			<medi:segmentGroup xmltag="GR2_GERR_errors" minOccurs="0" maxOccurs="99">
+            				<medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="GR2_GERR_errorWarningCodeDetails"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GR2_GERR_errorWarningDescription"/>
+       					</medi:segmentGroup> 
+            	    </medi:segmentGroup> 
+            	</medi:segmentGroup> 
+            </medi:segmentGroup>
+            
+       		<medi:segment minOccurs="1" maxOccurs="1" segref="def:SDT" segcode="SDT" xmltag="CUST_sourceIndicator"/>
+       		
+       		<medi:segmentGroup xmltag="CREW_crewLevel" minOccurs="0" maxOccurs="1">
+            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:ETI" segcode="ETI" xmltag="CREW_crewNameDetails"/>
+            	<medi:segment minOccurs="0" maxOccurs="2" segref="def:ATC" segcode="ATC" xmltag="CREW_crewRankAndGeneralDetails"/>
+       		</medi:segmentGroup> 
+       		
+       		<medi:segment minOccurs="0" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="CUST_nonRevenueCustomerDetails"/>
+            <medi:segment minOccurs="0" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="CUST_primeFlightLeg"/>
+            
+            <medi:segmentGroup xmltag="RESL_customerResLinkErrs" minOccurs="0" maxOccurs="5">
+            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="RESL_linkId"/>
+            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="RESL_failureReason"/>
+            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="RESL_linkFailureType"/>
+       		</medi:segmentGroup>
+       		
+       		<medi:segment minOccurs="0" maxOccurs="1" segref="def:RCI" segcode="RCI" xmltag="CUST_recordLocator"/>
+            <medi:segment minOccurs="0" maxOccurs="1" segref="def:SDI" segcode="SDI" xmltag="CUST_dateOfBirth"/>
+            
+            <medi:segmentGroup xmltag="CUST_RDOC1_customerLevelEmergencyContact" minOccurs="0" maxOccurs="9">
+        	 	<medi:segment minOccurs="1" maxOccurs="1" segref="def:PAP" segcode="PAP" xmltag="CUST_RDOC1_travelerAndDocumentInfo1"/>
+             	<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="CUST_RDOC1_regDocIndicators1"/>
+             	<medi:segment minOccurs="0" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="CUST_RDOC1_ownerUCI1"/>
+             	<medi:segment minOccurs="1" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="CUST_RDOC1_regulatoryCarrier1"/>
+        	</medi:segmentGroup>
+            
+       		 <medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="CUST_customerIndicators"/>
+             <medi:segment minOccurs="0" maxOccurs="1" segref="def:IFT" segcode="IFT" xmltag="CUST_groupName"/>            
+            
+             <medi:segmentGroup xmltag="GR3_staffDetails" minOccurs="0" maxOccurs="1">
+        	 	<medi:segment minOccurs="1" maxOccurs="1" segref="def:STI" segcode="STI" xmltag="GR3_staffInfo"/>
+             	<medi:segment minOccurs="0" maxOccurs="1" segref="def:CPY" segcode="CPY" xmltag="GR3_staffCompanyIdentification"/>
+             	<medi:segment minOccurs="0" maxOccurs="1" segref="def:DTM" segcode="DTM" xmltag="GR3_lengthOfService"/>
+             	<medi:segment minOccurs="0" maxOccurs="3" segref="def:TXF" segcode="TXF" xmltag="GR3_staffCompanyInfo"/>
+             	<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR3_staffCategoryInfo"/> 
+        	</medi:segmentGroup>
+            
+            <medi:segmentGroup xmltag="CUST_FQTX_customerLevelFqtvInfo" minOccurs="0" maxOccurs="99">
+        	 	<medi:segment minOccurs="1" maxOccurs="1" segref="def:FTI" segcode="FTI" xmltag="CUST_FQTX_frequentFlyerInformation"/>
+             	<medi:segment minOccurs="0" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="CUST_FQTX_fqtvUsage"/>
+             	<medi:segment minOccurs="0" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="CUST_FQTX_ownerUCI"/>
+             	<medi:segment minOccurs="1" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="CUST_FQTX_fqtvCarrier"/>
+             </medi:segmentGroup>
+            
+            <medi:segment minOccurs="0" maxOccurs="1" segref="def:PBD" segcode="PBD" xmltag="CUST_actualBaggageDetails"/> 
+            
+             <medi:segmentGroup xmltag="GR4_apmContactDetails" minOccurs="0" maxOccurs="127">
+        	 	<medi:segment minOccurs="1" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="GR4_airlineCode"/>
+             	<medi:segment minOccurs="1" maxOccurs="1" segref="def:COM" segcode="COM" xmltag="GR4_contactDetails"/>
+             	<medi:segment minOccurs="0" maxOccurs="1" segref="def:PRE" segcode="PRE" xmltag="GR4_contactLanguage"/>
+             </medi:segmentGroup>
+             
+             <medi:segmentGroup xmltag="XSBG_excessBaggageBreakdown" minOccurs="0" maxOccurs="1">
+           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="XSBG_responsibleCustomerUCI"/>
+           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="XSBG_paymentFlow"/>
+           			
+         		<medi:segmentGroup xmltag="XSBC_calculations" minOccurs="0" maxOccurs="10">
+      	 			<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="XSBC_statusIndicators"/>
+           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="XSBC_status"/>
+           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="XSBC_xsbCalculationId"/>
+           			<medi:segment minOccurs="1" maxOccurs="9" segref="def:IRV" segcode="IRV" xmltag="XSBC_responsibleCustomerUPIs"/>
+           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="XSBC_dummySegmentOne"/>
+           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:MON" segcode="MON" xmltag="XSBC_totalCharges"/>
+           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXD" segcode="TXD" xmltag="XSBC_gst"/>
+           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:IFT" segcode="IFT" xmltag="XSBC_waiverAuthorisation"/>
+           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:FOP" segcode="FOP" xmltag="XSBC_paymentDetails"/>
+           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:FTI" segcode="FTI" xmltag="XSBC_frequentFlyerInformation"/>
+           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:TIF" segcode="TIF" xmltag="XSBC_nomineeDetails"/>
+           		    <medi:segment minOccurs="0" maxOccurs="1" segref="def:ETI" segcode="ETI" xmltag="XSBC_enhancedCustomerData"/>
+           			
+           			 <medi:segmentGroup xmltag="XSBS_sectors" minOccurs="0" maxOccurs="10">
+      	 				<medi:segment minOccurs="1" maxOccurs="1" segref="def:ODI" segcode="ODI" xmltag="XSBS_sectorOriginAndDestination"/>
+           				<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="XSBS_usDotFlag"/>
+           				
+           				<medi:segmentGroup xmltag="XSBA_allowances" minOccurs="1" maxOccurs="20">
+	      	 				<medi:segment minOccurs="1" maxOccurs="1" segref="def:PBD" segcode="PBD" xmltag="XSBA_allowanceValue"/>
+	           				<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="XSBA_allowanceType"/>
+           				</medi:segmentGroup>           				
+           				
+           				<medi:segmentGroup xmltag="XSBI_items" minOccurs="0" maxOccurs="20">
+       	 					<medi:segment minOccurs="1" maxOccurs="1" segref="def:EBD" segcode="EBD" xmltag="XSBI_quantityAndOriginalRate"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:PTK" segcode="PTK" xmltag="XSBI_additionalInformation"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:ODI" segcode="ODI" xmltag="XSBI_transitPoint"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="XSBI_rfiscInfo"/>
+            				<medi:segment minOccurs="1" maxOccurs="1" segref="def:TVL" segcode="TVL" xmltag="XSBI_routingDetails"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:MON" segcode="MON" xmltag="XSBI_rates"/>
+            				<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="XSBI_xsbItemId"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="XSBI_viaCarrier"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:MON" segcode="MON" xmltag="XSBI_charges"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="XSBI_paymentDocumentNumber"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:BTI" segcode="BTI" xmltag="XSBI_bagDetails"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="XSBI_statuses"/>
+            				<medi:segment minOccurs="0" maxOccurs="99" segref="def:SSR" segcode="SSR" xmltag="XSBI_attributes"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="XSBI_extraCount"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="XSBI_waiveDetails"/>
+            				<medi:segment minOccurs="0" maxOccurs="1" segref="def:FOP" segcode="FOP" xmltag="XSBI_paymentDetails"/>
+           				</medi:segmentGroup> 
+           				
+           			</medi:segmentGroup>	
+           		 </medi:segmentGroup>
+           	</medi:segmentGroup>
+          <medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="CUST_dummySegmentOne"/>
+            <medi:segmentGroup xmltag="ADRS_customerLevelAddresses" minOccurs="0" maxOccurs="99">
+	        	 <medi:segment minOccurs="1" maxOccurs="1" segref="def:LOC" segcode="LOC" xmltag="ADRS_addressQualifier"/>
+	             <medi:segment minOccurs="1" maxOccurs="1" segref="def:NAD" segcode="NAD" xmltag="ADRS_addressDetails"/>
+	             <medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="ADRS_addressDataViewPermission"/>
+	             <medi:segment minOccurs="0" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="ADRS_ownerUCI"/>
+	             <medi:segment minOccurs="1" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="ADRS_addressCarrier"/>
+	        </medi:segmentGroup>
+       		
+  	 		 <medi:segmentGroup xmltag="GR5_customerAccountInfo" minOccurs="0" maxOccurs="9">
+	        	 <medi:segment minOccurs="1" maxOccurs="1" segref="def:PGI" segcode="PGI" xmltag="GR5_accountProvider"/>
+	             <medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="GR5_accountID"/>
+	        </medi:segmentGroup>   
+       		
+           <medi:segmentGroup xmltag="CUST_SERV_customerLevelServices" minOccurs="0" maxOccurs="300">
+	        	 <medi:segment minOccurs="1" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="CUST_SERV_serviceDetails"/>
+	             <medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="CUST_SERV_adviceCardPrintIndicator"/>
+	             <medi:segment minOccurs="0" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="CUST_SERV_ssrQuotaDetails"/>
+	             <medi:segment minOccurs="1" maxOccurs="3" segref="def:IRV" segcode="IRV" xmltag="CUST_SERV_serviceIdentifiers"/>
+	             <medi:segment minOccurs="1" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="CUST_SERV_servicesCarrier"/>
+	        </medi:segmentGroup> 
+	        
+      		 <medi:segmentGroup xmltag="CUST_RDOC2_customerLevelRegDocs" minOccurs="0" maxOccurs="99">
+        	 <medi:segment minOccurs="1" maxOccurs="1" segref="def:PAP" segcode="PAP" xmltag="CUST_RDOC2_travelerAndDocumentInfo"/>
+            <medi:segment minOccurs="0" maxOccurs="4" segref="def:DTM" segcode="DTM" xmltag="CUST_RDOC2_documentDate"/>
+             <medi:segment minOccurs="0" maxOccurs="3" segref="def:LOC" segcode="LOC" xmltag="CUST_RDOC2_documentIssuingCountry"/>
+            <medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="CUST_RDOC2_regDocIndicators"/>
+             <medi:segment minOccurs="0" maxOccurs="1" segref="def:QTY" segcode="QTY" xmltag="CUST_RDOC2_permittedQuantities"/>
+            <medi:segment minOccurs="0" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="CUST_RDOC2_ownerUCI"/>
+             <medi:segment minOccurs="1" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="CUST_RDOC2_regulatoryCarrier"/>
+	        </medi:segmentGroup>
+	     <medi:segment minOccurs="0" maxOccurs="1" segref="def:SPI" segcode="SPI" xmltag="CUST_purposeOfVisit"/>
+	         <medi:segmentGroup  xmltag="GR6_foidDetails" minOccurs="0" maxOccurs="99">
+	        	 <medi:segment minOccurs="1" maxOccurs="1" segref="def:CRI" segcode="CRI" xmltag="GR6_foidData"/>
+	            <medi:segment minOccurs="1" maxOccurs="2" segref="def:IRV" segcode="IRV" xmltag="GR6_foidIdentifiers"/>
+	             <medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR6_foidViewPermission"/>
+	        </medi:segmentGroup> 
+	        
+	      <medi:segmentGroup xmltag="GR7_trackingDetails" minOccurs="0" maxOccurs="1">
+	        	 <medi:segment minOccurs="1" maxOccurs="1" segref="def:SDI" segcode="SDI" xmltag="GR7_lastTrackedDateTimeInfo"/>
+	             <medi:segment minOccurs="1" maxOccurs="1" segref="def:TLC" segcode="TLC" xmltag="GR7_lastTrackedLocation"/>
+	        </medi:segmentGroup> 
+	        
+	     <medi:segmentGroup xmltag="GR8_apnContactDetails" minOccurs="0" maxOccurs="127">
+	        	<medi:segment minOccurs="1" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="GR8_airlineCode"/>
+	            <medi:segment minOccurs="1" maxOccurs="1" segref="def:COM" segcode="COM" xmltag="GR8_contactDetails"/>
+	            <medi:segment minOccurs="0" maxOccurs="1" segref="def:PRE" segcode="PRE" xmltag="GR8_contactLanguage"/>
+	        </medi:segmentGroup>
+	        
+	      	<medi:segmentGroup xmltag="GR9_productLevel" minOccurs="0" maxOccurs="99">
+	        	<medi:segment minOccurs="1" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="GR9_operatingFlightDetails"/>
+	        	
+	          <medi:segmentGroup xmltag="PFDC_flightDisruptionComments" minOccurs="0" maxOccurs="999">
+	        		<medi:segment minOccurs="1" maxOccurs="1" segref="def:ITM" segcode="ITM" xmltag="PFDC_commentNumber"/>
+	            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="PFDC_commentText"/>
+	        	</medi:segmentGroup>
+	           <medi:segmentGroup xmltag="NTCD_ntrContactDetails" minOccurs="0" maxOccurs="999">
+	            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:PAP" segcode="PAP" xmltag="NTCD_ntrContactDetails_PAP"/>
+	            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:NAD" segcode="NAD" xmltag="NTCD_ntrContactAddressDetails"/>
+	            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="NTCD_ntrContactStatus"/>
+	            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:LOC" segcode="LOC" xmltag="NTCD_ntrAirport"/>
+	            	<medi:segment minOccurs="1" maxOccurs="4" segref="def:IRV" segcode="IRV" xmltag="NTCD_ntrContactUniqueId"/>
+	            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="NTCD_ntrContactAttributes"/>
+	            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:SDI" segcode="SDI" xmltag="NTCD_applicableDate"/>
+	            </medi:segmentGroup>
+	           <medi:segment minOccurs="0" maxOccurs="99" segref="def:IRV" segcode="IRV" xmltag="GR9_itemReference"/>
+	              <medi:segment minOccurs="0" maxOccurs="1" segref="def:RCI" segcode="RCI" xmltag="GR9_productRecordLocator"/>
+	            
+	          <medi:segmentGroup xmltag="GR9_GERR_errors" minOccurs="0" maxOccurs="99">
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="GR9_GERR_errorOrWarningCodeDetails"/>
+	            	 <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GR9_GERR_errorWarningDescription"/>
+	           </medi:segmentGroup> 
+		   		<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="GR9_dumSeg"/>
+		    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:CAR" segcode="CAR" xmltag="GR9_marketingFlightInfo"/>
+		    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="GR9_handlingCarrier"/>
+		    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:SYS" segcode="SYS" xmltag="GR9_handlingSystem"/>
+		    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:ODI" segcode="ODI" xmltag="GR9_alternateDestination"/>
+		    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:RPI" segcode="RPI" xmltag="GR9_bookingStatusDetails"/>
+		    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:CBD" segcode="CBD" xmltag="GR9_bookedCabinCode"/>
+		    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GR9_bookedCabinDescription"/>
+		    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:PDI" segcode="PDI" xmltag="GR9_marketingBookingClass"/>
+		    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:FAF" segcode="FAF" xmltag="GR9_fareFamily"/>
+		    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR9_productLevelIndicators"/>
+		    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR9_flightStatuses"/>
+		    	<medi:segment minOccurs="0" maxOccurs="9" segref="def:TLC" segcode="TLC" xmltag="GR9_departureGate"/>
+	           <medi:segmentGroup xmltag="GR10_countries" minOccurs="0" maxOccurs="2" >
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:LOC" segcode="LOC" xmltag="GR10_country"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR10_countryViewPermission"/>
+			    </medi:segmentGroup> 
+	          <medi:segmentGroup xmltag="GR11_prepaidExcessBaggage" minOccurs="0" maxOccurs="99"> 	
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:PBD" segcode="PBD" xmltag="GR11_prepaidXSBValue"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:IFT" segcode="IFT" xmltag="GR11_prepaidXSBFreeText"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="GR11_uniquePrepaidXSBId"/>
+	           </medi:segmentGroup> 
+	          <medi:segmentGroup xmltag="ICEG_issuedCompensationElementGroup" minOccurs="0" maxOccurs="99"> 	
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:COP" segcode="COP" xmltag="ICEG_compIssuanceReasonCodeAndStatus"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="ICEG_compensationDescription"/>
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="ICEG_comment"/>   
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:ODI" segcode="ODI" xmltag="ICEG_legRestriction"/>
+	           		<medi:segment minOccurs="1" maxOccurs="2" segref="def:IRV" segcode="IRV" xmltag="ICEG_compensationReference"/>
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="ICEG_emdNumber"/>         
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:CPN" segcode="CPN" xmltag="ICEG_emdCoupon"/>
+	           		
+	           </medi:segmentGroup>
+	          <medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="GR9_statusSep"/>
+	           
+	           <medi:segmentGroup xmltag="GR12_groundTransportationGroup" minOccurs="0" maxOccurs="1">
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:ODI" segcode="ODI" xmltag="GR12_voucherItinerary"/>  
+	           		<medi:segmentGroup xmltag="GR13_disruptedFlights" minOccurs="1" maxOccurs="3">
+	           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="GR13_disruptedFlightInfo"/>  
+	           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="GR13_disruptedFlightIdentifier"/>  
+	           		</medi:segmentGroup>
+	           		 <medi:segmentGroup xmltag="GR14_voucherInformation" minOccurs="1" maxOccurs="1">
+	           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:COP" segcode="COP" xmltag="GR14_voucherDetails"/>  
+	           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:UID" segcode="UID" xmltag="GR14_agentIdentification"/> 
+	           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:ANI" segcode="ANI" xmltag="GR14_agentLocation"/>  
+	           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR14_printStatus"/>   
+	           		</medi:segmentGroup>
+	           		<medi:segmentGroup xmltag="GR15_replacementFlights" minOccurs="0" maxOccurs="5">
+	           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="GR15_replacementFlightInfo"/>  
+	           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="GR15_replacementFlightIdentifier"/> 
+	           		</medi:segmentGroup>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR12_replacementType"/>   
+	           </medi:segmentGroup>
+	           
+	          <medi:segmentGroup xmltag="RESI_resLinkErrors" minOccurs="0" maxOccurs="5">
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="RESI_linkId"/>  
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="RESI_failureReason"/> 
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="RESI_linkFailureType"/>
+	           </medi:segmentGroup>
+	           		 
+	           <medi:segmentGroup xmltag="CAUT_compensationAuthorisation" minOccurs="0" maxOccurs="99">
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:COP" segcode="COP" xmltag="CAUT_compensationDetails"/>  
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:ODI" segcode="ODI" xmltag="CAUT_legRestriction"/> 
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:UID" segcode="UID" xmltag="CAUT_authoriser"/>
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="CAUT_authorisationUpdateLevel"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="CAUT_dumAuthUpdateAndRegProductStatus"/>
+	           	</medi:segmentGroup>	
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GR9_productLevelStaffInfo"/>
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="GR9_prodLevelStaffValidationStatus"/>
+	           		<medi:segment minOccurs="0" maxOccurs="2" segref="def:EQN" segcode="EQN" xmltag="GR9_prodLevelStaffTransfers"/>
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:PBD" segcode="PBD" xmltag="GR9_baggageAllowance"/>
+	           		
+	           		
+	            	<medi:segmentGroup xmltag="GR9_RDOC1_emergencyContact" minOccurs="0" maxOccurs="1">
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:PAP" segcode="PAP" xmltag="GR9_RDOC1_travelerAndDocumentInfo"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR9_RDOC1_regDocIndicators"/>
+	            </medi:segmentGroup>
+	            
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR9_regProductStatus"/>
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:COP" segcode="COP" xmltag="GR9_compensationAggregatedStatus"/>
+	           		<medi:segment minOccurs="0" maxOccurs="19" segref="def:TXF" segcode="TXF" xmltag="GR9_freeTextinformation"/>
+	           	
+	           <medi:segmentGroup xmltag="ADCM_adcMessageGroup" minOccurs="0" maxOccurs="99">
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:SPI" segcode="SPI" xmltag="ADCM_messageType"/>
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="ADCM_referenceCode"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:LTS" segcode="LTS" xmltag="ADCM_message"/>
+	            </medi:segmentGroup>
+	           
+	           		<medi:segmentGroup xmltag="GR16_nationalityGroup" minOccurs="0" maxOccurs="1">
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:NAT" segcode="NAT" xmltag="GR16_nationality"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR16_nationalityViewPermission"/>
+	            </medi:segmentGroup>
+	           
+	          <medi:segmentGroup xmltag="GR9_RDOC2_regulatoryDocuments" minOccurs="0" maxOccurs="99">
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:PAP" segcode="PAP" xmltag="GR9_RDOC2_travelerAndDocumentInfo"/>
+	           		<medi:segment minOccurs="0" maxOccurs="4" segref="def:DTM" segcode="DTM" xmltag="GR9_RDOC2_documentDate"/>
+	           		<medi:segment minOccurs="0" maxOccurs="3" segref="def:LOC" segcode="LOC" xmltag="GR9_RDOC2_documentIssuingCountry"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR9_RDOC2_regDocIndicators"/>
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:LOC" segcode="LOC" xmltag="GR9_RDOC2_documentPort"/>
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:QTY" segcode="QTY" xmltag="GR9_RDOC2_permittedQuantities"/>
+	            </medi:segmentGroup>
+	          
+	            <medi:segmentGroup xmltag="APPD_appResponseDetails" minOccurs="0" maxOccurs="9">
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:CNY" segcode="CNY" xmltag="APPD_participatingCountry"/>
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="APPD_transitIndicator"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:SPI" segcode="SPI" xmltag="APPD_specificDataInfo"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="APPD_appDirectiveDescription"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="APPD_appStatusCode"/>
+	           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:ITM" segcode="ITM" xmltag="APPD_regDocumentReference"/>
+	           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:SDI" segcode="SDI" xmltag="APPD_appTransactionTime"/>
+	           		
+	           		<medi:segmentGroup xmltag="APPD_GERR_error" minOccurs="0" maxOccurs="99">
+		           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="APPD_errorOrWarningCodeDetails"/>
+		           		 <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="APPD_errorWarningDescription"/>
+	           		</medi:segmentGroup> 
+	           		
+	           		  <medi:segmentGroup xmltag="APPO_appOverride" minOccurs="0" maxOccurs="1">
+		           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:UID" segcode="UID" xmltag="APPO_userIdentification"/>
+		           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:IFT" segcode="IFT" xmltag="APPO_reason"/>
+		           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="APPO_type"/>
+	           		</medi:segmentGroup>
+	           	</medi:segmentGroup>
+	           	
+				<medi:segmentGroup xmltag="GR17_tickets" minOccurs="0" maxOccurs="99">
+		           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="GR17_ticketDetails"/>
+		           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="GR17_conjunctionNumber"/>
+           					<medi:segment minOccurs="0" maxOccurs="1" segref="def:ITM" segcode="ITM" xmltag="GR17_confirmationNumber"/>
+           					<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="GR17_dumtkt"/>
+           					<medi:segment minOccurs="0" maxOccurs="1" segref="def:CPN" segcode="CPN" xmltag="GR17_couponDetails"/>
+           					<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GR17_blacklistCategory"/>
+           					<medi:segment minOccurs="0" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="GR17_ticketCarrierCode"/>
+           					
+           					<medi:segmentGroup xmltag="GR18_emds" minOccurs="0" maxOccurs="99">
+           						<medi:segment minOccurs="1" maxOccurs="1" segref="def:PTS" segcode="PTS" xmltag="GR18_emdCategory"/>
+           						<medi:segment minOccurs="1" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="GR18_emdNumber"/>
+           						<medi:segment minOccurs="1" maxOccurs="1" segref="def:CPN" segcode="CPN" xmltag="GR18_emdCoupon"/>
+           						<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GR18_emdDescription"/>
+           					</medi:segmentGroup>
+           					
+           		 		</medi:segmentGroup>
+           		 		
+           				<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR9_fareIncreaseIndicator"/>
+           				<medi:segment minOccurs="0" maxOccurs="1" segref="def:MON" segcode="MON" xmltag="GR9_fareDifference"/>
+           				<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="GR9_dumTktAndPreviousTkt"/>
+           				
+           				<medi:segmentGroup xmltag="IAPP_iAppInformation" minOccurs="0" maxOccurs="9">	
+           				  
+			         		<medi:segment minOccurs="1" maxOccurs="1" segref="def:CNY" segcode="CNY" xmltag="IAPP_countryCode"/> 
+			           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="IAPP_iAppStatus"/> 
+			         		<medi:segment minOccurs="0" maxOccurs="1" segref="def:IFT" segcode="IFT" xmltag="IAPP_specialInstruction"/>   
+
+            			 </medi:segmentGroup>
+            			
+						 <medi:segmentGroup xmltag="GR19_iAppStatus" minOccurs="0" maxOccurs="1">	
+			            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="GR19_specialInstruction"/>
+			           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:CPN" segcode="CPN" xmltag="GR19_previousTickets"/>
+			           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="GR19_ticketDetails"/>
+			           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="GR19_couponDetails"/>
+			            </medi:segmentGroup> 
+			            <medi:segment minOccurs="0" maxOccurs="1" segref="def:BLB" segcode="BLB" xmltag="GR9_dumPreviousTkt"/>
+			            
+
+			         	<medi:segmentGroup xmltag="SERV_ticketCarrierCode" minOccurs="0" maxOccurs="300">
+			            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="SERV_eTicketResponse"/>
+			           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="SERV_services"/>
+
+			           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="SERV_serviceDetails"/> 
+			           		
+			           	 <medi:segmentGroup xmltag="CSVG_adviceCardPrintIndicator" minOccurs="0" maxOccurs="1">
+			           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="CSVG_ssrQuotaDetails"/>
+			           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="CSVG_chargeableServiceDetails"/>
+			           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:MON" segcode="MON" xmltag="CSVG_chargeableService"/>
+			           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:CVR" segcode="CVR" xmltag="CSVG_chargeableServiceId"/>
+			           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:FOP" segcode="FOP" xmltag="CSVG_associatedCharges"/>
+			           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="CSVG_exchangeRateConversion"/>
+			           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:GAU" segcode="GAU" xmltag="CSVG_chargeableServicePayment"/>
+			           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="CSVG_paymentDetails"/>
+			           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="CSVG_waiverAuthoriser"/>
+			           	    </medi:segmentGroup> 
+			           	    <medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="CSVG_waiverReason"/>
+			          </medi:segmentGroup> 
+			           <medi:segmentGroup xmltag="LSVC_chargeableServiceStatus" minOccurs="0" maxOccurs="1">
+            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="LSVC_serviceIdentifiers"/>
+           		<medi:segment minOccurs="0" maxOccurs="300" segref="def:TKT" segcode="TKT" xmltag="LSVC_lostServices"/>
+           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="LSVC_fromFlightDetails"/> 
+            </medi:segmentGroup> 
+           		
+          	<medi:segmentGroup xmltag="GR20_baggageInfo" minOccurs="0" maxOccurs="9">
+            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:PBD" segcode="PBD" xmltag="GR20_baggageDetails"/>
+           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR20_baggageIndicators"/>
+           		
+           		<medi:segmentGroup xmltag="GR21_baggageItinerary" minOccurs="0" maxOccurs="10">
+           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="GR21_operatingDetails"/>
+          			<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR21_baggageStatusIndicators"/>
+          		</medi:segmentGroup>
+           </medi:segmentGroup> 
+           
+           <medi:segmentGroup xmltag="FIMR_baggageInfo" minOccurs="0" maxOccurs="1">
+           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:DTM" segcode="DTM" xmltag="FIMR_documentDate"/>
+           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="FIMR_fimNumber"/>
+           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:ABI" segcode="ABI" xmltag="FIMR_userIdentifier"/>
+           		
+           <medi:segmentGroup xmltag="FIMG_fimCommonGroup" minOccurs="0" maxOccurs="1">
+           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:LOC" segcode="LOC" xmltag="FIMG_disruptionLocation"/>
+           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:EQN" segcode="EQN" xmltag="FIMG_unnamedCustomers"/>
+           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:ODI" segcode="ODI" xmltag="FIMG_legRestriction"/>
+           	
+           		 <medi:segmentGroup xmltag="GR22_fimTicketDetails" minOccurs="0" maxOccurs="9">
+           				<medi:segment minOccurs="1" maxOccurs="1" segref="def:ITM" segcode="ITM" xmltag="GR22_ticketItemNumber"/>
+           				<medi:segment minOccurs="0" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="GR22_ticketInfo"/>
+           				<medi:segment minOccurs="0" maxOccurs="1" segref="def:CPN" segcode="CPN" xmltag="GR22_couponDetails"/>
+           				<medi:segment minOccurs="0" maxOccurs="1" segref="def:PTS" segcode="PTS" xmltag="GR22_fareBasis"/>
+           				
+           					 <medi:segmentGroup xmltag="GR23_baggageAllowanceFim" minOccurs="0" maxOccurs="2">
+           						<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR23_allowanceType"/>
+           						<medi:segment minOccurs="0" maxOccurs="1" segref="def:PBD" segcode="PBD" xmltag="GR23_allowanceValue"/>
+           						<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GR23_allowanceValueFreeText"/>
+           					</medi:segmentGroup>  
+           			 </medi:segmentGroup> 
+           			 
+           		 	<medi:segmentGroup xmltag="GR27_flightDetails" minOccurs="0" maxOccurs="9">
+           						<medi:segment minOccurs="1" maxOccurs="1" segref="def:TRA" segcode="TRA" xmltag="GR27_replacementService"/>
+           						<medi:segment minOccurs="0" maxOccurs="2" segref="def:ODI" segcode="ODI" xmltag="GR27_legRestriction"/>
+           						<medi:segment minOccurs="0" maxOccurs="1" segref="def:DAT" segcode="DAT" xmltag="GR27_replacementServiceDate"/>
+           						<medi:segment minOccurs="0" maxOccurs="1" segref="def:CBD" segcode="CBD" xmltag="GR27_bookedCabinCode"/> 
+           			</medi:segmentGroup>
+           			
+           			<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="FIMG_statusFim"/>
+           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:LOC" segcode="LOC" xmltag="FIMG_userLocation"/>
+           			<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="FIMG_reason"/> 
+           		</medi:segmentGroup> 
+           </medi:segmentGroup>
+           
+		<medi:segmentGroup xmltag="REVI_revenueIntegrity" minOccurs="0" maxOccurs="1">
+           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="REVI_revIntegIndicators"/>
+           		<medi:segment minOccurs="0" maxOccurs="5" segref="def:TXF" segcode="TXF" xmltag="REVI_revIntegFreeTextData"/>
+           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:EQN" segcode="EQN" xmltag="REVI_custCheckTextNumber"/>
+           </medi:segmentGroup>
+           
+          <medi:segmentGroup xmltag="GR24_disruptionInfo" minOccurs="0" maxOccurs="1">
+           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR24_disruptionStatus"/>
+           		<medi:segment minOccurs="0" maxOccurs="2" segref="def:TXF" segcode="TXF" xmltag="GR24_disruptionReason"/>
+           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:LOC" segcode="LOC" xmltag="GR24_finalDestination"/>
+				  <medi:segmentGroup xmltag="DISF_disruptionFlights" minOccurs="0" maxOccurs="2">
+		           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="DISF_flightQualifier"/>
+		           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="DISF_disruptionFlight"/>
+		        </medi:segmentGroup>
+           </medi:segmentGroup>	 
+        <medi:segmentGroup xmltag="CLID_corporateID" minOccurs="0" maxOccurs="1">
+           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:FTI" segcode="FTI" xmltag="CLID_clidInformation"/>
+           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:ATR" segcode="ATR" xmltag="CLID_clidData"/>
+           </medi:segmentGroup> 
+           		
+        	 <medi:segment minOccurs="1" maxOccurs="2" segref="def:SPR" segcode="SPR" xmltag="GR9_estimateTimes"/>
+        	<medi:segment minOccurs="0" maxOccurs="2" segref="def:TXF" segcode="TXF" xmltag="GR9_acceptanceBannerComment"/>
+        	<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR9_productLevelJumpSeatAuthStatus"/>
+            
+         <medi:segmentGroup xmltag="GR25_vccDetails" minOccurs="0" maxOccurs="1">
+           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:CCD" segcode="CCD" xmltag="GR25_creditCardDetails"/>
+           		 <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GR25_overrideVccReasonText"/>
+           		 <medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR25_verificationMethod"/> 
+           </medi:segmentGroup> 
+           
+          <medi:segment minOccurs="0" maxOccurs="1" segref="def:COP" segcode="COP" xmltag="GR9_compensationInfo"/>
+          <medi:segmentGroup xmltag="GR26_creditCardDetailsGroup" minOccurs="0" maxOccurs="99">
+           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:FOP" segcode="FOP" xmltag="GR26_creditCardDetails"/>
+           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR26_creditCardViewPermission"/>
+           </medi:segmentGroup>
+
+           <medi:segment minOccurs="0" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR9_creditCardAuthorisationStatus"/>
+
+           <medi:segmentGroup xmltag="FQTX_creditCardDetailsGroup" minOccurs="0" maxOccurs="4">
+           		<medi:segment minOccurs="1" maxOccurs="1" segref="def:FTI" segcode="FTI" xmltag="FQTX_frequentFlyerInformation"/>
+           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="FQTX_fqtvUsage"/>
+           </medi:segmentGroup>		
+ 
+		  
+		  <medi:segmentGroup xmltag="FDR_GR28_excessBaggageWaiver" minOccurs="0" maxOccurs="1">
+	            <medi:segment minOccurs="1" maxOccurs="1" segref="def:PBD" segcode="PBD" xmltag="GR28_sreWeightPieceAllowance"/>
+	            <medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR28_baggageWaiverViewPermission"/>
+			   	<medi:segment minOccurs="0" maxOccurs="1" segref="def:IFT" segcode="IFT" xmltag="GR28_waiverReason"/>
+	            <medi:segment minOccurs="0" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR28_excessBagWaiverIndicator"/> 
+           </medi:segmentGroup>
+		
+	       <medi:segmentGroup xmltag="FDR_ADRS_addressDetailsGroup" minOccurs="0" maxOccurs="2">
+	            <medi:segment minOccurs="1" maxOccurs="1" segref="def:LOC" segcode="LOC" xmltag="FDR_ADRS_addressQualifier"/>
+	            <medi:segment minOccurs="1" maxOccurs="1" segref="def:NAD" segcode="NAD" xmltag="FDR_ADRS_addressDetails"/>
+	            <medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="FDR_ADRS_addressDataViewPermission"/>
+	        </medi:segmentGroup>
+		
+        <medi:segmentGroup xmltag="GR29_candidateETickets" minOccurs="0" maxOccurs="99">
+            <medi:segment minOccurs="1" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="GR29_ticketInfo"/>
+            <medi:segment minOccurs="0" maxOccurs="1" segref="def:CPN" segcode="CPN" xmltag="GR29_couponDetails"/>
+        </medi:segmentGroup>
+		
+      	<medi:segmentGroup xmltag="GR30_legLevel" minOccurs="0" maxOccurs="9">
+            <medi:segment minOccurs="1" maxOccurs="1" segref="def:ODI" segcode="ODI" xmltag="GR30_legRouting"/>
+	 	
+		     <medi:segmentGroup xmltag="GR30_GERR_errors" minOccurs="0" maxOccurs="99">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="GR30_GERR_errorOrWarningCodeDetails"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GR30_GERR_errorWarningDescription"/>
+		        </medi:segmentGroup>
+		
+		         <medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="legLevelDumTXFSeg"/>
+		        <medi:segment minOccurs="0" maxOccurs="1" segref="def:APD" segcode="APD" xmltag="additionalProductDetails"/>
+		        <medi:segment minOccurs="0" maxOccurs="1" segref="def:CAR" segcode="CAR" xmltag="operatingLegDetails"/>
+		
+		<medi:segmentGroup xmltag="GR31_predefinedFlightComment" minOccurs="0" maxOccurs="1">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="GR31_predefinedFlightCommentID"/>
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR31_predefinedFlightCommentText"/>
+		        </medi:segmentGroup>
+				
+		     	<medi:segment minOccurs="0" maxOccurs="1" segref="def:CBD" segcode="CBD" xmltag="travelCabinCode"/>
+		        <medi:segment minOccurs="0" maxOccurs="2" segref="def:REF" segcode="REF" xmltag="securityNumber"/>
+		        <medi:segment minOccurs="0" maxOccurs="4" segref="def:SSR" segcode="SSR" xmltag="seatInfo"/>
+		        <medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="legLevelIndicator"/>
+		        <medi:segment minOccurs="0" maxOccurs="9" segref="def:SDI" segcode="SDI" xmltag="legTimes"/>
+		        <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="acceptanceReason"/>
+			
+	         <medi:segmentGroup xmltag="loungeInfo" minOccurs="0" maxOccurs="2">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:LGE" segcode="LGE" xmltag="FDR_LNGE_lounge"/>
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:EQN" segcode="EQN" xmltag="FDR_LNGE_loungeAdditionalInfo"/>
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="FDR_LNGE_loungeIndicators"/>
+		            <medi:segment minOccurs="1" maxOccurs="5" segref="def:ATC" segcode="ATC" xmltag="FDR_LNGE_loungeDetails"/>
+		        </medi:segmentGroup>
+			
+		 	      	<medi:segmentGroup xmltag="GR30_ONLE_loungeInfo" minOccurs="0" maxOccurs="1">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:ACT" segcode="ACT" xmltag="FDR_ONLE_lounge"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="FDR_ONLE_loungeAdditionalInfo"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:CBD" segcode="CBD" xmltag="FDR_ONLE_loungeIndicators"/>
+		        </medi:segmentGroup>
+			
+		 	        <medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="legSeparator"/>
+						
+		     <medi:segmentGroup xmltag="FDR_SERV_chargeableSeatDetails" minOccurs="0" maxOccurs="1">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="FDR_SERV_serviceDetails"/>
+		    
+		       	<medi:segmentGroup xmltag="SERV_CSVG_chargeableServiceDetailsGr" minOccurs="0" maxOccurs="1">
+		            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="SERV_CSVG_chargeableServiceDetails"/>
+		            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="SERV_CSVG_chargeableServiceId"/>
+		           	 	<medi:segment minOccurs="0" maxOccurs="1" segref="def:MON" segcode="MON" xmltag="SERV_CSVG_associatedCharges"/>
+		           		<medi:segment minOccurs="0" maxOccurs="1" segref="def:CVR" segcode="CVR" xmltag="SERV_CSVG_exchangeRateConversion"/>
+		            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:FOP" segcode="FOP" xmltag="SERV_CSVG_chargeableServicePayment"/>
+		            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="SERV_CSVG_paymentDetails"/>
+		            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:GAU" segcode="GAU" xmltag="SERV_CSVG_waiverAuthoriser"/>
+		            	<medi:segment minOccurs="0" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="SERV_CSVG_waiverReason"/>
+		            	<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="SERV_CSVG_chargeableServiceStatus"/>
+		        </medi:segmentGroup>
+		        	     
+			</medi:segmentGroup> 
+		      
+		       	<medi:segmentGroup xmltag="FDR_LSVC_lostSeat" minOccurs="0" maxOccurs="99">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="FDR_LSVC_fromFlightDetails"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="FDR_LSVC_emdInformation"/>
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="FDR_LSVC_serviceCode"/>
+		        </medi:segmentGroup>
+				<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="legSeparator2"/>
+				<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="standbyReason"/>
+				<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="flightLegStatuses"/>
+				<medi:segment minOccurs="0" maxOccurs="1" segref="def:TLC" segcode="TLC" xmltag="aircraftLocation1"/>
+				
+				
+	   			<medi:segmentGroup xmltag="FDR_COMM_comments" minOccurs="0" maxOccurs="99">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:MIR" segcode="MIR" xmltag="FDR_COMM_fromFlightDetails"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="FDR_COMM_emdInformation"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="FDR_COMM_serviceCode"/>
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="FDR_COMM_uniqueCommentIdentifier"/>
+		        </medi:segmentGroup>
+			
+				
+		         <medi:segmentGroup xmltag="FDR_RDEL_regradeDelivered" minOccurs="0" maxOccurs="1">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:ACT" segcode="ACT" xmltag="FDR_RDEL_customerRegradeReason"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="FDR_RDEL_regradeReasonFreeText"/>
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="FDR_RDEL_regradeStatus"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:UID" segcode="UID" xmltag="FDR_RDEL_authoriserReference"/>
+		        </medi:segmentGroup>
+			
+		      <medi:segmentGroup xmltag="FDR_RPRO_regradeProposed" minOccurs="0" maxOccurs="1">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:CBD" segcode="CBD" xmltag="FDR_RPRO_cabinCode"/>
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="FDR_RPRO_regradeProposedIndicators"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:PTY" segcode="PTY" xmltag="FDR_RPRO_regradePriority"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="FDR_RPRO_regradeReasonFreeText"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:UID" segcode="UID" xmltag="FDR_RPRO_regradeAuthoriser"/>
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:ACT" segcode="ACT" xmltag="FDR_RPRO_customerRegradeReason"/>
+		        </medi:segmentGroup>
+		       
+		        
+	 	        <medi:segmentGroup xmltag="GR36_onloadDetails" minOccurs="0" maxOccurs="1">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR36_onloadStatus"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:PTY" segcode="PTY" xmltag="GR36_onloadPriority"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:CBD" segcode="CBD" xmltag="GR36_onloadCabinCode"/>
+		        </medi:segmentGroup>
+				 
+				<medi:segment minOccurs="0" maxOccurs="1" segref="def:RSR" segcode="RSR" xmltag="trainSeat"/>
+				
+	 			<medi:segmentGroup xmltag="FDR_ADCM_adcMessageGroup" minOccurs="0" maxOccurs="99">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:SPI" segcode="SPI" xmltag="FDR_ADCM_messageType"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="FDR_ADCM_referenceCode"/>
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:LTS" segcode="LTS" xmltag="FDR_ADCM_message"/>
+		        </medi:segmentGroup>
+				
+				<medi:segmentGroup xmltag="FDR_CONF_adcMessageGroup" minOccurs="0" maxOccurs="1">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:LOC" segcode="LOC" xmltag="FDR_CONF_conformanceCheckLocation"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:QTY" segcode="QTY" xmltag="FDR_CONF_personalMinuteAdjustment"/>
+		            <medi:segment minOccurs="0" maxOccurs="2" segref="def:SDI" segcode="SDI" xmltag="FDR_CONF_conformanceCheckTime"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:ATR" segcode="ATR" xmltag="FDR_CONF_conformanceInfoAndChecks"/>
+		        </medi:segmentGroup>
+				
+				</medi:segmentGroup>
+			
+			<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="dummySegmentTXF"/>
+			<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="privateListNames"/>
+			<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="paymentPendingInd"/>
+			
+	      	<medi:segmentGroup xmltag="GR34_ssrWarnings" minOccurs="0" maxOccurs="300">
+		            <medi:segment minOccurs="1" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="GR34_serviceDetails"/>
+		            <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GR34_serviceWarning"/>
+		    </medi:segmentGroup>
+			
+	        </medi:segmentGroup> 
+		</medi:segmentGroup>
+		
+		 <medi:segmentGroup xmltag="LNKS_customerAndProductLinks" minOccurs="0" maxOccurs="999">
+            <medi:segment minOccurs="1" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="LNKS_uniqueLinkIdentifier"/>
+
+			<medi:segmentGroup xmltag="GR32_linkedIdList" minOccurs="1" maxOccurs="99">
+				<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR32_groupSplitIndicator"/>
+				<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="GR32_linkedItemId"/>
+			</medi:segmentGroup>
+		
+			 <medi:segmentGroup xmltag="GR33_subLinks" minOccurs="0" maxOccurs="99">
+				<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR33_subLinkInfo"/>
+				 <medi:segment minOccurs="1" maxOccurs="99" segref="def:IRV" segcode="IRV" xmltag="GR33_subLinkedUPI"/> 
+			
+			 <medi:segmentGroup xmltag="GR35_adjacencyLink" minOccurs="0" maxOccurs="99">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:ITM" segcode="ITM" xmltag="GR35_adjLinkInfo"/>
+					 <medi:segment minOccurs="1" maxOccurs="2" segref="def:IRV" segcode="IRV" xmltag="GR35_adjacencyUPI"/> 
+				</medi:segmentGroup> 
+			</medi:segmentGroup>
+			
+			</medi:segmentGroup>
+		
+		
+		 <medi:segmentGroup xmltag="IBGP_baggageInfo" minOccurs="0" maxOccurs="2000">
+            <medi:segment minOccurs="1" maxOccurs="1" segref="def:PBD" segcode="PBD" xmltag="IBGP_baggageDetails"/>
+			 <medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="IBGP_baggageIndicator"/>
+			<medi:segment minOccurs="0" maxOccurs="200" segref="def:IRV" segcode="IRV" xmltag="IBGP_bagIdentifiers"/>
+		
+			<medi:segmentGroup xmltag="GR37_customerDetails" minOccurs="1" maxOccurs="1">
+				<medi:segment minOccurs="1" maxOccurs="1" segref="def:TIF" segcode="TIF" xmltag="GR37_responsibleCustDetails"/>
+				 <medi:segment minOccurs="0" maxOccurs="1" segref="def:ETI" segcode="ETI" xmltag="GR37_enhancedCustomerData"/>
+				<medi:segment minOccurs="0" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="GR37_uniqueCustomerId"/>
+				 
+				 <medi:segmentGroup xmltag="OCUS_membersOfPool" minOccurs="0" maxOccurs="99">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:TIF" segcode="TIF" xmltag="OCUS_ownerInfo"/>
+					 <medi:segment minOccurs="0" maxOccurs="1" segref="def:ETI" segcode="ETI" xmltag="OCUS_enhancedCustomerData"/>
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="OCUS_uniqueCustomerId"/> 
+				</medi:segmentGroup>	
+			</medi:segmentGroup>
+			
+		 	<medi:segmentGroup xmltag="BGPI_bagsGroupItinerary" minOccurs="0" maxOccurs="10">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="BGPI_operatingDetails"/>
+					 <medi:segment minOccurs="0" maxOccurs="2" segref="def:STX" segcode="STX" xmltag="BGPI_flightBagStatusIndicators"/>
+			</medi:segmentGroup>
+			
+			<medi:segmentGroup xmltag="IBGP_GERR_errors" minOccurs="0" maxOccurs="99">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="IBGP_GERR_errorOrWarningCodeDetails"/>
+					 <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="IBGP_GERR_errorWarningDescription"/>
+			</medi:segmentGroup> 
+		</medi:segmentGroup> 
+		
+		 <medi:segmentGroup xmltag="IBAG_bagDetails" minOccurs="0" maxOccurs="2000">
+            <medi:segment minOccurs="1" maxOccurs="1" segref="def:BAG" segcode="BAG" xmltag="IBAG_bagInfo"/>
+			<medi:segment minOccurs="0" maxOccurs="1" segref="def:BTI" segcode="BTI" xmltag="IBAG_linkedBagInfo"/>
+			<medi:segment minOccurs="0" maxOccurs="10" segref="def:IRV" segcode="IRV" xmltag="IBAG_linkedBagProducts"/>
+			<medi:segment minOccurs="0" maxOccurs="1" segref="def:DIM" segcode="DIM" xmltag="IBAG_dimensions"/>
+			<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="IBAG_bagIndicators"/>
+			
+			 <medi:segmentGroup xmltag="IBAG_OCUS_ownerDetails" minOccurs="0" maxOccurs="1">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:TIF" segcode="TIF" xmltag="IBAG_OCUS_ownerInfo"/>
+					<medi:segment minOccurs="0" maxOccurs="1" segref="def:ETI" segcode="ETI" xmltag="IBAG_OCUS_enhancedCustomerData"/>
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="IBAG_OCUS_uniqueCustomerId"/>
+			</medi:segmentGroup>
+			
+			 <medi:segment minOccurs="0" maxOccurs="1" segref="def:IDD" segcode="IDD" xmltag="IBAG_lastSeenLocation"/>
+			 
+			 <medi:segmentGroup xmltag="IBAG_BDEL_flightInfo" minOccurs="0" maxOccurs="10">
+				<medi:segment minOccurs="1" maxOccurs="1" segref="def:FDR" segcode="FDR" xmltag="BDEL_operatingDetails"/>
+				<medi:segment minOccurs="1" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="BDEL_bagLegIndicators"/>
+				<medi:segment minOccurs="0" maxOccurs="1" segref="def:IDD" segcode="IDD" xmltag="BDEL_checkinLocationDetails"/>
+				<medi:segment minOccurs="0" maxOccurs="1" segref="def:DCD" segcode="DCD" xmltag="BDEL_deviceDetails"/>
+				<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="BDEL_atlOverrideReason"/>
+				
+				
+				<medi:segmentGroup xmltag="OFFD_ownerDetails" minOccurs="0" maxOccurs="1">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:LOC" segcode="LOC" xmltag="OFFD_offloadLocation"/>
+					<medi:segment minOccurs="0" maxOccurs="2" segref="def:STX" segcode="STX" xmltag="OFFD_offloadIndicators"/>
+					<medi:segment minOccurs="0" maxOccurs="2" segref="def:TXF" segcode="TXF" xmltag="OFFD_offloadReason"/>
+				</medi:segmentGroup>
+				<medi:segment minOccurs="0" maxOccurs="1" segref="def:SSC" segcode="SSC" xmltag="BDEL_securityDetails"/>
+				
+				 <medi:segmentGroup xmltag="GR38_loadingDetails" minOccurs="0" maxOccurs="1">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:DVI" segcode="DVI" xmltag="GR38_loadingLocationDetails"/>
+					<medi:segment minOccurs="0" maxOccurs="2" segref="def:STX" segcode="STX" xmltag="GR38_loadingIndicators"/>
+					<medi:segment minOccurs="0" maxOccurs="1" segref="def:TVL" segcode="TVL" xmltag="GR38_connectionDetails"/>
+				</medi:segmentGroup> 
+				
+				<medi:segmentGroup xmltag="GR39_presortInformation" minOccurs="0" maxOccurs="1">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:IRV" segcode="IRV" xmltag="GR39_connectionType"/>
+					<medi:segment minOccurs="0" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR39_loadingIndicators"/>
+				</medi:segmentGroup>
+				<medi:segment minOccurs="0" maxOccurs="1" segref="def:IFT" segcode="IFT" xmltag="BDEL_internalAirlineText"/>
+				
+				 <medi:segmentGroup xmltag="SBAT_specialBagAttribute" minOccurs="0" maxOccurs="30">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:SSR" segcode="SSR" xmltag="SBAT_specialBagAttribute"/>
+					<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="SBAT_attributeDetails"/>
+					<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="SBAT_freeSpecialBag"/>
+				</medi:segmentGroup>
+				<medi:segment minOccurs="0" maxOccurs="1" segref="def:TLC" segcode="TLC" xmltag="BDEL_aircraftLocation2"/>
+				
+				<medi:segmentGroup xmltag="BTII_taggingInterlineInfo" minOccurs="0" maxOccurs="1">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:REF" segcode="REF" xmltag="BTII_taggingInterlineInfoCode"/>
+					<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="BTII_taggingInterlineInfoText"/>
+				</medi:segmentGroup> 
+			</medi:segmentGroup>
+			
+			<medi:segmentGroup xmltag="IBAG_GERR_errors" minOccurs="0" maxOccurs="99">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="IBAG_GERR_errorOrWarningCodeDetails"/>
+					<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="IBAG_GERR_errorWarningDescription"/>
+			</medi:segmentGroup> 
+		</medi:segmentGroup> 
+		
+		 <medi:segmentGroup xmltag="GRPD_swipeResponse" minOccurs="0" maxOccurs="1">
+					<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="GRPD_dummySegment"/>
+					<medi:segmentGroup xmltag="GRPD_GERR_errors" minOccurs="0" maxOccurs="99">
+						<medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="GRPD_GERR_errorOrWarningCodeDetails"/>
+						<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GRPD_GERR_errorWarningDescription"/>
+					</medi:segmentGroup>
+					<medi:segment minOccurs="0" maxOccurs="1" segref="def:BTI" segcode="BTI" xmltag="GRPD_decodedBagTagDetails"/>
+					
+					<medi:segmentGroup xmltag="GRPI_decodeIdentityDocument" minOccurs="0" maxOccurs="1">
+						<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GRPI_notDecodedCharacter"/>
+						<medi:segment minOccurs="0" maxOccurs="1" segref="def:DID" segcode="DID" xmltag="GRPI_decodedDocumentDetails"/>
+						<medi:segment minOccurs="0" maxOccurs="1" segref="def:TIF" segcode="TIF" xmltag="GRPI_decodedPaxDetails"/>
+						<medi:segment minOccurs="0" maxOccurs="1" segref="def:SDI" segcode="SDI" xmltag="GRPI_birthDate"/>
+						<medi:segment minOccurs="0" maxOccurs="1" segref="def:NAT" segcode="NAT" xmltag="GRPI_nationality"/>
+						<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GRPI_validationIndicators"/>
+					</medi:segmentGroup> 
+					
+					<medi:segmentGroup xmltag="GRPM_decodedMSRDocument" minOccurs="0" maxOccurs="1">
+						<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="GRPM_dummySegment"/>
+						<medi:segment minOccurs="0" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GRPM_notDecodedCharacter"/>
+						<medi:segment minOccurs="0" maxOccurs="1" segref="def:TIF" segcode="TIF" xmltag="GRPM_edidecodedPaxDetails"/>
+						
+						 <medi:segmentGroup xmltag="GR40_decodedFQTV" minOccurs="0" maxOccurs="1">
+							<medi:segment minOccurs="1" maxOccurs="1" segref="def:DUM" segcode="DUM" xmltag="GR40_dummySegment"/>
+							<medi:segment minOccurs="1" maxOccurs="1" segref="def:ATC" segcode="ATC" xmltag="GR40_subsidiaryType"/>
+							<medi:segment minOccurs="0" maxOccurs="1" segref="def:FTI" segcode="FTI" xmltag="GR40_decodedFrequentTraveller"/>
+							<medi:segment minOccurs="0" maxOccurs="1" segref="def:SRP" segcode="SRP" xmltag="GR40_seatingPreferences"/>
+							<medi:segment minOccurs="0" maxOccurs="1" segref="def:SDI" segcode="SDI" xmltag="GR40_decodedDate"/>
+						</medi:segmentGroup>
+						
+						<medi:segmentGroup xmltag="GR41_decodedCreditCard" minOccurs="0" maxOccurs="1">
+							<medi:segment minOccurs="1" maxOccurs="1" segref="def:CCD" segcode="CCD" xmltag="GR41_creditCard"/>
+							<medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="GR41_cardNumberValidation"/>
+							<medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="GR41_discretionaryData"/>
+						</medi:segmentGroup>
+						
+						<medi:segmentGroup xmltag="GR42_decodedPectabDocument" minOccurs="0" maxOccurs="1">
+							<medi:segment minOccurs="1" maxOccurs="1" segref="def:DID" segcode="DID" xmltag="GR42_decodedDocumentDetails"/>
+							<medi:segment minOccurs="0" maxOccurs="1" segref="def:TKT" segcode="TKT" xmltag="GR42_decodedTicketDetails"/>
+							<medi:segment minOccurs="0" maxOccurs="1" segref="def:CPN" segcode="CPN" xmltag="GR42_decodedCouponDetails"/>
+							
+							<medi:segmentGroup xmltag="GR43_decodedSegmentDetails" minOccurs="0" maxOccurs="4">
+								<medi:segment minOccurs="1" maxOccurs="1" segref="def:TVL" segcode="TVL" xmltag="GR43_travelDetails"/>
+								<medi:segment minOccurs="0" maxOccurs="1" segref="def:RCI" segcode="RCI" xmltag="GR43_reservationDetails"/>
+								<medi:segment minOccurs="0" maxOccurs="1" segref="def:PFD" segcode="PFD" xmltag="GR43_passengerFlightDetails"/>
+							</medi:segmentGroup>
+							<medi:segment minOccurs="0" maxOccurs="1" segref="def:FTI" segcode="FTI" xmltag="GR42_decodedFrequentTraveller"/> 
+						</medi:segmentGroup>	 
+					</medi:segmentGroup> 		
+		</medi:segmentGroup>  
+		<medi:segment minOccurs="1" maxOccurs="1" segref="def:UNT" segcode="UNT" xmltag="ediTrailer"/>
+		<medi:segment minOccurs="0" maxOccurs="1" segref="def:UNE" segcode="UNE" xmltag="ediGroupTrailer"/>
+    </medi:segments>
+ 
+</medi:edimap>

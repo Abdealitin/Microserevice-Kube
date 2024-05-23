@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprPrdlevelBkgdtls" table="CPR_PRDLEVEL_BKGDTLS">
+        <id name="idPrdlevelBkgdtls" type="java.lang.Long">
+            <column name="ID_PRDLEVEL_BKGDTLS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprBookingstatus" type="string">
+            <column name="CPR_BOOKINGSTATUS" length="2" />
+        </property>
+        <property name="cprClsdesignator" type="java.lang.Character">
+            <column name="CPR_CLSDESIGNATOR" length="1" />
+        </property>
+        <property name="cprResbkgcls" type="string">
+            <column name="CPR_RESBKGCLS" length="2" />
+        </property>
+        <property name="cprCabincls" type="java.lang.Byte">
+            <column name="CPR_CABINCLS" precision="2" scale="0" />
+        </property>
+        <property name="cprTextsubqual" type="string">
+            <column name="CPR_TEXTSUBQUAL" length="3" />
+        </property>
+        <property name="cprInfotype" type="string">
+            <column name="CPR_INFOTYPE" length="4" />
+        </property>
+        <property name="cprLanguage" type="string">
+            <column name="CPR_LANGUAGE" length="3" />
+        </property>
+        <property name="cprSource" type="string">
+            <column name="CPR_SOURCE" length="3" />
+        </property>
+        <property name="cprEncoding" type="string">
+            <column name="CPR_ENCODING" length="3" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="70" />
+        </property>
+        <property name="cprDesignator" type="java.lang.Character">
+            <column name="CPR_DESIGNATOR" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

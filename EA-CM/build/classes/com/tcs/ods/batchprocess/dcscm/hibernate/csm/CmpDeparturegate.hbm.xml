@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpDeparturegate" table="CMP_DEPARTUREGATE">
+        <id name="idDepdate" type="java.lang.Long">
+            <column name="ID_DEPDATE" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpSeatmapinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatmapinfo" fetch="select">
+            <column name="ID_SEATMAPINFO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpFacilitytype" type="string">
+            <column name="CMP_FACILITYTYPE" length="12" />
+        </property>
+        <property name="cmpFacilityidentifier" type="string">
+            <column name="CMP_FACILITYIDENTIFIER" length="200" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibSpecialBagAttribute" table="BIB_SPECIAL_BAG_ATTRIBUTE">
+        <id name="idSpecialBagAttribute" type="java.lang.Long">
+            <column name="ID_SPECIAL_BAG_ATTRIBUTE" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibFlightinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibFlightinfo" fetch="select">
+            <column name="ID_FLIGHTINFO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibSpecialSsrcode" type="string">
+            <column name="BIB_SPECIAL_SSRCODE" length="16" />
+        </property>
+        <property name="bibSpecialActioncode" type="string">
+            <column name="BIB_SPECIAL_ACTIONCODE" length="4" />
+        </property>
+        <property name="bibSpecialServicetype" type="string">
+            <column name="BIB_SPECIAL_SERVICETYPE" length="12" />
+        </property>
+        <property name="bibSpecialBoardpoint" type="string">
+            <column name="BIB_SPECIAL_BOARDPOINT" length="16" />
+        </property>
+        <property name="bibSpecialOffpoint" type="string">
+            <column name="BIB_SPECIAL_OFFPOINT" length="16" />
+        </property>
+        <property name="bibSpecialFreetext" type="string">
+            <column name="BIB_SPECIAL_FREETEXT" length="80" />
+        </property>
+        <property name="bibSpecialStatus" type="string">
+            <column name="BIB_SPECIAL_STATUS" length="12" />
+        </property>
+        <property name="bibAttributeQualifier" type="java.lang.Boolean">
+            <column name="BIB_ATTRIBUTE_QUALIFIER" precision="1" scale="0" />
+        </property>
+        <property name="bibAttributeSource" type="string">
+            <column name="BIB_ATTRIBUTE_SOURCE" length="4" />
+        </property>
+        <property name="bibAttributeEncoding" type="string">
+            <column name="BIB_ATTRIBUTE_ENCODING" length="12" />
+        </property>
+        <property name="bibAttributeFreetext" type="string">
+            <column name="BIB_ATTRIBUTE_FREETEXT" length="80" />
+        </property>
+        <property name="bibStatusIndicator" type="string">
+            <column name="BIB_STATUS_INDICATOR" length="12" />
+        </property>
+        <property name="bibStatusAction" type="string">
+            <column name="BIB_STATUS_ACTION" length="4" />
+        </property>
+    </class>
+</hibernate-mapping>

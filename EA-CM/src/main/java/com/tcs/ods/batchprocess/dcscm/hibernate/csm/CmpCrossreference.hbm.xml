@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpCrossreference" table="CMP_CROSSREFERENCE">
+        <id name="idCrossref" type="java.lang.Long">
+            <column name="ID_CROSSREF" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpRow" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpRow" fetch="select">
+            <column name="ID_ROWNO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpReferencetype" type="string">
+            <column name="CMP_REFERENCETYPE" length="200" />
+        </property>
+        <property name="cmpReferencevalue" type="string">
+            <column name="CMP_REFERENCEVALUE" length="140" />
+        </property>
+        <property name="cmpReferencetype1" type="string">
+            <column name="CMP_REFERENCETYPE1" length="200" />
+        </property>
+        <property name="cmpReferencevalue1" type="string">
+            <column name="CMP_REFERENCEVALUE1" length="140" />
+        </property>
+        <property name="cmpReferencetype2" type="string">
+            <column name="CMP_REFERENCETYPE2" length="200" />
+        </property>
+        <property name="cmpReferencevalue2" type="string">
+            <column name="CMP_REFERENCEVALUE2" length="140" />
+        </property>
+        <property name="cmpReferencetype3" type="string">
+            <column name="CMP_REFERENCETYPE3" length="200" />
+        </property>
+        <property name="cmpReferencevalue3" type="string">
+            <column name="CMP_REFERENCEVALUE3" length="140" />
+        </property>
+        <property name="cmpReferencetype4" type="string">
+            <column name="CMP_REFERENCETYPE4" length="200" />
+        </property>
+        <property name="cmpReferencevalue4" type="string">
+            <column name="CMP_REFERENCEVALUE4" length="140" />
+        </property>
+        <property name="cmpReferencetype5" type="string">
+            <column name="CMP_REFERENCETYPE5" length="200" />
+        </property>
+        <property name="cmpReferencevalue5" type="string">
+            <column name="CMP_REFERENCEVALUE5" length="140" />
+        </property>
+        <property name="cmpCoachno" type="string">
+            <column name="CMP_COACHNO" length="12" />
+        </property>
+        <property name="cmpSeatno" type="string">
+            <column name="CMP_SEATNO" length="12" />
+        </property>
+        <property name="cmpAirlineDesignator" type="string">
+            <column name="CMP_AIRLINE_DESIGNATOR" length="12" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpEnchancedNameDetails" table="CMP_ENCHANCED_NAME_DETAILS">
+        <id name="idEnchancednamedetails" type="java.lang.Long">
+            <column name="ID_ENCHANCEDNAMEDETAILS" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpIdDetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpIdDetail" fetch="select">
+            <column name="ID_IDDETAIL" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpEnchancedNametype" type="string">
+            <column name="CMP_ENCHANCED_NAMETYPE" length="20" />
+        </property>
+        <property name="cmpEnchancedReferrencename" type="string">
+            <column name="CMP_ENCHANCED_REFERRENCENAME" length="4" />
+        </property>
+        <property name="cmpEnchancedDisplayedname" type="string">
+            <column name="CMP_ENCHANCED_DISPLAYEDNAME" length="200" />
+        </property>
+        <property name="cmpRomanizationMethod" type="string">
+            <column name="CMP_ROMANIZATION_METHOD" length="16" />
+        </property>
+        
+        <property name="cmpSurname" type="string">
+            <column name="CMP_SURNAME" length="280" />
+        </property>
+        <property name="cmpTitle1" type="string">
+            <column name="CMP_TITLE1" length="280" />
+        </property>
+        <property name="cmpTitle2" type="string">
+            <column name="CMP_TITLE2" length="280" />
+        </property>
+        <property name="cmpGivenname" type="string">
+            <column name="CMP_GIVENNAME" length="280" />
+        </property>
+    </class>
+</hibernate-mapping>

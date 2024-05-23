@@ -1,0 +1,2144 @@
+<?xml version="1.0"?>
+<smooks-resource-list
+	xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd"
+	xmlns:edi="http://www.milyn.org/xsd/smooks/edi-1.1.xsd"
+	xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.2.xsd">
+
+    <!--
+    Configure the EDI Reader to parse the message stream into a stream of SAX events.
+    -->
+    <edi:reader mappingModel="editag/edi-map-bidbrr.xml" />
+
+	
+	<jb:bean beanId="bidbrr" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.Bidbrr" createOnElement="Bidbrr">
+        <jb:wiring property="ediGroupHeader" beanIdRef="UNG" />
+        <jb:wiring property="ediHeader" beanIdRef="UNH" />  
+        <jb:wiring property="errorOrWarningCodeDetails" beanIdRef="GERRLIST" />
+		<jb:wiring property="baggageInfo" beanIdRef="IBGPLIST" />
+		<jb:wiring property="bagInfo" beanIdRef="IBAGLIST" />
+		<jb:wiring property="dummy" beanIdRef="DUM" />
+		<jb:wiring property="responsibleCustomerUCI" beanIdRef="IRVLIST" />
+        <jb:wiring property="ediTrailer" beanIdRef="UNT" />
+        <jb:wiring property="ediGroupTrailer" beanIdRef="UNE" />
+    </jb:bean>
+    
+    <!--  STANDARD UNG HEADER -->
+    <jb:bean beanId="UNG" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.EdiGroupHeader" createOnElement="ediGroupHeader">
+        <jb:value property="messageGroupId" decoder="String" data="#/messageGroupId" />
+        <jb:value property="applicationSenderId" decoder="String" data="#/applicationSender/applicationSenderId" />
+        <jb:value property="senderIdQualifier" decoder="String" data="#/applicationSender/senderIdQualifier" />
+        <jb:value property="applicationRecipientId" decoder="String" data="#/applicationRecipient/applicationRecipientId" />
+        <jb:value property="recipientIdQualifier" decoder="String" data="#/applicationRecipient/recipientIdQualifier" />
+        <jb:value property="preparationDate" decoder="String" data="#/preparationDateAndTime/preparationDate" />
+        <jb:value property="preparationTime" decoder="String" data="#/preparationDateAndTime/preparationTime" />
+        <jb:value property="groupReferenceNumber" decoder="String" data="#/groupReferenceNumber" />
+        <jb:value property="controllingAgency" decoder="String" data="#/controllingAgency" />
+        <jb:value property="messageVersionNumber" decoder="String" data="#/messageVersion/messageVersionNumber" />
+        <jb:value property="messageReleaseNumber" decoder="String" data="#/messageVersion/messageReleaseNumber" />
+        <jb:value property="assignedAssociation" decoder="String" data="#/messageVersion/assignedAssociation" />
+        <jb:value property="applicationPassword" decoder="String" data="#/applicationPassword" />
+    </jb:bean>
+    
+  	<!--  STANDARD UNH HEADER -->
+    <jb:bean beanId="UNH" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.EdiHeader" createOnElement="ediHeader">
+        <jb:value property="messageRefNumber" decoder="String" data="#/MessageReferenceNumber" />
+        <jb:value property="messageType" decoder="String" data="#/MessageIdentifier/Messagetype" />
+        <jb:value property="messageVersionNumber" decoder="String" data="#/MessageIdentifier/MessageVersionNbr" />
+        <jb:value property="messageRelaseNumber" decoder="String" data="#/MessageIdentifier/MessageReleaseNbr" />
+        <jb:value property="controllingAgency" decoder="String" data="#/MessageIdentifier/ControllingAgency" />
+        <jb:value property="associationAssignedCode" decoder="String" data="#/MessageIdentifier/AssociationAssignedCode" />
+        <jb:value property="commonAccessReference" decoder="String" data="#/CommonAccessRef" />
+        <jb:value property="sequenceofTransfer" decoder="Integer" data="#/StatusofTransfer/Sequenceoftransfer" />
+        <jb:value property="firstAndLastTransfer" decoder="String" data="#/StatusofTransfer/FirstandlastTransfer" />
+    </jb:bean>
+    
+    
+    <jb:bean beanId="GERRLIST" class="java.util.ArrayList" createOnElement="Bidbrr">
+        <jb:wiring beanIdRef="ERC" />
+    </jb:bean> 
+    
+	<jb:bean beanId="ERC" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ErrorOrWarningCodeDetails" createOnElement="errorOrWarningCodeDetails">
+		<jb:value property="errorCode" decoder="String" data="#/errorDetails/errorCode" />
+     	<jb:value property="errorCategory" decoder="String" data="#/errorDetails/errorCategory" />
+     	<jb:value property="codeListResponsibleAgency" decoder="String" data="#/errorDetails/codeListResponsibleAgency" />
+		<jb:wiring property="errorWarningDescription" beanIdRef="GERRTXF" />
+    </jb:bean>
+    
+    <jb:bean beanId="GERRTXF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.FreeTextInformation" createOnElement="errorWarningDescription">
+		<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+		<jb:value property="companyIdentification" decoder="String" data="#/freeTextDetails/companyIdentification" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+		<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+		<jb:value property="freeText" decoder="String" data="#/freeText" />
+	</jb:bean> 
+	
+	<jb:bean beanId="IBGPLIST" class="java.util.ArrayList" createOnElement="Bidbrr">
+        <jb:wiring beanIdRef="PBD" />
+    </jb:bean> 
+	
+	<jb:bean beanId="PBD" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.BaggageInfo" createOnElement="baggageInfo">
+		<jb:value property="number" decoder="Integer" data="#/checkedBaggageDetails/number" />              
+		<jb:value property="checkedBagWeight" decoder="Integer" data="#/checkedBaggageDetails/checkedBagWeight" />              
+		<jb:value property="unitQualifier" decoder="String" data="#/checkedBaggageDetails/unitQualifier" />              
+		<jb:value property="statusIndicator" decoder="String" data="#/checkedBaggageDetails/statusIndicator" />              
+		<jb:value property="numberOfPieces" decoder="Integer" data="#/handBaggageDetails/numberOfPieces" />              
+		<jb:value property="handBagWeight" decoder="Integer" data="#/handBaggageDetails/handBagWeight" />              
+		<jb:value property="measureUnitQualifier" decoder="String" data="#/handBaggageDetails/measureUnitQualifier" />              
+		<jb:value property="processingIndicator" decoder="String" data="#/baggageRefDetails/processingIndicator" />              
+		<jb:value property="identityNumber" decoder="String" data="#/baggageRefDetails/identityNumber" />              
+		<jb:value property="carrierIdentification" decoder="String" data="#/bagTagDetails/carrierIdentification" />
+		<jb:value property="tagSerialNumber" decoder="Integer" data="#/bagTagDetails/tagSerialNumber" />
+		<jb:value property="numberOfConsecutiveTagSerialNumber" decoder="Integer" data="#/bagTagDetails/numberOfConsecutiveTagSerialNumber" />
+		<jb:value property="placeOfDestination" decoder="String" data="#/bagTagDetails/placeOfDestination" />
+		<jb:value property="airlineCodeNumber" decoder="Integer" data="#/bagTagDetails/airlineCodeNumber" />
+		<jb:value property="onlineInterlineIndicator" decoder="Integer" data="#/bagTagDetails/onlineInterlineIndicator" />
+		<jb:wiring property="baggageIndicator" beanIdRef="IBGPSTX" />
+		<jb:wiring property="bagIdentifiers" beanIdRef="IBGPIRVLIST" />
+		<jb:wiring property="responsibleCustDetails" beanIdRef="IBGPTIF" />
+		<jb:wiring property="operatingDetails1" beanIdRef="IBGPFDRLIST" />
+		<jb:wiring property="errorOrWarningCodeDetails1" beanIdRef="IBGPERCLIST" />
+	</jb:bean>
+	
+	<jb:bean beanId="IBGPSTX" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusDetails" createOnElement="baggageIndicator">
+		<jb:value property="indicator1" decoder="String" data="#/statusInformation1/indicator1" />
+		<jb:value property="action1" decoder="String" data="#/statusInformation1/action1" />
+		<jb:value property="statusType1" decoder="String" data="#/statusInformation1/statusType1" />
+		<jb:value property="freeText1" decoder="String" data="#/statusInformation1/freeText1" />
+		<jb:value property="indicator2" decoder="String" data="#/statusInformation2/indicator2" />
+		<jb:value property="action2" decoder="String" data="#/statusInformation2/action2" />
+		<jb:value property="statusType2" decoder="String" data="#/statusInformation2/statusType2" />
+		<jb:value property="freeText2" decoder="String" data="#/statusInformation2/freeText2" />
+		<jb:value property="indicator3" decoder="String" data="#/statusInformation3/indicator3" />
+     	<jb:value property="action3" decoder="String" data="#/statusInformation3/action3" />
+     	<jb:value property="statusType3" decoder="String" data="#/statusInformation3/statusType3" />
+		<jb:value property="freeText3" decoder="String" data="#/statusInformation3/freeText3" />		
+		<jb:value property="indicator4" decoder="String" data="#/statusInformation4/indicator4" />
+     	<jb:value property="action4" decoder="String" data="#/statusInformation4/action4" />
+     	<jb:value property="statusType4" decoder="String" data="#/statusInformation4/statusType4" />
+		<jb:value property="freeText4" decoder="String" data="#/statusInformation4/freeText4" />		
+		<jb:value property="indicator5" decoder="String" data="#/statusInformation5/indicator5" />
+     	<jb:value property="action5" decoder="String" data="#/statusInformation5/action5" />
+     	<jb:value property="statusType5" decoder="String" data="#/statusInformation5/statusType5" />
+		<jb:value property="freeText5" decoder="String" data="#/statusInformation5/freeText5" />		
+		<jb:value property="indicator6" decoder="String" data="#/statusInformation6/indicator6" />
+     	<jb:value property="action6" decoder="String" data="#/statusInformation6/action6" />
+     	<jb:value property="statusType6" decoder="String" data="#/statusInformation6/statusType6" />
+		<jb:value property="freeText6" decoder="String" data="#/statusInformation6/freeText6" />		
+		<jb:value property="indicator7" decoder="String" data="#/statusInformation7/indicator7" />
+     	<jb:value property="action7" decoder="String" data="#/statusInformation7/action7" />
+     	<jb:value property="statusType7" decoder="String" data="#/statusInformation7/statusType7" />
+		<jb:value property="freeText7" decoder="String" data="#/statusInformation7/freeText7" />		
+		<jb:value property="indicator8" decoder="String" data="#/statusInformation8/indicator8" />
+     	<jb:value property="action8" decoder="String" data="#/statusInformation8/action8" />
+     	<jb:value property="statusType8" decoder="String" data="#/statusInformation8/statusType8" />
+		<jb:value property="freeText8" decoder="String" data="#/statusInformation8/freeText8" />		
+		<jb:value property="indicator9" decoder="String" data="#/statusInformation9/indicator9" />
+     	<jb:value property="action9" decoder="String" data="#/statusInformation9/action9" />
+     	<jb:value property="statusType9" decoder="String" data="#/statusInformation9/statusType9" />
+		<jb:value property="freeText9" decoder="String" data="#/statusInformation9/freeText9" />
+		<jb:value property="indicator10" decoder="String" data="#/statusInformation10/indicator10" />
+     	<jb:value property="action10" decoder="String" data="#/statusInformation10/action10" />
+     	<jb:value property="statusType10" decoder="String" data="#/statusInformation10/statusType10" />
+		<jb:value property="freeText10" decoder="String" data="#/statusInformation10/freeText10" />
+    </jb:bean>
+    
+    <jb:bean beanId="IBGPIRVLIST" class="java.util.ArrayList" createOnElement="baggageInfo">
+       <jb:wiring beanIdRef="IBGPIRV" />
+    </jb:bean>
+    
+    <jb:bean beanId="IBGPIRV" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ItemReferencesAndVersions" createOnElement="bagIdentifiers">
+		<jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber" decoder="String" data="#/referenceNumber" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="deliveringSystemIdentification" decoder="String" data="#/idSection/deliveringSystemIdentification" />
+        <jb:value property="referenceVersionNumber" decoder="String" data="#/idSection/referenceVersionNumber" />
+		<jb:value property="uniqueIdReferenceQualifier" decoder="String" data="#/idSection/uniqueIdReferenceQualifier" />
+        <jb:value property="primeId" decoder="String" data="#/idSection/primeId" />
+		<jb:value property="uniqueIdReferenceNumber" decoder="String" data="#/idSection/uniqueIdReferenceNumber" />
+        <jb:value property="status" decoder="String" data="#/idSection/status" />
+		<jb:value property="yearNumber" decoder="Integer" data="#/idSection/yearNumber" />
+        <jb:value property="monthNumber" decoder="Integer" data="#/idSection/monthNumber" />
+		<jb:value property="dayNumber" decoder="Integer" data="#/idSection/dayNumber" />
+        <jb:value property="hours" decoder="Integer" data="#/idSection/hours" />
+		<jb:value property="minutes" decoder="Integer" data="#/idSection/minutes" />
+        <jb:value property="freeText" decoder="String" data="#/idSection/freeText" />
+    </jb:bean>
+    
+    <jb:bean beanId="IBGPTIF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ResponsibleCustDetails" createOnElement="responsibleCustDetails">
+		<jb:value property="surname" decoder="String" data="#/paxDetails/surname" />   
+		<jb:value property="type" decoder="String" data="#/paxDetails/type" />
+		<jb:value property="quantity" decoder="Integer" data="#/paxDetails/quantity" /> 
+		<jb:value property="gender" decoder="String" data="#/paxDetails/gender" />   
+		<jb:value property="givenName" decoder="String" data="#/otherPaxDetails/givenName" />   
+		<jb:value property="numberOfUnitsQualifier" decoder="String" data="#/otherPaxDetails/numberOfUnitsQualifier" />   
+		<jb:value property="travellerReferenceNumber" decoder="String" data="#/otherPaxDetails/travellerReferenceNumber" />
+		<jb:value property="travellerAccompaniedByInfant" decoder="String" data="#/otherPaxDetails/travellerAccompaniedByInfant" />
+		<jb:value property="title" decoder="String" data="#/otherPaxDetails/title" />
+		<jb:value property="age" decoder="Integer" data="#/otherPaxDetails/age" />
+		<jb:wiring property="enhancedCustomerData" beanIdRef="CUSTDETETI" />
+		<jb:wiring property="uniqueCustomerId" beanIdRef="CUSTDETIRV" />
+		<jb:wiring property="ownerInfo" beanIdRef="CUSTDETTIFLIST" />
+    </jb:bean>
+	
+	<jb:bean beanId="CUSTDETETI" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.EnhancedCustomerData" createOnElement="enhancedCustomerData">
+		<jb:value property="paxNumberOfUnitsQualifier" decoder="String" data="#/travellerNameInfo/paxNumberOfUnitsQualifier" />
+		<jb:value property="quantity" decoder="Integer" data="#/travellerNameInfo/quantity" />
+		<jb:value property="type" decoder="String" data="#/travellerNameInfo/type" />
+		<jb:value property="ptcNumberOfUnitsQualifier" decoder="String" data="#/travellerNameInfo/ptcNumberOfUnitsQualifier" />
+		<jb:value property="travellerReferenceNumber" decoder="String" data="#/travellerNameInfo/travellerReferenceNumber" />
+		<jb:value property="infantIndicator" decoder="String" data="#/travellerNameInfo/infantIndicator" />
+		<jb:value property="travellerIdentificationCode" decoder="String" data="#/travellerNameInfo/travellerIdentificationCode" />
+		<jb:value property="gender" decoder="String" data="#/travellerNameInfo/gender" />
+		<jb:value property="age" decoder="Integer" data="#/travellerNameInfo/age" />
+		<jb:value property="nameType1" decoder="String" data="#/otherPaxNamesDetails1/nameType1" />
+		<jb:value property="referenceName1" decoder="String" data="#/otherPaxNamesDetails1/referenceName1" />
+		<jb:value property="displayedName1" decoder="String" data="#/otherPaxNamesDetails1/displayedName1" />
+		<jb:value property="romanizationMethod1" decoder="String" data="#/otherPaxNamesDetails1/romanizationMethod1" />
+		<jb:value property="surname1" decoder="String" data="#/otherPaxNamesDetails1/surname1" />
+		<jb:value property="givenName1" decoder="String" data="#/otherPaxNamesDetails1/givenName1" />
+		<jb:value property="title1" decoder="String" data="#/otherPaxNamesDetails1/title1" />	
+		<jb:value property="additionalTitle1" decoder="String" data="#/otherPaxNamesDetails1/additionalTitle1" />
+		<jb:value property="nameType2" decoder="String" data="#/otherPaxNamesDetails2/nameType2" />
+		<jb:value property="referenceName2" decoder="String" data="#/otherPaxNamesDetails2/referenceName2" />
+		<jb:value property="displayedName2" decoder="String" data="#/otherPaxNamesDetails2/displayedName2" />
+		<jb:value property="romanizationMethod2" decoder="String" data="#/otherPaxNamesDetails2/romanizationMethod2" />
+		<jb:value property="surname2" decoder="String" data="#/otherPaxNamesDetails2/surname2" />
+		<jb:value property="givenName2" decoder="String" data="#/otherPaxNamesDetails2/givenName2" />
+		<jb:value property="title2" decoder="String" data="#/otherPaxNamesDetails2/title2" />	
+		<jb:value property="additionalTitle2" decoder="String" data="#/otherPaxNamesDetails2/additionalTitle2" />
+		<jb:value property="nameType3" decoder="String" data="#/otherPaxNamesDetails3/nameType3" />
+		<jb:value property="referenceName3" decoder="String" data="#/otherPaxNamesDetails3/referenceName3" />
+		<jb:value property="displayedName3" decoder="String" data="#/otherPaxNamesDetails3/displayedName3" />
+		<jb:value property="romanizationMethod3" decoder="String" data="#/otherPaxNamesDetails3/romanizationMethod3" />
+		<jb:value property="surname3" decoder="String" data="#/otherPaxNamesDetails3/surname3" />
+		<jb:value property="givenName3" decoder="String" data="#/otherPaxNamesDetails3/givenName3" />
+		<jb:value property="title3" decoder="String" data="#/otherPaxNamesDetails3/title3" />	
+		<jb:value property="additionalTitle3" decoder="String" data="#/otherPaxNamesDetails3/additionalTitle3" />
+		<jb:value property="nameType4" decoder="String" data="#/otherPaxNamesDetails4/nameType4" />
+		<jb:value property="referenceName4" decoder="String" data="#/otherPaxNamesDetails4/referenceName4" />
+		<jb:value property="displayedName4" decoder="String" data="#/otherPaxNamesDetails4/displayedName4" />
+		<jb:value property="romanizationMethod4" decoder="String" data="#/otherPaxNamesDetails4/romanizationMethod4" />
+		<jb:value property="surname4" decoder="String" data="#/otherPaxNamesDetails4/surname4" />
+		<jb:value property="givenName4" decoder="String" data="#/otherPaxNamesDetails4/givenName4" />
+		<jb:value property="title4" decoder="String" data="#/otherPaxNamesDetails4/title4" />	
+		<jb:value property="additionalTitle4" decoder="String" data="#/otherPaxNamesDetails4/additionalTitle4" />
+		<jb:value property="nameType5" decoder="String" data="#/otherPaxNamesDetails5/nameType5" />
+		<jb:value property="referenceName5" decoder="String" data="#/otherPaxNamesDetails5/referenceName5" />
+		<jb:value property="displayedName5" decoder="String" data="#/otherPaxNamesDetails5/displayedName5" />
+		<jb:value property="romanizationMethod5" decoder="String" data="#/otherPaxNamesDetails5/romanizationMethod5" />
+		<jb:value property="surname5" decoder="String" data="#/otherPaxNamesDetails5/surname5" />
+		<jb:value property="givenName5" decoder="String" data="#/otherPaxNamesDetails5/givenName5" />
+		<jb:value property="title5" decoder="String" data="#/otherPaxNamesDetails5/title5" />	
+		<jb:value property="additionalTitle5" decoder="String" data="#/otherPaxNamesDetails5/additionalTitle5" />			
+    </jb:bean>
+	
+	<jb:bean beanId="CUSTDETIRV" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ItemReferencesAndVersions" createOnElement="uniqueCustomerId">
+		<jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber" decoder="String" data="#/referenceNumber" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="deliveringSystemIdentification" decoder="String" data="#/idSection/deliveringSystemIdentification" />
+        <jb:value property="referenceVersionNumber" decoder="String" data="#/idSection/referenceVersionNumber" />
+		<jb:value property="uniqueIdReferenceQualifier" decoder="String" data="#/idSection/uniqueIdReferenceQualifier" />
+        <jb:value property="primeId" decoder="String" data="#/idSection/primeId" />
+		<jb:value property="uniqueIdReferenceNumber" decoder="String" data="#/idSection/uniqueIdReferenceNumber" />
+        <jb:value property="status" decoder="String" data="#/idSection/status" />
+		<jb:value property="yearNumber" decoder="Integer" data="#/idSection/yearNumber" />
+        <jb:value property="monthNumber" decoder="Integer" data="#/idSection/monthNumber" />
+		<jb:value property="dayNumber" decoder="Integer" data="#/idSection/dayNumber" />
+        <jb:value property="hours" decoder="Integer" data="#/idSection/hours" />
+		<jb:value property="minutes" decoder="Integer" data="#/idSection/minutes" />
+        <jb:value property="freeText" decoder="String" data="#/idSection/freeText" />	
+    </jb:bean>
+    
+    <jb:bean beanId="CUSTDETTIFLIST" class="java.util.ArrayList" createOnElement="responsibleCustDetails">
+       <jb:wiring beanIdRef="CUSTDETTIF" />
+    </jb:bean>
+    
+    <jb:bean beanId="CUSTDETTIF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.OwnerInfo" createOnElement="ownerInfo">
+		<jb:value property="surname" decoder="String" data="#/paxDetails/surname" />   
+		<jb:value property="type" decoder="String" data="#/paxDetails/type" />
+		<jb:value property="quantity" decoder="Integer" data="#/paxDetails/quantity" /> 
+		<jb:value property="gender" decoder="String" data="#/paxDetails/gender" />   
+		<jb:value property="givenName" decoder="String" data="#/otherPaxDetails/givenName" />   
+		<jb:value property="numberOfUnitsQualifier" decoder="String" data="#/otherPaxDetails/numberOfUnitsQualifier" />   
+		<jb:value property="travellerReferenceNumber" decoder="String" data="#/otherPaxDetails/travellerReferenceNumber" />
+		<jb:value property="travellerAccompaniedByInfant" decoder="String" data="#/otherPaxDetails/travellerAccompaniedByInfant" />
+		<jb:value property="title" decoder="String" data="#/otherPaxDetails/title" />
+		<jb:value property="age" decoder="String" data="#/otherPaxDetails/age" />
+		<jb:wiring property="enhancedCustData" beanIdRef="OCUSETI" />
+	    <jb:wiring property="uniqueCustId" beanIdRef="OCUSIRV" />
+    </jb:bean>
+    
+    <jb:bean beanId="OCUSETI" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.EnhancedCustomerData" createOnElement="enhancedCustData">
+		<jb:value property="paxNumberOfUnitsQualifier" decoder="String" data="#/travellerNameInfo/paxNumberOfUnitsQualifier" />
+		<jb:value property="quantity" decoder="Integer" data="#/travellerNameInfo/quantity" />
+		<jb:value property="type" decoder="String" data="#/travellerNameInfo/type" />
+		<jb:value property="ptcNumberOfUnitsQualifier" decoder="String" data="#/travellerNameInfo/ptcNumberOfUnitsQualifier" />
+		<jb:value property="travellerReferenceNumber" decoder="String" data="#/travellerNameInfo/travellerReferenceNumber" />
+		<jb:value property="infantIndicator" decoder="String" data="#/travellerNameInfo/infantIndicator" />
+		<jb:value property="travellerIdentificationCode" decoder="String" data="#/travellerNameInfo/travellerIdentificationCode" />
+		<jb:value property="gender" decoder="String" data="#/travellerNameInfo/gender" />
+		<jb:value property="age" decoder="Integer" data="#/travellerNameInfo/age" />
+		<jb:value property="nameType1" decoder="String" data="#/otherPaxNamesDetails1/nameType1" />
+		<jb:value property="referenceName1" decoder="String" data="#/otherPaxNamesDetails1/referenceName1" />
+		<jb:value property="displayedName1" decoder="String" data="#/otherPaxNamesDetails1/displayedName1" />
+		<jb:value property="romanizationMethod1" decoder="String" data="#/otherPaxNamesDetails1/romanizationMethod1" />
+		<jb:value property="surname1" decoder="String" data="#/otherPaxNamesDetails1/surname1" />
+		<jb:value property="givenName1" decoder="String" data="#/otherPaxNamesDetails1/givenName1" />
+		<jb:value property="title1" decoder="String" data="#/otherPaxNamesDetails1/title1" />	
+		<jb:value property="additionalTitle1" decoder="String" data="#/otherPaxNamesDetails1/additionalTitle1" />
+		<jb:value property="nameType2" decoder="String" data="#/otherPaxNamesDetails2/nameType2" />
+		<jb:value property="referenceName2" decoder="String" data="#/otherPaxNamesDetails2/referenceName2" />
+		<jb:value property="displayedName2" decoder="String" data="#/otherPaxNamesDetails2/displayedName2" />
+		<jb:value property="romanizationMethod2" decoder="String" data="#/otherPaxNamesDetails2/romanizationMethod2" />
+		<jb:value property="surname2" decoder="String" data="#/otherPaxNamesDetails2/surname2" />
+		<jb:value property="givenName2" decoder="String" data="#/otherPaxNamesDetails2/givenName2" />
+		<jb:value property="title2" decoder="String" data="#/otherPaxNamesDetails2/title2" />	
+		<jb:value property="additionalTitle2" decoder="String" data="#/otherPaxNamesDetails2/additionalTitle2" />		
+		<jb:value property="nameType3" decoder="String" data="#/otherPaxNamesDetails3/nameType3" />
+		<jb:value property="referenceName3" decoder="String" data="#/otherPaxNamesDetails3/referenceName3" />
+		<jb:value property="displayedName3" decoder="String" data="#/otherPaxNamesDetails3/displayedName3" />
+		<jb:value property="romanizationMethod3" decoder="String" data="#/otherPaxNamesDetails3/romanizationMethod3" />
+		<jb:value property="surname3" decoder="String" data="#/otherPaxNamesDetails3/surname3" />
+		<jb:value property="givenName3" decoder="String" data="#/otherPaxNamesDetails3/givenName3" />
+		<jb:value property="title3" decoder="String" data="#/otherPaxNamesDetails3/title3" />	
+		<jb:value property="additionalTitle3" decoder="String" data="#/otherPaxNamesDetails3/additionalTitle3" />		
+		<jb:value property="nameType4" decoder="String" data="#/otherPaxNamesDetails4/nameType4" />
+		<jb:value property="referenceName4" decoder="String" data="#/otherPaxNamesDetails4/referenceName4" />
+		<jb:value property="displayedName4" decoder="String" data="#/otherPaxNamesDetails4/displayedName4" />
+		<jb:value property="romanizationMethod4" decoder="String" data="#/otherPaxNamesDetails4/romanizationMethod4" />
+		<jb:value property="surname4" decoder="String" data="#/otherPaxNamesDetails4/surname4" />
+		<jb:value property="givenName4" decoder="String" data="#/otherPaxNamesDetails4/givenName4" />
+		<jb:value property="title4" decoder="String" data="#/otherPaxNamesDetails4/title4" />	
+		<jb:value property="additionalTitle4" decoder="String" data="#/otherPaxNamesDetails4/additionalTitle4" />		
+		<jb:value property="nameType5" decoder="String" data="#/otherPaxNamesDetails5/nameType5" />
+		<jb:value property="referenceName5" decoder="String" data="#/otherPaxNamesDetails5/referenceName5" />
+		<jb:value property="displayedName5" decoder="String" data="#/otherPaxNamesDetails5/displayedName5" />
+		<jb:value property="romanizationMethod5" decoder="String" data="#/otherPaxNamesDetails5/romanizationMethod5" />
+		<jb:value property="surname5" decoder="String" data="#/otherPaxNamesDetails5/surname5" />
+		<jb:value property="givenName5" decoder="String" data="#/otherPaxNamesDetails5/givenName5" />
+		<jb:value property="title5" decoder="String" data="#/otherPaxNamesDetails5/title5" />	
+		<jb:value property="additionalTitle5" decoder="String" data="#/otherPaxNamesDetails5/additionalTitle5" />	  
+    </jb:bean>
+    
+    <jb:bean beanId="OCUSIRV" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ItemReferencesAndVersions" createOnElement="uniqueCustId">
+		<jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber" decoder="String" data="#/referenceNumber" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="deliveringSystemIdentification" decoder="String" data="#/idSection/deliveringSystemIdentification" />
+        <jb:value property="referenceVersionNumber" decoder="String" data="#/idSection/referenceVersionNumber" />
+		<jb:value property="uniqueIdReferenceQualifier" decoder="String" data="#/idSection/uniqueIdReferenceQualifier" />
+        <jb:value property="primeId" decoder="String" data="#/idSection/primeId" />
+		<jb:value property="uniqueIdReferenceNumber" decoder="String" data="#/idSection/uniqueIdReferenceNumber" />
+        <jb:value property="status" decoder="String" data="#/idSection/status" />
+		<jb:value property="yearNumber" decoder="Integer" data="#/idSection/yearNumber" />
+        <jb:value property="monthNumber" decoder="Integer" data="#/idSection/monthNumber" />
+		<jb:value property="dayNumber" decoder="Integer" data="#/idSection/dayNumber" />
+        <jb:value property="hours" decoder="Integer" data="#/idSection/hours" />
+		<jb:value property="minutes" decoder="Integer" data="#/idSection/minutes" />
+        <jb:value property="freeText" decoder="String" data="#/idSection/freeText" />
+    </jb:bean>
+	
+	<jb:bean beanId="IBGPFDRLIST" class="java.util.ArrayList" createOnElement="baggageInfo">
+        <jb:wiring beanIdRef="IBGPFDR" />
+    </jb:bean>
+    
+    <jb:bean beanId="IBGPFDR" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.OperatingDetails1" createOnElement="operatingDetails1">
+	    <jb:value property="marketingCarrier" decoder="String" data="#/carrierDetails/marketingCarrier" />
+        <jb:value property="outBoundcarrierIdentification" decoder="String" data="#/carrierDetails/outBoundcarrierIdentification" />
+        <jb:value property="outBoundFlightNumber" decoder="Integer" data="#/flightDetails/outBoundFlightNumber" />
+        <jb:value property="operationalSuffix" decoder="String" data="#/flightDetails/operationalSuffix" />
+        <jb:value property="departureDate" decoder="Integer" data="#/departureDate" />
+        <jb:value property="boardPoint" decoder="String" data="#/boardPoint" />
+        <jb:value property="offPoint" decoder="String" data="#/offPoint" />
+	    <jb:value property="arrivalDate" decoder="Integer" data="#/arrivalDate" />
+	    <jb:value property="outboundFlightContinuationIndicator" decoder="String" data="#/outboundFlightContinuationIndicator" />
+        <jb:value property="inboundTypeOfServiceIndicator" decoder="String" data="#/inboundTypeOfServiceIndicator" />
+	    <jb:value property="complexFlightNumber" decoder="Integer" data="#/complexingFlightDetails/complexFlightNumber" />
+        <jb:value property="placeOfDeparture" decoder="String" data="#/complexingFlightDetails/placeOfDeparture" />
+        <jb:value property="placeOfDestination" decoder="String" data="#/complexingFlightDetails/placeOfDestination" />
+        <jb:value property="complexCarrierIdentification" decoder="String" data="#/complexingFlightDetails/complexCarrierIdentification" />
+        <jb:value property="operationalSuffixToTheCarrierCode" decoder="String" data="#/complexingFlightDetails/operationalSuffixToTheCarrierCode" />
+        <jb:value property="firstDate" decoder="String" data="#/productDateTime/firstDate" />
+        <jb:value property="firstTime" decoder="Integer" data="#/productDateTime/firstTime" />
+        <jb:value property="secondDate" decoder="String" data="#/productDateTime/secondDate" />
+        <jb:value property="secondTime" decoder="Integer" data="#/productDateTime/secondTime" />
+        <jb:value property="dateVariation" decoder="Integer" data="#/productDateTime/dateVariation" />
+        <jb:wiring property="flightBagStatusIndicators" beanIdRef="BGPISTXLIST" />
+    </jb:bean>
+    
+    <jb:bean beanId="BGPISTXLIST" class="java.util.ArrayList" createOnElement="operatingDetails1">
+        <jb:wiring beanIdRef="BGPISTX" />
+    </jb:bean>
+    
+    <jb:bean beanId="BGPISTX" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusDetails" createOnElement="flightBagStatusIndicators">
+        <jb:value property="indicator1" decoder="String" data="#/statusInformation1/indicator1" />
+		<jb:value property="action1" decoder="String" data="#/statusInformation1/action1" />
+		<jb:value property="statusType1" decoder="String" data="#/statusInformation1/statusType1" />
+		<jb:value property="freeText1" decoder="String" data="#/statusInformation1/freeText1" />
+		<jb:value property="indicator2" decoder="String" data="#/statusInformation2/indicator2" />
+		<jb:value property="action2" decoder="String" data="#/statusInformation2/action2" />
+		<jb:value property="statusType2" decoder="String" data="#/statusInformation2/statusType2" />
+		<jb:value property="freeText2" decoder="String" data="#/statusInformation2/freeText2" />
+		<jb:value property="indicator3" decoder="String" data="#/statusInformation3/indicator3" />
+     	<jb:value property="action3" decoder="String" data="#/statusInformation3/action3" />
+     	<jb:value property="statusType3" decoder="String" data="#/statusInformation3/statusType3" />
+		<jb:value property="freeText3" decoder="String" data="#/statusInformation3/freeText3" />		
+		<jb:value property="indicator4" decoder="String" data="#/statusInformation4/indicator4" />
+     	<jb:value property="action4" decoder="String" data="#/statusInformation4/action4" />
+     	<jb:value property="statusType4" decoder="String" data="#/statusInformation4/statusType4" />
+		<jb:value property="freeText4" decoder="String" data="#/statusInformation4/freeText4" />		
+		<jb:value property="indicator5" decoder="String" data="#/statusInformation5/indicator5" />
+     	<jb:value property="action5" decoder="String" data="#/statusInformation5/action5" />
+     	<jb:value property="statusType5" decoder="String" data="#/statusInformation5/statusType5" />
+		<jb:value property="freeText5" decoder="String" data="#/statusInformation5/freeText5" />		
+		<jb:value property="indicator6" decoder="String" data="#/statusInformation6/indicator6" />
+     	<jb:value property="action6" decoder="String" data="#/statusInformation6/action6" />
+     	<jb:value property="statusType6" decoder="String" data="#/statusInformation6/statusType6" />
+		<jb:value property="freeText6" decoder="String" data="#/statusInformation6/freeText6" />		
+		<jb:value property="indicator7" decoder="String" data="#/statusInformation7/indicator7" />
+     	<jb:value property="action7" decoder="String" data="#/statusInformation7/action7" />
+     	<jb:value property="statusType7" decoder="String" data="#/statusInformation7/statusType7" />
+		<jb:value property="freeText7" decoder="String" data="#/statusInformation7/freeText7" />		
+		<jb:value property="indicator8" decoder="String" data="#/statusInformation8/indicator8" />
+     	<jb:value property="action8" decoder="String" data="#/statusInformation8/action8" />
+     	<jb:value property="statusType8" decoder="String" data="#/statusInformation8/statusType8" />
+		<jb:value property="freeText8" decoder="String" data="#/statusInformation8/freeText8" />		
+		<jb:value property="indicator9" decoder="String" data="#/statusInformation9/indicator9" />
+     	<jb:value property="action9" decoder="String" data="#/statusInformation9/action9" />
+     	<jb:value property="statusType9" decoder="String" data="#/statusInformation9/statusType9" />
+		<jb:value property="freeText9" decoder="String" data="#/statusInformation9/freeText9" />
+		<jb:value property="indicator10" decoder="String" data="#/statusInformation10/indicator10" />
+     	<jb:value property="action10" decoder="String" data="#/statusInformation10/action10" />
+     	<jb:value property="statusType10" decoder="String" data="#/statusInformation10/statusType10" />
+		<jb:value property="freeText10" decoder="String" data="#/statusInformation10/freeText10" />
+    </jb:bean>
+
+    <jb:bean beanId="IBGPERCLIST" class="java.util.ArrayList" createOnElement="baggageInfo">
+        <jb:wiring beanIdRef="IBGPERC" />
+    </jb:bean>
+    
+    <jb:bean beanId="IBGPERC" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ErrorOrWarningCodeDetails1" createOnElement="errorOrWarningCodeDetails1">
+		<jb:value property="errorCode" decoder="String" data="#/errorDetails/errorCode" />
+     	<jb:value property="errorCategory" decoder="String" data="#/errorDetails/errorCategory" />
+     	<jb:value property="codeListResponsibleAgency" decoder="String" data="#/errorDetails/codeListResponsibleAgency" />
+		<jb:wiring property="errorWarningDescription1" beanIdRef="GERRTXF1" />
+    </jb:bean>
+    
+    <jb:bean beanId="GERRTXF1" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.FreeTextInformation" createOnElement="errorWarningDescription1">
+		<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+		<jb:value property="companyIdentification" decoder="String" data="#/freeTextDetails/companyIdentification" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+		<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+		<jb:value property="freeText" decoder="String" data="#/freeText" />
+	</jb:bean>
+	
+	<jb:bean beanId="IBAGLIST" class="java.util.ArrayList" createOnElement="Bidbrr">
+        <jb:wiring beanIdRef="IBAGBAG" />
+    </jb:bean> 
+    
+    <jb:bean beanId="IBAGBAG" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.BagInfo" createOnElement="bagInfo">
+		<jb:value property="cabinClass" decoder="String" data="#/baggageDetails/cabinClass" />  
+        <jb:value property="equipmentIdentificationNumber" decoder="String" data="#/baggageDetails/equipmentIdentificationNumber" />  
+		<jb:value property="baggageStatus" decoder="String" data="#/baggageDetails/baggageStatus" />  
+		<jb:value property="company" decoder="String" data="#/bagTagDetails/company" />  
+        <jb:value property="identifier" decoder="Integer" data="#/bagTagDetails/identifier" />  
+		<jb:value property="number" decoder="Integer" data="#/bagTagDetails/number" />  
+		<jb:value property="location" decoder="String" data="#/bagTagDetails/location" />  
+		<jb:value property="companyNumber" decoder="String" data="#/bagTagDetails/companyNumber" />  
+		<jb:value property="indicator" decoder="Integer" data="#/bagTagDetails/indicator" />  
+		<jb:value property="characteristic" decoder="String" data="#/bagTagDetails/characteristic" />  
+		<jb:value property="specialRequirement" decoder="String" data="#/bagTagDetails/specialRequirement" />  
+		<jb:value property="measurementValue" decoder="Integer" data="#/bagTagDetails/measurementValue" />  
+		<jb:value property="measureUnitQualifier" decoder="String" data="#/bagTagDetails/measureUnitQualifier" />  
+		<jb:value property="description" decoder="String" data="#/bagTagDetails/description" />  
+		<jb:value property="issuanceDay" decoder="Integer" data="#/bagTagDetails/issuanceDay" /> 
+		<jb:value property="permanentTagNumber" decoder="String" data="#/bagTagDetails/permanentTagNumber" /> 
+		<jb:value property="printerAddress" decoder="String" data="#/bagTagDetails/printerAddress" />  
+		<jb:value property="numberOfPieces" decoder="Integer" data="#/individualWeight/numberOfPieces" />  
+		<jb:value property="weight" decoder="Integer" data="#/individualWeight/weight" />  
+		<jb:value property="unitQualifier" decoder="String" data="#/individualWeight/unitQualifier" />  
+		<jb:value property="checkedBaggageStatus" decoder="String" data="#/individualWeight/checkedBaggageStatus" />
+		<jb:value property="uniqueIdentifier" decoder="String" data="#/uniqueIdentifier" />
+		<jb:value property="bagType" decoder="String" data="#/bagType" />
+		<jb:value property="statuscodedIndicator" decoder="String" data="#/offAirportBagDetails/statuscodedIndicator" />
+		<jb:value property="actionReques" decoder="String" data="#/offAirportBagDetails/actionReques" />
+		<jb:value property="stCoded" decoder="String" data="#/offAirportBagDetails/stCoded" />
+		<jb:value property="ftDescription" decoder="String" data="#/offAirportBagDetails/ftDescription" />
+		<jb:wiring property="linkedBagInfo" beanIdRef="IBAGBTI" />
+		<jb:wiring property="dimensions" beanIdRef="IBAGDIM" />
+		<jb:wiring property="bagIndicators" beanIdRef="IBAGSTX" />
+		<jb:wiring property="ownerInfo1" beanIdRef="IBAGTIF" />
+		<jb:wiring property="lastSeenLocation" beanIdRef="IBAGIDD" />
+		<jb:wiring property="operatingDetails" beanIdRef="IBAGFDRLIST" />	 
+		<jb:wiring property="errorOrWarningCodeDetails2" beanIdRef="IBAGERCLIST" />
+		<jb:wiring property="linkedBagProducts" beanIdRef="IBAGIRVLIST" />
+	</jb:bean>
+	
+	<jb:bean beanId="IBAGBTI" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.BagtagInformation" createOnElement="linkedBagInfo">
+		<jb:value property="issuingCarrierCode" decoder="String" data="#/bagTagDetails/issuingCarrierCode" />              
+		<jb:value property="serialNumber" decoder="Integer" data="#/bagTagDetails/serialNumber" />   
+		<jb:value property="numberOfConsecutiveTagSerialNumber" decoder="Integer" data="#/bagTagDetails/numberOfConsecutiveTagSerialNumber" />
+		<jb:value property="finalDestination" decoder="String" data="#/bagTagDetails/finalDestination" />
+		<jb:value property="issuingCarrierNumber" decoder="Integer" data="#/bagTagDetails/issuingCarrierNumber" />
+		<jb:value property="type" decoder="Integer" data="#/bagTagDetails/type" />
+		<jb:value property="issuanceDay" decoder="Integer" data="#/bagTagDetails/issuanceDay" />
+		<jb:value property="carrierIdentification" decoder="String" data="#/bagTagStubInformation/carrierIdentification" />              
+		<jb:value property="flightNumber" decoder="Integer" data="#/bagTagStubInformation/flightNumber" />   
+		<jb:value property="departureDateAndTime" decoder="Integer" data="#/bagTagStubInformation/departureDateAndTime" />
+		<jb:value property="placeOfDestination" decoder="String" data="#/bagTagStubInformation/placeOfDestination" />
+		<jb:value property="reservationBookingDesignator" decoder="String" data="#/bagTagStubInformation/reservationBookingDesignator" />
+		<jb:value property="operationalSuffixToTheCarrierCode" decoder="String" data="#/bagTagStubInformation/operationalSuffixToTheCarrierCode" />
+		<jb:value property="uniqueId" decoder="String" data="#/uniqueId" /> 
+		<jb:value property="bagType" decoder="String" data="#/bagType" />
+		<jb:value property="statuscodedIndicator" decoder="String" data="#/offAirportBagDetails/statuscodedIndicator" />
+		<jb:value property="actionReques" decoder="String" data="#/offAirportBagDetails/actionReques" />
+		<jb:value property="stCoded" decoder="String" data="#/offAirportBagDetails/stCoded" />
+		<jb:value property="ftDescription" decoder="String" data="#/offAirportBagDetails/ftDescription" />
+	</jb:bean>
+	
+	 <jb:bean beanId="IBAGIRVLIST" class="java.util.ArrayList" createOnElement="bagInfo">
+       <jb:wiring beanIdRef="IBAGIRV" />
+    </jb:bean>
+    
+    <jb:bean beanId="IBAGIRV" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ItemReferencesAndVersions" createOnElement="linkedBagProducts">
+		<jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber" decoder="String" data="#/referenceNumber" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="deliveringSystemIdentification" decoder="String" data="#/idSection/deliveringSystemIdentification" />
+        <jb:value property="referenceVersionNumber" decoder="String" data="#/idSection/referenceVersionNumber" />
+		<jb:value property="uniqueIdReferenceQualifier" decoder="String" data="#/idSection/uniqueIdReferenceQualifier" />
+        <jb:value property="primeId" decoder="String" data="#/idSection/primeId" />
+		<jb:value property="uniqueIdReferenceNumber" decoder="String" data="#/idSection/uniqueIdReferenceNumber" />
+        <jb:value property="status" decoder="String" data="#/idSection/status" />
+		<jb:value property="yearNumber" decoder="Integer" data="#/idSection/yearNumber" />
+        <jb:value property="monthNumber" decoder="Integer" data="#/idSection/monthNumber" />
+		<jb:value property="dayNumber" decoder="Integer" data="#/idSection/dayNumber" />
+        <jb:value property="hours" decoder="Integer" data="#/idSection/hours" />
+		<jb:value property="minutes" decoder="Integer" data="#/idSection/minutes" />
+        <jb:value property="freeText" decoder="String" data="#/idSection/freeText" />
+    </jb:bean>
+	
+	
+	
+	
+	<jb:bean beanId="IBAGDIM" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.Dimensions" createOnElement="dimensions">
+		<jb:value property="qualifier" decoder="String" data="#/qualifier" />              
+		<jb:value property="unit" decoder="String" data="#/details/unit" />   
+		<jb:value property="length" decoder="Integer" data="#/details/length" />   
+		<jb:value property="width" decoder="Integer" data="#/details/width" />   
+		<jb:value property="height" decoder="Integer" data="#/details/height" />   		
+	</jb:bean>
+	
+	<jb:bean beanId="IBAGSTX" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusDetails" createOnElement="bagIndicators">
+		<jb:value property="indicator1" decoder="String" data="#/statusInformation1/indicator1" />
+		<jb:value property="action1" decoder="String" data="#/statusInformation1/action1" />
+		<jb:value property="statusType1" decoder="String" data="#/statusInformation1/statusType1" />
+		<jb:value property="freeText1" decoder="String" data="#/statusInformation1/freeText1" />
+		<jb:value property="indicator2" decoder="String" data="#/statusInformation2/indicator2" />
+		<jb:value property="action2" decoder="String" data="#/statusInformation2/action2" />
+		<jb:value property="statusType2" decoder="String" data="#/statusInformation2/statusType2" />
+		<jb:value property="freeText2" decoder="String" data="#/statusInformation2/freeText2" />
+		<jb:value property="indicator3" decoder="String" data="#/statusInformation3/indicator3" />
+     	<jb:value property="action3" decoder="String" data="#/statusInformation3/action3" />
+     	<jb:value property="statusType3" decoder="String" data="#/statusInformation3/statusType3" />
+		<jb:value property="freeText3" decoder="String" data="#/statusInformation3/freeText3" />		
+		<jb:value property="indicator4" decoder="String" data="#/statusInformation4/indicator4" />
+     	<jb:value property="action4" decoder="String" data="#/statusInformation4/action4" />
+     	<jb:value property="statusType4" decoder="String" data="#/statusInformation4/statusType4" />
+		<jb:value property="freeText4" decoder="String" data="#/statusInformation4/freeText4" />		
+		<jb:value property="indicator5" decoder="String" data="#/statusInformation5/indicator5" />
+     	<jb:value property="action5" decoder="String" data="#/statusInformation5/action5" />
+     	<jb:value property="statusType5" decoder="String" data="#/statusInformation5/statusType5" />
+		<jb:value property="freeText5" decoder="String" data="#/statusInformation5/freeText5" />		
+		<jb:value property="indicator6" decoder="String" data="#/statusInformation6/indicator6" />
+     	<jb:value property="action6" decoder="String" data="#/statusInformation6/action6" />
+     	<jb:value property="statusType6" decoder="String" data="#/statusInformation6/statusType6" />
+		<jb:value property="freeText6" decoder="String" data="#/statusInformation6/freeText6" />		
+		<jb:value property="indicator7" decoder="String" data="#/statusInformation7/indicator7" />
+     	<jb:value property="action7" decoder="String" data="#/statusInformation7/action7" />
+     	<jb:value property="statusType7" decoder="String" data="#/statusInformation7/statusType7" />
+		<jb:value property="freeText7" decoder="String" data="#/statusInformation7/freeText7" />		
+		<jb:value property="indicator8" decoder="String" data="#/statusInformation8/indicator8" />
+     	<jb:value property="action8" decoder="String" data="#/statusInformation8/action8" />
+     	<jb:value property="statusType8" decoder="String" data="#/statusInformation8/statusType8" />
+		<jb:value property="freeText8" decoder="String" data="#/statusInformation8/freeText8" />		
+		<jb:value property="indicator9" decoder="String" data="#/statusInformation9/indicator9" />
+     	<jb:value property="action9" decoder="String" data="#/statusInformation9/action9" />
+     	<jb:value property="statusType9" decoder="String" data="#/statusInformation9/statusType9" />
+		<jb:value property="freeText9" decoder="String" data="#/statusInformation9/freeText9" />
+		<jb:value property="indicator10" decoder="String" data="#/statusInformation10/indicator10" />
+     	<jb:value property="action10" decoder="String" data="#/statusInformation10/action10" />
+     	<jb:value property="statusType10" decoder="String" data="#/statusInformation10/statusType10" />
+		<jb:value property="freeText10" decoder="String" data="#/statusInformation10/freeText10" />
+    </jb:bean>
+	
+	<jb:bean beanId="IBAGTIF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.OwnerInfo1" createOnElement="ownerInfo1">	
+		<jb:value property="surname" decoder="String" data="#/paxDetails/surname" />   
+		<jb:value property="type" decoder="String" data="#/paxDetails/type" />
+		<jb:value property="quantity" decoder="Integer" data="#/paxDetails/quantity" /> 
+		<jb:value property="gender" decoder="String" data="#/paxDetails/gender" />   
+		<jb:value property="givenName" decoder="String" data="#/otherPaxDetails/givenName" />   
+		<jb:value property="numberOfUnitsQualifier" decoder="String" data="#/otherPaxDetails/numberOfUnitsQualifier" />   
+		<jb:value property="travellerReferenceNumber" decoder="String" data="#/otherPaxDetails/travellerReferenceNumber" />
+		<jb:value property="travellerAccompaniedByInfant" decoder="String" data="#/otherPaxDetails/travellerAccompaniedByInfant" />
+		<jb:value property="title" decoder="String" data="#/otherPaxDetails/title" />
+		<jb:value property="age" decoder="String" data="#/otherPaxDetails/age" />
+		<jb:wiring property="enhancedCustomerData1" beanIdRef="OCUSETI1" />
+		<jb:wiring property="uniqueCustomerId1" beanIdRef="OCUSIRV1" />
+	</jb:bean>
+	
+	<jb:bean beanId="OCUSETI1" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.EnhancedCustomerData" createOnElement="enhancedCustomerData1">
+		<jb:value property="paxNumberOfUnitsQualifier" decoder="String" data="#/travellerNameInfo/paxNumberOfUnitsQualifier" />
+		<jb:value property="quantity" decoder="Integer" data="#/travellerNameInfo/quantity" />
+		<jb:value property="type" decoder="String" data="#/travellerNameInfo/type" />
+		<jb:value property="ptcNumberOfUnitsQualifier" decoder="String" data="#/travellerNameInfo/ptcNumberOfUnitsQualifier" />
+		<jb:value property="travellerReferenceNumber" decoder="String" data="#/travellerNameInfo/travellerReferenceNumber" />
+		<jb:value property="infantIndicator" decoder="String" data="#/travellerNameInfo/infantIndicator" />
+		<jb:value property="travellerIdentificationCode" decoder="String" data="#/travellerNameInfo/travellerIdentificationCode" />
+		<jb:value property="gender" decoder="String" data="#/travellerNameInfo/gender" />
+		<jb:value property="age" decoder="Integer" data="#/travellerNameInfo/age" />		
+		<jb:value property="nameType1" decoder="String" data="#/otherPaxNamesDetails1/nameType1" />
+		<jb:value property="referenceName1" decoder="String" data="#/otherPaxNamesDetails1/referenceName1" />
+		<jb:value property="displayedName1" decoder="String" data="#/otherPaxNamesDetails1/displayedName1" />
+		<jb:value property="romanizationMethod1" decoder="String" data="#/otherPaxNamesDetails1/romanizationMethod1" />
+		<jb:value property="surname1" decoder="String" data="#/otherPaxNamesDetails1/surname1" />
+		<jb:value property="givenName1" decoder="String" data="#/otherPaxNamesDetails1/givenName1" />
+		<jb:value property="title1" decoder="String" data="#/otherPaxNamesDetails1/title1" />	
+		<jb:value property="additionalTitle1" decoder="String" data="#/otherPaxNamesDetails1/additionalTitle1" />
+		<jb:value property="nameType2" decoder="String" data="#/otherPaxNamesDetails2/nameType2" />
+		<jb:value property="referenceName2" decoder="String" data="#/otherPaxNamesDetails2/referenceName2" />
+		<jb:value property="displayedName2" decoder="String" data="#/otherPaxNamesDetails2/displayedName2" />
+		<jb:value property="romanizationMethod2" decoder="String" data="#/otherPaxNamesDetails2/romanizationMethod2" />
+		<jb:value property="surname2" decoder="String" data="#/otherPaxNamesDetails2/surname2" />
+		<jb:value property="givenName2" decoder="String" data="#/otherPaxNamesDetails2/givenName2" />
+		<jb:value property="title2" decoder="String" data="#/otherPaxNamesDetails2/title2" />	
+		<jb:value property="additionalTitle2" decoder="String" data="#/otherPaxNamesDetails2/additionalTitle2" />
+		<jb:value property="nameType3" decoder="String" data="#/otherPaxNamesDetails3/nameType3" />
+		<jb:value property="referenceName3" decoder="String" data="#/otherPaxNamesDetails3/referenceName3" />
+		<jb:value property="displayedName3" decoder="String" data="#/otherPaxNamesDetails3/displayedName3" />
+		<jb:value property="romanizationMethod3" decoder="String" data="#/otherPaxNamesDetails3/romanizationMethod3" />
+		<jb:value property="surname3" decoder="String" data="#/otherPaxNamesDetails3/surname3" />
+		<jb:value property="givenName3" decoder="String" data="#/otherPaxNamesDetails3/givenName3" />
+		<jb:value property="title3" decoder="String" data="#/otherPaxNamesDetails3/title3" />	
+		<jb:value property="additionalTitle3" decoder="String" data="#/otherPaxNamesDetails3/additionalTitle3" />
+		<jb:value property="nameType4" decoder="String" data="#/otherPaxNamesDetails4/nameType4" />
+		<jb:value property="referenceName4" decoder="String" data="#/otherPaxNamesDetails4/referenceName4" />
+		<jb:value property="displayedName4" decoder="String" data="#/otherPaxNamesDetails4/displayedName4" />
+		<jb:value property="romanizationMethod4" decoder="String" data="#/otherPaxNamesDetails4/romanizationMethod4" />
+		<jb:value property="surname4" decoder="String" data="#/otherPaxNamesDetails4/surname4" />
+		<jb:value property="givenName4" decoder="String" data="#/otherPaxNamesDetails4/givenName4" />
+		<jb:value property="title4" decoder="String" data="#/otherPaxNamesDetails4/title4" />	
+		<jb:value property="additionalTitle4" decoder="String" data="#/otherPaxNamesDetails4/additionalTitle4" />
+		<jb:value property="nameType5" decoder="String" data="#/otherPaxNamesDetails5/nameType5" />
+		<jb:value property="referenceName5" decoder="String" data="#/otherPaxNamesDetails5/referenceName5" />
+		<jb:value property="displayedName5" decoder="String" data="#/otherPaxNamesDetails5/displayedName5" />
+		<jb:value property="romanizationMethod5" decoder="String" data="#/otherPaxNamesDetails5/romanizationMethod5" />
+		<jb:value property="surname5" decoder="String" data="#/otherPaxNamesDetails5/surname5" />
+		<jb:value property="givenName5" decoder="String" data="#/otherPaxNamesDetails5/givenName5" />
+		<jb:value property="title5" decoder="String" data="#/otherPaxNamesDetails5/title5" />	
+		<jb:value property="additionalTitle5" decoder="String" data="#/otherPaxNamesDetails5/additionalTitle5" />	  
+    </jb:bean>
+	
+	<jb:bean beanId="OCUSIRV1" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ItemReferencesAndVersions" createOnElement="uniqueCustomerId1">
+		<jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber" decoder="String" data="#/referenceNumber" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="deliveringSystemIdentification" decoder="String" data="#/idSection/deliveringSystemIdentification" />
+        <jb:value property="referenceVersionNumber" decoder="String" data="#/idSection/referenceVersionNumber" />
+		<jb:value property="uniqueIdReferenceQualifier" decoder="String" data="#/idSection/uniqueIdReferenceQualifier" />
+        <jb:value property="primeId" decoder="String" data="#/idSection/primeId" />
+		<jb:value property="uniqueIdReferenceNumber" decoder="String" data="#/idSection/uniqueIdReferenceNumber" />
+        <jb:value property="status" decoder="String" data="#/idSection/status" />
+		<jb:value property="yearNumber" decoder="Integer" data="#/idSection/yearNumber" />
+        <jb:value property="monthNumber" decoder="Integer" data="#/idSection/monthNumber" />
+		<jb:value property="dayNumber" decoder="Integer" data="#/idSection/dayNumber" />
+        <jb:value property="hours" decoder="Integer" data="#/idSection/hours" />
+		<jb:value property="minutes" decoder="Integer" data="#/idSection/minutes" />
+        <jb:value property="freeText" decoder="String" data="#/idSection/freeText" />	
+    </jb:bean>
+    
+    <jb:bean beanId="IBAGIDD" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.IdentificationDetails" createOnElement="lastSeenLocation">
+		<jb:value property="firstNumber" decoder="String" data="#/identificationDetails/firstNumber" /> 	
+		<jb:value property="secondNumber" decoder="String" data="#/identificationDetails/secondNumber" />	
+		<jb:value property="qualifier" decoder="String" data="#/dateTimeDetails/qualifier" /> 	
+		<jb:value property="date" decoder="String" data="#/dateTimeDetails/date" />	
+		<jb:value property="time" decoder="Integer" data="#/dateTimeDetails/time" /> 	
+		<jb:value property="dateTimePeriodQualifier1" decoder="String" data="#/dateTimeDetails/dateTimePeriodQualifier1" />	
+		<jb:value property="firstTime1" decoder="Integer" data="#/dateTimeDetails/firstTime1" /> 	
+		<jb:value property="movementType1" decoder="String" data="#/dateTimeDetails/movementType1" />	
+		<jb:value property="location" decoder="String" data="#/dateTimeDetails/location" />	
+		<jb:value property="dateTimePeriodQualifierFormat" decoder="String" data="#/dateAndTimeDetails/dateTimePeriodQualifierFormat" /> 	
+		<jb:value property="firstDate" decoder="String" data="#/dateAndTimeDetails/firstDate" />	
+		<jb:value property="lastSeenFirstTime" decoder="Integer" data="#/dateAndTimeDetails/lastSeenFirstTime" /> 
+		<jb:value property="dateTimePeriodQualifier2" decoder="String" data="#/dateAndTimeDetails/dateTimePeriodQualifier2" /> 	
+		<jb:value property="firstTime2" decoder="Integer" data="#/dateAndTimeDetails/firstTime2" />
+		<jb:value property="movementType2" decoder="String" data="#/dateAndTimeDetails/movementType2" />	
+		<jb:value property="locationIdentification" decoder="String" data="#/dateAndTimeDetails/locationIdentification" />	
+		<jb:value property="readingLocation" decoder="String" data="#/readingLocation" />   		  
+		<jb:value property="otherLocation" decoder="String" data="#/otherLocation" />  		
+    </jb:bean>
+	
+	<jb:bean beanId="IBAGFDRLIST" class="java.util.ArrayList" createOnElement="bagInfo">
+       <jb:wiring beanIdRef="IBAGFDR" />
+    </jb:bean>
+	
+	<jb:bean beanId="IBAGFDR" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.OperatingDetails" createOnElement="operatingDetails">
+	    <jb:value property="marketingCarrier" decoder="String" data="#/carrierDetails/marketingCarrier" />
+        <jb:value property="outBoundcarrierIdentification" decoder="String" data="#/carrierDetails/outBoundcarrierIdentification" />
+        <jb:value property="outBoundFlightNumber" decoder="Integer" data="#/flightDetails/outBoundFlightNumber" />
+        <jb:value property="operationalSuffix" decoder="String" data="#/flightDetails/operationalSuffix" />
+        <jb:value property="departureDate" decoder="Integer" data="#/departureDate" />
+        <jb:value property="boardPoint" decoder="String" data="#/boardPoint" />
+        <jb:value property="offPoint" decoder="String" data="#/offPoint" />
+	    <jb:value property="arrivalDate" decoder="Integer" data="#/arrivalDate" />
+	    <jb:value property="outboundFlightContinuationIndicator" decoder="String" data="#/outboundFlightContinuationIndicator" />
+        <jb:value property="inboundTypeOfServiceIndicator" decoder="String" data="#/inboundTypeOfServiceIndicator" />
+	    <jb:value property="complexFlightNumber" decoder="Integer" data="#/complexingFlightDetails/complexFlightNumber" />
+        <jb:value property="placeOfDeparture" decoder="String" data="#/complexingFlightDetails/placeOfDeparture" />
+        <jb:value property="placeOfDestination" decoder="String" data="#/complexingFlightDetails/placeOfDestination" />
+        <jb:value property="complexCarrierIdentification" decoder="String" data="#/complexingFlightDetails/complexCarrierIdentification" />
+        <jb:value property="operationalSuffixToTheCarrierCode" decoder="String" data="#/complexingFlightDetails/operationalSuffixToTheCarrierCode" />
+        <jb:value property="firstDate" decoder="String" data="#/productDateTime/firstDate" />
+        <jb:value property="firstTime" decoder="Integer" data="#/productDateTime/firstTime" />
+        <jb:value property="secondDate" decoder="String" data="#/productDateTime/secondDate" />
+        <jb:value property="secondTime" decoder="Integer" data="#/productDateTime/secondTime" />
+        <jb:value property="dateVariation" decoder="Integer" data="#/productDateTime/dateVariation" />
+		<jb:wiring property="bagLegIndicators" beanIdRef="BDELSTX" />
+        <jb:wiring property="checkinLocationDetails" beanIdRef="BDELIDD" />
+		<jb:wiring property="deviceDetails" beanIdRef="BDELDCD" />
+		<jb:wiring property="atlOverrideReason" beanIdRef="BDELTXF" />
+		<jb:wiring property="offloadLocation" beanIdRef="BDELLOC" />
+		<jb:wiring property="securityDetails" beanIdRef="BDELSSC" />
+		<jb:wiring property="loadingLocationDetails" beanIdRef="BDELDVI" />
+		<jb:wiring property="connectionType" beanIdRef="BDELIRV" />
+		<jb:wiring property="internalAirlineText" beanIdRef="BDELIFT" />
+		<jb:wiring property="specialBagAttribute" beanIdRef="BDELSSRLIST" />
+		<jb:wiring property="aircraftLocation" beanIdRef="BDELTLC" />
+		<jb:wiring property="taggingInterlineInfoCode" beanIdRef="BDELREF" />
+    </jb:bean>
+	
+	<jb:bean beanId="BDELSTX" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusDetails" createOnElement="bagLegIndicators">
+		<jb:value property="indicator1" decoder="String" data="#/statusInformation1/indicator1" />
+     	<jb:value property="action1" decoder="String" data="#/statusInformation1/action1" />
+     	<jb:value property="statusType1" decoder="String" data="#/statusInformation1/statusType1" />
+		<jb:value property="freeText1" decoder="String" data="#/statusInformation1/freeText1" />		
+		<jb:value property="indicator2" decoder="String" data="#/statusInformation2/indicator2" />
+     	<jb:value property="action2" decoder="String" data="#/statusInformation2/action2" />
+     	<jb:value property="statusType2" decoder="String" data="#/statusInformation2/statusType2" />
+		<jb:value property="freeText2" decoder="String" data="#/statusInformation2/freeText2" />		
+		<jb:value property="indicator3" decoder="String" data="#/statusInformation3/indicator3" />
+     	<jb:value property="action3" decoder="String" data="#/statusInformation3/action3" />
+     	<jb:value property="statusType3" decoder="String" data="#/statusInformation3/statusType3" />
+		<jb:value property="freeText3" decoder="String" data="#/statusInformation3/freeText3" />		
+		<jb:value property="indicator4" decoder="String" data="#/statusInformation4/indicator4" />
+     	<jb:value property="action4" decoder="String" data="#/statusInformation4/action4" />
+     	<jb:value property="statusType4" decoder="String" data="#/statusInformation4/statusType4" />
+		<jb:value property="freeText4" decoder="String" data="#/statusInformation4/freeText4" />		
+		<jb:value property="indicator5" decoder="String" data="#/statusInformation5/indicator5" />
+     	<jb:value property="action5" decoder="String" data="#/statusInformation5/action5" />
+     	<jb:value property="statusType5" decoder="String" data="#/statusInformation5/statusType5" />
+		<jb:value property="freeText5" decoder="String" data="#/statusInformation5/freeText5" />		
+		<jb:value property="indicator6" decoder="String" data="#/statusInformation6/indicator6" />
+     	<jb:value property="action6" decoder="String" data="#/statusInformation6/action6" />
+     	<jb:value property="statusType6" decoder="String" data="#/statusInformation6/statusType6" />
+		<jb:value property="freeText6" decoder="String" data="#/statusInformation6/freeText6" />		
+		<jb:value property="indicator7" decoder="String" data="#/statusInformation7/indicator7" />
+     	<jb:value property="action7" decoder="String" data="#/statusInformation7/action7" />
+     	<jb:value property="statusType7" decoder="String" data="#/statusInformation7/statusType7" />
+		<jb:value property="freeText7" decoder="String" data="#/statusInformation7/freeText7" />		
+		<jb:value property="indicator8" decoder="String" data="#/statusInformation8/indicator8" />
+     	<jb:value property="action8" decoder="String" data="#/statusInformation8/action8" />
+     	<jb:value property="statusType8" decoder="String" data="#/statusInformation8/statusType8" />
+		<jb:value property="freeText8" decoder="String" data="#/statusInformation8/freeText8" />		
+		<jb:value property="indicator9" decoder="String" data="#/statusInformation9/indicator9" />
+     	<jb:value property="action9" decoder="String" data="#/statusInformation9/action9" />
+     	<jb:value property="statusType9" decoder="String" data="#/statusInformation9/statusType9" />
+		<jb:value property="freeText9" decoder="String" data="#/statusInformation9/freeText9" />		
+		<jb:value property="indicator10" decoder="String" data="#/statusInformation10/indicator10" />
+     	<jb:value property="action10" decoder="String" data="#/statusInformation10/action10" />
+     	<jb:value property="statusType10" decoder="String" data="#/statusInformation10/statusType10" />
+		<jb:value property="freeText10" decoder="String" data="#/statusInformation10/freeText10" />
+    </jb:bean>
+	
+	<jb:bean beanId="BDELIDD" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.IdentificationDetails" createOnElement="checkinLocationDetails">
+		<jb:value property="firstNumber" decoder="String" data="#/identificationDetails/firstNumber" /> 	
+		<jb:value property="secondNumber" decoder="String" data="#/identificationDetails/secondNumber" />	
+		<jb:value property="qualifier" decoder="String" data="#/dateTimeDetails/qualifier" /> 	
+		<jb:value property="date" decoder="String" data="#/dateTimeDetails/date" />	
+		<jb:value property="time" decoder="Integer" data="#/dateTimeDetails/time" /> 	
+		<jb:value property="dateTimePeriodQualifier1" decoder="String" data="#/dateTimeDetails/dateTimePeriodQualifier1" />	
+		<jb:value property="firstTime1" decoder="Integer" data="#/dateTimeDetails/firstTime1" /> 	
+		<jb:value property="movementType1" decoder="String" data="#/dateTimeDetails/movementType1" />	
+		<jb:value property="location" decoder="String" data="#/dateTimeDetails/location" />	
+		<jb:value property="dateTimePeriodQualifierFormat" decoder="String" data="#/dateAndTimeDetails/dateTimePeriodQualifierFormat" /> 	
+		<jb:value property="firstDate" decoder="String" data="#/dateAndTimeDetails/firstDate" />	
+		<jb:value property="lastSeenFirstTime" decoder="Integer" data="#/dateAndTimeDetails/lastSeenFirstTime" /> 
+		<jb:value property="dateTimePeriodQualifier2" decoder="String" data="#/dateAndTimeDetails/dateTimePeriodQualifier2" /> 	
+		<jb:value property="firstTime2" decoder="Integer" data="#/dateAndTimeDetails/firstTime2" />
+		<jb:value property="movementType2" decoder="String" data="#/dateAndTimeDetails/movementType2" />	
+		<jb:value property="locationIdentification" decoder="String" data="#/dateAndTimeDetails/locationIdentification" />	
+		<jb:value property="readingLocation" decoder="String" data="#/readingLocation" />   		  
+		<jb:value property="otherLocation" decoder="String" data="#/otherLocation" />  		
+    </jb:bean>
+	
+	<jb:bean beanId="BDELDCD" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.DeviceDetails" createOnElement="deviceDetails">
+		<jb:value property="companyIdentification" decoder="String" data="#/companyIdentification" />
+     	<jb:value property="address" decoder="String" data="#/deviceIdentification/address" />
+		<jb:value property="identityNumberQualifier" decoder="String" data="#/deviceIdentification/identityNumberQualifier" />
+     	<jb:value property="statusIndicator" decoder="String" data="#/statusIndicator" />
+		<jb:value property="seqNumber" decoder="String" data="#/seqNumber" />
+		<jb:value property="materialType" decoder="String" data="#/materialType" />
+		<jb:value property="dataIndicator" decoder="String" data="#/dataIndicator" />
+	</jb:bean>
+	
+	<jb:bean beanId="BDELTXF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.FreeTextInformation" createOnElement="atlOverrideReason">
+		<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+		<jb:value property="companyIdentification" decoder="String" data="#/freeTextDetails/companyIdentification" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+		<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+		<jb:value property="freeText" decoder="String" data="#/freeText" />
+	</jb:bean>
+	
+	<jb:bean beanId="BDELLOC" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.OffloadLocation" createOnElement="offloadLocation">
+		<jb:value property="locationType" decoder="String" data="#/locationType" />
+		<jb:value property="locationNameCode" decoder="String" data="#/locationDescription/locationNameCode" />
+		<jb:value property="locIdenCodeListIdentificationCode" decoder="String" data="#/locationDescription/locIdenCodeListIdentificationCode" />
+		<jb:value property="locIdenCodeListResponsibleAgency" decoder="String" data="#/locationDescription/locIdenCodeListResponsibleAgency" />
+		<jb:value property="name" decoder="String" data="#/locationDescription/name" />
+		<jb:value property="firstRelatedLocationNameCode" decoder="String" data="#/relatedLocationOneIdentification/firstRelatedLocationNameCode" />
+		<jb:value property="codeListIdentificationCode1" decoder="String" data="#/relatedLocationOneIdentification/codeListIdentificationCode1" />
+		<jb:value property="codeListResponsibleAgency1" decoder="String" data="#/relatedLocationOneIdentification/codeListResponsibleAgency1" />
+		<jb:value property="firstRelatedLocationName" decoder="String" data="#/relatedLocationOneIdentification/firstRelatedLocationName" />
+		<jb:value property="secondRelatedLocationNameCode" decoder="String" data="#/relatedLocationTwoIdentification/secondRelatedLocationNameCode" />
+		<jb:value property="codeListIdentificationCode2" decoder="String" data="#/relatedLocationTwoIdentification/codeListIdentificationCode2" />
+		<jb:value property="codeListResponsibleAgency2" decoder="String" data="#/relatedLocationTwoIdentification/codeListResponsibleAgency2" />
+		<jb:value property="secondRelatedLocationName" decoder="String" data="#/relatedLocationTwoIdentification/secondRelatedLocationName" />
+		<jb:value property="relationCode" decoder="String" data="#/relationCode" />						     	
+		<jb:wiring property="offloadIndicators" beanIdRef="OFFDSTXLIST" />
+		<jb:wiring property="offloadReason" beanIdRef="OFFDTXFLIST" />
+	</jb:bean>
+	
+	<jb:bean beanId="OFFDSTXLIST" class="java.util.ArrayList" createOnElement="offloadLocation">
+        <jb:wiring beanIdRef="OFFDSTX" />
+    </jb:bean>
+	
+	<jb:bean beanId="OFFDSTX" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusDetails" createOnElement="offloadIndicators">
+		<jb:value property="indicator1" decoder="String" data="#/statusInformation1/indicator1" />
+		<jb:value property="action1" decoder="String" data="#/statusInformation1/action1" />
+		<jb:value property="statusType1" decoder="String" data="#/statusInformation1/statusType1" />
+		<jb:value property="freeText1" decoder="String" data="#/statusInformation1/freeText1" />
+		<jb:value property="indicator2" decoder="String" data="#/statusInformation2/indicator2" />
+		<jb:value property="action2" decoder="String" data="#/statusInformation2/action2" />
+		<jb:value property="statusType2" decoder="String" data="#/statusInformation2/statusType2" />
+		<jb:value property="freeText2" decoder="String" data="#/statusInformation2/freeText2" />
+		<jb:value property="indicator3" decoder="String" data="#/statusInformation3/indicator3" />
+     	<jb:value property="action3" decoder="String" data="#/statusInformation3/action3" />
+     	<jb:value property="statusType3" decoder="String" data="#/statusInformation3/statusType3" />
+		<jb:value property="freeText3" decoder="String" data="#/statusInformation3/freeText3" />		
+		<jb:value property="indicator4" decoder="String" data="#/statusInformation4/indicator4" />
+     	<jb:value property="action4" decoder="String" data="#/statusInformation4/action4" />
+     	<jb:value property="statusType4" decoder="String" data="#/statusInformation4/statusType4" />
+		<jb:value property="freeText4" decoder="String" data="#/statusInformation4/freeText4" />		
+		<jb:value property="indicator5" decoder="String" data="#/statusInformation5/indicator5" />
+     	<jb:value property="action5" decoder="String" data="#/statusInformation5/action5" />
+     	<jb:value property="statusType5" decoder="String" data="#/statusInformation5/statusType5" />
+		<jb:value property="freeText5" decoder="String" data="#/statusInformation5/freeText5" />		
+		<jb:value property="indicator6" decoder="String" data="#/statusInformation6/indicator6" />
+     	<jb:value property="action6" decoder="String" data="#/statusInformation6/action6" />
+     	<jb:value property="statusType6" decoder="String" data="#/statusInformation6/statusType6" />
+		<jb:value property="freeText6" decoder="String" data="#/statusInformation6/freeText6" />		
+		<jb:value property="indicator7" decoder="String" data="#/statusInformation7/indicator7" />
+     	<jb:value property="action7" decoder="String" data="#/statusInformation7/action7" />
+     	<jb:value property="statusType7" decoder="String" data="#/statusInformation7/statusType7" />
+		<jb:value property="freeText7" decoder="String" data="#/statusInformation7/freeText7" />		
+		<jb:value property="indicator8" decoder="String" data="#/statusInformation8/indicator8" />
+     	<jb:value property="action8" decoder="String" data="#/statusInformation8/action8" />
+     	<jb:value property="statusType8" decoder="String" data="#/statusInformation8/statusType8" />
+		<jb:value property="freeText8" decoder="String" data="#/statusInformation8/freeText8" />		
+		<jb:value property="indicator9" decoder="String" data="#/statusInformation9/indicator9" />
+     	<jb:value property="action9" decoder="String" data="#/statusInformation9/action9" />
+     	<jb:value property="statusType9" decoder="String" data="#/statusInformation9/statusType9" />
+		<jb:value property="freeText9" decoder="String" data="#/statusInformation9/freeText9" />
+		<jb:value property="indicator10" decoder="String" data="#/statusInformation10/indicator10" />
+     	<jb:value property="action10" decoder="String" data="#/statusInformation10/action10" />
+     	<jb:value property="statusType10" decoder="String" data="#/statusInformation10/statusType10" />
+		<jb:value property="freeText10" decoder="String" data="#/statusInformation10/freeText10" />
+	</jb:bean> 
+	
+	<jb:bean beanId="OFFDTXFLIST" class="java.util.ArrayList" createOnElement="offloadLocation">
+        <jb:wiring beanIdRef="OFFDTXF" />
+    </jb:bean>
+	
+	<jb:bean beanId="OFFDTXF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.FreeTextInformation" createOnElement="offloadReason">
+		<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+		<jb:value property="companyIdentification" decoder="String" data="#/freeTextDetails/companyIdentification" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+		<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+		<jb:value property="freeText" decoder="String" data="#/freeText" />
+	</jb:bean>
+	
+	<jb:bean beanId="BDELSSC" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.SecurityDetails" createOnElement="securityDetails">
+		<jb:value property="securityView" decoder="String" data="#/securityView" />
+     	<jb:value property="screeningUpdateSource" decoder="String" data="#/screeningUpdateSource" />
+		<jb:value property="screeningInstructions" decoder="String" data="#/screeningInstructions" />
+		<jb:value property="screeningMethod" decoder="String" data="#/screeningMethod" />
+		<jb:value property="screeningResult" decoder="String" data="#/screeningResult" />
+		<jb:value property="screeningResultReason" decoder="String" data="#/screeningResultReason" />
+		<jb:value property="securityScreeningAutograph" decoder="String" data="#/securityScreeningAutograph" />
+		<jb:value property="securityScreeningFreeText" decoder="String" data="#/securityScreeningFreeText" />
+	</jb:bean>
+	
+	<jb:bean beanId="BDELDVI" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.LoadingLocationDetails" createOnElement="loadingLocationDetails">
+		<jb:value property="deviceNumber" decoder="String" data="#/deviceNumber" />   
+        <jb:value property="handlingInstructions" decoder="String" data="#/handlingInstructions" />
+		<jb:value property="cabinClass" decoder="String" data="#/cabinClass" />   
+        <jb:value property="firstLocation" decoder="String" data="#/firstLocation" />
+		<jb:value property="secondLocation" decoder="String" data="#/secondLocation" />		 
+		<jb:wiring property="loadingIndicators" beanIdRef="EDILOADINGDETSTXLIST" />
+		<jb:wiring property="connectionDetails" beanIdRef="EDILOADINGDETTVL" />
+	</jb:bean>
+	
+	<jb:bean beanId="EDILOADINGDETSTXLIST" class="java.util.ArrayList" createOnElement="loadingLocationDetails">
+        <jb:wiring beanIdRef="EDILOADINGDETSTX" />
+    </jb:bean>
+	
+	<jb:bean beanId="EDILOADINGDETSTX" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusDetails" createOnElement="loadingIndicators">
+		<jb:value property="indicator1" decoder="String" data="#/statusInformation1/indicator1" />
+		<jb:value property="action1" decoder="String" data="#/statusInformation1/action1" />
+		<jb:value property="statusType1" decoder="String" data="#/statusInformation1/statusType1" />
+		<jb:value property="freeText1" decoder="String" data="#/statusInformation1/freeText1" />
+		<jb:value property="indicator2" decoder="String" data="#/statusInformation2/indicator2" />
+		<jb:value property="action2" decoder="String" data="#/statusInformation2/action2" />
+		<jb:value property="statusType2" decoder="String" data="#/statusInformation2/statusType2" />
+		<jb:value property="freeText2" decoder="String" data="#/statusInformation2/freeText2" />
+		<jb:value property="indicator3" decoder="String" data="#/statusInformation3/indicator3" />
+     	<jb:value property="action3" decoder="String" data="#/statusInformation3/action3" />
+     	<jb:value property="statusType3" decoder="String" data="#/statusInformation3/statusType3" />
+		<jb:value property="freeText3" decoder="String" data="#/statusInformation3/freeText3" />		
+		<jb:value property="indicator4" decoder="String" data="#/statusInformation4/indicator4" />
+     	<jb:value property="action4" decoder="String" data="#/statusInformation4/action4" />
+     	<jb:value property="statusType4" decoder="String" data="#/statusInformation4/statusType4" />
+		<jb:value property="freeText4" decoder="String" data="#/statusInformation4/freeText4" />		
+		<jb:value property="indicator5" decoder="String" data="#/statusInformation5/indicator5" />
+     	<jb:value property="action5" decoder="String" data="#/statusInformation5/action5" />
+     	<jb:value property="statusType5" decoder="String" data="#/statusInformation5/statusType5" />
+		<jb:value property="freeText5" decoder="String" data="#/statusInformation5/freeText5" />		
+		<jb:value property="indicator6" decoder="String" data="#/statusInformation6/indicator6" />
+     	<jb:value property="action6" decoder="String" data="#/statusInformation6/action6" />
+     	<jb:value property="statusType6" decoder="String" data="#/statusInformation6/statusType6" />
+		<jb:value property="freeText6" decoder="String" data="#/statusInformation6/freeText6" />		
+		<jb:value property="indicator7" decoder="String" data="#/statusInformation7/indicator7" />
+     	<jb:value property="action7" decoder="String" data="#/statusInformation7/action7" />
+     	<jb:value property="statusType7" decoder="String" data="#/statusInformation7/statusType7" />
+		<jb:value property="freeText7" decoder="String" data="#/statusInformation7/freeText7" />		
+		<jb:value property="indicator8" decoder="String" data="#/statusInformation8/indicator8" />
+     	<jb:value property="action8" decoder="String" data="#/statusInformation8/action8" />
+     	<jb:value property="statusType8" decoder="String" data="#/statusInformation8/statusType8" />
+		<jb:value property="freeText8" decoder="String" data="#/statusInformation8/freeText8" />		
+		<jb:value property="indicator9" decoder="String" data="#/statusInformation9/indicator9" />
+     	<jb:value property="action9" decoder="String" data="#/statusInformation9/action9" />
+     	<jb:value property="statusType9" decoder="String" data="#/statusInformation9/statusType9" />
+		<jb:value property="freeText9" decoder="String" data="#/statusInformation9/freeText9" />
+		<jb:value property="indicator10" decoder="String" data="#/statusInformation10/indicator10" />
+     	<jb:value property="action10" decoder="String" data="#/statusInformation10/action10" />
+     	<jb:value property="statusType10" decoder="String" data="#/statusInformation10/statusType10" />
+		<jb:value property="freeText10" decoder="String" data="#/statusInformation10/freeText10" />		
+    </jb:bean>
+	
+	<jb:bean beanId="EDILOADINGDETTVL" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ConnectionDetails" createOnElement="connectionDetails">
+		<jb:value property="departureDate" decoder="String" data="#/flightDate/departureDate" />
+        <jb:value property="firstTime" decoder="Integer" data="#/flightDate/firstTime" />
+        <jb:value property="secondDate" decoder="String" data="#/flightDate/secondDate" />
+        <jb:value property="secondTime" decoder="Integer" data="#/flightDate/secondTime" />
+        <jb:value property="dateVariation" decoder="Integer" data="#/flightDate/dateVariation" />
+		<jb:value property="trueLocationId" decoder="String" data="#/boardPointDetails/trueLocationId" />
+		<jb:value property="boardPointLocation" decoder="String" data="#/boardPointDetails/boardPointLocation" />
+		<jb:value property="locationIdentification" decoder="String" data="#/offpointDetails/locationIdentification" />
+		<jb:value property="placeLocation" decoder="String" data="#/offpointDetails/placeLocation" />
+		<jb:value property="companyIdentification1" decoder="String" data="#/companyIdentification/companyIdentification1" />
+		<jb:value property="companyIdentification2" decoder="String" data="#/companyIdentification/companyIdentification2" />
+		<jb:value property="companyIdentification3" decoder="String" data="#/companyIdentification/companyIdentification3" />
+		<jb:value property="flightNumber" decoder="Integer" data="#/flightIdentification/flightNumber" />
+		<jb:value property="characteristicIdentification" decoder="String" data="#/flightIdentification/characteristicIdentification" />
+		<jb:value property="productIdentificationCharacteristic" decoder="String" data="#/flightIdentification/productIdentificationCharacteristic" />
+		<jb:value property="itemDescriptionIdentification" decoder="String" data="#/flightIdentification/itemDescriptionIdentification" />
+		<jb:value property="sequenceNumber" decoder="String" data="#/productTypeDetails/sequenceNumber" />
+		<jb:value property="lineItemNumber" decoder="Integer" data="#/lineItemNumber"/>
+		<jb:value property="processingIndicator" decoder="String" data="#/processingIndicator" />
+		<jb:value property="relation1" decoder="String" data="#/marriageControlDetails/relation1" />
+		<jb:value property="groupNumber" decoder="Integer" data="#/marriageControlDetails/groupNumber" />
+		<jb:value property="marriageControlLineItemNumber" decoder="Integer" data="#/marriageControlDetails/marriageControlLineItemNumber" />
+		<jb:value property="relation2" decoder="String" data="#/marriageControlDetails/relation2" />
+		<jb:value property="marriageControlCompanyIdentification" decoder="String" data="#/marriageControlDetails/marriageControlCompanyIdentification" />
+	</jb:bean>
+	
+	<jb:bean beanId="BDELIRV" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ConnectionType" createOnElement="connectionType">
+		<jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber" decoder="String" data="#/referenceNumber" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="deliveringSystemIdentification" decoder="String" data="#/idSection/deliveringSystemIdentification" />
+        <jb:value property="referenceVersionNumber" decoder="String" data="#/idSection/referenceVersionNumber" />
+		<jb:value property="uniqueIdReferenceQualifier" decoder="String" data="#/idSection/uniqueIdReferenceQualifier" />
+        <jb:value property="primeId" decoder="String" data="#/idSection/primeId" />
+		<jb:value property="uniqueIdReferenceNumber" decoder="String" data="#/idSection/uniqueIdReferenceNumber" />
+        <jb:value property="status" decoder="String" data="#/idSection/status" />
+		<jb:value property="yearNumber" decoder="Integer" data="#/idSection/yearNumber" />
+        <jb:value property="monthNumber" decoder="Integer" data="#/idSection/monthNumber" />
+		<jb:value property="dayNumber" decoder="Integer" data="#/idSection/dayNumber" />
+        <jb:value property="hours" decoder="Integer" data="#/idSection/hours" />
+		<jb:value property="minutes" decoder="Integer" data="#/idSection/minutes" />
+        <jb:value property="freeText" decoder="String" data="#/idSection/freeText" />	 
+		<jb:wiring property="presortCode" beanIdRef="PRESORTINFOATC" />
+	</jb:bean>
+	
+	<jb:bean beanId="PRESORTINFOATC" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.CodedAttribute" createOnElement="presortCode">
+		<jb:value property="attributeFunctionCodeQualifier" decoder="String" data="#/attributeFunctionCodeQualifier" />              
+		<jb:value property="attributeType1" decoder="String" data="#/attributeDetails1/attributeType1" />   
+		<jb:value property="attributeDescription1" decoder="String" data="#/attributeDetails1/attributeDescription1" />
+		<jb:value property="language1" decoder="String" data="#/attributeDetails1/language1" />
+		<jb:value property="encoding1" decoder="String" data="#/attributeDetails1/encoding1" />
+		<jb:value property="source1" decoder="String" data="#/attributeDetails1/source1" />		
+		<jb:value property="attributeType2" decoder="String" data="#/attributeDetails2/attributeType2" />   
+		<jb:value property="attributeDescription2" decoder="String" data="#/attributeDetails2/attributeDescription2" />
+		<jb:value property="language2" decoder="String" data="#/attributeDetails2/language2" />
+		<jb:value property="encoding2" decoder="String" data="#/attributeDetails2/encoding2" />
+		<jb:value property="source2" decoder="String" data="#/attributeDetails2/source2" />		
+		<jb:value property="attributeType3" decoder="String" data="#/attributeDetails3/attributeType3" />   
+		<jb:value property="attributeDescription3" decoder="String" data="#/attributeDetails3/attributeDescription3" />
+		<jb:value property="language3" decoder="String" data="#/attributeDetails3/language3" />
+		<jb:value property="encoding3" decoder="String" data="#/attributeDetails3/encoding3" />
+		<jb:value property="source3" decoder="String" data="#/attributeDetails3/source3" />		
+		<jb:value property="attributeType4" decoder="String" data="#/attributeDetails4/attributeType4" />   
+		<jb:value property="attributeDescription4" decoder="String" data="#/attributeDetails4/attributeDescription4" />
+		<jb:value property="language4" decoder="String" data="#/attributeDetails4/language4" />
+		<jb:value property="encoding4" decoder="String" data="#/attributeDetails4/encoding4" />
+		<jb:value property="source4" decoder="String" data="#/attributeDetails4/source4" />		
+		<jb:value property="attributeType5" decoder="String" data="#/attributeDetails5/attributeType5" />   
+		<jb:value property="attributeDescription5" decoder="String" data="#/attributeDetails5/attributeDescription5" />
+		<jb:value property="language5" decoder="String" data="#/attributeDetails5/language5" />
+		<jb:value property="encoding5" decoder="String" data="#/attributeDetails5/encoding5" />
+		<jb:value property="source5" decoder="String" data="#/attributeDetails5/source5" />		
+		<jb:value property="attributeType6" decoder="String" data="#/attributeDetails6/attributeType6" />   
+		<jb:value property="attributeDescription6" decoder="String" data="#/attributeDetails6/attributeDescription6" />
+		<jb:value property="language6" decoder="String" data="#/attributeDetails6/language6" />
+		<jb:value property="encoding6" decoder="String" data="#/attributeDetails6/encoding6" />
+		<jb:value property="source6" decoder="String" data="#/attributeDetails6/source6" />		
+		<jb:value property="attributeType7" decoder="String" data="#/attributeDetails7/attributeType7" />   
+		<jb:value property="attributeDescription7" decoder="String" data="#/attributeDetails7/attributeDescription7" />
+		<jb:value property="language7" decoder="String" data="#/attributeDetails7/language7" />
+		<jb:value property="encoding7" decoder="String" data="#/attributeDetails7/encoding7" />
+		<jb:value property="source7" decoder="String" data="#/attributeDetails7/source7" />		
+		<jb:value property="attributeType8" decoder="String" data="#/attributeDetails8/attributeType8" />   
+		<jb:value property="attributeDescription8" decoder="String" data="#/attributeDetails8/attributeDescription8" />
+		<jb:value property="language8" decoder="String" data="#/attributeDetails8/language8" />
+		<jb:value property="encoding8" decoder="String" data="#/attributeDetails8/encoding8" />
+		<jb:value property="source8" decoder="String" data="#/attributeDetails8/source8" />
+	</jb:bean>
+	
+	<jb:bean beanId="BDELIFT" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.InteractiveFreeText" createOnElement="internalAirlineText">
+		<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextQualification/textSubjectQualifier" />              
+		<jb:value property="informationType" decoder="String" data="#/freeTextQualification/informationType" />   
+		<jb:value property="status" decoder="String" data="#/freeTextQualification/status" />
+		<jb:value property="companyIdentification" decoder="String" data="#/freeTextQualification/companyIdentification" />
+		<jb:value property="language" decoder="String" data="#/freeTextQualification/language" />
+		<jb:value property="freeText1" decoder="String" data="#/freeText1" />
+		<jb:value property="freeText2" decoder="String" data="#/freeText2" />
+		<jb:value property="freeText3" decoder="String" data="#/freeText3" />
+		<jb:value property="freeText4" decoder="String" data="#/freeText4" />
+	</jb:bean> 
+	
+	<jb:bean beanId="BDELSSRLIST" class="java.util.ArrayList" createOnElement="operatingDetails">
+        <jb:wiring beanIdRef="BDELSSR" />
+    </jb:bean>
+	
+	<jb:bean beanId="BDELSSR" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.SpecialBagAttribute" createOnElement="specialBagAttribute">
+		<jb:value property="ssrCode" decoder="String" data="#/specialRequirementsInfo/ssrCode" />
+		<jb:value property="actionCode" decoder="String" data="#/specialRequirementsInfo/actionCode" />
+		<jb:value property="quantity" decoder="Integer" data="#/specialRequirementsInfo/quantity" />
+		<jb:value property="companyIdentification" decoder="String" data="#/specialRequirementsInfo/companyIdentification" />
+		<jb:value property="serviceType" decoder="String" data="#/specialRequirementsInfo/serviceType" />
+		<jb:value property="processingIndicator" decoder="String" data="#/specialRequirementsInfo/processingIndicator" />
+		<jb:value property="boardPoint" decoder="String" data="#/specialRequirementsInfo/boardPoint" />
+		<jb:value property="offPoint" decoder="String" data="#/specialRequirementsInfo/offPoint" />
+		<jb:value property="serviceFreeText" decoder="String" data="#/specialRequirementsInfo/serviceFreeText" />
+		<jb:value property="specialRequirementData" decoder="String" data="#/specialRequirementsDataDetails/specialRequirementData" />     	     	
+		<jb:wiring property="attributeDetails" beanIdRef="SBATTXF" />
+		<jb:wiring property="freeSpecialBag" beanIdRef="SBATSTX" />
+	</jb:bean> 
+	
+	<jb:bean beanId="SBATTXF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.FreeTextInformation" createOnElement="attributeDetails">
+		<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+		<jb:value property="companyIdentification" decoder="String" data="#/freeTextDetails/companyIdentification" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+		<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+		<jb:value property="freeText" decoder="String" data="#/freeText" />
+	</jb:bean>
+	
+	<jb:bean beanId="SBATSTX" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusDetails" createOnElement="freeSpecialBag">
+        <jb:value property="indicator1" decoder="String" data="#/statusInformation1/indicator1" />
+		<jb:value property="action1" decoder="String" data="#/statusInformation1/action1" />
+		<jb:value property="statusType1" decoder="String" data="#/statusInformation1/statusType1" />
+		<jb:value property="freeText1" decoder="String" data="#/statusInformation1/freeText1" />
+		<jb:value property="indicator2" decoder="String" data="#/statusInformation2/indicator2" />
+		<jb:value property="action2" decoder="String" data="#/statusInformation2/action2" />
+		<jb:value property="statusType2" decoder="String" data="#/statusInformation2/statusType2" />
+		<jb:value property="freeText2" decoder="String" data="#/statusInformation2/freeText2" />
+		<jb:value property="indicator3" decoder="String" data="#/statusInformation3/indicator3" />
+     	<jb:value property="action3" decoder="String" data="#/statusInformation3/action3" />
+     	<jb:value property="statusType3" decoder="String" data="#/statusInformation3/statusType3" />
+		<jb:value property="freeText3" decoder="String" data="#/statusInformation3/freeText3" />		
+		<jb:value property="indicator4" decoder="String" data="#/statusInformation4/indicator4" />
+     	<jb:value property="action4" decoder="String" data="#/statusInformation4/action4" />
+     	<jb:value property="statusType4" decoder="String" data="#/statusInformation4/statusType4" />
+		<jb:value property="freeText4" decoder="String" data="#/statusInformation4/freeText4" />		
+		<jb:value property="indicator5" decoder="String" data="#/statusInformation5/indicator5" />
+     	<jb:value property="action5" decoder="String" data="#/statusInformation5/action5" />
+     	<jb:value property="statusType5" decoder="String" data="#/statusInformation5/statusType5" />
+		<jb:value property="freeText5" decoder="String" data="#/statusInformation5/freeText5" />		
+		<jb:value property="indicator6" decoder="String" data="#/statusInformation6/indicator6" />
+     	<jb:value property="action6" decoder="String" data="#/statusInformation6/action6" />
+     	<jb:value property="statusType6" decoder="String" data="#/statusInformation6/statusType6" />
+		<jb:value property="freeText6" decoder="String" data="#/statusInformation6/freeText6" />		
+		<jb:value property="indicator7" decoder="String" data="#/statusInformation7/indicator7" />
+     	<jb:value property="action7" decoder="String" data="#/statusInformation7/action7" />
+     	<jb:value property="statusType7" decoder="String" data="#/statusInformation7/statusType7" />
+		<jb:value property="freeText7" decoder="String" data="#/statusInformation7/freeText7" />		
+		<jb:value property="indicator8" decoder="String" data="#/statusInformation8/indicator8" />
+     	<jb:value property="action8" decoder="String" data="#/statusInformation8/action8" />
+     	<jb:value property="statusType8" decoder="String" data="#/statusInformation8/statusType8" />
+		<jb:value property="freeText8" decoder="String" data="#/statusInformation8/freeText8" />		
+		<jb:value property="indicator9" decoder="String" data="#/statusInformation9/indicator9" />
+     	<jb:value property="action9" decoder="String" data="#/statusInformation9/action9" />
+     	<jb:value property="statusType9" decoder="String" data="#/statusInformation9/statusType9" />
+		<jb:value property="freeText9" decoder="String" data="#/statusInformation9/freeText9" />
+		<jb:value property="indicator10" decoder="String" data="#/statusInformation10/indicator10" />
+     	<jb:value property="action10" decoder="String" data="#/statusInformation10/action10" />
+     	<jb:value property="statusType10" decoder="String" data="#/statusInformation10/statusType10" />
+		<jb:value property="freeText10" decoder="String" data="#/statusInformation10/freeText10" />
+    </jb:bean>
+	
+	<jb:bean beanId="BDELTLC" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.AircraftLocation" createOnElement="aircraftLocation">
+        <jb:value property="zoneCode" decoder="String" data="#/terminalZoneInformation/zoneCode" />
+        <jb:value property="zoneDescription" decoder="String" data="#/terminalZoneInformation/zoneDescription" />
+        <jb:value property="type" decoder="String" data="#/facilityDetails/type" />
+        <jb:value property="identifier" decoder="String" data="#/facilityDetails/identifier" />
+        <jb:value property="facilityDescription" decoder="String" data="#/facilityDetails/facilityDescription" />
+        <jb:value property="workstationId" decoder="String" data="#/facilityDetails/workstationId" />
+    </jb:bean>
+	
+	<jb:bean beanId="BDELREF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.TaggingInterlineInfoCode" createOnElement="taggingInterlineInfoCode">
+		<jb:value property="type" decoder="String" data="#/referenceDetails/type" />   
+        <jb:value property="value" decoder="String" data="#/referenceDetails/value" />
+		<jb:wiring property="taggingInterlineInfoText" beanIdRef="BTIITXF" />
+    </jb:bean>
+	
+	<jb:bean beanId="BTIITXF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.FreeTextInformation" createOnElement="taggingInterlineInfoText">
+		<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+		<jb:value property="companyIdentification" decoder="String" data="#/freeTextDetails/companyIdentification" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+		<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+		<jb:value property="freeText" decoder="String" data="#/freeText" />
+	</jb:bean>
+	
+	<jb:bean beanId="IBAGERCLIST" class="java.util.ArrayList" createOnElement="bagInfo">
+        <jb:wiring beanIdRef="IBAGERC" />
+    </jb:bean>
+	
+	<jb:bean beanId="IBAGERC" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ErrorOrWarningCodeDetails2" createOnElement="errorOrWarningCodeDetails2">
+		<jb:value property="errorCode" decoder="String" data="#/errorDetails/errorCode" />
+     	<jb:value property="errorCategory" decoder="String" data="#/errorDetails/errorCategory" />
+     	<jb:value property="codeListResponsibleAgency" decoder="String" data="#/errorDetails/codeListResponsibleAgency" />
+		<jb:wiring property="errorWarningDescription2" beanIdRef="GERRTXF2" />
+    </jb:bean>
+	
+	<jb:bean beanId="GERRTXF2" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.FreeTextInformation" createOnElement="errorWarningDescription2">
+		<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+		<jb:value property="companyIdentification" decoder="String" data="#/freeTextDetails/companyIdentification" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+		<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+		<jb:value property="freeText" decoder="String" data="#/freeText" />
+	</jb:bean>
+	
+	<jb:bean beanId="DUM" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.Dummy" createOnElement="dummy">		
+	</jb:bean>
+	
+	<jb:bean beanId="IRVLIST" class="java.util.ArrayList" createOnElement="Bidbrr">
+       <jb:wiring beanIdRef="IRV" />
+    </jb:bean> 
+	
+	<jb:bean beanId="IRV" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ResponsibleCustomerUCI" createOnElement="responsibleCustomerUCI">
+		<jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber" decoder="String" data="#/referenceNumber" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="deliveringSystemIdentification" decoder="String" data="#/idSection/deliveringSystemIdentification" />
+        <jb:value property="referenceVersionNumber" decoder="String" data="#/idSection/referenceVersionNumber" />
+		<jb:value property="uniqueIdReferenceQualifier" decoder="String" data="#/idSection/uniqueIdReferenceQualifier" />
+        <jb:value property="primeId" decoder="String" data="#/idSection/primeId" />
+		<jb:value property="uniqueIdReferenceNumber" decoder="String" data="#/idSection/uniqueIdReferenceNumber" />
+        <jb:value property="status" decoder="String" data="#/idSection/status" />
+		<jb:value property="yearNumber" decoder="Integer" data="#/idSection/yearNumber" />
+        <jb:value property="monthNumber" decoder="Integer" data="#/idSection/monthNumber" />
+		<jb:value property="dayNumber" decoder="Integer" data="#/idSection/dayNumber" />
+        <jb:value property="hours" decoder="Integer" data="#/idSection/hours" />
+		<jb:value property="minutes" decoder="Integer" data="#/idSection/minutes" />
+        <jb:value property="freeText" decoder="String" data="#/idSection/freeText" />
+		<jb:wiring property="paymentFlow" beanIdRef="XSBGSTX" />
+		<jb:wiring property="statusIndicators" beanIdRef="XSBGATCLIST" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBGSTX" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusDetails" createOnElement="paymentFlow">
+        <jb:value property="indicator1" decoder="String" data="#/statusInformation1/indicator1" />
+		<jb:value property="action1" decoder="String" data="#/statusInformation1/action1" />
+		<jb:value property="statusType1" decoder="String" data="#/statusInformation1/statusType1" />
+		<jb:value property="freeText1" decoder="String" data="#/statusInformation1/freeText1" />
+		<jb:value property="indicator2" decoder="String" data="#/statusInformation2/indicator2" />
+		<jb:value property="action2" decoder="String" data="#/statusInformation2/action2" />
+		<jb:value property="statusType2" decoder="String" data="#/statusInformation2/statusType2" />
+		<jb:value property="freeText2" decoder="String" data="#/statusInformation2/freeText2" />
+		<jb:value property="indicator3" decoder="String" data="#/statusInformation3/indicator3" />
+     	<jb:value property="action3" decoder="String" data="#/statusInformation3/action3" />
+     	<jb:value property="statusType3" decoder="String" data="#/statusInformation3/statusType3" />
+		<jb:value property="freeText3" decoder="String" data="#/statusInformation3/freeText3" />		
+		<jb:value property="indicator4" decoder="String" data="#/statusInformation4/indicator4" />
+     	<jb:value property="action4" decoder="String" data="#/statusInformation4/action4" />
+     	<jb:value property="statusType4" decoder="String" data="#/statusInformation4/statusType4" />
+		<jb:value property="freeText4" decoder="String" data="#/statusInformation4/freeText4" />		
+		<jb:value property="indicator5" decoder="String" data="#/statusInformation5/indicator5" />
+     	<jb:value property="action5" decoder="String" data="#/statusInformation5/action5" />
+     	<jb:value property="statusType5" decoder="String" data="#/statusInformation5/statusType5" />
+		<jb:value property="freeText5" decoder="String" data="#/statusInformation5/freeText5" />		
+		<jb:value property="indicator6" decoder="String" data="#/statusInformation6/indicator6" />
+     	<jb:value property="action6" decoder="String" data="#/statusInformation6/action6" />
+     	<jb:value property="statusType6" decoder="String" data="#/statusInformation6/statusType6" />
+		<jb:value property="freeText6" decoder="String" data="#/statusInformation6/freeText6" />		
+		<jb:value property="indicator7" decoder="String" data="#/statusInformation7/indicator7" />
+     	<jb:value property="action7" decoder="String" data="#/statusInformation7/action7" />
+     	<jb:value property="statusType7" decoder="String" data="#/statusInformation7/statusType7" />
+		<jb:value property="freeText7" decoder="String" data="#/statusInformation7/freeText7" />		
+		<jb:value property="indicator8" decoder="String" data="#/statusInformation8/indicator8" />
+     	<jb:value property="action8" decoder="String" data="#/statusInformation8/action8" />
+     	<jb:value property="statusType8" decoder="String" data="#/statusInformation8/statusType8" />
+		<jb:value property="freeText8" decoder="String" data="#/statusInformation8/freeText8" />		
+		<jb:value property="indicator9" decoder="String" data="#/statusInformation9/indicator9" />
+     	<jb:value property="action9" decoder="String" data="#/statusInformation9/action9" />
+     	<jb:value property="statusType9" decoder="String" data="#/statusInformation9/statusType9" />
+		<jb:value property="freeText9" decoder="String" data="#/statusInformation9/freeText9" />
+		<jb:value property="indicator10" decoder="String" data="#/statusInformation10/indicator10" />
+     	<jb:value property="action10" decoder="String" data="#/statusInformation10/action10" />
+     	<jb:value property="statusType10" decoder="String" data="#/statusInformation10/statusType10" />
+		<jb:value property="freeText10" decoder="String" data="#/statusInformation10/freeText10" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBGATCLIST" class="java.util.ArrayList" createOnElement="responsibleCustomerUCI">
+       <jb:wiring beanIdRef="XSBGATC" />
+    </jb:bean> 
+	
+	<jb:bean beanId="XSBGATC" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusIndicators" createOnElement="statusIndicators">
+		<jb:value property="attributeFunctionCodeQualifier" decoder="String" data="#/attributeFunctionCodeQualifier" />              
+		<jb:value property="attributeType1" decoder="String" data="#/attributeDetails1/attributeType1" />   
+		<jb:value property="attributeDescription1" decoder="String" data="#/attributeDetails1/attributeDescription1" />
+		<jb:value property="language1" decoder="String" data="#/attributeDetails1/language1" />
+		<jb:value property="encoding1" decoder="String" data="#/attributeDetails1/encoding1" />
+		<jb:value property="source1" decoder="String" data="#/attributeDetails1/source1" />		
+		<jb:value property="attributeType2" decoder="String" data="#/attributeDetails2/attributeType2" />   
+		<jb:value property="attributeDescription2" decoder="String" data="#/attributeDetails2/attributeDescription2" />
+		<jb:value property="language2" decoder="String" data="#/attributeDetails2/language2" />
+		<jb:value property="encoding2" decoder="String" data="#/attributeDetails2/encoding2" />
+		<jb:value property="source2" decoder="String" data="#/attributeDetails2/source2" />		
+		<jb:value property="attributeType3" decoder="String" data="#/attributeDetails3/attributeType3" />   
+		<jb:value property="attributeDescription3" decoder="String" data="#/attributeDetails3/attributeDescription3" />
+		<jb:value property="language3" decoder="String" data="#/attributeDetails3/language3" />
+		<jb:value property="encoding3" decoder="String" data="#/attributeDetails3/encoding3" />
+		<jb:value property="source3" decoder="String" data="#/attributeDetails3/source3" />		
+		<jb:value property="attributeType4" decoder="String" data="#/attributeDetails4/attributeType4" />   
+		<jb:value property="attributeDescription4" decoder="String" data="#/attributeDetails4/attributeDescription4" />
+		<jb:value property="language4" decoder="String" data="#/attributeDetails4/language4" />
+		<jb:value property="encoding4" decoder="String" data="#/attributeDetails4/encoding4" />
+		<jb:value property="source4" decoder="String" data="#/attributeDetails4/source4" />		
+		<jb:value property="attributeType5" decoder="String" data="#/attributeDetails5/attributeType5" />   
+		<jb:value property="attributeDescription5" decoder="String" data="#/attributeDetails5/attributeDescription5" />
+		<jb:value property="language5" decoder="String" data="#/attributeDetails5/language5" />
+		<jb:value property="encoding5" decoder="String" data="#/attributeDetails5/encoding5" />
+		<jb:value property="source5" decoder="String" data="#/attributeDetails5/source5" />		
+		<jb:value property="attributeType6" decoder="String" data="#/attributeDetails6/attributeType6" />   
+		<jb:value property="attributeDescription6" decoder="String" data="#/attributeDetails6/attributeDescription6" />
+		<jb:value property="language6" decoder="String" data="#/attributeDetails6/language6" />
+		<jb:value property="encoding6" decoder="String" data="#/attributeDetails6/encoding6" />
+		<jb:value property="source6" decoder="String" data="#/attributeDetails6/source6" />		
+		<jb:value property="attributeType7" decoder="String" data="#/attributeDetails7/attributeType7" />   
+		<jb:value property="attributeDescription7" decoder="String" data="#/attributeDetails7/attributeDescription7" />
+		<jb:value property="language7" decoder="String" data="#/attributeDetails7/language7" />
+		<jb:value property="encoding7" decoder="String" data="#/attributeDetails7/encoding7" />
+		<jb:value property="source7" decoder="String" data="#/attributeDetails7/source7" />		
+		<jb:value property="attributeType8" decoder="String" data="#/attributeDetails8/attributeType8" />   
+		<jb:value property="attributeDescription8" decoder="String" data="#/attributeDetails8/attributeDescription8" />
+		<jb:value property="language8" decoder="String" data="#/attributeDetails8/language8" />
+		<jb:value property="encoding8" decoder="String" data="#/attributeDetails8/encoding8" />
+		<jb:value property="source8" decoder="String" data="#/attributeDetails8/source8" />		
+		<jb:wiring property="paymentFlow1" beanIdRef="XSBCSTX" />
+		<jb:wiring property="itemReferencesAndVersions" beanIdRef="XSBCIRVLIST" />
+		<jb:wiring property="dummy" beanIdRef="XSBCDUM" />
+		<jb:wiring property="totalCharges" beanIdRef="XSBCMON" />
+		<jb:wiring property="gst" beanIdRef="XSBCTXD" />
+		<jb:wiring property="waiverAuthorisation" beanIdRef="XSBCIFT" />
+		<jb:wiring property="paymentDetails" beanIdRef="XSBCFOP" />
+		<jb:wiring property="frequentFlyerInformation" beanIdRef="XSBCFTI" />
+		<jb:wiring property="nomineeDetails" beanIdRef="XSBCTIF" />
+		<jb:wiring property="enhancedCustomerData2" beanIdRef="XSBCETI" />
+		<jb:wiring property="sectorOriginAndDestination" beanIdRef="XSBCODILIST" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBCSTX" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusDetails" createOnElement="paymentFlow1">
+        <jb:value property="indicator1" decoder="String" data="#/statusInformation1/indicator1" />
+		<jb:value property="action1" decoder="String" data="#/statusInformation1/action1" />
+		<jb:value property="statusType1" decoder="String" data="#/statusInformation1/statusType1" />
+		<jb:value property="freeText1" decoder="String" data="#/statusInformation1/freeText1" />
+		<jb:value property="indicator2" decoder="String" data="#/statusInformation2/indicator2" />
+		<jb:value property="action2" decoder="String" data="#/statusInformation2/action2" />
+		<jb:value property="statusType2" decoder="String" data="#/statusInformation2/statusType2" />
+		<jb:value property="freeText2" decoder="String" data="#/statusInformation2/freeText2" />
+		<jb:value property="indicator3" decoder="String" data="#/statusInformation3/indicator3" />
+     	<jb:value property="action3" decoder="String" data="#/statusInformation3/action3" />
+     	<jb:value property="statusType3" decoder="String" data="#/statusInformation3/statusType3" />
+		<jb:value property="freeText3" decoder="String" data="#/statusInformation3/freeText3" />		
+		<jb:value property="indicator4" decoder="String" data="#/statusInformation4/indicator4" />
+     	<jb:value property="action4" decoder="String" data="#/statusInformation4/action4" />
+     	<jb:value property="statusType4" decoder="String" data="#/statusInformation4/statusType4" />
+		<jb:value property="freeText4" decoder="String" data="#/statusInformation4/freeText4" />		
+		<jb:value property="indicator5" decoder="String" data="#/statusInformation5/indicator5" />
+     	<jb:value property="action5" decoder="String" data="#/statusInformation5/action5" />
+     	<jb:value property="statusType5" decoder="String" data="#/statusInformation5/statusType5" />
+		<jb:value property="freeText5" decoder="String" data="#/statusInformation5/freeText5" />		
+		<jb:value property="indicator6" decoder="String" data="#/statusInformation6/indicator6" />
+     	<jb:value property="action6" decoder="String" data="#/statusInformation6/action6" />
+     	<jb:value property="statusType6" decoder="String" data="#/statusInformation6/statusType6" />
+		<jb:value property="freeText6" decoder="String" data="#/statusInformation6/freeText6" />		
+		<jb:value property="indicator7" decoder="String" data="#/statusInformation7/indicator7" />
+     	<jb:value property="action7" decoder="String" data="#/statusInformation7/action7" />
+     	<jb:value property="statusType7" decoder="String" data="#/statusInformation7/statusType7" />
+		<jb:value property="freeText7" decoder="String" data="#/statusInformation7/freeText7" />		
+		<jb:value property="indicator8" decoder="String" data="#/statusInformation8/indicator8" />
+     	<jb:value property="action8" decoder="String" data="#/statusInformation8/action8" />
+     	<jb:value property="statusType8" decoder="String" data="#/statusInformation8/statusType8" />
+		<jb:value property="freeText8" decoder="String" data="#/statusInformation8/freeText8" />		
+		<jb:value property="indicator9" decoder="String" data="#/statusInformation9/indicator9" />
+     	<jb:value property="action9" decoder="String" data="#/statusInformation9/action9" />
+     	<jb:value property="statusType9" decoder="String" data="#/statusInformation9/statusType9" />
+		<jb:value property="freeText9" decoder="String" data="#/statusInformation9/freeText9" />
+		<jb:value property="indicator10" decoder="String" data="#/statusInformation10/indicator10" />
+     	<jb:value property="action10" decoder="String" data="#/statusInformation10/action10" />
+     	<jb:value property="statusType10" decoder="String" data="#/statusInformation10/statusType10" />
+		<jb:value property="freeText10" decoder="String" data="#/statusInformation10/freeText10" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBCIRVLIST" class="java.util.ArrayList" createOnElement="statusIndicators">
+        <jb:wiring beanIdRef="XSBCIRV" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBCIRV" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ItemReferencesAndVersions1" createOnElement="itemReferencesAndVersions">
+		<jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber" decoder="String" data="#/referenceNumber" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="deliveringSystemIdentification" decoder="String" data="#/idSection/deliveringSystemIdentification" />
+        <jb:value property="referenceVersionNumber" decoder="String" data="#/idSection/referenceVersionNumber" />
+		<jb:value property="uniqueIdReferenceQualifier" decoder="String" data="#/idSection/uniqueIdReferenceQualifier" />
+        <jb:value property="primeId" decoder="String" data="#/idSection/primeId" />
+		<jb:value property="uniqueIdReferenceNumber" decoder="String" data="#/idSection/uniqueIdReferenceNumber" />
+        <jb:value property="status" decoder="String" data="#/idSection/status" />
+		<jb:value property="yearNumber" decoder="Integer" data="#/idSection/yearNumber" />
+        <jb:value property="monthNumber" decoder="Integer" data="#/idSection/monthNumber" />
+		<jb:value property="dayNumber" decoder="Integer" data="#/idSection/dayNumber" />
+        <jb:value property="hours" decoder="Integer" data="#/idSection/hours" />
+		<jb:value property="minutes" decoder="Integer" data="#/idSection/minutes" />
+        <jb:value property="freeText" decoder="String" data="#/idSection/freeText" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBCDUM" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.Dummy" createOnElement="dummy">
+	</jb:bean>
+	
+	<jb:bean beanId="XSBCMON" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.MonetaryInformation" createOnElement="totalCharges">
+	    <jb:value property="typeQualifier" decoder="String" data="#/monetaryDetails/typeQualifier" />
+        <jb:value property="amount" decoder="Double" data="#/monetaryDetails/amount" />
+        <jb:value property="currency" decoder="String" data="#/monetaryDetails/currency" />
+        <jb:value property="locationIdentification" decoder="String" data="#/monetaryDetails/locationIdentification" />		
+		<jb:value property="otherTypeQualifier1" decoder="String" data="#/otherMonetaryDetails1/otherTypeQualifier1" />
+        <jb:value property="otherAmount1" decoder="Double" data="#/otherMonetaryDetails1/otherAmount1" />
+        <jb:value property="otherCurrency1" decoder="String" data="#/otherMonetaryDetails1/otherCurrency1" />
+        <jb:value property="otherLocationIdentification1" decoder="String" data="#/otherMonetaryDetails1/otherLocationIdentification1" />		
+		<jb:value property="otherTypeQualifier2" decoder="String" data="#/otherMonetaryDetails2/otherTypeQualifier2" />
+        <jb:value property="otherAmount2" decoder="Double" data="#/otherMonetaryDetails2/otherAmount2" />
+        <jb:value property="otherCurrency2" decoder="String" data="#/otherMonetaryDetails2/otherCurrency2" />
+        <jb:value property="otherLocationIdentification2" decoder="String" data="#/otherMonetaryDetails2/otherLocationIdentification2" />		
+		<jb:value property="otherTypeQualifier3" decoder="String" data="#/otherMonetaryDetails3/otherTypeQualifier3" />
+        <jb:value property="otherAmount3" decoder="Double" data="#/otherMonetaryDetails3/otherAmount3" />
+        <jb:value property="otherCurrency3" decoder="String" data="#/otherMonetaryDetails3/otherCurrency3" />
+        <jb:value property="otherLocationIdentification3" decoder="String" data="#/otherMonetaryDetails3/otherLocationIdentification3" />		
+		<jb:value property="otherTypeQualifier4" decoder="String" data="#/otherMonetaryDetails4/otherTypeQualifier4" />
+        <jb:value property="otherAmount4" decoder="Double" data="#/otherMonetaryDetails4/otherAmount4" />
+        <jb:value property="otherCurrency4" decoder="String" data="#/otherMonetaryDetails4/otherCurrency4" />
+        <jb:value property="otherLocationIdentification4" decoder="String" data="#/otherMonetaryDetails4/otherLocationIdentification4" />		
+		<jb:value property="otherTypeQualifier5" decoder="String" data="#/otherMonetaryDetails5/otherTypeQualifier5" />
+        <jb:value property="otherAmount5" decoder="Double" data="#/otherMonetaryDetails5/otherAmount5" />
+        <jb:value property="otherCurrency5" decoder="String" data="#/otherMonetaryDetails5/otherCurrency5" />
+        <jb:value property="otherLocationIdentification5" decoder="String" data="#/otherMonetaryDetails5/otherLocationIdentification5" />		
+		<jb:value property="otherTypeQualifier6" decoder="String" data="#/otherMonetaryDetails6/otherTypeQualifier6" />
+        <jb:value property="otherAmount6" decoder="Double" data="#/otherMonetaryDetails6/otherAmount6" />
+        <jb:value property="otherCurrency6" decoder="String" data="#/otherMonetaryDetails6/otherCurrency6" />
+        <jb:value property="otherLocationIdentification6" decoder="String" data="#/otherMonetaryDetails6/otherLocationIdentification6" />		
+		<jb:value property="otherTypeQualifier7" decoder="String" data="#/otherMonetaryDetails7/otherTypeQualifier7" />
+        <jb:value property="otherAmount7" decoder="Double" data="#/otherMonetaryDetails7/otherAmount7" />
+        <jb:value property="otherCurrency7" decoder="String" data="#/otherMonetaryDetails7/otherCurrency7" />
+        <jb:value property="otherLocationIdentification7" decoder="String" data="#/otherMonetaryDetails7/otherLocationIdentification7" />		
+		<jb:value property="otherTypeQualifier8" decoder="String" data="#/otherMonetaryDetails8/otherTypeQualifier8" />
+        <jb:value property="otherAmount8" decoder="Double" data="#/otherMonetaryDetails8/otherAmount8" />
+        <jb:value property="otherCurrency8" decoder="String" data="#/otherMonetaryDetails8/otherCurrency8" />
+        <jb:value property="otherLocationIdentification8" decoder="String" data="#/otherMonetaryDetails8/otherLocationIdentification8" />		
+		<jb:value property="otherTypeQualifier9" decoder="String" data="#/otherMonetaryDetails9/otherTypeQualifier9" />
+        <jb:value property="otherAmount9" decoder="Double" data="#/otherMonetaryDetails9/otherAmount9" />
+        <jb:value property="otherCurrency9" decoder="String" data="#/otherMonetaryDetails9/otherCurrency9" />
+        <jb:value property="otherLocationIdentification9" decoder="String" data="#/otherMonetaryDetails9/otherLocationIdentification9" />		
+		<jb:value property="otherTypeQualifier10" decoder="String" data="#/otherMonetaryDetails10/otherTypeQualifier10" />
+        <jb:value property="otherAmount10" decoder="Double" data="#/otherMonetaryDetails10/otherAmount10" />
+        <jb:value property="otherCurrency10" decoder="String" data="#/otherMonetaryDetails10/otherCurrency10" />
+        <jb:value property="otherLocationIdentification10" decoder="String" data="#/otherMonetaryDetails10/otherLocationIdentification10" />		
+		<jb:value property="otherTypeQualifier11" decoder="String" data="#/otherMonetaryDetails11/otherTypeQualifier11" />
+        <jb:value property="otherAmount11" decoder="Double" data="#/otherMonetaryDetails11/otherAmount11" />
+        <jb:value property="otherCurrency11" decoder="String" data="#/otherMonetaryDetails11/otherCurrency11" />
+        <jb:value property="otherLocationIdentification11" decoder="String" data="#/otherMonetaryDetails11/otherLocationIdentification11" />		
+		<jb:value property="otherTypeQualifier12" decoder="String" data="#/otherMonetaryDetails12/otherTypeQualifier12" />
+        <jb:value property="otherAmount12" decoder="Double" data="#/otherMonetaryDetails12/otherAmount12" />
+        <jb:value property="otherCurrency12" decoder="String" data="#/otherMonetaryDetails12/otherCurrency12" />
+        <jb:value property="otherLocationIdentification12" decoder="String" data="#/otherMonetaryDetails12/otherLocationIdentification12" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBCTXD" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.Gst" createOnElement="gst">
+	    <jb:value property="dutyTaxFeeCategory" decoder="String" data="#/dutyTaxFeeCategory" />
+        <jb:value property="rate1" decoder="String" data="#/taxDetails1/rate1" />
+        <jb:value property="countryCode1" decoder="String" data="#/taxDetails1/countryCode1" />
+        <jb:value property="currency1" decoder="String" data="#/taxDetails1/currency1" />
+        <jb:value property="type1" decoder="String" data="#/taxDetails1/type1" />		
+		<jb:value property="rate2" decoder="String" data="#/taxDetails2/rate2" />
+        <jb:value property="countryCode2" decoder="String" data="#/taxDetails2/countryCode2" />
+        <jb:value property="currency2" decoder="String" data="#/taxDetails2/currency2" />
+        <jb:value property="type2" decoder="String" data="#/taxDetails2/type2" />		
+		<jb:value property="rate3" decoder="String" data="#/taxDetails3/rate3" />
+        <jb:value property="countryCode3" decoder="String" data="#/taxDetails3/countryCode3" />
+        <jb:value property="currency3" decoder="String" data="#/taxDetails3/currency3" />
+        <jb:value property="type3" decoder="String" data="#/taxDetails3/type3" />		
+		<jb:value property="rate4" decoder="String" data="#/taxDetails4/rate4" />
+        <jb:value property="countryCode4" decoder="String" data="#/taxDetails4/countryCode4" />
+        <jb:value property="currency4" decoder="String" data="#/taxDetails4/currency4" />
+        <jb:value property="type4" decoder="String" data="#/taxDetails4/type4" />		
+		<jb:value property="rate5" decoder="String" data="#/taxDetails5/rate5" />
+        <jb:value property="countryCode5" decoder="String" data="#/taxDetails5/countryCode5" />
+        <jb:value property="currency5" decoder="String" data="#/taxDetails5/currency5" />
+        <jb:value property="type5" decoder="String" data="#/taxDetails5/type5" />		
+		<jb:value property="rate6" decoder="String" data="#/taxDetails6/rate6" />
+        <jb:value property="countryCode6" decoder="String" data="#/taxDetails6/countryCode6" />
+        <jb:value property="currency6" decoder="String" data="#/taxDetails6/currency6" />
+        <jb:value property="type6" decoder="String" data="#/taxDetails6/type6" />		
+		<jb:value property="rate7" decoder="String" data="#/taxDetails7/rate7" />
+        <jb:value property="countryCode7" decoder="String" data="#/taxDetails7/countryCode7" />
+        <jb:value property="currency7" decoder="String" data="#/taxDetails7/currency7" />
+        <jb:value property="type7" decoder="String" data="#/taxDetails7/type7" />		
+		<jb:value property="rate8" decoder="String" data="#/taxDetails8/rate8" />
+        <jb:value property="countryCode" decoder="String" data="#/taxDetails8/countryCode8" />
+        <jb:value property="currency8" decoder="String" data="#/taxDetails8/currency8" />
+        <jb:value property="type8" decoder="String" data="#/taxDetails8/type8" />		
+		<jb:value property="rate9" decoder="String" data="#/taxDetails9/rate9" />
+        <jb:value property="countryCode9" decoder="String" data="#/taxDetails9/countryCode9" />
+        <jb:value property="currency9" decoder="String" data="#/taxDetails9/currency9" />
+        <jb:value property="type9" decoder="String" data="#/taxDetails9/type9" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBCIFT" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.InteractiveFreeText" createOnElement="waiverAuthorisation">
+		<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextQualification/textSubjectQualifier" />              
+		<jb:value property="informationType" decoder="String" data="#/freeTextQualification/informationType" />   
+		<jb:value property="status" decoder="String" data="#/freeTextQualification/status" />
+		<jb:value property="companyIdentification" decoder="String" data="#/freeTextQualification/companyIdentification" />
+		<jb:value property="language" decoder="String" data="#/freeTextQualification/language" />
+		<jb:value property="freeText1" decoder="String" data="#/freeText1" />
+		<jb:value property="freeText2" decoder="String" data="#/freeText2" />
+		<jb:value property="freeText3" decoder="String" data="#/freeText3" />
+		<jb:value property="freeText4" decoder="String" data="#/freeText4" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBCFOP" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.PaymentDetails" createOnElement="paymentDetails">
+		<jb:value property="type" decoder="String" data="#/formOfPayment/type" />
+		<jb:value property="dataIndicator" decoder="String" data="#/formOfPayment/dataIndicator" />
+		<jb:value property="monetaryAmount1" decoder="Integer" data="#/formOfPayment/monetaryAmount1" />
+		<jb:value property="vendorCode" decoder="String" data="#/formOfPayment/vendorCode" />
+		<jb:value property="referenceNumber" decoder="String" data="#/formOfPayment/referenceNumber" />
+		<jb:value property="firstDate" decoder="String" data="#/formOfPayment/firstDate" />
+		<jb:value property="approvalIdentification" decoder="String" data="#/formOfPayment/approvalIdentification" />
+		<jb:value property="source" decoder="String" data="#/formOfPayment/source" />
+		<jb:value property="monetaryAmount2" decoder="Integer" data="#/formOfPayment/monetaryAmount2" />
+		<jb:value property="verification" decoder="String" data="#/formOfPayment/verification" />
+		<jb:value property="accountHolderNumber" decoder="String" data="#/formOfPayment/accountHolderNumber" />
+		<jb:value property="paymentTimeReference" decoder="String" data="#/formOfPayment/paymentTimeReference" />
+		<jb:value property="freeText" decoder="String" data="#/formOfPayment/freeText" />
+		<jb:value property="membershipStatus" decoder="String" data="#/formOfPayment/membershipStatus" />
+		<jb:value property="transactionInformation" decoder="String" data="#/formOfPayment/transactionInformation" />
+		<jb:value property="pinCode" decoder="String" data="#/formOfPayment/pinCode" />
+		<jb:value property="pinCodeType" decoder="String" data="#/formOfPayment/pinCodeType" />
+		<jb:value property="formOfPaymentIdentification" decoder="String" data="#/formOfPaymentDetails/formOfPaymentIdentification" />
+		<jb:value property="paymentDetDataIndicator" decoder="String" data="#/formOfPaymentDetails/paymentDetDataIndicator" />
+		<jb:value property="paymentDetMonetaryAmount1" decoder="Integer" data="#/formOfPaymentDetails/paymentDetMonetaryAmount1" />
+		<jb:value property="companyIdentification" decoder="String" data="#/formOfPaymentDetails/companyIdentification" />
+		<jb:value property="paymentDetReferenceNumber" decoder="String" data="#/formOfPaymentDetails/paymentDetReferenceNumber" />
+		<jb:value property="paymentDetFirstDate" decoder="String" data="#/formOfPaymentDetails/paymentDetFirstDate" />
+		<jb:value property="paymentDetApprovalIdentification" decoder="String" data="#/formOfPaymentDetails/paymentDetApprovalIdentification" />
+		<jb:value property="paymentDetSource" decoder="String" data="#/formOfPaymentDetails/paymentDetSource" />
+		<jb:value property="paymentDetMonetaryAmount2" decoder="Integer" data="#/formOfPaymentDetails/paymentDetMonetaryAmount2" />
+		<jb:value property="paymentDetVerification" decoder="String" data="#/formOfPaymentDetails/paymentDetVerification" />
+		<jb:value property="paymentDetAccountHolderNumber" decoder="String" data="#/formOfPaymentDetails/paymentDetAccountHolderNumber" />
+		<jb:value property="paymentDetPaymentTimeReference" decoder="String" data="#/formOfPaymentDetails/paymentDetPaymentTimeReference" />
+		<jb:value property="paymentDetFreeText" decoder="String" data="#/formOfPaymentDetails/paymentDetFreeText" />
+		<jb:value property="paymentDetMembershipStatus" decoder="String" data="#/formOfPaymentDetails/paymentDetMembershipStatus" />
+		<jb:value property="paymentDetTransactionInformation" decoder="String" data="#/formOfPaymentDetails/paymentDetTransactionInformation" />
+		<jb:value property="paymentDetPincode" decoder="String" data="#/formOfPaymentDetails/paymentDetPincode" />
+		<jb:value property="paymentDetPincodeType" decoder="String" data="#/formOfPaymentDetails/paymentDetPincodeType" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBCFTI" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.FrequentFlyerInformation" createOnElement="frequentFlyerInformation">
+		<jb:value property="carrier" decoder="String" data="#/frequentTravellerDetails/carrier" />
+		<jb:value property="number" decoder="String" data="#/frequentTravellerDetails/number" />
+		<jb:value property="travellerReferenceNumber" decoder="String" data="#/frequentTravellerDetails/travellerReferenceNumber" />
+		<jb:value property="status" decoder="String" data="#/frequentTravellerDetails/status" />
+		<jb:value property="tierLevel" decoder="String" data="#/frequentTravellerDetails/tierLevel" />
+		<jb:value property="priorityCode" decoder="String" data="#/frequentTravellerDetails/priorityCode" />
+		<jb:value property="tierDescription" decoder="String" data="#/frequentTravellerDetails/tierDescription" />
+		<jb:value property="companyIdentification" decoder="String" data="#/frequentTravellerDetails/companyIdentification" />
+		<jb:value property="passengerPriority" decoder="Integer" data="#/frequentTravellerDetails/passengerPriority" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBCTIF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.NomineeDetails" createOnElement="nomineeDetails">
+		<jb:value property="surname" decoder="String" data="#/paxDetails/surname" />   
+		<jb:value property="type" decoder="String" data="#/paxDetails/type" />
+		<jb:value property="quantity" decoder="Integer" data="#/paxDetails/quantity" /> 
+		<jb:value property="gender" decoder="String" data="#/paxDetails/gender" />   
+		<jb:value property="givenName" decoder="String" data="#/otherPaxDetails/givenName" />   
+		<jb:value property="numberOfUnitsQualifier" decoder="String" data="#/otherPaxDetails/numberOfUnitsQualifier" />   
+		<jb:value property="travellerReferenceNumber" decoder="String" data="#/otherPaxDetails/travellerReferenceNumber" />
+		<jb:value property="travellerAccompaniedByInfant" decoder="String" data="#/otherPaxDetails/travellerAccompaniedByInfant" />
+		<jb:value property="title" decoder="String" data="#/otherPaxDetails/title" />
+		<jb:value property="age" decoder="String" data="#/otherPaxDetails/age" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBCETI" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.EnhancedCustomerData" createOnElement="enhancedCustomerData2">
+		<jb:value property="paxNumberOfUnitsQualifier" decoder="String" data="#/travellerNameInfo/paxNumberOfUnitsQualifier" />
+		<jb:value property="quantity" decoder="Integer" data="#/travellerNameInfo/quantity" />
+		<jb:value property="type" decoder="String" data="#/travellerNameInfo/type" />
+		<jb:value property="ptcNumberOfUnitsQualifier" decoder="String" data="#/travellerNameInfo/ptcNumberOfUnitsQualifier" />
+		<jb:value property="travellerReferenceNumber" decoder="String" data="#/travellerNameInfo/travellerReferenceNumber" />
+		<jb:value property="infantIndicator" decoder="String" data="#/travellerNameInfo/infantIndicator" />
+		<jb:value property="travellerIdentificationCode" decoder="String" data="#/travellerNameInfo/travellerIdentificationCode" />
+		<jb:value property="gender" decoder="String" data="#/travellerNameInfo/gender" />
+		<jb:value property="age" decoder="Integer" data="#/travellerNameInfo/age" />		
+		<jb:value property="nameType1" decoder="String" data="#/otherPaxNamesDetails1/nameType1" />
+		<jb:value property="referenceName1" decoder="String" data="#/otherPaxNamesDetails1/referenceName1" />
+		<jb:value property="displayedName1" decoder="String" data="#/otherPaxNamesDetails1/displayedName1" />
+		<jb:value property="romanizationMethod1" decoder="String" data="#/otherPaxNamesDetails1/romanizationMethod1" />
+		<jb:value property="surname1" decoder="String" data="#/otherPaxNamesDetails1/surname1" />
+		<jb:value property="givenName1" decoder="String" data="#/otherPaxNamesDetails1/givenName1" />
+		<jb:value property="title1" decoder="String" data="#/otherPaxNamesDetails1/title1" />	
+		<jb:value property="additionalTitle1" decoder="String" data="#/otherPaxNamesDetails1/additionalTitle1" />
+		<jb:value property="nameType2" decoder="String" data="#/otherPaxNamesDetails2/nameType2" />
+		<jb:value property="referenceName2" decoder="String" data="#/otherPaxNamesDetails2/referenceName2" />
+		<jb:value property="displayedName2" decoder="String" data="#/otherPaxNamesDetails2/displayedName2" />
+		<jb:value property="romanizationMethod2" decoder="String" data="#/otherPaxNamesDetails2/romanizationMethod2" />
+		<jb:value property="surname2" decoder="String" data="#/otherPaxNamesDetails2/surname2" />
+		<jb:value property="givenName2" decoder="String" data="#/otherPaxNamesDetails2/givenName2" />
+		<jb:value property="title2" decoder="String" data="#/otherPaxNamesDetails2/title2" />	
+		<jb:value property="additionalTitle2" decoder="String" data="#/otherPaxNamesDetails2/additionalTitle2" />		
+		<jb:value property="nameType3" decoder="String" data="#/otherPaxNamesDetails3/nameType3" />
+		<jb:value property="referenceName3" decoder="String" data="#/otherPaxNamesDetails3/referenceName3" />
+		<jb:value property="displayedName3" decoder="String" data="#/otherPaxNamesDetails3/displayedName3" />
+		<jb:value property="romanizationMethod3" decoder="String" data="#/otherPaxNamesDetails3/romanizationMethod3" />
+		<jb:value property="surname3" decoder="String" data="#/otherPaxNamesDetails3/surname3" />
+		<jb:value property="givenName3" decoder="String" data="#/otherPaxNamesDetails3/givenName3" />
+		<jb:value property="title3" decoder="String" data="#/otherPaxNamesDetails3/title3" />	
+		<jb:value property="additionalTitle3" decoder="String" data="#/otherPaxNamesDetails3/additionalTitle3" />		
+		<jb:value property="nameType4" decoder="String" data="#/otherPaxNamesDetails4/nameType4" />
+		<jb:value property="referenceName4" decoder="String" data="#/otherPaxNamesDetails4/referenceName4" />
+		<jb:value property="displayedName4" decoder="String" data="#/otherPaxNamesDetails4/displayedName4" />
+		<jb:value property="romanizationMethod4" decoder="String" data="#/otherPaxNamesDetails4/romanizationMethod4" />
+		<jb:value property="surname4" decoder="String" data="#/otherPaxNamesDetails4/surname4" />
+		<jb:value property="givenName4" decoder="String" data="#/otherPaxNamesDetails4/givenName4" />
+		<jb:value property="title4" decoder="String" data="#/otherPaxNamesDetails4/title4" />	
+		<jb:value property="additionalTitle4" decoder="String" data="#/otherPaxNamesDetails4/additionalTitle4" />		
+		<jb:value property="nameType5" decoder="String" data="#/otherPaxNamesDetails5/nameType5" />
+		<jb:value property="referenceName5" decoder="String" data="#/otherPaxNamesDetails5/referenceName5" />
+		<jb:value property="displayedName5" decoder="String" data="#/otherPaxNamesDetails5/displayedName5" />
+		<jb:value property="romanizationMethod5" decoder="String" data="#/otherPaxNamesDetails5/romanizationMethod5" />
+		<jb:value property="surname5" decoder="String" data="#/otherPaxNamesDetails5/surname5" />
+		<jb:value property="givenName5" decoder="String" data="#/otherPaxNamesDetails5/givenName5" />
+		<jb:value property="title5" decoder="String" data="#/otherPaxNamesDetails5/title5" />	
+		<jb:value property="additionalTitle5" decoder="String" data="#/otherPaxNamesDetails5/additionalTitle5" />			
+    </jb:bean>
+	
+	<jb:bean beanId="XSBCODILIST" class="java.util.ArrayList" createOnElement="statusIndicators">
+        <jb:wiring beanIdRef="XSBCODI" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBCODI" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.SectorOriginAndDestination" createOnElement="sectorOriginAndDestination">
+		<jb:value property="origin" decoder="String" data="#/origin" />
+		<jb:value property="destination" decoder="String" data="#/destination" />
+		<jb:wiring property="usDotFlag" beanIdRef="XSBSSTX" />
+		<jb:wiring property="allowanceValue" beanIdRef="XSBSPBDLIST" />
+		<jb:wiring property="quantityAndOriginalRate" beanIdRef="XSBSEBDLIST" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBSSTX" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusDetails" createOnElement="usDotFlag">
+        <jb:value property="indicator1" decoder="String" data="#/statusInformation1/indicator1" />
+		<jb:value property="action1" decoder="String" data="#/statusInformation1/action1" />
+		<jb:value property="statusType1" decoder="String" data="#/statusInformation1/statusType1" />
+		<jb:value property="freeText1" decoder="String" data="#/statusInformation1/freeText1" />
+		<jb:value property="indicator2" decoder="String" data="#/statusInformation2/indicator2" />
+		<jb:value property="action2" decoder="String" data="#/statusInformation2/action2" />
+		<jb:value property="statusType2" decoder="String" data="#/statusInformation2/statusType2" />
+		<jb:value property="freeText2" decoder="String" data="#/statusInformation2/freeText2" />
+		<jb:value property="indicator3" decoder="String" data="#/statusInformation3/indicator3" />
+     	<jb:value property="action3" decoder="String" data="#/statusInformation3/action3" />
+     	<jb:value property="statusType3" decoder="String" data="#/statusInformation3/statusType3" />
+		<jb:value property="freeText3" decoder="String" data="#/statusInformation3/freeText3" />		
+		<jb:value property="indicator4" decoder="String" data="#/statusInformation4/indicator4" />
+     	<jb:value property="action4" decoder="String" data="#/statusInformation4/action4" />
+     	<jb:value property="statusType4" decoder="String" data="#/statusInformation4/statusType4" />
+		<jb:value property="freeText4" decoder="String" data="#/statusInformation4/freeText4" />		
+		<jb:value property="indicator5" decoder="String" data="#/statusInformation5/indicator5" />
+     	<jb:value property="action5" decoder="String" data="#/statusInformation5/action5" />
+     	<jb:value property="statusType5" decoder="String" data="#/statusInformation5/statusType5" />
+		<jb:value property="freeText5" decoder="String" data="#/statusInformation5/freeText5" />		
+		<jb:value property="indicator6" decoder="String" data="#/statusInformation6/indicator6" />
+     	<jb:value property="action6" decoder="String" data="#/statusInformation6/action6" />
+     	<jb:value property="statusType6" decoder="String" data="#/statusInformation6/statusType6" />
+		<jb:value property="freeText6" decoder="String" data="#/statusInformation6/freeText6" />		
+		<jb:value property="indicator7" decoder="String" data="#/statusInformation7/indicator7" />
+     	<jb:value property="action7" decoder="String" data="#/statusInformation7/action7" />
+     	<jb:value property="statusType7" decoder="String" data="#/statusInformation7/statusType7" />
+		<jb:value property="freeText7" decoder="String" data="#/statusInformation7/freeText7" />		
+		<jb:value property="indicator8" decoder="String" data="#/statusInformation8/indicator8" />
+     	<jb:value property="action8" decoder="String" data="#/statusInformation8/action8" />
+     	<jb:value property="statusType8" decoder="String" data="#/statusInformation8/statusType8" />
+		<jb:value property="freeText8" decoder="String" data="#/statusInformation8/freeText8" />		
+		<jb:value property="indicator9" decoder="String" data="#/statusInformation9/indicator9" />
+     	<jb:value property="action9" decoder="String" data="#/statusInformation9/action9" />
+     	<jb:value property="statusType9" decoder="String" data="#/statusInformation9/statusType9" />
+		<jb:value property="freeText9" decoder="String" data="#/statusInformation9/freeText9" />
+		<jb:value property="indicator10" decoder="String" data="#/statusInformation10/indicator10" />
+     	<jb:value property="action10" decoder="String" data="#/statusInformation10/action10" />
+     	<jb:value property="statusType10" decoder="String" data="#/statusInformation10/statusType10" />
+		<jb:value property="freeText10" decoder="String" data="#/statusInformation10/freeText10" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBSPBDLIST" class="java.util.ArrayList" createOnElement="sectorOriginAndDestination">
+        <jb:wiring beanIdRef="XSBSPBD" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBSPBD" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.AllowanceValue" createOnElement="allowanceValue">
+		<jb:value property="number" decoder="Integer" data="#/checkedBaggageDetails/number" />              
+		<jb:value property="checkedBagWeight" decoder="Integer" data="#/checkedBaggageDetails/checkedBagWeight" />              
+		<jb:value property="unitQualifier" decoder="String" data="#/checkedBaggageDetails/unitQualifier" />              
+		<jb:value property="statusIndicator" decoder="String" data="#/checkedBaggageDetails/statusIndicator" />              
+		<jb:value property="numberOfPieces" decoder="Integer" data="#/handBaggageDetails/numberOfPieces" />              
+		<jb:value property="handBagWeight" decoder="Integer" data="#/handBaggageDetails/handBagWeight" />              
+		<jb:value property="measureUnitQualifier" decoder="String" data="#/handBaggageDetails/measureUnitQualifier" />              
+		<jb:value property="processingIndicator" decoder="String" data="#/baggageRefDetails/processingIndicator" />              
+		<jb:value property="identityNumber" decoder="String" data="#/baggageRefDetails/identityNumber" />              
+		<jb:value property="carrierIdentification" decoder="String" data="#/bagTagDetails/carrierIdentification" />
+		<jb:value property="tagSerialNumber" decoder="Integer" data="#/bagTagDetails/tagSerialNumber" />
+		<jb:value property="numberOfConsecutiveTagSerialNumber" decoder="Integer" data="#/bagTagDetails/numberOfConsecutiveTagSerialNumber" />
+		<jb:value property="placeOfDestination" decoder="String" data="#/bagTagDetails/placeOfDestination" />
+		<jb:value property="airlineCodeNumber" decoder="Integer" data="#/bagTagDetails/airlineCodeNumber" />
+		<jb:value property="onlineInterlineIndicator" decoder="Integer" data="#/bagTagDetails/onlineInterlineIndicator" />
+		<jb:wiring property="allowanceType" beanIdRef="XSBAATC" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBAATC" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.CodedAttribute" createOnElement="allowanceType">
+		<jb:value property="attributeFunctionCodeQualifier" decoder="String" data="#/attributeFunctionCodeQualifier" />              
+		<jb:value property="attributeType1" decoder="String" data="#/attributeDetails1/attributeType1" />   
+		<jb:value property="attributeDescription1" decoder="String" data="#/attributeDetails1/attributeDescription1" />
+		<jb:value property="language1" decoder="String" data="#/attributeDetails1/language1" />
+		<jb:value property="encoding1" decoder="String" data="#/attributeDetails1/encoding1" />
+		<jb:value property="source1" decoder="String" data="#/attributeDetails1/source1" />		
+		<jb:value property="attributeType2" decoder="String" data="#/attributeDetails2/attributeType2" />   
+		<jb:value property="attributeDescription2" decoder="String" data="#/attributeDetails2/attributeDescription2" />
+		<jb:value property="language2" decoder="String" data="#/attributeDetails2/language2" />
+		<jb:value property="encoding2" decoder="String" data="#/attributeDetails2/encoding2" />
+		<jb:value property="source2" decoder="String" data="#/attributeDetails2/source2" />		
+		<jb:value property="attributeType3" decoder="String" data="#/attributeDetails3/attributeType3" />   
+		<jb:value property="attributeDescription3" decoder="String" data="#/attributeDetails3/attributeDescription3" />
+		<jb:value property="language3" decoder="String" data="#/attributeDetails3/language3" />
+		<jb:value property="encoding3" decoder="String" data="#/attributeDetails3/encoding3" />
+		<jb:value property="source3" decoder="String" data="#/attributeDetails3/source3" />		
+		<jb:value property="attributeType4" decoder="String" data="#/attributeDetails4/attributeType4" />   
+		<jb:value property="attributeDescription4" decoder="String" data="#/attributeDetails4/attributeDescription4" />
+		<jb:value property="language4" decoder="String" data="#/attributeDetails4/language4" />
+		<jb:value property="encoding4" decoder="String" data="#/attributeDetails4/encoding4" />
+		<jb:value property="source4" decoder="String" data="#/attributeDetails4/source4" />		
+		<jb:value property="attributeType5" decoder="String" data="#/attributeDetails5/attributeType5" />   
+		<jb:value property="attributeDescription5" decoder="String" data="#/attributeDetails5/attributeDescription5" />
+		<jb:value property="language5" decoder="String" data="#/attributeDetails5/language5" />
+		<jb:value property="encoding5" decoder="String" data="#/attributeDetails5/encoding5" />
+		<jb:value property="source5" decoder="String" data="#/attributeDetails5/source5" />		
+		<jb:value property="attributeType6" decoder="String" data="#/attributeDetails6/attributeType6" />   
+		<jb:value property="attributeDescription6" decoder="String" data="#/attributeDetails6/attributeDescription6" />
+		<jb:value property="language6" decoder="String" data="#/attributeDetails6/language6" />
+		<jb:value property="encoding6" decoder="String" data="#/attributeDetails6/encoding6" />
+		<jb:value property="source6" decoder="String" data="#/attributeDetails6/source6" />		
+		<jb:value property="attributeType7" decoder="String" data="#/attributeDetails7/attributeType7" />   
+		<jb:value property="attributeDescription7" decoder="String" data="#/attributeDetails7/attributeDescription7" />
+		<jb:value property="language7" decoder="String" data="#/attributeDetails7/language7" />
+		<jb:value property="encoding7" decoder="String" data="#/attributeDetails7/encoding7" />
+		<jb:value property="source7" decoder="String" data="#/attributeDetails7/source7" />		
+		<jb:value property="attributeType8" decoder="String" data="#/attributeDetails8/attributeType8" />   
+		<jb:value property="attributeDescription8" decoder="String" data="#/attributeDetails8/attributeDescription8" />
+		<jb:value property="language8" decoder="String" data="#/attributeDetails8/language8" />
+		<jb:value property="encoding8" decoder="String" data="#/attributeDetails8/encoding8" />
+		<jb:value property="source8" decoder="String" data="#/attributeDetails8/source8" />		
+	</jb:bean>
+	
+	<jb:bean beanId="XSBSEBDLIST" class="java.util.ArrayList" createOnElement="sectorOriginAndDestination">
+        <jb:wiring beanIdRef="XSBSEBD" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBSEBD" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.QuantityAndOriginalRate" createOnElement="quantityAndOriginalRate">
+	    <jb:value property="currency" decoder="String" data="#/excessBaggageDetails/currency" />
+        <jb:value property="amount" decoder="Double" data="#/excessBaggageDetails/amount" />
+        <jb:value property="processIndicator" decoder="Integer" data="#/excessBaggageDetails/processIndicator" />
+        <jb:value property="firstQuantity" decoder="Integer" data="#/baggageDetails1/firstQuantity" />
+        <jb:value property="measurement" decoder="Integer" data="#/baggageDetails1/measurement" />
+        <jb:value property="quantityCode" decoder="String" data="#/baggageDetails1/quantityCode" />
+        <jb:value property="unitQualifier" decoder="String" data="#/baggageDetails1/unitQualifier" />
+        <jb:value property="firstProcessingIndicator" decoder="String" data="#/baggageDetails1/firstProcessingIndicator" />
+        <jb:value property="secondQuantity" decoder="Integer" data="#/baggageDetails2/secondQuantity" />
+        <jb:value property="secondMeasurementValue" decoder="Integer" data="#/baggageDetails2/secondMeasurementValue" />
+        <jb:value property="secondAllowanceChargeQualifier" decoder="String" data="#/baggageDetails2/secondAllowanceChargeQualifier" />
+        <jb:value property="secondMeasureUnitQualifier" decoder="String" data="#/baggageDetails2/secondMeasureUnitQualifier" />
+        <jb:value property="secondProcessingIndicator" decoder="String" data="#/baggageDetails2/secondProcessingIndicator" />		
+		<jb:value property="thirdQuantity" decoder="Integer" data="#/baggageDetails3/thirdQuantity" />
+        <jb:value property="thirdMeasurementValue" decoder="Integer" data="#/baggageDetails3/thirdMeasurementValue" />
+        <jb:value property="thirdAllowanceChargeQualifier" decoder="String" data="#/baggageDetails3/thirdAllowanceChargeQualifier" />
+        <jb:value property="thirdMeasureUnitQualifier" decoder="String" data="#/baggageDetails3/thirdMeasureUnitQualifier" />
+        <jb:value property="thirdProcessingIndicator" decoder="String" data="#/baggageDetails3/thirdProcessingIndicator" />		
+        <jb:value property="companyIdentification" decoder="String" data="#/bagTagDetails/companyIdentification" />
+        <jb:value property="itemNumber" decoder="String" data="#/bagTagDetails/itemNumber" />
+        <jb:value property="totalNumberOfItems" decoder="Integer" data="#/bagTagDetails/totalNumberOfItems" />
+        <jb:value property="locationIdentification" decoder="String" data="#/bagTagDetails/locationIdentification" />
+        <jb:value property="companyIdentificationNumber" decoder="String" data="#/bagTagDetails/companyIdentificationNumber" />
+        <jb:value property="dataIndicator" decoder="String" data="#/bagTagDetails/dataIndicator" />
+        <jb:value property="itemCharacteristic" decoder="String" data="#/bagTagDetails/itemCharacteristic" />
+        <jb:value property="specialRequirementType" decoder="String" data="#/bagTagDetails/specialRequirementType" />
+        <jb:value property="measurementValue" decoder="Integer" data="#/bagTagDetails/measurementValue" />
+        <jb:value property="measureUnitQualifier" decoder="String" data="#/bagTagDetails/measureUnitQualifier" />
+        <jb:value property="freeText" decoder="String" data="#/bagTagDetails/freeText" />
+        <jb:value property="dayNumber" decoder="Integer" data="#/bagTagDetails/dayNumber" />
+        <jb:value property="referenceNumber" decoder="String" data="#/bagTagDetails/referenceNumber" />
+        <jb:value property="identityNumber" decoder="String" data="#/bagTagDetails/identityNumber" />
+	    <jb:wiring property="additionalInformation" beanIdRef="XSBIPTK" /> 
+	    <jb:wiring property="rfiscInfo" beanIdRef="XSBIIRV1" />
+	    <jb:wiring property="transitPoint" beanIdRef="XSBIODI" /> 
+	    <jb:wiring property="routingDetails" beanIdRef="XSBITVL" /> 
+	    <jb:wiring property="monetaryInformation" beanIdRef="XSBIMON" /> 
+	    <jb:wiring property="xsbItemId" beanIdRef="XSBIIRV" /> 
+	    <jb:wiring property="viaCarrier" beanIdRef="XSBITRA" /> 
+	    <jb:wiring property="monetaryInformation1" beanIdRef="XSBIMON1" />
+	    <jb:wiring property="paymentDocumentNumber" beanIdRef="XSBITKT" /> 
+	    <jb:wiring property="bagDetails" beanIdRef="XSBIBTI" /> 
+	    <jb:wiring property="statuses" beanIdRef="XSBISTX" /> 
+	    <jb:wiring property="attributes" beanIdRef="XSBISSRLIST" /> 
+	    <jb:wiring property="extraCount" beanIdRef="XSBIREF" /> 
+	    <jb:wiring property="waiveDetails" beanIdRef="XSBITXF" /> 
+	    <jb:wiring property="paymentDetails1" beanIdRef="XSBIFOP" />  
+	</jb:bean> 
+	
+	<jb:bean beanId="XSBIPTK" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.AdditionalInformation" createOnElement="additionalInformation">
+		<jb:value property="indicators" decoder="String" data="#/priceTicketDetails/indicators" />
+		<jb:value property="priceTariffType" decoder="String" data="#/priceTariffType" />
+		<jb:value property="firstDate" decoder="String" data="#/productDateTime/firstDate" />
+		<jb:value property="firstTime" decoder="Integer" data="#/productDateTime/firstTime" />
+		<jb:value property="secondDate" decoder="String" data="#/productDateTime/secondDate" />
+		<jb:value property="secondTime" decoder="Integer" data="#/productDateTime/secondTime" />
+		<jb:value property="dateVariation" decoder="Integer" data="#/productDateTime/dateVariation" />
+		<jb:value property="marketingCompany" decoder="String" data="#/companyDetails/marketingCompany" />
+		<jb:value property="companyIdentification" decoder="String" data="#/companyDetails/companyIdentification" />
+		<jb:value property="otherCompany" decoder="String" data="#/companyDetails/otherCompany"/>
+		<jb:value property="companyIdentificationNumber1" decoder="String" data="#/companyIdentificationNumbers/companyIdentificationNumber1" />
+		<jb:value property="companyIdentificationNumber2" decoder="String" data="#/companyIdentificationNumbers/companyIdentificationNumber2" />
+		<jb:value property="locationIdentification1" decoder="String" data="#/locationDetails1/locationIdentification1" />
+		<jb:value property="country1" decoder="String" data="#/locationDetails1/country1" />
+		<jb:value property="locationIdentification2" decoder="String" data="#/locationDetails2/locationIdentification2" />
+		<jb:value property="country2" decoder="String" data="#/locationDetails2/country2" />
+		<jb:value property="identityNumber" decoder="String" data="#/identityNumber" />
+		<jb:value property="monetaryAmount" decoder="Integer" data="#/monetaryAmount" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBIODI" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.TransitPoint" createOnElement="transitPoint">
+		<jb:value property="origin" decoder="String" data="#/origin" />   
+		<jb:value property="destination" decoder="String" data="#/destination" />
+    </jb:bean>
+    
+    <jb:bean beanId="XSBIIRV1" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ItemReferencesAndVersions1" createOnElement="rfiscInfo">
+		<jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber" decoder="String" data="#/referenceNumber" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="deliveringSystemIdentification" decoder="String" data="#/idSection/deliveringSystemIdentification" />
+        <jb:value property="referenceVersionNumber" decoder="String" data="#/idSection/referenceVersionNumber" />
+		<jb:value property="uniqueIdReferenceQualifier" decoder="String" data="#/idSection/uniqueIdReferenceQualifier" />
+        <jb:value property="primeId" decoder="String" data="#/idSection/primeId" />
+		<jb:value property="uniqueIdReferenceNumber" decoder="String" data="#/idSection/uniqueIdReferenceNumber" />
+        <jb:value property="status" decoder="String" data="#/idSection/status" />
+		<jb:value property="yearNumber" decoder="Integer" data="#/idSection/yearNumber" />
+        <jb:value property="monthNumber" decoder="Integer" data="#/idSection/monthNumber" />
+		<jb:value property="dayNumber" decoder="Integer" data="#/idSection/dayNumber" />
+        <jb:value property="hours" decoder="Integer" data="#/idSection/hours" />
+		<jb:value property="minutes" decoder="Integer" data="#/idSection/minutes" />
+        <jb:value property="freeText" decoder="String" data="#/idSection/freeText" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBITVL" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.RoutingDetails" createOnElement="routingDetails">
+		<jb:value property="departureDate" decoder="String" data="#/flightDate/departureDate" />
+        <jb:value property="firstTime" decoder="Integer" data="#/flightDate/firstTime" />
+        <jb:value property="secondDate" decoder="String" data="#/flightDate/secondDate" />
+        <jb:value property="secondTime" decoder="Integer" data="#/flightDate/secondTime" />
+        <jb:value property="dateVariation" decoder="Integer" data="#/flightDate/dateVariation" />
+		<jb:value property="trueLocationId" decoder="String" data="#/boardPointDetails/trueLocationId" />
+		<jb:value property="boardPointLocation" decoder="String" data="#/boardPointDetails/boardPointLocation" />
+		<jb:value property="locationIdentification" decoder="String" data="#/offpointDetails/locationIdentification" />
+		<jb:value property="placeLocation" decoder="String" data="#/offpointDetails/placeLocation" />
+		<jb:value property="companyIdentification1" decoder="String" data="#/companyIdentification/companyIdentification1" />
+		<jb:value property="companyIdentification2" decoder="String" data="#/companyIdentification/companyIdentification2" />
+		<jb:value property="companyIdentification3" decoder="String" data="#/companyIdentification/companyIdentification3" />
+		<jb:value property="flightNumber" decoder="String" data="#/flightIdentification/flightNumber" />
+		<jb:value property="characteristicIdentification" decoder="String" data="#/flightIdentification/characteristicIdentification" />
+		<jb:value property="productIdentificationCharacteristic" decoder="String" data="#/flightIdentification/productIdentificationCharacteristic" />
+		<jb:value property="itemDescriptionIdentification" decoder="String" data="#/flightIdentification/itemDescriptionIdentification" />
+		<jb:value property="sequenceNumber" decoder="String" data="#/productTypeDetails/sequenceNumber" />
+		<jb:value property="lineItemNumber" decoder="Integer" data="#/lineItemNumber"/>
+		<jb:value property="processingIndicator" decoder="String" data="#/processingIndicator" />
+		<jb:value property="relation1" decoder="String" data="#/marriageControlDetails/relation1" />
+		<jb:value property="groupNumber" decoder="Integer" data="#/marriageControlDetails/groupNumber" />
+		<jb:value property="marriageControlLineItemNumber" decoder="Integer" data="#/marriageControlDetails/marriageControlLineItemNumber" />
+		<jb:value property="relation2" decoder="String" data="#/marriageControlDetails/relation2" />
+		<jb:value property="marriageControlCompanyIdentification" decoder="String" data="#/marriageControlDetails/marriageControlCompanyIdentification" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBIMON" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.MonetaryInformation" createOnElement="monetaryInformation">
+	    <jb:value property="typeQualifier" decoder="String" data="#/monetaryDetails/typeQualifier" />
+        <jb:value property="amount" decoder="Double" data="#/monetaryDetails/amount" />
+        <jb:value property="currency" decoder="String" data="#/monetaryDetails/currency" />
+        <jb:value property="locationIdentification" decoder="String" data="#/monetaryDetails/locationIdentification" />		
+		<jb:value property="otherTypeQualifier1" decoder="String" data="#/otherMonetaryDetails1/otherTypeQualifier1" />
+        <jb:value property="otherAmount1" decoder="Double" data="#/otherMonetaryDetails1/otherAmount1" />
+        <jb:value property="otherCurrency1" decoder="String" data="#/otherMonetaryDetails1/otherCurrency1" />
+        <jb:value property="otherLocationIdentification1" decoder="String" data="#/otherMonetaryDetails1/otherLocationIdentification1" />		
+		<jb:value property="otherTypeQualifier2" decoder="String" data="#/otherMonetaryDetails2/otherTypeQualifier2" />
+        <jb:value property="otherAmount2" decoder="Double" data="#/otherMonetaryDetails2/otherAmount2" />
+        <jb:value property="otherCurrency2" decoder="String" data="#/otherMonetaryDetails2/otherCurrency2" />
+        <jb:value property="otherLocationIdentification2" decoder="String" data="#/otherMonetaryDetails2/otherLocationIdentification2" />		
+		<jb:value property="otherTypeQualifier3" decoder="String" data="#/otherMonetaryDetails3/otherTypeQualifier3" />
+        <jb:value property="otherAmount3" decoder="Double" data="#/otherMonetaryDetails3/otherAmount3" />
+        <jb:value property="otherCurrency3" decoder="String" data="#/otherMonetaryDetails3/otherCurrency3" />
+        <jb:value property="otherLocationIdentification3" decoder="String" data="#/otherMonetaryDetails3/otherLocationIdentification3" />		
+		<jb:value property="otherTypeQualifier4" decoder="String" data="#/otherMonetaryDetails4/otherTypeQualifier4" />
+        <jb:value property="otherAmount4" decoder="Double" data="#/otherMonetaryDetails4/otherAmount4" />
+        <jb:value property="otherCurrency4" decoder="String" data="#/otherMonetaryDetails4/otherCurrency4" />
+        <jb:value property="otherLocationIdentification4" decoder="String" data="#/otherMonetaryDetails4/otherLocationIdentification4" />		
+		<jb:value property="otherTypeQualifier5" decoder="String" data="#/otherMonetaryDetails5/otherTypeQualifier5" />
+        <jb:value property="otherAmount5" decoder="Double" data="#/otherMonetaryDetails5/otherAmount5" />
+        <jb:value property="otherCurrency5" decoder="String" data="#/otherMonetaryDetails5/otherCurrency5" />
+        <jb:value property="otherLocationIdentification5" decoder="String" data="#/otherMonetaryDetails5/otherLocationIdentification5" />		
+		<jb:value property="otherTypeQualifier6" decoder="String" data="#/otherMonetaryDetails6/otherTypeQualifier6" />
+        <jb:value property="otherAmount6" decoder="Double" data="#/otherMonetaryDetails6/otherAmount6" />
+        <jb:value property="otherCurrency6" decoder="String" data="#/otherMonetaryDetails6/otherCurrency6" />
+        <jb:value property="otherLocationIdentification6" decoder="String" data="#/otherMonetaryDetails6/otherLocationIdentification6" />		
+		<jb:value property="otherTypeQualifier7" decoder="String" data="#/otherMonetaryDetails7/otherTypeQualifier7" />
+        <jb:value property="otherAmount7" decoder="Double" data="#/otherMonetaryDetails7/otherAmount7" />
+        <jb:value property="otherCurrency7" decoder="String" data="#/otherMonetaryDetails7/otherCurrency7" />
+        <jb:value property="otherLocationIdentification7" decoder="String" data="#/otherMonetaryDetails7/otherLocationIdentification7" />		
+		<jb:value property="otherTypeQualifier8" decoder="String" data="#/otherMonetaryDetails8/otherTypeQualifier8" />
+        <jb:value property="otherAmount8" decoder="Double" data="#/otherMonetaryDetails8/otherAmount8" />
+        <jb:value property="otherCurrency8" decoder="String" data="#/otherMonetaryDetails8/otherCurrency8" />
+        <jb:value property="otherLocationIdentification8" decoder="String" data="#/otherMonetaryDetails8/otherLocationIdentification8" />		
+		<jb:value property="otherTypeQualifier9" decoder="String" data="#/otherMonetaryDetails9/otherTypeQualifier9" />
+        <jb:value property="otherAmount9" decoder="Double" data="#/otherMonetaryDetails9/otherAmount9" />
+        <jb:value property="otherCurrency9" decoder="String" data="#/otherMonetaryDetails9/otherCurrency9" />
+        <jb:value property="otherLocationIdentification9" decoder="String" data="#/otherMonetaryDetails9/otherLocationIdentification9" />		
+		<jb:value property="otherTypeQualifier10" decoder="String" data="#/otherMonetaryDetails10/otherTypeQualifier10" />
+        <jb:value property="otherAmount10" decoder="Double" data="#/otherMonetaryDetails10/otherAmount10" />
+        <jb:value property="otherCurrency10" decoder="String" data="#/otherMonetaryDetails10/otherCurrency10" />
+        <jb:value property="otherLocationIdentification10" decoder="String" data="#/otherMonetaryDetails10/otherLocationIdentification10" />		
+		<jb:value property="otherTypeQualifier11" decoder="String" data="#/otherMonetaryDetails11/otherTypeQualifier11" />
+        <jb:value property="otherAmount11" decoder="Double" data="#/otherMonetaryDetails11/otherAmount11" />
+        <jb:value property="otherCurrency11" decoder="String" data="#/otherMonetaryDetails11/otherCurrency11" />
+        <jb:value property="otherLocationIdentification11" decoder="String" data="#/otherMonetaryDetails11/otherLocationIdentification11" />		
+		<jb:value property="otherTypeQualifier12" decoder="String" data="#/otherMonetaryDetails12/otherTypeQualifier12" />
+        <jb:value property="otherAmount12" decoder="Double" data="#/otherMonetaryDetails12/otherAmount12" />
+        <jb:value property="otherCurrency12" decoder="String" data="#/otherMonetaryDetails12/otherCurrency12" />
+        <jb:value property="otherLocationIdentification12" decoder="String" data="#/otherMonetaryDetails12/otherLocationIdentification12" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBIMON1" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.MonetaryInformation" createOnElement="monetaryInformation1">
+	    <jb:value property="typeQualifier" decoder="String" data="#/monetaryDetails/typeQualifier" />
+        <jb:value property="amount" decoder="Double" data="#/monetaryDetails/amount" />
+        <jb:value property="currency" decoder="String" data="#/monetaryDetails/currency" />
+        <jb:value property="locationIdentification" decoder="String" data="#/monetaryDetails/locationIdentification" />		
+		<jb:value property="otherTypeQualifier1" decoder="String" data="#/otherMonetaryDetails1/otherTypeQualifier1" />
+        <jb:value property="otherAmount1" decoder="Double" data="#/otherMonetaryDetails1/otherAmount1" />
+        <jb:value property="otherCurrency1" decoder="String" data="#/otherMonetaryDetails1/otherCurrency1" />
+        <jb:value property="otherLocationIdentification1" decoder="String" data="#/otherMonetaryDetails1/otherLocationIdentification1" />		
+		<jb:value property="otherTypeQualifier2" decoder="String" data="#/otherMonetaryDetails2/otherTypeQualifier2" />
+        <jb:value property="otherAmount2" decoder="Double" data="#/otherMonetaryDetails2/otherAmount2" />
+        <jb:value property="otherCurrency2" decoder="String" data="#/otherMonetaryDetails2/otherCurrency2" />
+        <jb:value property="otherLocationIdentification2" decoder="String" data="#/otherMonetaryDetails2/otherLocationIdentification2" />		
+		<jb:value property="otherTypeQualifier3" decoder="String" data="#/otherMonetaryDetails3/otherTypeQualifier3" />
+        <jb:value property="otherAmount3" decoder="Double" data="#/otherMonetaryDetails3/otherAmount3" />
+        <jb:value property="otherCurrency3" decoder="String" data="#/otherMonetaryDetails3/otherCurrency3" />
+        <jb:value property="otherLocationIdentification3" decoder="String" data="#/otherMonetaryDetails3/otherLocationIdentification3" />		
+		<jb:value property="otherTypeQualifier4" decoder="String" data="#/otherMonetaryDetails4/otherTypeQualifier4" />
+        <jb:value property="otherAmount4" decoder="Double" data="#/otherMonetaryDetails4/otherAmount4" />
+        <jb:value property="otherCurrency4" decoder="String" data="#/otherMonetaryDetails4/otherCurrency4" />
+        <jb:value property="otherLocationIdentification4" decoder="String" data="#/otherMonetaryDetails4/otherLocationIdentification4" />		
+		<jb:value property="otherTypeQualifier5" decoder="String" data="#/otherMonetaryDetails5/otherTypeQualifier5" />
+        <jb:value property="otherAmount5" decoder="Double" data="#/otherMonetaryDetails5/otherAmount5" />
+        <jb:value property="otherCurrency5" decoder="String" data="#/otherMonetaryDetails5/otherCurrency5" />
+        <jb:value property="otherLocationIdentification5" decoder="String" data="#/otherMonetaryDetails5/otherLocationIdentification5" />		
+		<jb:value property="otherTypeQualifier6" decoder="String" data="#/otherMonetaryDetails6/otherTypeQualifier6" />
+        <jb:value property="otherAmount6" decoder="Double" data="#/otherMonetaryDetails6/otherAmount6" />
+        <jb:value property="otherCurrency6" decoder="String" data="#/otherMonetaryDetails6/otherCurrency6" />
+        <jb:value property="otherLocationIdentification6" decoder="String" data="#/otherMonetaryDetails6/otherLocationIdentification6" />		
+		<jb:value property="otherTypeQualifier7" decoder="String" data="#/otherMonetaryDetails7/otherTypeQualifier7" />
+        <jb:value property="otherAmount7" decoder="Double" data="#/otherMonetaryDetails7/otherAmount7" />
+        <jb:value property="otherCurrency7" decoder="String" data="#/otherMonetaryDetails7/otherCurrency7" />
+        <jb:value property="otherLocationIdentification7" decoder="String" data="#/otherMonetaryDetails7/otherLocationIdentification7" />		
+		<jb:value property="otherTypeQualifier8" decoder="String" data="#/otherMonetaryDetails8/otherTypeQualifier8" />
+        <jb:value property="otherAmount8" decoder="Double" data="#/otherMonetaryDetails8/otherAmount8" />
+        <jb:value property="otherCurrency8" decoder="String" data="#/otherMonetaryDetails8/otherCurrency8" />
+        <jb:value property="otherLocationIdentification8" decoder="String" data="#/otherMonetaryDetails8/otherLocationIdentification8" />		
+		<jb:value property="otherTypeQualifier9" decoder="String" data="#/otherMonetaryDetails9/otherTypeQualifier9" />
+        <jb:value property="otherAmount9" decoder="Double" data="#/otherMonetaryDetails9/otherAmount9" />
+        <jb:value property="otherCurrency9" decoder="String" data="#/otherMonetaryDetails9/otherCurrency9" />
+        <jb:value property="otherLocationIdentification9" decoder="String" data="#/otherMonetaryDetails9/otherLocationIdentification9" />		
+		<jb:value property="otherTypeQualifier10" decoder="String" data="#/otherMonetaryDetails10/otherTypeQualifier10" />
+        <jb:value property="otherAmount10" decoder="Double" data="#/otherMonetaryDetails10/otherAmount10" />
+        <jb:value property="otherCurrency10" decoder="String" data="#/otherMonetaryDetails10/otherCurrency10" />
+        <jb:value property="otherLocationIdentification10" decoder="String" data="#/otherMonetaryDetails10/otherLocationIdentification10" />		
+		<jb:value property="otherTypeQualifier11" decoder="String" data="#/otherMonetaryDetails11/otherTypeQualifier11" />
+        <jb:value property="otherAmount11" decoder="Double" data="#/otherMonetaryDetails11/otherAmount11" />
+        <jb:value property="otherCurrency11" decoder="String" data="#/otherMonetaryDetails11/otherCurrency11" />
+        <jb:value property="otherLocationIdentification11" decoder="String" data="#/otherMonetaryDetails11/otherLocationIdentification11" />		
+		<jb:value property="otherTypeQualifier12" decoder="String" data="#/otherMonetaryDetails12/otherTypeQualifier12" />
+        <jb:value property="otherAmount12" decoder="Double" data="#/otherMonetaryDetails12/otherAmount12" />
+        <jb:value property="otherCurrency12" decoder="String" data="#/otherMonetaryDetails12/otherCurrency12" />
+        <jb:value property="otherLocationIdentification12" decoder="String" data="#/otherMonetaryDetails12/otherLocationIdentification12" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBIIRV" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ItemReferencesAndVersions1" createOnElement="xsbItemId">
+		<jb:value property="referenceQualifier" decoder="String" data="#/referenceQualifier" />
+		<jb:value property="referenceNumber" decoder="String" data="#/referenceNumber" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="deliveringSystemIdentification" decoder="String" data="#/idSection/deliveringSystemIdentification" />
+        <jb:value property="referenceVersionNumber" decoder="String" data="#/idSection/referenceVersionNumber" />
+		<jb:value property="uniqueIdReferenceQualifier" decoder="String" data="#/idSection/uniqueIdReferenceQualifier" />
+        <jb:value property="primeId" decoder="String" data="#/idSection/primeId" />
+		<jb:value property="uniqueIdReferenceNumber" decoder="String" data="#/idSection/uniqueIdReferenceNumber" />
+        <jb:value property="status" decoder="String" data="#/idSection/status" />
+		<jb:value property="yearNumber" decoder="Integer" data="#/idSection/yearNumber" />
+        <jb:value property="monthNumber" decoder="Integer" data="#/idSection/monthNumber" />
+		<jb:value property="dayNumber" decoder="Integer" data="#/idSection/dayNumber" />
+        <jb:value property="hours" decoder="Integer" data="#/idSection/hours" />
+		<jb:value property="minutes" decoder="Integer" data="#/idSection/minutes" />
+        <jb:value property="freeText" decoder="String" data="#/idSection/freeText" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBITRA" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ViaCarrier" createOnElement="viaCarrier">
+		<jb:value property="marketingCompany" decoder="String" data="#/companyIdentification/marketingCompany" />
+		<jb:value property="operatingCompany" decoder="String" data="#/companyIdentification/operatingCompany" />
+		<jb:value property="companyId" decoder="String" data="#/companyIdentification/companyId" />
+		<jb:value property="productIdentification" decoder="String" data="#/productIdentificationDetails/productIdentification" />
+		<jb:value property="characteristicIdentification" decoder="String" data="#/productIdentificationDetails/characteristicIdentification" />
+		<jb:value property="productIdentificationCharacteristic" decoder="String" data="#/productIdentificationDetails/productIdentificationCharacteristic" />
+		<jb:value property="itemDescriptionIdentification" decoder="String" data="#/productIdentificationDetails/itemDescriptionIdentification" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBITKT" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.PaymentDocumentNumber" createOnElement="paymentDocumentNumber">
+		<jb:value property="number" decoder="String" data="#/documentDetails/number" />
+		<jb:value property="type" decoder="String" data="#/documentDetails/type" />
+		<jb:value property="totalNumberOfItems" decoder="Integer" data="#/documentDetails/totalNumberOfItems" />
+		<jb:value property="dataIndicator" decoder="String" data="#/documentDetails/dataIndicator" />
+		<jb:value property="actionRequestNotification" decoder="String" data="#/documentDetails/actionRequestNotification" />
+		<jb:value property="status" decoder="String" data="#/status" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBIBTI" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.BagtagInformation" createOnElement="bagDetails">
+		<jb:value property="issuingCarrierCode" decoder="String" data="#/bagTagDetails/issuingCarrierCode" />              
+		<jb:value property="serialNumber" decoder="Integer" data="#/bagTagDetails/serialNumber" />   
+		<jb:value property="numberOfConsecutiveTagSerialNumber" decoder="Integer" data="#/bagTagDetails/numberOfConsecutiveTagSerialNumber" />
+		<jb:value property="finalDestination" decoder="String" data="#/bagTagDetails/finalDestination" />
+		<jb:value property="issuingCarrierNumber" decoder="Integer" data="#/bagTagDetails/issuingCarrierNumber" />
+		<jb:value property="type" decoder="Integer" data="#/bagTagDetails/type" />
+		<jb:value property="issuanceDay" decoder="Integer" data="#/bagTagDetails/issuanceDay" />
+		<jb:value property="carrierIdentification" decoder="String" data="#/bagTagStubInformation/carrierIdentification" />              
+		<jb:value property="flightNumber" decoder="Integer" data="#/bagTagStubInformation/flightNumber" />   
+		<jb:value property="departureDateAndTime" decoder="Integer" data="#/bagTagStubInformation/departureDateAndTime" />
+		<jb:value property="placeOfDestination" decoder="String" data="#/bagTagStubInformation/placeOfDestination" />
+		<jb:value property="reservationBookingDesignator" decoder="String" data="#/bagTagStubInformation/reservationBookingDesignator" />
+		<jb:value property="operationalSuffixToTheCarrierCode" decoder="String" data="#/bagTagStubInformation/operationalSuffixToTheCarrierCode" />
+		<jb:value property="uniqueId" decoder="String" data="#/uniqueId" /> 
+		<jb:value property="bagType" decoder="String" data="#/bagType" />
+		<jb:value property="statuscodedIndicator" decoder="String" data="#/offAirportBagDetails/statuscodedIndicator" />
+		<jb:value property="actionReques" decoder="String" data="#/offAirportBagDetails/actionReques" />
+		<jb:value property="stCoded" decoder="String" data="#/offAirportBagDetails/stCoded" />
+		<jb:value property="ftDescription" decoder="String" data="#/offAirportBagDetails/ftDescription" /> 
+	</jb:bean>
+	
+	<jb:bean beanId="XSBISTX" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.StatusDetails" createOnElement="statuses">
+        <jb:value property="indicator1" decoder="String" data="#/statusInformation1/indicator1" />
+		<jb:value property="action1" decoder="String" data="#/statusInformation1/action1" />
+		<jb:value property="statusType1" decoder="String" data="#/statusInformation1/statusType1" />
+		<jb:value property="freeText1" decoder="String" data="#/statusInformation1/freeText1" />
+		<jb:value property="indicator2" decoder="String" data="#/statusInformation2/indicator2" />
+		<jb:value property="action2" decoder="String" data="#/statusInformation2/action2" />
+		<jb:value property="statusType2" decoder="String" data="#/statusInformation2/statusType2" />
+		<jb:value property="freeText2" decoder="String" data="#/statusInformation2/freeText2" />
+		<jb:value property="indicator3" decoder="String" data="#/statusInformation3/indicator3" />
+     	<jb:value property="action3" decoder="String" data="#/statusInformation3/action3" />
+     	<jb:value property="statusType3" decoder="String" data="#/statusInformation3/statusType3" />
+		<jb:value property="freeText3" decoder="String" data="#/statusInformation3/freeText3" />		
+		<jb:value property="indicator4" decoder="String" data="#/statusInformation4/indicator4" />
+     	<jb:value property="action4" decoder="String" data="#/statusInformation4/action4" />
+     	<jb:value property="statusType4" decoder="String" data="#/statusInformation4/statusType4" />
+		<jb:value property="freeText4" decoder="String" data="#/statusInformation4/freeText4" />		
+		<jb:value property="indicator5" decoder="String" data="#/statusInformation5/indicator5" />
+     	<jb:value property="action5" decoder="String" data="#/statusInformation5/action5" />
+     	<jb:value property="statusType5" decoder="String" data="#/statusInformation5/statusType5" />
+		<jb:value property="freeText5" decoder="String" data="#/statusInformation5/freeText5" />		
+		<jb:value property="indicator6" decoder="String" data="#/statusInformation6/indicator6" />
+     	<jb:value property="action6" decoder="String" data="#/statusInformation6/action6" />
+     	<jb:value property="statusType6" decoder="String" data="#/statusInformation6/statusType6" />
+		<jb:value property="freeText6" decoder="String" data="#/statusInformation6/freeText6" />		
+		<jb:value property="indicator7" decoder="String" data="#/statusInformation7/indicator7" />
+     	<jb:value property="action7" decoder="String" data="#/statusInformation7/action7" />
+     	<jb:value property="statusType7" decoder="String" data="#/statusInformation7/statusType7" />
+		<jb:value property="freeText7" decoder="String" data="#/statusInformation7/freeText7" />		
+		<jb:value property="indicator8" decoder="String" data="#/statusInformation8/indicator8" />
+     	<jb:value property="action8" decoder="String" data="#/statusInformation8/action8" />
+     	<jb:value property="statusType8" decoder="String" data="#/statusInformation8/statusType8" />
+		<jb:value property="freeText8" decoder="String" data="#/statusInformation8/freeText8" />		
+		<jb:value property="indicator9" decoder="String" data="#/statusInformation9/indicator9" />
+     	<jb:value property="action9" decoder="String" data="#/statusInformation9/action9" />
+     	<jb:value property="statusType9" decoder="String" data="#/statusInformation9/statusType9" />
+		<jb:value property="freeText9" decoder="String" data="#/statusInformation9/freeText9" />
+		<jb:value property="indicator10" decoder="String" data="#/statusInformation10/indicator10" />
+     	<jb:value property="action10" decoder="String" data="#/statusInformation10/action10" />
+     	<jb:value property="statusType10" decoder="String" data="#/statusInformation10/statusType10" />
+		<jb:value property="freeText10" decoder="String" data="#/statusInformation10/freeText10" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBISSRLIST" class="java.util.ArrayList" createOnElement="quantityAndOriginalRate">
+        <jb:wiring beanIdRef="XSBISSR" />
+    </jb:bean>
+
+	
+	<jb:bean beanId="XSBISSR" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.Attributes" createOnElement="attributes">
+		<jb:value property="ssrCode" decoder="String" data="#/specialRequirementsInfo/ssrCode" />
+		<jb:value property="actionCode" decoder="String" data="#/specialRequirementsInfo/actionCode" />
+		<jb:value property="quantity" decoder="Integer" data="#/specialRequirementsInfo/quantity" />
+		<jb:value property="companyIdentification" decoder="String" data="#/specialRequirementsInfo/companyIdentification" />
+		<jb:value property="serviceType" decoder="String" data="#/specialRequirementsInfo/serviceType" />
+		<jb:value property="processingIndicator" decoder="String" data="#/specialRequirementsInfo/processingIndicator" />
+		<jb:value property="boardPoint" decoder="String" data="#/specialRequirementsInfo/boardPoint" />
+		<jb:value property="offPoint" decoder="String" data="#/specialRequirementsInfo/offPoint" />
+		<jb:value property="serviceFreeText" decoder="String" data="#/specialRequirementsInfo/serviceFreeText" />
+		<jb:value property="specialRequirementData" decoder="String" data="#/specialRequirementsDataDetails/specialRequirementData" />     	     	    	  
+	</jb:bean>
+	
+	<jb:bean beanId="XSBIREF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.ExtraCount" createOnElement="extraCount">
+		<jb:value property="type" decoder="String" data="#/referenceDetails/type" />   
+        <jb:value property="value" decoder="Integer" data="#/referenceDetails/value" />
+    </jb:bean>
+	
+	<jb:bean beanId="XSBITXF" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.FreeTextInformation" createOnElement="waiveDetails">
+		<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+		<jb:value property="companyIdentification" decoder="String" data="#/freeTextDetails/companyIdentification" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+		<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+		<jb:value property="freeText" decoder="String" data="#/freeText" />
+	</jb:bean>
+	
+	<jb:bean beanId="XSBIFOP" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.PaymentDetails" createOnElement="paymentDetails1">
+		<jb:value property="type" decoder="String" data="#/formOfPayment/type" />
+		<jb:value property="dataIndicator" decoder="String" data="#/formOfPayment/dataIndicator" />
+		<jb:value property="monetaryAmount1" decoder="Integer" data="#/formOfPayment/monetaryAmount1" />
+		<jb:value property="vendorCode" decoder="String" data="#/formOfPayment/vendorCode" />
+		<jb:value property="referenceNumber" decoder="String" data="#/formOfPayment/referenceNumber" />
+		<jb:value property="firstDate" decoder="String" data="#/formOfPayment/firstDate" />
+		<jb:value property="approvalIdentification" decoder="String" data="#/formOfPayment/approvalIdentification" />
+		<jb:value property="source" decoder="String" data="#/formOfPayment/source" />
+		<jb:value property="monetaryAmount2" decoder="Integer" data="#/formOfPayment/monetaryAmount2" />
+		<jb:value property="verification" decoder="String" data="#/formOfPayment/verification" />
+		<jb:value property="accountHolderNumber" decoder="String" data="#/formOfPayment/accountHolderNumber" />
+		<jb:value property="paymentTimeReference" decoder="String" data="#/formOfPayment/paymentTimeReference" />
+		<jb:value property="freeText" decoder="String" data="#/formOfPayment/freeText" />
+		<jb:value property="membershipStatus" decoder="String" data="#/formOfPayment/membershipStatus" />
+		<jb:value property="transactionInformation" decoder="String" data="#/formOfPayment/transactionInformation" />
+		<jb:value property="pinCode" decoder="String" data="#/formOfPayment/pinCode" />
+		<jb:value property="pinCodeType" decoder="String" data="#/formOfPayment/pinCodeType" />
+		<jb:value property="formOfPaymentIdentification" decoder="String" data="#/formOfPaymentDetails/formOfPaymentIdentification" />
+		<jb:value property="paymentDetDataIndicator" decoder="String" data="#/formOfPaymentDetails/paymentDetDataIndicator" />
+		<jb:value property="paymentDetMonetaryAmount1" decoder="Integer" data="#/formOfPaymentDetails/paymentDetMonetaryAmount1" />
+		<jb:value property="companyIdentification" decoder="String" data="#/formOfPaymentDetails/companyIdentification" />
+		<jb:value property="paymentDetReferenceNumber" decoder="String" data="#/formOfPaymentDetails/paymentDetReferenceNumber" />
+		<jb:value property="paymentDetFirstDate" decoder="String" data="#/formOfPaymentDetails/paymentDetFirstDate" />
+		<jb:value property="paymentDetApprovalIdentification" decoder="String" data="#/formOfPaymentDetails/paymentDetApprovalIdentification" />
+		<jb:value property="paymentDetSource" decoder="String" data="#/formOfPaymentDetails/paymentDetSource" />
+		<jb:value property="paymentDetMonetaryAmount2" decoder="Integer" data="#/formOfPaymentDetails/paymentDetMonetaryAmount2" />
+		<jb:value property="paymentDetVerification" decoder="String" data="#/formOfPaymentDetails/paymentDetVerification" />
+		<jb:value property="paymentDetAccountHolderNumber" decoder="String" data="#/formOfPaymentDetails/paymentDetAccountHolderNumber" />
+		<jb:value property="paymentDetPaymentTimeReference" decoder="String" data="#/formOfPaymentDetails/paymentDetPaymentTimeReference" />
+		<jb:value property="paymentDetFreeText" decoder="String" data="#/formOfPaymentDetails/paymentDetFreeText" />
+		<jb:value property="paymentDetMembershipStatus" decoder="String" data="#/formOfPaymentDetails/paymentDetMembershipStatus" />
+		<jb:value property="paymentDetTransactionInformation" decoder="String" data="#/formOfPaymentDetails/paymentDetTransactionInformation" />
+		<jb:value property="paymentDetPincode" decoder="String" data="#/formOfPaymentDetails/paymentDetPincode" />
+		<jb:value property="paymentDetPincodeType" decoder="String" data="#/formOfPaymentDetails/paymentDetPincodeType" />
+	</jb:bean>
+	 
+   <!--  STANDARD UNT TRAILER   -->
+   <jb:bean beanId="UNT" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.EdiTrailer" createOnElement="ediTrailer">
+        <jb:value property="noofsegments" decoder="Integer" data="#/NoOfSegments" />
+        <jb:value property="Messagerefnumber" decoder="String" data="#/MessageReferenceNumber" />
+   </jb:bean>
+   
+   <!--  STANDARD UNE TRAILER -->
+    <jb:bean beanId="UNE" class="com.tcs.ods.batchprocess.dcscm.bidbrr.smooks.EdiGroupTrailer" createOnElement="ediGroupTrailer">
+        <jb:value property="groupControlCount" decoder="Integer" data="#/groupControlCount" />
+        <jb:value property="groupReference" decoder="String" data="#/groupReference" />
+    </jb:bean>
+</smooks-resource-list>
+

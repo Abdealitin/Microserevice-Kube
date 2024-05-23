@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprAllowances" table="CPR_ALLOWANCES">
+        <id name="idAllowances" type="java.lang.Long">
+            <column name="ID_ALLOWANCES" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprSectors" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprSectors" fetch="select">
+            <column name="ID_SECTORS" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprNumber" type="java.lang.Integer">
+            <column name="CPR_NUMBER" precision="6" scale="0" />
+        </property>
+        <property name="cprWeight" type="java.lang.Integer">
+            <column name="CPR_WEIGHT" precision="6" scale="0" />
+        </property>
+        <property name="cprUnitqualifier" type="java.lang.Character">
+            <column name="CPR_UNITQUALIFIER" length="1" />
+        </property>
+        <property name="cprAttriputetype1" type="string">
+            <column name="CPR_ATTRIPUTETYPE1" length="5" />
+        </property>
+        <property name="cprAttriputetype2" type="string">
+            <column name="CPR_ATTRIPUTETYPE2" length="5" />
+        </property>
+        <property name="cprAttriputetype3" type="string">
+            <column name="CPR_ATTRIPUTETYPE3" length="5" />
+        </property>
+        <property name="cprAttriputetype4" type="string">
+            <column name="CPR_ATTRIPUTETYPE4" length="5" />
+        </property>
+        <property name="cprAttriputetype5" type="string">
+            <column name="CPR_ATTRIPUTETYPE5" length="5" />
+        </property>
+        <property name="cprAttriputetype6" type="string">
+            <column name="CPR_ATTRIPUTETYPE6" length="5" />
+        </property>
+        <property name="cprAttriputetype7" type="string">
+            <column name="CPR_ATTRIPUTETYPE7" length="5" />
+        </property>
+        <property name="cprAttriputetype8" type="string">
+            <column name="CPR_ATTRIPUTETYPE8" length="5" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCustfqtvinfo" table="CPR_CUSTFQTVINFO">
+        <id name="idCustfqtvinfo" type="java.lang.Long">
+            <column name="ID_CUSTFQTVINFO" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprCustomerlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCustomerlevel" fetch="select">
+            <column name="ID_CUSTOMERLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprCarrierid" type="string">
+            <column name="CPR_CARRIERID" length="3" />
+        </property>
+        <property name="cprNumber" type="string">
+            <column name="CPR_NUMBER" length="25" />
+        </property>
+        <property name="cprStatus" type="string">
+            <column name="CPR_STATUS" length="3" />
+        </property>
+        <property name="cprTierlevel" type="string">
+            <column name="CPR_TIERLEVEL" length="4" />
+        </property>
+        <property name="cprPrioritycode" type="string">
+            <column name="CPR_PRIORITYCODE" length="12" />
+        </property>
+        <property name="ccpSsrcode" type="string">
+            <column name="CCP_SSRCODE" length="4" />
+        </property>
+        <property name="cprRefqualifier" type="string">
+            <column name="CPR_REFQUALIFIER" length="3" />
+        </property>
+        <property name="cprPrimeid" type="string">
+            <column name="CPR_PRIMEID" length="16" />
+        </property>
+        <property name="cprCompanyid" type="string">
+            <column name="CPR_COMPANYID" length="3" />
+        </property>
+    </class>
+</hibernate-mapping>

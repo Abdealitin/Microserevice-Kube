@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 27, 2015 5:44:25 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.tcs.ods.batchprocess.dcscm.hibernate.ApiFileLoad"
+		table="API_FILE_LOAD_CM">
+		<id name="idApiFileLoad" type="java.lang.Long">
+			<column name="ID_API_FILE_LOAD_CM" precision="19" scale="0" />
+			<generator class="increment" />
+		</id>
+		<property name="feedType" type="string">
+			<column name="FEED_TYPE" length="500" />
+		</property>
+		<property name="msg" type="string">
+			<column name="MSG" length="500" />
+		</property>
+		<property name="apiDate" type="date">
+			<column name="API_DATE" length="7" />
+		</property>
+		<property name="feedSubType" type="string">
+			<column name="FEED_SUB_TYPE" length="500" />
+		</property>
+		<property name="absoluteFile" type="string">
+			<column name="ABSOLUTE_FILE" length="500" />
+		</property>
+		<property name="fileName" type="string">
+			<column name="FILE_NAME" length="500" />
+		</property>
+		<property name="flightDate" type="date">
+			<column name="FLIGHT_DATE" length="10" />
+		</property>
+		<property name="dwhSnapshottimestampEnd" type="java.sql.Timestamp">
+			<column name="DWH_SNAPSHOTTIMESTAMP_END" length="6" />
+		</property>
+		<property name="amadeusFiletime" type="java.sql.Timestamp">
+			<column name="AMEDEUS_FILETIME" length="6" />
+		</property>
+		<property name="amadeusFilename" type="string">
+			<column name="AMEDEUS_FILENAME" length="200" />
+		</property>
+
+	</class>
+</hibernate-mapping>

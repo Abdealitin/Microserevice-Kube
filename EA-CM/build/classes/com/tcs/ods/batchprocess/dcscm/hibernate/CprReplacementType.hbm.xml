@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprReplacementType" table="CPR_REPLACEMENT_TYPE">
+        <id name="idReplacementType" type="java.lang.Long">
+            <column name="ID_REPLACEMENT_TYPE" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprGtpVoucher" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprGtpVoucher" fetch="select">
+            <column name="ID_GTP_VOUCHER" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprAttrtype" type="string">
+            <column name="CPR_ATTRTYPE" length="5" />
+        </property>
+        <property name="cprAttrdesc" type="string">
+            <column name="CPR_ATTRDESC" length="256" />
+        </property>
+    </class>
+</hibernate-mapping>

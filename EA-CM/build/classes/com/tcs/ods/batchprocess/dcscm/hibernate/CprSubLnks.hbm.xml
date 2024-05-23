@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprSubLnks" table="CPR_SUB_LNKS">
+        <id name="idSubLnks" type="java.lang.Long">
+            <column name="ID_SUB_LNKS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprCustprdtLinks" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCustprdtLinks" fetch="select">
+            <column name="ID_CUSTPRDT_LINKS" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprAttrFunc" type="string">
+            <column name="CPR_ATTR_FUNC" length="3" />
+        </property>
+       <!--  <set name="cprSublnkUpis" table="CPR_SUBLNK_UPI" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_SUB_LNKS" precision="36" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprSublnkUpi" />
+        </set>
+        <set name="cprAdjacencyLnks" table="CPR_ADJACENCY_LNK" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_SUB_LNKS" precision="36" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprAdjacencyLnk" />
+        </set>
+        <set name="cprSublnkAtcs" table="CPR_SUBLNK_ATC" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_SUB_LNKS" precision="36" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprSublnkAtc" />
+        </set> -->
+    </class>
+</hibernate-mapping>

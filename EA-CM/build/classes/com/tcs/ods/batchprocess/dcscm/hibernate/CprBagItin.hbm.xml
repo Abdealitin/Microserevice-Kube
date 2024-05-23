@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBagItin" table="CPR_BAG_ITIN">
+        <id name="idBagItin" type="java.lang.Long">
+            <column name="ID_BAG_ITIN" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprBaggageInfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBaggageinfo" fetch="select">
+            <column name="ID_BAGGAGE_INFO" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprMarktngCarrier" type="string">
+            <column name="CPR_MARKTNG_CARRIER" length="3" />
+        </property>
+        <property name="cprFlghtNumber" type="java.lang.Integer">
+            <column name="CPR_FLGHT_NUMBER" precision="4" scale="0" />
+        </property>
+        <property name="cprOptSufx" type="string">
+            <column name="CPR_OPT_SUFX" length="1" />
+        </property>
+        <property name="cprDeptDate" type="java.sql.Date">
+            <column name="CPR_DEPT_DATE" length="7" />
+        </property>
+        <property name="cprBrdpt" type="string">
+            <column name="CPR_BRDPT" length="3" />
+        </property>
+        <property name="cprOffpt" type="string">
+            <column name="CPR_OFFPT" length="3" />
+        </property>
+        <property name="cprArrvdate" type="java.sql.Date">
+            <column name="CPR_ARRVDATE" length="7" />
+        </property>
+        <property name="cprBagstatIndc1" type="string">
+            <column name="CPR_BAGSTAT_INDC1" length="3" />
+        </property>
+        <property name="cprBagstatIndc2" type="string">
+            <column name="CPR_BAGSTAT_INDC2" length="3" />
+        </property>
+        <property name="cprBagstatActn1" type="string">
+            <column name="CPR_BAGSTAT_ACTN1" length="3" />
+        </property>
+        <property name="cprBagstatActn2" type="string">
+            <column name="CPR_BAGSTAT_ACTN2" length="3" />
+        </property>
+    </class>
+</hibernate-mapping>

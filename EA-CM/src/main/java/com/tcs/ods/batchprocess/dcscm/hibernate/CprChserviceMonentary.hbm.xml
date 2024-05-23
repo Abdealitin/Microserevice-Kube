@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprChserviceMonentary" table="CPR_CHSERVICE_MONENTARY">
+        <id name="idChserviceMonentary" type="java.lang.Long">
+            <column name="ID_CHSERVICE_MONENTARY" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprChseatdetServicedetails" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprChseatdetServicedetails" fetch="select">
+            <column name="ID_CHSEATDET_SERVICEDETAILS" length="36" not-null="true" />
+        </many-to-one>
+        <property name="cprMonetarytypequal" type="string">
+            <column name="CPR_MONETARYTYPEQUAL" length="3" />
+        </property>
+        <property name="cprMonetayamount" type="string">
+            <column name="CPR_MONETAYAMOUNT" length="35" />
+        </property>
+        <property name="cprMonetarycurrency" type="string">
+            <column name="CPR_MONETARYCURRENCY" length="3" />
+        </property>
+        <property name="cprMonetarylocation" type="string">
+            <column name="CPR_MONETARYLOCATION" length="25" />
+        </property>
+    </class>
+</hibernate-mapping>

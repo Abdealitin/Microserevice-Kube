@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprAdjacencyLnk" table="CPR_ADJACENCY_LNK">
+        <id name="idAdjacencyLnk" type="java.lang.Long">
+            <column name="ID_ADJACENCY_LNK" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprSubLnks" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprSubLnks" fetch="select">
+            <column name="ID_SUB_LNKS" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprItmNumber" type="string">
+            <column name="CPR_ITM_NUMBER" precision="3" scale="0" />
+        </property>
+        <property name="cprAdjupiQualf1" type="string">
+            <column name="CPR_ADJUPI_QUALF1" length="3" />
+        </property>
+        <property name="cprAdjupiQualf2" type="string">
+            <column name="CPR_ADJUPI_QUALF2" length="3" />
+        </property>
+        <property name="cprAdjupiPrimeid1" type="string">
+            <column name="CPR_ADJUPI_PRIMEID1" length="16" />
+        </property>
+        <property name="cprAdjupiPrimeid2" type="string">
+            <column name="CPR_ADJUPI_PRIMEID2" length="16" />
+        </property>
+    </class>
+</hibernate-mapping>

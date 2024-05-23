@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpMoveablecurtainZone" table="CMP_MOVEABLECURTAIN_ZONE">
+        <id name="idMvblecurtainzone" type="java.lang.Long">
+            <column name="ID_MVBLECURTAINZONE" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpCompartment" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpCompartment" fetch="select">
+            <column name="ID_COMPARTMENT" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpCriteriasettype" type="string">
+            <column name="CMP_CRITERIASETTYPE" length="12" />
+        </property>
+        <property name="cmpAttributetype" type="string">
+            <column name="CMP_ATTRIBUTETYPE" length="68" />
+        </property>
+        <property name="cmpAttributedesc" type="string">
+            <column name="CMP_ATTRIBUTEDESC" length="1024" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

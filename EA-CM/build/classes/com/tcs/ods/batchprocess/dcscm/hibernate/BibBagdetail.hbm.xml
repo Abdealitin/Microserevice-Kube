@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibBagdetail" table="BIB_BAGDETAIL">
+        <id name="idBagdetail" type="java.lang.Long">
+            <column name="ID_BAGDETAIL" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibMessage" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibMessage" fetch="select">
+            <column name="ID_BIBMESSAGE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibCabinclass" type="string">
+            <column name="BIB_CABINCLASS" length="4" />
+        </property>
+        <property name="bibSourcetype" type="string">
+            <column name="BIB_SOURCETYPE" length="12" />
+        </property>
+        <property name="bibBagtagCompany" type="string">
+            <column name="BIB_BAGTAG_COMPANY" length="12" />
+        </property>
+        <property name="bibBagtagIdentifier" type="java.lang.Boolean">
+            <column name="BIB_BAGTAG_IDENTIFIER" precision="1" scale="0" />
+        </property>
+        <property name="bibBagtypeNumber" type="java.lang.Integer">
+            <column name="BIB_BAGTYPE_NUMBER" precision="6" scale="0" />
+        </property>
+        <property name="bibBagtypeLocation" type="string">
+            <column name="BIB_BAGTYPE_LOCATION" length="12" />
+        </property>
+        <property name="bibBagtypeCompanynumber" type="string">
+            <column name="BIB_BAGTYPE_COMPANYNUMBER" length="3" />
+        </property>
+        <property name="bibBagtypeIndicator" type="java.lang.Boolean">
+            <column name="BIB_BAGTYPE_INDICATOR" precision="1" scale="0" />
+        </property>
+        <property name="bibBagtypeCharacteristics" type="string">
+            <column name="BIB_BAGTYPE_CHARACTERISTICS" length="12" />
+        </property>
+        <property name="bibBagtypeRequirement" type="string">
+            <column name="BIB_BAGTYPE_REQUIREMENT" length="16" />
+        </property>
+        <property name="bibBagtypeDesc" type="string">
+            <column name="BIB_BAGTYPE_DESC" length="280" />
+        </property>
+        <property name="bibBagtypeIssuanceday" type="java.lang.Short">
+            <column name="BIB_BAGTYPE_ISSUANCEDAY" precision="3" scale="0" />
+        </property>
+        <property name="bibBagtypeTagno" type="string">
+            <column name="BIB_BAGTYPE_TAGNO" length="140" />
+        </property>
+        <property name="bibBagtypeAddress" type="string">
+            <column name="BIB_BAGTYPE_ADDRESS" length="32" />
+        </property>
+        <property name="bibBagtypeWeight" type="java.lang.Short">
+            <column name="BIB_BAGTYPE_WEIGHT" precision="4" scale="0" />
+        </property>
+        <property name="bibBagtypeQualifier" type="string">
+            <column name="BIB_BAGTYPE_QUALIFIER" length="12" />
+        </property>
+        <property name="bibBagtypeStatus" type="string">
+            <column name="BIB_BAGTYPE_STATUS" length="8" />
+        </property>
+        <property name="bibBagtypeUniqueid" type="string">
+            <column name="BIB_BAGTYPE_UNIQUEID" length="64" />
+        </property>
+        <property name="bibBagtagCarriercode" type="string">
+            <column name="BIB_BAGTAG_CARRIERCODE" length="12" />
+        </property>
+        <property name="bibBagtagSerialno" type="java.lang.Integer">
+            <column name="BIB_BAGTAG_SERIALNO" precision="6" scale="0" />
+        </property>
+        <property name="bibBagtagCarrierno" type="java.lang.Short">
+            <column name="BIB_BAGTAG_CARRIERNO" precision="3" scale="0" />
+        </property>
+        <property name="bibBagtagIndicator" type="java.lang.Boolean">
+            <column name="BIB_BAGTAG_INDICATOR" precision="1" scale="0" />
+        </property>
+        <property name="bibBagtagIssuanceday" type="java.lang.Short">
+            <column name="BIB_BAGTAG_ISSUANCEDAY" precision="3" scale="0" />
+        </property>
+        <property name="bibBagtagUniqueid" type="string">
+            <column name="BIB_BAGTAG_UNIQUEID" length="64" />
+        </property>
+        <property name="bibDimensionQualifier" type="string">
+            <column name="BIB_DIMENSION_QUALIFIER" length="12" />
+        </property>
+        <property name="bibDimensionUnit" type="string">
+            <column name="BIB_DIMENSION_UNIT" length="8" />
+        </property>
+        <property name="bibDimensionLength" type="java.lang.Integer">
+            <column name="BIB_DIMENSION_LENGTH" precision="5" scale="0" />
+        </property>
+        <property name="bibDimensionWidth" type="java.lang.Integer">
+            <column name="BIB_DIMENSION_WIDTH" precision="5" scale="0" />
+        </property>
+        <property name="bbiDimensionHeight" type="java.lang.Integer">
+            <column name="BIB_DIMENSION_HEIGHT" precision="5" scale="0" />
+        </property>
+        <property name="bibStatusIndicator" type="string">
+            <column name="BIB_STATUS_INDICATOR" length="12" />
+        </property>
+        <property name="bibStatusAction" type="string">
+            <column name="BIB_STATUS_ACTION" length="12" />
+        </property>
+        <property name="bibCodedBagtype" type="string">
+            <column name="BIB_CODED_BAGTYPE" length="3" />
+        </property>
+        <property name="bibCodedIndicator" type="string">
+            <column name="BIB_CODED_INDICATOR" length="3" />
+        </property>
+        <property name="bibCodedAction" type="string">
+            <column name="BIB_CODED_ACTION" length="2" />
+        </property>
+        <property name="bibFreetextDescription" type="string">
+            <column name="BIB_FREETEXT_DESCRIPTION" length="4" />
+        </property>
+        <property name="bibBagtagBagtype" type="string">
+            <column name="BIB_BAGTAG_BAGTYPE" length="3" />
+        </property>
+        <property name="bibStatusCodedindicator" type="string">
+            <column name="BIB_STATUS_CODEDINDICATOR" length="3" />
+        </property>
+        <property name="bibStatusCodedaction" type="string">
+            <column name="BIB_STATUS_CODEDACTION" length="2" />
+        </property>
+        <property name="bibFreetextdesc" type="string">
+            <column name="BIB_FREETEXTDESC" length="4" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

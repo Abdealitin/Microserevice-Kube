@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibPresortinfo" table="BIB_PRESORTINFO">
+        <id name="idPresortinfo" type="java.lang.Long">
+            <column name="ID_PRESORTINFO" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibFlightinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibFlightinfo" fetch="select">
+            <column name="ID_FLIGHTINFO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibReferrenceType" type="string">
+            <column name="BIB_REFERRENCE_TYPE" length="12" />
+        </property>
+        <property name="bibUniqueRefference" type="string">
+            <column name="BIB_UNIQUE_REFFERENCE" length="80" />
+        </property>
+        <property name="bibCodedType1" type="string">
+            <column name="BIB_CODED_TYPE1" length="12" />
+        </property>
+        <property name="bibCodedType2" type="string">
+            <column name="BIB_CODED_TYPE2" length="12" />
+        </property>
+        <property name="bibCodedDesc1" type="string">
+            <column name="BIB_CODED_DESC1" length="16" />
+        </property>
+        <property name="bibCodedDesc2" type="string">
+            <column name="BIB_CODED_DESC2" length="16" />
+        </property>       
+    </class>
+</hibernate-mapping>

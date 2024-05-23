@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ChwMessage" table="CHW_MESSAGE">
+        <id name="idChwMessage" type="java.lang.Long">
+            <column name="ID_CHW_MESSAGE" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmInputfile" class="com.tcs.ods.batchprocess.dcscm.hibernate.CmInputfile" fetch="select">
+            <column name="ID_INPUTFILES" precision="36" scale="0" not-null="true" />
+        </many-to-one>        
+        <property name="chwMsgLineno" type="string">
+            <column name="CHW_MSG_LINENO" length="10" />
+        </property>
+        <property name="chwMsgVersionno" type="string">
+            <column name="CHW_MSG_VERSIONNO" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpCustomercharact" table="CMP_CUSTOMERCHARACT">
+        <id name="idCustomercharact" type="java.lang.Long">
+            <column name="ID_CUSTOMERCHARACT" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpIdDetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpIdDetail" fetch="select">
+            <column name="ID_IDDETAIL" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpSsrtype" type="string">
+            <column name="CMP_SSRTYPE" length="4" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

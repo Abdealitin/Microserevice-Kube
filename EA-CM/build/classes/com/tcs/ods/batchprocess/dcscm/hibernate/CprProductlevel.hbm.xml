@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" table="CPR_PRODUCTLEVEL">
+        <id name="idProductlevel" type="java.lang.Long">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprCustomerlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCustomerlevel" fetch="select">
+            <column name="ID_CUSTOMERLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprMarketingcarrier" type="string">
+            <column name="CPR_MARKETINGCARRIER" length="3" />
+        </property>
+        <property name="cprOthercarrier" type="string">
+            <column name="CPR_OTHERCARRIER" length="3" />
+        </property>
+        <property name="cprFlightnumber" type="string">
+            <column name="CPR_FLIGHTNUMBER" length="4" />
+        </property>
+        <property name="cprOpersuffix" type="java.lang.Character">
+            <column name="CPR_OPERSUFFIX" length="1" />
+        </property>
+        <property name="cprDepartdate" type="date">
+            <column name="CPR_DEPARTDATE" />
+        </property>
+        <property name="cprBoardpoint" type="string">
+            <column name="CPR_BOARDPOINT" length="5" />
+        </property>
+        <property name="cprOffpoint" type="string">
+            <column name="CPR_OFFPOINT" length="5" />
+        </property>
+        <property name="cprArrivaldate" type="date">
+            <column name="CPR_ARRIVALDATE" />
+        </property>
+        <property name="cprInboundservice" type="java.lang.Character">
+            <column name="CPR_INBOUNDSERVICE" length="1" />
+        </property>
+        <property name="cprDepartdate1" type="string">
+            <column name="CPR_DEPARTDATE1" length="35" />
+        </property>
+        <property name="cprDepartdate2" type="string">
+            <column name="CPR_DEPARTDATE2" length="35" />
+        </property>
+        <property name="cprDeparttime1" type="java.lang.Short">
+            <column name="CPR_DEPARTTIME1" precision="4" scale="0" />
+        </property>
+        <property name="cprDeparttime2" type="java.lang.Short">
+            <column name="CPR_DEPARTTIME2" precision="4" scale="0" />
+        </property>
+        <property name="cprArrivaldate1" type="string">
+            <column name="CPR_ARRIVALDATE1" length="35" />
+        </property>
+        <property name="cprArrivaldate2" type="string">
+            <column name="CPR_ARRIVALDATE2" length="35" />
+        </property>
+        <property name="cprArrivaltime1" type="java.lang.Short">
+            <column name="CPR_ARRIVALTIME1" precision="4" scale="0" />
+        </property>
+        <property name="cprArrivaltime2" type="java.lang.Short">
+            <column name="CPR_ARRIVALTIME2" precision="4" scale="0" />
+        </property>
+        <property name="cprTransportqual" type="string">
+            <column name="CPR_TRANSPORTQUAL" length="3" />
+        </property>
+        <property name="cprAirlinedesig" type="string">
+            <column name="CPR_AIRLINEDESIG" length="3" />
+        </property>
+        <property name="cprFlightno" type="string">
+            <column name="CPR_FLIGHTNO" length="4" />
+        </property>
+        <property name="cprFlightsuffix" type="string">
+            <column name="CPR_FLIGHTSUFFIX" length="1" />
+        </property>
+        <property name="cprCodesharetype" type="string">
+            <column name="CPR_CODESHARETYPE" length="2" />
+        </property>
+        <property name="cprOthercompany" type="string">
+            <column name="CPR_OTHERCOMPANY" length="3" />
+        </property>
+        <property name="cprCompanyid" type="string">
+            <column name="CPR_COMPANYID" length="3" />
+        </property>
+        <property name="cprOrigin" type="string">
+            <column name="CPR_ORIGIN" length="3" />
+        </property>
+        <property name="cprDestination" type="string">
+            <column name="CPR_DESTINATION" length="3" />
+        </property>
+        <property name="cprFarefamily" type="string">
+            <column name="CPR_FAREFAMILY" length="16" />
+        </property>
+        <property name="cprNumber" type="java.lang.Integer">
+            <column name="CPR_NUMBER" precision="3" scale="0" />
+        </property>
+        <property name="cprWeight" type="java.lang.Integer">
+            <column name="CPR_WEIGHT" precision="4" scale="0" />
+        </property>
+        <property name="cprUnitqual" type="string">
+            <column name="CPR_UNITQUAL" length="3" />
+        </property>
+        <property name="cprCompstatus" type="string">
+            <column name="CPR_COMPSTATUS" length="3" />
+        </property>
+        <property name="cprFareIndicator" type="string">
+            <column name="CPR_FARE_INDICATOR" length="3" />
+        </property>
+        <property name="cprFareAction" type="string">
+            <column name="CPR_FARE_ACTION" length="3" />
+        </property>
+        <property name="cprFareQualifier" type="string">
+            <column name="CPR_FARE_QUALIFIER" length="3" />
+        </property>
+        <property name="cprFareAmount" type="string">
+            <column name="CPR_FARE_AMOUNT" length="35" />
+        </property>
+        <property name="cprFareCurrency" type="string">
+            <column name="CPR_FARE_CURRENCY" length="3" />
+        </property>
+        <property name="cprSplNumber" type="string">
+            <column name="CPR_SPL_NUMBER" length="35" />
+        </property>
+        <property name="cprPrvCpnnumber" type="java.lang.Short">
+            <column name="CPR_PRV_CPNNUMBER" precision="1" scale="0" />
+        </property>
+        <property name="cprCouponCompany" type="string">
+            <column name="CPR_COUPON_COMPANY" length="35" />
+        </property>
+        <property name="cprDatalength" type="java.lang.Long">
+            <column name="CPR_DATALENGTH" precision="15" scale="0" />
+        </property>
+        <property name="cprDatatype" type="string">
+            <column name="CPR_DATATYPE" length="1" />
+        </property>
+        <property name="cprBinarydata" type="string">
+            <column name="CPR_BINARYDATA" length="999" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

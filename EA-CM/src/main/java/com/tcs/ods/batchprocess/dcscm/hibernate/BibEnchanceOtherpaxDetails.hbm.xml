@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibEnchanceOtherpaxDetails" table="BIB_ENCHANCE_OTHERPAX_DETAILS">
+        <id name="idEnchanceotherpax" type="java.lang.Long">
+            <column name="ID_ENCHANCEOTHERPAX" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibExcessbaggageCalculation" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibExcessbaggageCalculation" fetch="select">
+            <column name="ID_EXCESSBAGGCALC" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibOtherType" type="string">
+            <column name="BIB_OTHER_TYPE" length="20" />
+        </property>
+        <property name="bibOtherName" type="string">
+            <column name="BIB_OTHER_NAME" length="4" />
+        </property>
+        <property name="bibOtherDisplayedname" type="string">
+            <column name="BIB_OTHER_DISPLAYEDNAME" length="4" />
+        </property>
+        <property name="bibOtherMethod" type="string">
+            <column name="BIB_OTHER_METHOD" length="16" />
+        </property>
+        <property name="bibOtherSurname" type="string">
+            <column name="BIB_OTHER_SURNAME" length="280" />
+        </property>
+        <property name="bibOtherGivenname" type="string">
+            <column name="BIB_OTHER_GIVENNAME" length="280" />
+        </property>
+        <property name="bibOtherTitle1" type="string">
+            <column name="BIB_OTHER_TITLE1" length="280" />
+        </property>
+        <property name="bibOtherTitle2" type="string">
+            <column name="BIB_OTHER_TITLE2" length="280" />
+        </property>
+    </class>
+</hibernate-mapping>

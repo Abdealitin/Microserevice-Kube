@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2017 10:53:58 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBagError" table="CPR_BAG_ERROR">
+        <id name="idBaggerrorwarng" type="java.lang.Long">
+            <column name="ID_BAGGERRORWARNG" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        
+           <many-to-one name="idBagdetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBagdetail" fetch="select">
+            <column name="ID_BAGDETAIL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        
+      
+        <property name="cprErrorcode" type="string">
+            <column name="CPR_ERRORCODE" length="5" />
+        </property>
+        <property name="cprErrorcategory" type="string">
+            <column name="CPR_ERRORCATEGORY" length="3" />
+        </property>
+        <property name="cprQualifier" type="string">
+            <column name="CPR_QUALIFIER" length="3" />
+        </property>
+        <property name="cprLanguage" type="string">
+            <column name="CPR_LANGUAGE" length="50" />
+        </property>
+        <property name="cprSource" type="string">
+            <column name="CPR_SOURCE" length="3" />
+        </property>
+        <property name="cprEncoding" type="string">
+            <column name="CPR_ENCODING" length="3" />
+        </property>
+<!--         <property name="dwhSnapshottimestamp" type="serializable">
+            <column name="DWH_SNAPSHOTTIMESTAMP" />
+        </property> -->
+       <!--  <property name="idBagdetail" type="big_decimal">
+            <column name="ID_BAGDETAIL" precision="36" scale="0" not-null="true" />
+        </property> -->
+        <property name="cprErrorCdown" type="string">
+            <column name="CPR_ERROR_CDOWN" length="3" />
+        </property>
+        <property name="cprInfotype" type="string">
+            <column name="CPR_INFOTYPE" length="4" />
+        </property>
+        <property name="cprStatus" type="string">
+            <column name="CPR_STATUS" length="3" />
+        </property>
+        <property name="cprCmpnyid" type="string">
+            <column name="CPR_CMPNYID" length="35" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="180" />
+        </property>
+    </class>
+</hibernate-mapping>

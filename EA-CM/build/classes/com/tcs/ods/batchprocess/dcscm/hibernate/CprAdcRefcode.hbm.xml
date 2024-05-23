@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprAdcRefcode" table="CPR_ADC_REFCODE">
+        <id name="idAdcRefcode" type="java.lang.Long">
+            <column name="ID_ADC_REFCODE" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprAdcMsg" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprAdcMsg" fetch="select">
+            <column name="ID_ADC_MSG" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprRefqual" type="string">
+            <column name="CPR_REFQUAL" length="3" />
+        </property>
+        <property name="cprRefnumber" type="string">
+            <column name="CPR_REFNUMBER" length="35" />
+        </property>
+    </class>
+</hibernate-mapping>

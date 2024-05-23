@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 3, 2017 11:07:00 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLoadingdeatil" table="CPR_LOADINGDEATIL">
+        <id name="idLoadingdetail" type="java.lang.Long">
+            <column name="ID_LOADINGDETAIL" scale="0" />
+            <generator class="increment" />
+        </id>
+        
+         <many-to-one name="idFlightinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprFlightinfo" fetch="select">
+            <column name="ID_FLIGHTINFO" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprStowagedeviceid" type="string">
+            <column name="CPR_STOWAGEDEVICEID" length="35" />
+        </property>
+        <property name="cprCabinclass" type="string">
+            <column name="CPR_CABINCLASS" length="1" />
+        </property>
+        <property name="cprLoadinglocation" type="string">
+            <column name="CPR_LOADINGLOCATION" length="5" />
+        </property>
+        <property name="cprContainerdestination" type="string">
+            <column name="CPR_CONTAINERDESTINATION" length="3" />
+        </property>
+       <!--  <property name="dwhSnapshottimestamp" type="serializable">
+            <column name="DWH_SNAPSHOTTIMESTAMP" />
+        </property>
+        <property name="idFlightinfo" type="big_decimal">
+            <column name="ID_FLIGHTINFO" precision="36" scale="0" not-null="true" />
+        </property> -->
+        <property name="cprDeptdate" type="java.sql.Date">
+            <column name="CPR_DEPTDATE" length="7" />
+        </property>
+        <property name="cprBrdpt" type="string">
+            <column name="CPR_BRDPT" length="3" />
+        </property>
+        <property name="cprOffpt" type="string">
+            <column name="CPR_OFFPT" length="3" />
+        </property>
+        <property name="cprFlghtnumber" type="java.lang.Short">
+            <column name="CPR_FLGHTNUMBER" precision="4" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

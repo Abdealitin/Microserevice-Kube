@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 3, 2017 11:07:00 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLastseenLocation" table="CPR_LASTSEEN_LOCATION">
+        <id name="idSecurity" type="java.lang.Long">
+            <column name="ID_SECURITY" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        
+         <many-to-one name="idBagdetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBagdetail" fetch="select">
+            <column name="ID_BAGDETAIL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+         
+        <property name="cprScannerid" type="string">
+            <column name="CPR_SCANNERID" length="8" />
+        </property>
+        <property name="cprDatetimeQualifier" type="string">
+            <column name="CPR_DATETIME_QUALIFIER" length="1" />
+        </property>
+        <property name="cprLastseenDate" type="string">
+            <column name="CPR_LASTSEEN_DATE" length="5" />
+        </property>
+        <property name="cprLastseenTime" type="java.lang.Integer">
+            <column name="CPR_LASTSEEN_TIME" precision="4" scale="0" />
+        </property>
+        <property name="cprLastseenRlocation" type="string">
+            <column name="CPR_LASTSEEN_RLOCATION" length="8" />
+        </property>
+        <property name="cprLastseenSlocation" type="string">
+            <column name="CPR_LASTSEEN_SLOCATION" length="8" />
+        </property>
+        <property name="cprLocationType" type="string">
+            <column name="CPR_LOCATION_TYPE" length="1" />
+        </property>
+        <property name="cprLastseenAgentid" type="string">
+            <column name="CPR_LASTSEEN_AGENTID" length="9" />
+        </property>
+        <!-- <property name="idBagdetail" type="big_decimal">
+            <column name="ID_BAGDETAIL" precision="36" scale="0" not-null="true" />
+        </property> -->
+        <!-- <property name="dwhSnapshottimestamp" type="serializable">
+            <column name="DWH_SNAPSHOTTIMESTAMP" />
+        </property> -->
+    </class>
+</hibernate-mapping>

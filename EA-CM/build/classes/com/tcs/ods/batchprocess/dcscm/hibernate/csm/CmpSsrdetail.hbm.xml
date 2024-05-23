@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSsrdetail" table="CMP_SSRDETAIL">
+        <id name="idSsrdetail" type="java.lang.Long">
+            <column name="ID_SSRDETAIL" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpCustomercharact" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpCustomercharact" fetch="select">
+            <column name="ID_CUSTOMERCHARACT" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpSeatnumber" type="string">
+            <column name="CMP_SEATNUMBER" length="40" />
+        </property>
+        <property name="cmpCrossref" type="string">
+            <column name="CMP_CROSSREF" length="40" />
+        </property>
+        <property name="cmpSeatcharacteristic" type="string">
+            <column name="CMP_SEATCHARACTERISTIC" length="400" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

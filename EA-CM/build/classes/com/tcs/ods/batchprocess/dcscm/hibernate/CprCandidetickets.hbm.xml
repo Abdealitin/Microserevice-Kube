@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCandidetickets" table="CPR_CANDIDETICKETS">
+        <id name="idCandidetickets" type="java.lang.Long">
+            <column name="ID_CANDIDETICKETS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprDocmsgnumber" type="string">
+            <column name="CPR_DOCMSGNUMBER" length="14" />
+        </property>
+        <property name="cprCodedtype" type="string">
+            <column name="CPR_CODEDTYPE" length="3" />
+        </property>
+        <property name="cprNobooklets" type="java.lang.Long">
+            <column name="CPR_NOBOOKLETS" precision="14" scale="0" />
+        </property>
+        <property name="cprCpnnumber" type="string">
+            <column name="CPR_CPNNUMBER" length="1"/>
+        </property>
+    </class>
+</hibernate-mapping>

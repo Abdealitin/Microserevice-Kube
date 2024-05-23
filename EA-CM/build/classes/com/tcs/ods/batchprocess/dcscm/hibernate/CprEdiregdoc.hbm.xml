@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprEdiregdoc" table="CPR_EDIREGDOC">
+        <id name="idEdiregdoc" type="java.lang.Long">
+            <column name="ID_EDIREGDOC" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprCustomerlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCustomerlevel" fetch="select">
+            <column name="ID_CUSTOMERLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprReggender" type="string">
+            <column name="CPR_REGGENDER" length="3" />
+        </property>
+        <property name="cprRegsurname" type="string">
+            <column name="CPR_REGSURNAME" length="64" />
+        </property>
+        <property name="cprRegfirstname" type="string">
+            <column name="CPR_REGFIRSTNAME" length="64" />
+        </property>
+        <property name="cprSurname" type="string">
+            <column name="CPR_SURNAME" length="64" />
+        </property>
+        <property name="cprFirstname" type="string">
+            <column name="CPR_FIRSTNAME" length="64" />
+        </property>
+        <property name="cprPhoneno" type="string">
+            <column name="CPR_PHONENO" length="25" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="70" />
+        </property>
+        <property name="cprType" type="string">
+            <column name="CPR_TYPE" length="3" />
+        </property>
+        <property name="cprNumeber" type="string">
+            <column name="CPR_NUMEBER" length="35" />
+        </property>
+        <property name="cprCountrycode" type="string">
+            <column name="CPR_COUNTRYCODE" length="3" />
+        </property>
+        <property name="cprFreetext1" type="string">
+            <column name="CPR_FREETEXT1" length="70" />
+        </property>
+        <property name="cprRefqualifier" type="string">
+            <column name="CPR_REFQUALIFIER" length="3" />
+        </property>
+        <property name="cprPrimeid" type="string">
+            <column name="CPR_PRIMEID" length="16" />
+        </property>
+        <property name="cprRegcarrier" type="string">
+            <column name="CPR_REGCARRIER" length="3" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

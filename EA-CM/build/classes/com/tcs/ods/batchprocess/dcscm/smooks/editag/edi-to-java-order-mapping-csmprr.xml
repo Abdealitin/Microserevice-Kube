@@ -1,0 +1,1447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medi:edimap xmlns:medi="http://www.milyn.org/schema/edi-message-mapping-1.3.xsd">
+
+	<medi:description name="csmprr" version="16.1.1" />
+
+	<medi:delimiters segment="&#39;" field="+" component=":"
+		sub-component="~" />
+
+	<medi:segments xmltag="Csmprr">
+
+		<!-- STANDARD UNH HEADER -->
+		<medi:segment segcode="UNG" xmltag="ediGroupHeader">
+			<medi:field xmltag="messageGroupId" />
+			<medi:field xmltag="applicationSender">
+				<medi:component xmltag="applicationSenderId" />
+				<medi:component xmltag="senderIdQualifier" />
+			</medi:field>
+			<medi:field xmltag="applicationRecipient">
+				<medi:component xmltag="applicationRecipientId" />
+				<medi:component xmltag="recipientIdQualifier" />
+			</medi:field>
+			<medi:field xmltag="preparationDateAndTime">
+				<medi:component xmltag="preparationDate" />
+				<medi:component xmltag="preparationTime" />
+			</medi:field>
+			<medi:field xmltag="groupReferenceNumber" />
+			<medi:field xmltag="controllingAgency" />
+			<medi:field xmltag="messageVersion">
+				<medi:component xmltag="messageVersionNumber" />
+				<medi:component xmltag="messageReleaseNumber" />
+				<medi:component xmltag="assignedAssociation" />
+			</medi:field>
+			<medi:field xmltag="applicationPassword" />
+		</medi:segment>
+
+		<!-- STANDARD UNH HEADER -->
+		<medi:segment segcode="UNH" xmltag="ediHeader">
+			<medi:field xmltag="MessageReferenceNumber" />
+			<medi:field xmltag="MessageIdentifier">
+				<medi:component xmltag="Messagetype" />
+				<medi:component xmltag="MessageVersionNbr" />
+				<medi:component xmltag="MessageReleaseNbr" />
+				<medi:component xmltag="ControllingAgency" />
+				<medi:component xmltag="AssociationAssignedCode" />
+			</medi:field>
+			<medi:field xmltag="CommonAccessRef" />
+			<medi:field xmltag="StatusofTransfer">
+				<medi:component xmltag="Sequenceoftransfer" />
+				<medi:component xmltag="FirstandlastTransfer" />
+			</medi:field>
+		</medi:segment>
+
+		<!-- RAD 1A 01.2.3 (NGCOM) -RESPONSE ANALYSIS DETAILS -->
+		<medi:segment segcode="RAD" xmltag="replyStatus">
+			<medi:field xmltag="responseType" />
+			<medi:field xmltag="processingStatus" />
+		</medi:segment>
+
+		<!-- GERR/ERC 1A 02.1.2 (NGD) -Error Group/APPLICATION ERROR INFORMATION -->
+		<medi:segment segcode="ERC" xmltag="errorOrWarningCodeDetails">
+			<medi:field xmltag="errorDetails">
+				<medi:component xmltag="errorCode" />
+				<medi:component xmltag="errorCategory" />
+				<medi:component xmltag="codeListResponsibleAgency" />
+			</medi:field>
+		</medi:segment>
+
+		<!-- GERR/ERC 1A 02.1.2 (NGD)/TXF 1A 03.1.10 (NGD) -Error Group/APPLICATION 
+			ERROR INFORMATION/Free Text information -->
+		<medi:segment segcode="TXF" xmltag="errorWarningDescription">
+			<medi:field xmltag="freeTextDetails">
+				<medi:component xmltag="textSubjectQualifier" />
+				<medi:component xmltag="informationType" />
+				<medi:component xmltag="status" />
+				<medi:component xmltag="companyId" />
+				<medi:component xmltag="language" />
+				<medi:component xmltag="source" />
+				<medi:component xmltag="encoding" />
+			</medi:field>
+			<medi:field xmltag="freeText" />
+		</medi:segment>
+
+		<medi:segment segcode="STX" xmltag="iatciIndicator">
+			<medi:field xmltag="statusInformation">
+				<medi:component xmltag="indicatorAndAction" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="TVL" xmltag="flightDateInformation">
+			<medi:field xmltag="productDateOrTime">
+				<medi:component xmltag="departureDate" />
+				<medi:component xmltag="departureTime" />
+				<medi:component xmltag="secondDate" />
+				<medi:component xmltag="secondTime" />
+				<medi:component xmltag="dateVariation" />
+			</medi:field>
+			<medi:field xmltag="departureLocation">
+				<medi:component xmltag="location1" />
+				<medi:component xmltag="place1" />
+			</medi:field>
+			<medi:field xmltag="arrivalLocation">
+				<medi:component xmltag="location2" />
+				<medi:component xmltag="place2" />
+			</medi:field>
+			<medi:field xmltag="companyIdent">
+				<medi:component xmltag="marketingAirline" />
+				<medi:component xmltag="operatingAirline" />
+				<medi:component xmltag="companyIdentification1" />
+			</medi:field>
+			<medi:field xmltag="productIdentification">
+				<medi:component xmltag="flightNumber" />
+				<medi:component xmltag="reservationDesignator" />
+				<medi:component xmltag="operationalSuffix" />
+				<medi:component xmltag="itemDescriptionIdentification" />
+			</medi:field>
+			<medi:field xmltag="productTypeDetails">
+				<medi:component xmltag="sequenceNumber1" />
+				<medi:component xmltag="sequenceNumber2" />
+			</medi:field>
+			<medi:field xmltag="lineItemNumber1" />
+			<medi:field xmltag="processingIndicator" />
+			<medi:field xmltag="marriageControlDetails">
+				<medi:component xmltag="relation1" />
+				<medi:component xmltag="groupNumber" />
+				<medi:component xmltag="lineItemNumber2" />
+				<medi:component xmltag="relation2" />
+				<medi:component xmltag="companyIdentification2" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="CAR" xmltag="marketingFlightDetails">
+			<medi:field xmltag="codeshareDetails">
+				<medi:component xmltag="transportStageQualifier1" />
+				<medi:component xmltag="airlineDesignator" />
+				<medi:component xmltag="flightNumber" />
+				<medi:component xmltag="operationalSuffix" />
+				<medi:component xmltag="codeshareType1" />
+			</medi:field>
+			<medi:field xmltag="companyRoleIdentification">
+				<medi:component xmltag="transportStageQualifier2" />
+				<medi:component xmltag="companyIdentification" />
+				<medi:component xmltag="productIdentification" />
+				<medi:component xmltag="productIdentificationCharacteristic" />
+				<medi:component xmltag="codeshareType2" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="ANI" xmltag="terminalInfo">
+			<medi:field xmltag="airportCode" />
+			<medi:field xmltag="place" />
+			<medi:field xmltag="locationIdentification" />
+			<medi:field xmltag="terminalInformation">
+				<medi:component xmltag="name" />
+			</medi:field>
+			<medi:field xmltag="buildingInformation">
+				<medi:component xmltag="relatedPlace" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="SDI" xmltag="structuredDateTimeInfo">
+			<medi:field xmltag="businessSemantic" />
+			<medi:field xmltag="timeMode" />
+			<medi:field xmltag="dateTime">
+				<medi:component xmltag="year" />
+				<medi:component xmltag="month" />
+				<medi:component xmltag="day" />
+				<medi:component xmltag="hour" />
+				<medi:component xmltag="minutes" />
+				<medi:component xmltag="seconds" />
+				<medi:component xmltag="milliSeconds" />
+			</medi:field>
+			<medi:field xmltag="timeZoneInformation">
+				<medi:component xmltag="country" />
+				<medi:component xmltag="timeZoneCode" />
+				<medi:component xmltag="timeZoneSuffix" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="STX" xmltag="statusDetails">
+			<medi:field xmltag="statusInformation">
+				<medi:component xmltag="indicatorAndAction" />
+				</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="TLC" xmltag="departureGate">
+			<medi:field xmltag="terminalZoneInformation">
+				<medi:component xmltag="zoneCode" />
+				<medi:component xmltag="zoneDescription" />
+			</medi:field>
+			<medi:field xmltag="facilityDetails">
+				<medi:component xmltag="type" />
+				<medi:component xmltag="identifier" />
+				<medi:component xmltag="facilityDescription" />
+				<medi:component xmltag="workstationId" />
+			</medi:field>
+		</medi:segment>
+    
+       
+
+		<medi:segment segcode="EQI" xmltag="equipmentInformation">
+			<medi:field xmltag="fittedConfiguration1">
+				<medi:component xmltag="cabinCode1" />
+				<medi:component xmltag="cabinCapacity1" />
+				<medi:component xmltag="configCharacteristic1" />
+			</medi:field>
+			<medi:field xmltag="fittedConfiguration2">
+				<medi:component xmltag="cabinCode2" />
+				<medi:component xmltag="cabinCapacity2" />
+				<medi:component xmltag="configCharacteristic2" />
+			</medi:field>
+			<medi:field xmltag="fittedConfiguration3">
+				<medi:component xmltag="cabinCode3" />
+				<medi:component xmltag="cabinCapacity3" />
+				<medi:component xmltag="configCharacteristic3" />
+			</medi:field>
+			<medi:field xmltag="fittedConfiguration4">
+				<medi:component xmltag="cabinCode4" />
+				<medi:component xmltag="cabinCapacity4" />
+				<medi:component xmltag="configCharacteristic4" />
+			</medi:field>
+			<medi:field xmltag="fittedConfiguration5">
+				<medi:component xmltag="cabinCode5" />
+				<medi:component xmltag="cabinCapacity5" />
+				<medi:component xmltag="configCharacteristic5" />
+			</medi:field>
+			<medi:field xmltag="iataAircraftTypeCode" />
+			<medi:field xmltag="acvDetails">
+				<medi:component xmltag="acvVersionNumber" />
+				<medi:component xmltag="defaultConfigurationCode" />
+				<medi:component xmltag="airlineDetails" />
+				<medi:component xmltag="acvCode" />
+				<medi:component xmltag="acvCharacteristic1" />
+				<medi:component xmltag="acvCharacteristic2" />
+			</medi:field>
+			<medi:field xmltag="acvDescription" />
+		</medi:segment>
+
+		<medi:segment segcode="CBD" xmltag="compartmentDetails">
+			<medi:field xmltag="cabinClassDesignation">
+				<medi:component xmltag="cabinCode" />
+				<medi:component xmltag="resBookingDesignator" />
+				<medi:component xmltag="cabinClass" />
+				<medi:component xmltag="compartmentDesignator" />
+				<medi:component xmltag="cabinSection" />
+			</medi:field>
+			<medi:field xmltag="seatRowRange">
+				<medi:component xmltag="cabinClassSeatRow1" />
+				<medi:component xmltag="cabinClassSeatRow2" />
+			</medi:field>
+			<medi:field xmltag="cabinClassLocation" />
+			<medi:field xmltag="smokingAreaSeatRowRangeDetails">
+				<medi:component xmltag="smokingSeatRowNumber" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDefaultIndicator" />
+			<medi:field xmltag="overWingSeatRowRange">
+				<medi:component xmltag="overWingSeatNumber" />
+			</medi:field>
+			<medi:field xmltag="columnDetails1">
+				<medi:component xmltag="seatColumn1" />
+				<medi:component xmltag="columnDescription1" />
+				<medi:component xmltag="columnAdditionalInfo1" />
+			</medi:field>
+			<medi:field xmltag="columnDetails2">
+				<medi:component xmltag="seatColumn2" />
+				<medi:component xmltag="columnDescription2" />
+				<medi:component xmltag="columnAdditionalInfo2" />
+			</medi:field>
+			<medi:field xmltag="columnDetails3">
+				<medi:component xmltag="seatColumn3" />
+				<medi:component xmltag="columnDescription3" />
+				<medi:component xmltag="columnAdditionalInfo3" />
+			</medi:field>
+			<medi:field xmltag="columnDetails4">
+				<medi:component xmltag="seatColumn4" />
+				<medi:component xmltag="columnDescription4" />
+				<medi:component xmltag="columnAdditionalInfo4" />
+			</medi:field>
+			<medi:field xmltag="columnDetails5">
+				<medi:component xmltag="seatColumn5" />
+				<medi:component xmltag="columnDescription5" />
+				<medi:component xmltag="columnAdditionalInfo5" />
+			</medi:field>
+			<medi:field xmltag="columnDetails6">
+				<medi:component xmltag="seatColumn6" />
+				<medi:component xmltag="columnDescription6" />
+				<medi:component xmltag="columnAdditionalInfo6" />
+			</medi:field>
+			<medi:field xmltag="columnDetails7">
+				<medi:component xmltag="seatColumn7" />
+				<medi:component xmltag="columnDescription7" />
+				<medi:component xmltag="columnAdditionalInfo7" />
+			</medi:field>
+			<medi:field xmltag="columnDetails8">
+				<medi:component xmltag="seatColumn8" />
+				<medi:component xmltag="columnDescription8" />
+				<medi:component xmltag="columnAdditionalInfo8" />
+			</medi:field>
+			<medi:field xmltag="columnDetails9">
+				<medi:component xmltag="seatColumn9" />
+				<medi:component xmltag="columnDescription9" />
+				<medi:component xmltag="columnAdditionalInfo9" />
+			</medi:field>
+			<medi:field xmltag="columnDetails10">
+				<medi:component xmltag="seatColumn10" />
+				<medi:component xmltag="columnDescription10" />
+				<medi:component xmltag="columnAdditionalInfo10" />
+			</medi:field>
+			<medi:field xmltag="columnDetails11">
+				<medi:component xmltag="seatColumn11" />
+				<medi:component xmltag="columnDescription11" />
+				<medi:component xmltag="columnAdditionalInfo11" />
+			</medi:field>
+			<medi:field xmltag="columnDetails12">
+				<medi:component xmltag="seatColumn12" />
+				<medi:component xmltag="columnDescription12" />
+				<medi:component xmltag="columnAdditionalInfo12" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="ATR" xmltag="tempoZoneName">
+			<medi:field xmltag="criteriaSetType" />
+			<medi:field xmltag="criteriaDetails">
+				<medi:component xmltag="attributeDetails" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="ROD" xmltag="rowDetailsI">
+			<medi:field xmltag="seatRowNumber" />
+			<medi:field xmltag="rowCharacteristicDetails">
+				<medi:component xmltag="rowCharacteristic1" />
+				<medi:component xmltag="rowCharacteristic2" />
+				<medi:component xmltag="rowCharacteristic3" />
+				<medi:component xmltag="rowCharacteristic4" />
+				<medi:component xmltag="rowCharacteristic5" />
+				<medi:component xmltag="rowCharacteristic6" />
+				<medi:component xmltag="rowCharacteristic7" />
+				<medi:component xmltag="rowCharacteristic8" />
+				<medi:component xmltag="rowCharacteristic9" />
+				
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails1">
+				<medi:component xmltag="seatColumn1" />
+				<medi:component xmltag="seatOccupation1" />
+				<medi:component xmltag="seatCharacteristic1" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails2">
+				<medi:component xmltag="seatColumn2" />
+				<medi:component xmltag="seatOccupation2" />
+				<medi:component xmltag="seatCharacteristic2" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails3">
+				<medi:component xmltag="seatColumn3" />
+				<medi:component xmltag="seatOccupation3" />
+				<medi:component xmltag="seatCharacteristic3" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails4">
+				<medi:component xmltag="seatColumn4" />
+				<medi:component xmltag="seatOccupation4" />
+				<medi:component xmltag="seatCharacteristic4" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails5">
+				<medi:component xmltag="seatColumn5" />
+				<medi:component xmltag="seatOccupation5" />
+				<medi:component xmltag="seatCharacteristic5" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails6">
+				<medi:component xmltag="seatColumn6" />
+				<medi:component xmltag="seatOccupation6" />
+				<medi:component xmltag="seatCharacteristic6" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails7">
+				<medi:component xmltag="seatColumn7" />
+				<medi:component xmltag="seatOccupation7" />
+				<medi:component xmltag="seatCharacteristic7" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails8">
+				<medi:component xmltag="seatColumn8" />
+				<medi:component xmltag="seatOccupation8" />
+				<medi:component xmltag="seatCharacteristic8" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails9">
+				<medi:component xmltag="seatColumn9" />
+				<medi:component xmltag="seatOccupation9" />
+				<medi:component xmltag="seatCharacteristic9" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails10">
+				<medi:component xmltag="seatColumn10" />
+				<medi:component xmltag="seatOccupation10" />
+				<medi:component xmltag="seatCharacteristic10" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails11">
+				<medi:component xmltag="seatColumn11" />
+				<medi:component xmltag="seatOccupation11" />
+				<medi:component xmltag="seatCharacteristic11" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails12">
+				<medi:component xmltag="seatColumn12" />
+				<medi:component xmltag="seatOccupation12" />
+				<medi:component xmltag="seatCharacteristic12" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="REF" xmltag="crossReference">
+			<medi:field xmltag="referenceDetails1">
+				<medi:component xmltag="qualifier1" />
+				<medi:component xmltag="number1" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails2">
+				<medi:component xmltag="qualifier2" />
+				<medi:component xmltag="number2" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails3">
+				<medi:component xmltag="qualifier3" />
+				<medi:component xmltag="number3" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails4">
+				<medi:component xmltag="qualifier4" />
+				<medi:component xmltag="number4" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails5">
+				<medi:component xmltag="qualifier5" />
+				<medi:component xmltag="number5" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails6">
+				<medi:component xmltag="qualifier6" />
+				<medi:component xmltag="number6" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="RSR" xmltag="trainSeatNumbers">
+			<medi:field xmltag="railSeatReferenceDetails">
+				<medi:component xmltag="coachNumber" />
+				<medi:component xmltag="deckNumber" />
+				<medi:component xmltag="seatNumber" />
+				<medi:component xmltag="travellerReferenceNumber" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="CAR" xmltag="seatCodeshareDetails">
+			<medi:field xmltag="codeshareDetails">
+				<medi:component xmltag="transportStageQualifier1" />
+				<medi:component xmltag="airlineDesignator" />
+				<medi:component xmltag="flightNumber" />
+				<medi:component xmltag="operationalSuffix" />
+				<medi:component xmltag="codeshareType1" />
+			</medi:field>
+			<medi:field xmltag="companyRoleIdentification">
+				<medi:component xmltag="transportStageQualifier2" />
+				<medi:component xmltag="companyIdentification" />
+				<medi:component xmltag="productIdentification" />
+				<medi:component xmltag="productIdentificationCharacteristic" />
+				<medi:component xmltag="codeshareType2" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="IRV" xmltag="customer">
+			<medi:field xmltag="referenceQualifier" />
+			<medi:field xmltag="referenceNumber1" />
+			<medi:field xmltag="actionRequest" />
+			<medi:field xmltag="iDSection1">
+				<medi:component xmltag="deliveringSystemIdentification1" />
+				<medi:component xmltag="referenceVersionNumber1" />
+				<medi:component xmltag="idQualifier1" />
+				<medi:component xmltag="identifier1" />
+				<medi:component xmltag="iDreferenceNumber1" />
+				<medi:component xmltag="status1" />
+				<medi:component xmltag="yearNumber1" />
+				<medi:component xmltag="monthNumber1" />
+				<medi:component xmltag="dayNumber1" />
+				<medi:component xmltag="hours1" />
+				<medi:component xmltag="minutes1" />
+				<medi:component xmltag="freeText1" />
+			</medi:field>
+			<medi:field xmltag="iDSection2">
+				<medi:component xmltag="deliveringSystemIdentification2" />
+				<medi:component xmltag="referenceVersionNumber2" />
+				<medi:component xmltag="idQualifier2" />
+				<medi:component xmltag="identifier2" />
+				<medi:component xmltag="iDreferenceNumber2" />
+				<medi:component xmltag="status2" />
+				<medi:component xmltag="yearNumber2" />
+				<medi:component xmltag="monthNumber2" />
+				<medi:component xmltag="dayNumber2" />
+				<medi:component xmltag="hours2" />
+				<medi:component xmltag="minutes2" />
+				<medi:component xmltag="freeText2" />
+			</medi:field>
+			<medi:field xmltag="iDSection3">
+				<medi:component xmltag="deliveringSystemIdentification3" />
+				<medi:component xmltag="referenceVersionNumber3" />
+				<medi:component xmltag="idQualifier3" />
+				<medi:component xmltag="identifier3" />
+				<medi:component xmltag="iDreferenceNumber3" />
+				<medi:component xmltag="status3" />
+				<medi:component xmltag="yearNumber3" />
+				<medi:component xmltag="monthNumber3" />
+				<medi:component xmltag="dayNumber3" />
+				<medi:component xmltag="hours3" />
+				<medi:component xmltag="minutes3" />
+				<medi:component xmltag="freeText3" />
+			</medi:field>
+			<medi:field xmltag="iDSection4">
+				<medi:component xmltag="deliveringSystemIdentification4" />
+				<medi:component xmltag="referenceVersionNumber4" />
+				<medi:component xmltag="idQualifier4" />
+				<medi:component xmltag="identifier4" />
+				<medi:component xmltag="iDreferenceNumber4" />
+				<medi:component xmltag="status4" />
+				<medi:component xmltag="yearNumber4" />
+				<medi:component xmltag="monthNumber4" />
+				<medi:component xmltag="dayNumber4" />
+				<medi:component xmltag="hours4" />
+				<medi:component xmltag="minutes4" />
+				<medi:component xmltag="freeText4" />
+			</medi:field>
+			<medi:field xmltag="iDSection5">
+				<medi:component xmltag="deliveringSystemIdentification5" />
+				<medi:component xmltag="referenceVersionNumber5" />
+				<medi:component xmltag="idQualifier5" />
+				<medi:component xmltag="identifier5" />
+				<medi:component xmltag="iDreferenceNumber5" />
+				<medi:component xmltag="status5" />
+				<medi:component xmltag="yearNumber5" />
+				<medi:component xmltag="monthNumber5" />
+				<medi:component xmltag="dayNumber5" />
+				<medi:component xmltag="hours5" />
+				<medi:component xmltag="minutes5" />
+				<medi:component xmltag="freeText5" />
+			</medi:field>
+			<medi:field xmltag="iDSection6">
+				<medi:component xmltag="deliveringSystemIdentification6" />
+				<medi:component xmltag="referenceVersionNumber6" />
+				<medi:component xmltag="idQualifier6" />
+				<medi:component xmltag="identifier6" />
+				<medi:component xmltag="iDreferenceNumber6" />
+				<medi:component xmltag="status6" />
+				<medi:component xmltag="yearNumber6" />
+				<medi:component xmltag="monthNumber6" />
+				<medi:component xmltag="dayNumber6" />
+				<medi:component xmltag="hours6" />
+				<medi:component xmltag="minutes6" />
+				<medi:component xmltag="freeText6" />
+			</medi:field>
+			<medi:field xmltag="iDSection7">
+				<medi:component xmltag="deliveringSystemIdentification7" />
+				<medi:component xmltag="referenceVersionNumber7" />
+				<medi:component xmltag="idQualifier7" />
+				<medi:component xmltag="identifier7" />
+				<medi:component xmltag="iDreferenceNumber7" />
+				<medi:component xmltag="status7" />
+				<medi:component xmltag="yearNumber7" />
+				<medi:component xmltag="monthNumber7" />
+				<medi:component xmltag="dayNumber7" />
+				<medi:component xmltag="hours7" />
+				<medi:component xmltag="minutes7" />
+				<medi:component xmltag="freeText7" />
+			</medi:field>
+			<medi:field xmltag="iDSection8">
+				<medi:component xmltag="deliveringSystemIdentification8" />
+				<medi:component xmltag="referenceVersionNumber8" />
+				<medi:component xmltag="idQualifier8" />
+				<medi:component xmltag="identifier8" />
+				<medi:component xmltag="iDreferenceNumber8" />
+				<medi:component xmltag="status8" />
+				<medi:component xmltag="yearNumber8" />
+				<medi:component xmltag="monthNumber8" />
+				<medi:component xmltag="dayNumber8" />
+				<medi:component xmltag="hours8" />
+				<medi:component xmltag="minutes8" />
+				<medi:component xmltag="freeText8" />
+			</medi:field>
+			<medi:field xmltag="iDSection9">
+				<medi:component xmltag="deliveringSystemIdentification9" />
+				<medi:component xmltag="referenceVersionNumber9" />
+				<medi:component xmltag="idQualifier9" />
+				<medi:component xmltag="identifier9" />
+				<medi:component xmltag="iDreferenceNumber9" />
+				<medi:component xmltag="status9" />
+				<medi:component xmltag="yearNumber9" />
+				<medi:component xmltag="monthNumber9" />
+				<medi:component xmltag="dayNumber9" />
+				<medi:component xmltag="hours9" />
+				<medi:component xmltag="minutes9" />
+				<medi:component xmltag="freeText9" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="REF" xmltag="securityNumber">
+			<medi:field xmltag="referenceDetails1">
+				<medi:component xmltag="qualifier1" />
+				<medi:component xmltag="number1" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails2">
+				<medi:component xmltag="qualifier2" />
+				<medi:component xmltag="number2" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails3">
+				<medi:component xmltag="qualifier3" />
+				<medi:component xmltag="number3" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails4">
+				<medi:component xmltag="qualifier4" />
+				<medi:component xmltag="number4" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails5">
+				<medi:component xmltag="qualifier5" />
+				<medi:component xmltag="number5" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails6">
+				<medi:component xmltag="qualifier6" />
+				<medi:component xmltag="number6" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="SSR" xmltag="specialRequirementsDetails">
+			<medi:field xmltag="ssrTypeDetails">
+				<medi:component xmltag="ssrType" />
+				<medi:component xmltag="status" />
+				<medi:component xmltag="quantity" />
+				<medi:component xmltag="companyIdentification" />
+				<medi:component xmltag="processIndicator1" />
+				<medi:component xmltag="processIndicator2" />
+				<medi:component xmltag="place1" />
+				<medi:component xmltag="place2" />
+				<medi:component xmltag="freeText" />
+			</medi:field>
+			<medi:field xmltag="ssrDataDetails">
+				<medi:component xmltag="seatNumberDetails" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="TIF" xmltag="customerDetails">
+			<medi:field xmltag="travellerSurnameInfo">
+				<medi:component xmltag="travellerSurname" />
+				<medi:component xmltag="numberOfUnitsQualifier" />
+				<medi:component xmltag="quantity" />
+				<medi:component xmltag="status" />
+			</medi:field>
+			<medi:field xmltag="travelerDetails">
+				<medi:component xmltag="travelerInfo" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="CBD" xmltag="bookingClass">
+			<medi:field xmltag="cabinClassDesignation">
+				<medi:component xmltag="cabinCode" />
+				<medi:component xmltag="resBookingDesignator" />
+				<medi:component xmltag="cabinClass" />
+				<medi:component xmltag="compartmentDesignator" />
+				<medi:component xmltag="cabinSection" />
+			</medi:field>
+			<medi:field xmltag="seatRowRange">
+				<medi:component xmltag="cabinClassSeatRow1" />
+				<medi:component xmltag="cabinClassSeatRow2" />
+			</medi:field>
+			<medi:field xmltag="cabinClassLocation" />
+			<medi:field xmltag="smokingAreaSeatRowRangeDetails">
+				<medi:component xmltag="smokingSeatRowNumber" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDefaultIndicator" />
+			<medi:field xmltag="overWingSeatRowRange">
+				<medi:component xmltag="overWingSeatNumber" />
+			</medi:field>
+			<medi:field xmltag="columnDetails1">
+				<medi:component xmltag="seatColumn1" />
+				<medi:component xmltag="columnDescription1" />
+				<medi:component xmltag="columnAdditionalInfo1" />
+			</medi:field>
+			<medi:field xmltag="columnDetails2">
+				<medi:component xmltag="seatColumn2" />
+				<medi:component xmltag="columnDescription2" />
+				<medi:component xmltag="columnAdditionalInfo2" />
+			</medi:field>
+			<medi:field xmltag="columnDetails3">
+				<medi:component xmltag="seatColumn3" />
+				<medi:component xmltag="columnDescription3" />
+				<medi:component xmltag="columnAdditionalInfo3" />
+			</medi:field>
+			<medi:field xmltag="columnDetails4">
+				<medi:component xmltag="seatColumn4" />
+				<medi:component xmltag="columnDescription4" />
+				<medi:component xmltag="columnAdditionalInfo4" />
+			</medi:field>
+			<medi:field xmltag="columnDetails5">
+				<medi:component xmltag="seatColumn5" />
+				<medi:component xmltag="columnDescription5" />
+				<medi:component xmltag="columnAdditionalInfo5" />
+			</medi:field>
+			<medi:field xmltag="columnDetails6">
+				<medi:component xmltag="seatColumn6" />
+				<medi:component xmltag="columnDescription6" />
+				<medi:component xmltag="columnAdditionalInfo6" />
+			</medi:field>
+			<medi:field xmltag="columnDetails7">
+				<medi:component xmltag="seatColumn7" />
+				<medi:component xmltag="columnDescription7" />
+				<medi:component xmltag="columnAdditionalInfo7" />
+			</medi:field>
+			<medi:field xmltag="columnDetails8">
+				<medi:component xmltag="seatColumn8" />
+				<medi:component xmltag="columnDescription8" />
+				<medi:component xmltag="columnAdditionalInfo8" />
+			</medi:field>
+			<medi:field xmltag="columnDetails9">
+				<medi:component xmltag="seatColumn9" />
+				<medi:component xmltag="columnDescription9" />
+				<medi:component xmltag="columnAdditionalInfo9" />
+			</medi:field>
+			<medi:field xmltag="columnDetails10">
+				<medi:component xmltag="seatColumn10" />
+				<medi:component xmltag="columnDescription10" />
+				<medi:component xmltag="columnAdditionalInfo10" />
+			</medi:field>
+			<medi:field xmltag="columnDetails11">
+				<medi:component xmltag="seatColumn11" />
+				<medi:component xmltag="columnDescription11" />
+				<medi:component xmltag="columnAdditionalInfo11" />
+			</medi:field>
+			<medi:field xmltag="columnDetails12">
+				<medi:component xmltag="seatColumn12" />
+				<medi:component xmltag="columnDescription12" />
+				<medi:component xmltag="columnAdditionalInfo12" />
+			</medi:field>
+		</medi:segment>
+		
+		<medi:segment segcode="RCI" xmltag="recordLocator">
+			<medi:field xmltag="reservation">
+				<medi:component xmltag="companyIdentification" />
+				<medi:component xmltag="controlNumber" />
+				<medi:component xmltag="controlType" />
+				<medi:component xmltag="firstDate" />
+				<medi:component xmltag="time" />
+				<medi:component xmltag="elementType" />
+			</medi:field>
+		</medi:segment>
+		
+		<medi:segment segcode="ETI" xmltag="enhancedTravellerInformation">
+			<medi:field xmltag="travellerNameInfo">
+				<medi:component xmltag="numberOfUnitsQualifier1" />
+				<medi:component xmltag="quantity" />
+				<medi:component xmltag="type" />
+				<medi:component xmltag="numberOfUnitsQualifier2" />
+				<medi:component xmltag="travellerReferenceNumber" />
+				<medi:component xmltag="infantIndicator" />
+				<medi:component xmltag="travellerIdentificationCode" />
+				<medi:component xmltag="gender" />
+				<medi:component xmltag="age" />
+			</medi:field>
+			<medi:field xmltag="otherPaxNamesDetails1">
+				<medi:component xmltag="nameType1" />
+				<medi:component xmltag="referenceName1" />
+				<medi:component xmltag="displayedName1" />
+				<medi:component xmltag="romanizationMethod1" />
+				<medi:component xmltag="surname1" />
+				<medi:component xmltag="givenName1" />
+				<medi:component xmltag="title1" />
+				<medi:component xmltag="additionalTitle1" />
+			</medi:field>
+			<medi:field xmltag="otherPaxNamesDetails2">
+				<medi:component xmltag="nameType2" />
+				<medi:component xmltag="referenceName2" />
+				<medi:component xmltag="displayedName2" />
+				<medi:component xmltag="romanizationMethod2" />
+				<medi:component xmltag="surname2" />
+				<medi:component xmltag="givenName2" />
+				<medi:component xmltag="title2" />
+				<medi:component xmltag="additionalTitle2" />
+			</medi:field>
+			<medi:field xmltag="otherPaxNamesDetails3">
+				<medi:component xmltag="nameType3" />
+				<medi:component xmltag="referenceName3" />
+				<medi:component xmltag="displayedName3" />
+				<medi:component xmltag="romanizationMethod3" />
+				<medi:component xmltag="surname3" />
+				<medi:component xmltag="givenName3" />
+				<medi:component xmltag="title3" />
+				<medi:component xmltag="additionalTitle3" />
+			</medi:field>
+			<medi:field xmltag="otherPaxNamesDetails4">
+				<medi:component xmltag="nameType4" />
+				<medi:component xmltag="referenceName4" />
+				<medi:component xmltag="displayedName4" />
+				<medi:component xmltag="romanizationMethod4" />
+				<medi:component xmltag="surname4" />
+				<medi:component xmltag="givenName4" />
+				<medi:component xmltag="title4" />
+				<medi:component xmltag="additionalTitle4" />
+			</medi:field>
+			<medi:field xmltag="otherPaxNamesDetails5">
+				<medi:component xmltag="nameType5" />
+				<medi:component xmltag="referenceName5" />
+				<medi:component xmltag="displayedName5" />
+				<medi:component xmltag="romanizationMethod5" />
+				<medi:component xmltag="surname5" />
+				<medi:component xmltag="givenName5" />
+				<medi:component xmltag="title5" />
+				<medi:component xmltag="additionalTitle5" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="SSR" xmltag="customerCharacteristics">
+			<medi:field xmltag="ssrTypeDetails">
+				<medi:component xmltag="ssrType" />
+				<medi:component xmltag="status" />
+				<medi:component xmltag="quantity" />
+				<medi:component xmltag="companyIdentification" />
+				<medi:component xmltag="processIndicator1" />
+				<medi:component xmltag="processIndicator2" />
+				<medi:component xmltag="place1" />
+				<medi:component xmltag="place2" />
+				<medi:component xmltag="freeText" />
+			</medi:field>
+			<medi:field xmltag="ssrDataDetails">
+				<medi:component xmltag="seatNumberDetails" />
+			</medi:field>
+		</medi:segment>
+		
+
+		<medi:segment segcode="STX" xmltag="statusDetails1">
+			<medi:field xmltag="statusInformation">
+				<medi:component xmltag="indicatorAndAction" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="REF" xmltag="crossReference1">
+			<medi:field xmltag="referenceDetails1">
+				<medi:component xmltag="qualifier1" />
+				<medi:component xmltag="number1" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails2">
+				<medi:component xmltag="qualifier2" />
+				<medi:component xmltag="number2" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails3">
+				<medi:component xmltag="qualifier3" />
+				<medi:component xmltag="number3" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails4">
+				<medi:component xmltag="qualifier4" />
+				<medi:component xmltag="number4" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails5">
+				<medi:component xmltag="qualifier5" />
+				<medi:component xmltag="number5" />
+			</medi:field>
+			<medi:field xmltag="referenceDetails6">
+				<medi:component xmltag="qualifier6" />
+				<medi:component xmltag="number6" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="EQD" xmltag="saleableConfiguration">
+			<medi:field xmltag="configurationDetails1">
+				<medi:component xmltag="cabinCode1" />
+				<medi:component xmltag="cabinCapacity1" />
+				<medi:component xmltag="configCharacteristic1_1" />
+				
+			</medi:field>
+			<medi:field xmltag="configurationDetails2">
+				<medi:component xmltag="cabinCode2" />
+				<medi:component xmltag="cabinCapacity2" />
+				<medi:component xmltag="configCharacteristic1_2" />
+				
+			</medi:field>
+			<medi:field xmltag="configurationDetails3">
+				<medi:component xmltag="cabinCode3" />
+				<medi:component xmltag="cabinCapacity3" />
+				<medi:component xmltag="configCharacteristic1_3" />
+				
+			</medi:field>
+			<medi:field xmltag="configurationDetails4">
+				<medi:component xmltag="cabinCode4" />
+				<medi:component xmltag="cabinCapacity4" />
+				<medi:component xmltag="configCharacteristic1_4" />
+				
+			</medi:field>
+			<medi:field xmltag="configurationDetails5">
+				<medi:component xmltag="cabinCode5" />
+				<medi:component xmltag="cabinCapacity5" />
+				<medi:component xmltag="configCharacteristic1_5" />
+				
+			</medi:field>
+			<medi:field xmltag="configurationCode" />
+			<medi:field xmltag="cabinVersion" />
+			<medi:field xmltag="configurationDescription" />
+		</medi:segment>
+
+		<medi:segment segcode="EQI" xmltag="seatBlock">
+			
+			<medi:field xmltag="fittedConfiguration1">
+				<medi:component xmltag="cabinCode1" />
+				<medi:component xmltag="cabinCapacity1" />
+				<medi:component xmltag="configCharacteristic1" />
+			</medi:field>
+			<medi:field xmltag="fittedConfiguration2">
+				<medi:component xmltag="cabinCode2" />
+				<medi:component xmltag="cabinCapacity2" />
+				<medi:component xmltag="configCharacteristic2" />
+			</medi:field>
+			<medi:field xmltag="fittedConfiguration3">
+				<medi:component xmltag="cabinCode3" />
+				<medi:component xmltag="cabinCapacity3" />
+				<medi:component xmltag="configCharacteristic3" />
+			</medi:field>
+			<medi:field xmltag="fittedConfiguration4">
+				<medi:component xmltag="cabinCode4" />
+				<medi:component xmltag="cabinCapacity4" />
+				<medi:component xmltag="configCharacteristic4" />
+			</medi:field>
+			<medi:field xmltag="fittedConfiguration5">
+				<medi:component xmltag="cabinCode5" />
+				<medi:component xmltag="cabinCapacity5" />
+				<medi:component xmltag="configCharacteristic5" />
+			</medi:field>
+			<medi:field xmltag="iataAircraftTypeCode" />
+			<medi:field xmltag="acvDetails">
+				<medi:component xmltag="acvVersionNumber" />
+				<medi:component xmltag="defaultConfigurationCode" />
+				<medi:component xmltag="airlineDetails" />
+				<medi:component xmltag="acvCode" />
+				<medi:component xmltag="acvCharacteristic1" />
+				<medi:component xmltag="acvCharacteristic2" />
+			</medi:field>
+			<medi:field xmltag="acvDescription" />
+		</medi:segment>
+
+		<medi:segment segcode="DUM" xmltag="dummySegment">
+		</medi:segment>
+
+		<medi:segment segcode="TXF" xmltag="priceDescription">
+			<medi:field xmltag="freeTextDetails">
+				<medi:component xmltag="textSubjectQualifier" />
+				<medi:component xmltag="informationType" />
+				<medi:component xmltag="status" />
+				<medi:component xmltag="companyId" />
+				<medi:component xmltag="language" />
+				<medi:component xmltag="source" />
+				<medi:component xmltag="encoding" />
+			</medi:field>
+			<medi:field xmltag="freeText" />
+		</medi:segment>
+
+		<medi:segment segcode="IRV" xmltag="customerSeatPrice">
+			<medi:field xmltag="referenceQualifier" />
+			<medi:field xmltag="referenceNumber1" />
+			<medi:field xmltag="actionRequest" />
+			<medi:field xmltag="iDSection1">
+				<medi:component xmltag="deliveringSystemIdentification1" />
+				<medi:component xmltag="referenceVersionNumber1" />
+				<medi:component xmltag="idQualifier1" />
+				<medi:component xmltag="identifier1" />
+				<medi:component xmltag="iDreferenceNumber1" />
+				<medi:component xmltag="status1" />
+				<medi:component xmltag="yearNumber1" />
+				<medi:component xmltag="monthNumber1" />
+				<medi:component xmltag="dayNumber1" />
+				<medi:component xmltag="hours1" />
+				<medi:component xmltag="minutes1" />
+				<medi:component xmltag="freeText1" />
+			</medi:field>
+			<medi:field xmltag="iDSection2">
+				<medi:component xmltag="deliveringSystemIdentification2" />
+				<medi:component xmltag="referenceVersionNumber2" />
+				<medi:component xmltag="idQualifier2" />
+				<medi:component xmltag="identifier2" />
+				<medi:component xmltag="iDreferenceNumber2" />
+				<medi:component xmltag="status2" />
+				<medi:component xmltag="yearNumber2" />
+				<medi:component xmltag="monthNumber2" />
+				<medi:component xmltag="dayNumber2" />
+				<medi:component xmltag="hours2" />
+				<medi:component xmltag="minutes2" />
+				<medi:component xmltag="freeText2" />
+			</medi:field>
+			<medi:field xmltag="iDSection3">
+				<medi:component xmltag="deliveringSystemIdentification3" />
+				<medi:component xmltag="referenceVersionNumber3" />
+				<medi:component xmltag="idQualifier3" />
+				<medi:component xmltag="identifier3" />
+				<medi:component xmltag="iDreferenceNumber3" />
+				<medi:component xmltag="status3" />
+				<medi:component xmltag="yearNumber3" />
+				<medi:component xmltag="monthNumber3" />
+				<medi:component xmltag="dayNumber3" />
+				<medi:component xmltag="hours3" />
+				<medi:component xmltag="minutes3" />
+				<medi:component xmltag="freeText3" />
+			</medi:field>
+			<medi:field xmltag="iDSection4">
+				<medi:component xmltag="deliveringSystemIdentification4" />
+				<medi:component xmltag="referenceVersionNumber4" />
+				<medi:component xmltag="idQualifier4" />
+				<medi:component xmltag="identifier4" />
+				<medi:component xmltag="iDreferenceNumber4" />
+				<medi:component xmltag="status4" />
+				<medi:component xmltag="yearNumber4" />
+				<medi:component xmltag="monthNumber4" />
+				<medi:component xmltag="dayNumber4" />
+				<medi:component xmltag="hours4" />
+				<medi:component xmltag="minutes4" />
+				<medi:component xmltag="freeText4" />
+			</medi:field>
+			<medi:field xmltag="iDSection5">
+				<medi:component xmltag="deliveringSystemIdentification5" />
+				<medi:component xmltag="referenceVersionNumber5" />
+				<medi:component xmltag="idQualifier5" />
+				<medi:component xmltag="identifier5" />
+				<medi:component xmltag="iDreferenceNumber5" />
+				<medi:component xmltag="status5" />
+				<medi:component xmltag="yearNumber5" />
+				<medi:component xmltag="monthNumber5" />
+				<medi:component xmltag="dayNumber5" />
+				<medi:component xmltag="hours5" />
+				<medi:component xmltag="minutes5" />
+				<medi:component xmltag="freeText5" />
+			</medi:field>
+			<medi:field xmltag="iDSection6">
+				<medi:component xmltag="deliveringSystemIdentification6" />
+				<medi:component xmltag="referenceVersionNumber6" />
+				<medi:component xmltag="idQualifier6" />
+				<medi:component xmltag="identifier6" />
+				<medi:component xmltag="iDreferenceNumber6" />
+				<medi:component xmltag="status6" />
+				<medi:component xmltag="yearNumber6" />
+				<medi:component xmltag="monthNumber6" />
+				<medi:component xmltag="dayNumber6" />
+				<medi:component xmltag="hours6" />
+				<medi:component xmltag="minutes6" />
+				<medi:component xmltag="freeText6" />
+			</medi:field>
+			<medi:field xmltag="iDSection7">
+				<medi:component xmltag="deliveringSystemIdentification7" />
+				<medi:component xmltag="referenceVersionNumber7" />
+				<medi:component xmltag="idQualifier7" />
+				<medi:component xmltag="identifier7" />
+				<medi:component xmltag="iDreferenceNumber7" />
+				<medi:component xmltag="status7" />
+				<medi:component xmltag="yearNumber7" />
+				<medi:component xmltag="monthNumber7" />
+				<medi:component xmltag="dayNumber7" />
+				<medi:component xmltag="hours7" />
+				<medi:component xmltag="minutes7" />
+				<medi:component xmltag="freeText7" />
+			</medi:field>
+			<medi:field xmltag="iDSection8">
+				<medi:component xmltag="deliveringSystemIdentification8" />
+				<medi:component xmltag="referenceVersionNumber8" />
+				<medi:component xmltag="idQualifier8" />
+				<medi:component xmltag="identifier8" />
+				<medi:component xmltag="iDreferenceNumber8" />
+				<medi:component xmltag="status8" />
+				<medi:component xmltag="yearNumber8" />
+				<medi:component xmltag="monthNumber8" />
+				<medi:component xmltag="dayNumber8" />
+				<medi:component xmltag="hours8" />
+				<medi:component xmltag="minutes8" />
+				<medi:component xmltag="freeText8" />
+			</medi:field>
+			<medi:field xmltag="iDSection9">
+				<medi:component xmltag="deliveringSystemIdentification9" />
+				<medi:component xmltag="referenceVersionNumber9" />
+				<medi:component xmltag="idQualifier9" />
+				<medi:component xmltag="identifier9" />
+				<medi:component xmltag="iDreferenceNumber9" />
+				<medi:component xmltag="status9" />
+				<medi:component xmltag="yearNumber9" />
+				<medi:component xmltag="monthNumber9" />
+				<medi:component xmltag="dayNumber9" />
+				<medi:component xmltag="hours9" />
+				<medi:component xmltag="minutes9" />
+				<medi:component xmltag="freeText9" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="IRV" xmltag="otherCustomersSeatPrice">
+			<medi:field xmltag="referenceQualifier" />
+			<medi:field xmltag="referenceNumber1" />
+			<medi:field xmltag="actionRequest" />
+			<medi:field xmltag="iDSection1">
+				<medi:component xmltag="deliveringSystemIdentification1" />
+				<medi:component xmltag="referenceVersionNumber1" />
+				<medi:component xmltag="idQualifier1" />
+				<medi:component xmltag="identifier1" />
+				<medi:component xmltag="iDreferenceNumber1" />
+				<medi:component xmltag="status1" />
+				<medi:component xmltag="yearNumber1" />
+				<medi:component xmltag="monthNumber1" />
+				<medi:component xmltag="dayNumber1" />
+				<medi:component xmltag="hours1" />
+				<medi:component xmltag="minutes1" />
+				<medi:component xmltag="freeText1" />
+			</medi:field>
+			<medi:field xmltag="iDSection2">
+				<medi:component xmltag="deliveringSystemIdentification2" />
+				<medi:component xmltag="referenceVersionNumber2" />
+				<medi:component xmltag="idQualifier2" />
+				<medi:component xmltag="identifier2" />
+				<medi:component xmltag="iDreferenceNumber2" />
+				<medi:component xmltag="status2" />
+				<medi:component xmltag="yearNumber2" />
+				<medi:component xmltag="monthNumber2" />
+				<medi:component xmltag="dayNumber2" />
+				<medi:component xmltag="hours2" />
+				<medi:component xmltag="minutes2" />
+				<medi:component xmltag="freeText2" />
+			</medi:field>
+			<medi:field xmltag="iDSection3">
+				<medi:component xmltag="deliveringSystemIdentification3" />
+				<medi:component xmltag="referenceVersionNumber3" />
+				<medi:component xmltag="idQualifier3" />
+				<medi:component xmltag="identifier3" />
+				<medi:component xmltag="iDreferenceNumber3" />
+				<medi:component xmltag="status3" />
+				<medi:component xmltag="yearNumber3" />
+				<medi:component xmltag="monthNumber3" />
+				<medi:component xmltag="dayNumber3" />
+				<medi:component xmltag="hours3" />
+				<medi:component xmltag="minutes3" />
+				<medi:component xmltag="freeText3" />
+			</medi:field>
+			<medi:field xmltag="iDSection4">
+				<medi:component xmltag="deliveringSystemIdentification4" />
+				<medi:component xmltag="referenceVersionNumber4" />
+				<medi:component xmltag="idQualifier4" />
+				<medi:component xmltag="identifier4" />
+				<medi:component xmltag="iDreferenceNumber4" />
+				<medi:component xmltag="status4" />
+				<medi:component xmltag="yearNumber4" />
+				<medi:component xmltag="monthNumber4" />
+				<medi:component xmltag="dayNumber4" />
+				<medi:component xmltag="hours4" />
+				<medi:component xmltag="minutes4" />
+				<medi:component xmltag="freeText4" />
+			</medi:field>
+			<medi:field xmltag="iDSection5">
+				<medi:component xmltag="deliveringSystemIdentification5" />
+				<medi:component xmltag="referenceVersionNumber5" />
+				<medi:component xmltag="idQualifier5" />
+				<medi:component xmltag="identifier5" />
+				<medi:component xmltag="iDreferenceNumber5" />
+				<medi:component xmltag="status5" />
+				<medi:component xmltag="yearNumber5" />
+				<medi:component xmltag="monthNumber5" />
+				<medi:component xmltag="dayNumber5" />
+				<medi:component xmltag="hours5" />
+				<medi:component xmltag="minutes5" />
+				<medi:component xmltag="freeText5" />
+			</medi:field>
+			<medi:field xmltag="iDSection6">
+				<medi:component xmltag="deliveringSystemIdentification6" />
+				<medi:component xmltag="referenceVersionNumber6" />
+				<medi:component xmltag="idQualifier6" />
+				<medi:component xmltag="identifier6" />
+				<medi:component xmltag="iDreferenceNumber6" />
+				<medi:component xmltag="status6" />
+				<medi:component xmltag="yearNumber6" />
+				<medi:component xmltag="monthNumber6" />
+				<medi:component xmltag="dayNumber6" />
+				<medi:component xmltag="hours6" />
+				<medi:component xmltag="minutes6" />
+				<medi:component xmltag="freeText6" />
+			</medi:field>
+			<medi:field xmltag="iDSection7">
+				<medi:component xmltag="deliveringSystemIdentification7" />
+				<medi:component xmltag="referenceVersionNumber7" />
+				<medi:component xmltag="idQualifier7" />
+				<medi:component xmltag="identifier7" />
+				<medi:component xmltag="iDreferenceNumber7" />
+				<medi:component xmltag="status7" />
+				<medi:component xmltag="yearNumber7" />
+				<medi:component xmltag="monthNumber7" />
+				<medi:component xmltag="dayNumber7" />
+				<medi:component xmltag="hours7" />
+				<medi:component xmltag="minutes7" />
+				<medi:component xmltag="freeText7" />
+			</medi:field>
+			<medi:field xmltag="iDSection8">
+				<medi:component xmltag="deliveringSystemIdentification8" />
+				<medi:component xmltag="referenceVersionNumber8" />
+				<medi:component xmltag="idQualifier8" />
+				<medi:component xmltag="identifier8" />
+				<medi:component xmltag="iDreferenceNumber8" />
+				<medi:component xmltag="status8" />
+				<medi:component xmltag="yearNumber8" />
+				<medi:component xmltag="monthNumber8" />
+				<medi:component xmltag="dayNumber8" />
+				<medi:component xmltag="hours8" />
+				<medi:component xmltag="minutes8" />
+				<medi:component xmltag="freeText8" />
+			</medi:field>
+			<medi:field xmltag="iDSection9">
+				<medi:component xmltag="deliveringSystemIdentification9" />
+				<medi:component xmltag="referenceVersionNumber9" />
+				<medi:component xmltag="idQualifier9" />
+				<medi:component xmltag="identifier9" />
+				<medi:component xmltag="iDreferenceNumber9" />
+				<medi:component xmltag="status9" />
+				<medi:component xmltag="yearNumber9" />
+				<medi:component xmltag="monthNumber9" />
+				<medi:component xmltag="dayNumber9" />
+				<medi:component xmltag="hours9" />
+				<medi:component xmltag="minutes9" />
+				<medi:component xmltag="freeText9" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="MON" xmltag="seatPrice">
+			<medi:field xmltag="monetaryDetails">
+				<medi:component xmltag="typeQualifier" />
+				<medi:component xmltag="amount" />
+				<medi:component xmltag="currency" />
+				<medi:component xmltag="location" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails1">
+				<medi:component xmltag="otherTypeQualifier1" />
+				<medi:component xmltag="otherAmount1" />
+				<medi:component xmltag="otherCurrency1" />
+				<medi:component xmltag="otherLocation1" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails2">
+				<medi:component xmltag="otherTypeQualifier2" />
+				<medi:component xmltag="otherAmount2" />
+				<medi:component xmltag="otherCurrency2" />
+				<medi:component xmltag="otherLocation2" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails3">
+				<medi:component xmltag="otherTypeQualifier3" />
+				<medi:component xmltag="otherAmount3" />
+				<medi:component xmltag="otherCurrency3" />
+				<medi:component xmltag="otherLocation3" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails4">
+				<medi:component xmltag="otherTypeQualifier4" />
+				<medi:component xmltag="otherAmount4" />
+				<medi:component xmltag="otherCurrency4" />
+				<medi:component xmltag="otherLocation4" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails5">
+				<medi:component xmltag="otherTypeQualifier5" />
+				<medi:component xmltag="otherAmount5" />
+				<medi:component xmltag="otherCurrency5" />
+				<medi:component xmltag="otherLocation5" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails6">
+				<medi:component xmltag="otherTypeQualifier6" />
+				<medi:component xmltag="otherAmount6" />
+				<medi:component xmltag="otherCurrency6" />
+				<medi:component xmltag="otherLocation6" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails7">
+				<medi:component xmltag="otherTypeQualifier7" />
+				<medi:component xmltag="otherAmount7" />
+				<medi:component xmltag="otherCurrency7" />
+				<medi:component xmltag="otherLocation7" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails8">
+				<medi:component xmltag="otherTypeQualifier8" />
+				<medi:component xmltag="otherAmount8" />
+				<medi:component xmltag="otherCurrency8" />
+				<medi:component xmltag="otherLocation8" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails9">
+				<medi:component xmltag="otherTypeQualifier9" />
+				<medi:component xmltag="otherAmount9" />
+				<medi:component xmltag="otherCurrency9" />
+				<medi:component xmltag="otherLocation9" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails10">
+				<medi:component xmltag="otherTypeQualifier10" />
+				<medi:component xmltag="otherAmount10" />
+				<medi:component xmltag="otherCurrency10" />
+				<medi:component xmltag="otherLocation10" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails11">
+				<medi:component xmltag="otherTypeQualifier11" />
+				<medi:component xmltag="otherAmount11" />
+				<medi:component xmltag="otherCurrency11" />
+				<medi:component xmltag="otherLocation11" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails12">
+				<medi:component xmltag="otherTypeQualifier12" />
+				<medi:component xmltag="otherAmount12" />
+				<medi:component xmltag="otherCurrency12" />
+				<medi:component xmltag="otherLocation12" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails13">
+				<medi:component xmltag="otherTypeQualifier13" />
+				<medi:component xmltag="otherAmount13" />
+				<medi:component xmltag="otherCurrency13" />
+				<medi:component xmltag="otherLocation13" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails14">
+				<medi:component xmltag="otherTypeQualifier14" />
+				<medi:component xmltag="otherAmount14" />
+				<medi:component xmltag="otherCurrency14" />
+				<medi:component xmltag="otherLocation14" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails15">
+				<medi:component xmltag="otherTypeQualifier15" />
+				<medi:component xmltag="otherAmount15" />
+				<medi:component xmltag="otherCurrency15" />
+				<medi:component xmltag="otherLocation15" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails16">
+				<medi:component xmltag="otherTypeQualifier16" />
+				<medi:component xmltag="otherAmount16" />
+				<medi:component xmltag="otherCurrency16" />
+				<medi:component xmltag="otherLocation16" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails17">
+				<medi:component xmltag="otherTypeQualifier17" />
+				<medi:component xmltag="otherAmount17" />
+				<medi:component xmltag="otherCurrency17" />
+				<medi:component xmltag="otherLocation17" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails18">
+				<medi:component xmltag="otherTypeQualifier18" />
+				<medi:component xmltag="otherAmount18" />
+				<medi:component xmltag="otherCurrency18" />
+				<medi:component xmltag="otherLocation18" />
+			</medi:field>
+			<medi:field xmltag="otherMonetaryDetails19">
+				<medi:component xmltag="otherTypeQualifier19" />
+				<medi:component xmltag="otherAmount19" />
+				<medi:component xmltag="otherCurrency19" />
+				<medi:component xmltag="otherLocation19" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="TXD" xmltag="taxDetails">
+			<medi:field xmltag="feeCategory" />
+			<medi:field xmltag="feeDetails">
+				<medi:component xmltag="taxRateDetails" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="ROD" xmltag="rowPriceDetails">
+			<medi:field xmltag="seatRowNumber" />
+			<medi:field xmltag="rowCharacteristicDetails">
+				<medi:component xmltag="rowCharacteristic1" />
+				<medi:component xmltag="rowCharacteristic2" />
+				<medi:component xmltag="rowCharacteristic3" />
+				<medi:component xmltag="rowCharacteristic4" />
+				<medi:component xmltag="rowCharacteristic5" />
+				<medi:component xmltag="rowCharacteristic6" />
+				<medi:component xmltag="rowCharacteristic7" />
+				<medi:component xmltag="rowCharacteristic8" />
+				<medi:component xmltag="rowCharacteristic9" />
+				
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails1">
+				<medi:component xmltag="seatColumn1" />
+				<medi:component xmltag="seatOccupation1" />
+				<medi:component xmltag="seatCharacteristic1" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails2">
+				<medi:component xmltag="seatColumn2" />
+				<medi:component xmltag="seatOccupation2" />
+				<medi:component xmltag="seatCharacteristic2" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails3">
+				<medi:component xmltag="seatColumn3" />
+				<medi:component xmltag="seatOccupation3" />
+				<medi:component xmltag="seatCharacteristic3" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails4">
+				<medi:component xmltag="seatColumn4" />
+				<medi:component xmltag="seatOccupation4" />
+				<medi:component xmltag="seatCharacteristic4" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails5">
+				<medi:component xmltag="seatColumn5" />
+				<medi:component xmltag="seatOccupation5" />
+				<medi:component xmltag="seatCharacteristic5" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails6">
+				<medi:component xmltag="seatColumn6" />
+				<medi:component xmltag="seatOccupation6" />
+				<medi:component xmltag="seatCharacteristic6" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails7">
+				<medi:component xmltag="seatColumn7" />
+				<medi:component xmltag="seatOccupation7" />
+				<medi:component xmltag="seatCharacteristic7" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails8">
+				<medi:component xmltag="seatColumn8" />
+				<medi:component xmltag="seatOccupation8" />
+				<medi:component xmltag="seatCharacteristic8" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails9">
+				<medi:component xmltag="seatColumn9" />
+				<medi:component xmltag="seatOccupation9" />
+				<medi:component xmltag="seatCharacteristic9" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails10">
+				<medi:component xmltag="seatColumn10" />
+				<medi:component xmltag="seatOccupation10" />
+				<medi:component xmltag="seatCharacteristic10" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails11">
+				<medi:component xmltag="seatColumn11" />
+				<medi:component xmltag="seatOccupation11" />
+				<medi:component xmltag="seatCharacteristic11" />
+			</medi:field>
+			<medi:field xmltag="seatOccupationDetails12">
+				<medi:component xmltag="seatColumn12" />
+				<medi:component xmltag="seatOccupation12" />
+				<medi:component xmltag="seatCharacteristic12" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="ATR" xmltag="pricingRuleAttributes">
+			<medi:field xmltag="criteriaSetType" />
+			<medi:field xmltag="criteriaDetails">
+				<medi:component xmltag="attributeDetails" />
+			</medi:field>
+		</medi:segment>
+
+		<medi:segment segcode="TXF" xmltag="priceSolutionDescription">
+			<medi:field xmltag="freeTextDetails">
+				<medi:component xmltag="textSubjectQualifier" />
+				<medi:component xmltag="informationType" />
+				<medi:component xmltag="status" />
+				<medi:component xmltag="companyId" />
+				<medi:component xmltag="language" />
+				<medi:component xmltag="source" />
+				<medi:component xmltag="encoding" />
+			</medi:field>
+			<medi:field xmltag="freeText" />
+		</medi:segment>
+
+		<!-- STANDARD UNT TRAILER -->
+		<medi:segment segcode="UNT" xmltag="ediTrailer">
+			<medi:field xmltag="NoOfSegments" />
+			<medi:field xmltag="MessageReferenceNumber" />
+		</medi:segment>
+
+		<!-- STANDARD UNE TRAILER -->
+		<medi:segment segcode="UNE" xmltag="ediGroupTrailer">
+			<medi:field xmltag="groupControlCount" />
+			<medi:field xmltag="groupReference" />
+		</medi:segment>
+
+	</medi:segments>
+
+</medi:edimap>

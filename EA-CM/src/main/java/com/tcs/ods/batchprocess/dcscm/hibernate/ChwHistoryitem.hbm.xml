@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ChwHistoryitem" table="CHW_HISTORYITEM">
+        <id name="idHistoryitem" type="java.lang.Long">
+            <column name="ID_HISTORYITEM" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="chwMessage" class="com.tcs.ods.batchprocess.dcscm.hibernate.ChwMessage" fetch="select">
+            <column name="ID_CHW_MESSAGE" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="chwPurgedatebusinesssemantic" type="string">
+            <column name="CHW_PURGEDATEBUSINESSSEMANTIC" length="200" />
+        </property>
+        <property name="chwPurgeTimestamp" type="java.sql.Timestamp">
+            <column name="CHW_PURGE_TIMESTAMP" />
+        </property>
+        <property name="chwTimestampBusinesssemantic" type="string">
+            <column name="CHW_TIMESTAMP_BUSINESSSEMANTIC" length="12" />
+        </property>
+        <property name="chwTimestamp" type="java.sql.Timestamp">
+            <column name="CHW_TIMESTAMP" />
+        </property>
+       	<property name="chwOfficeid" type="string">
+            <column name="CHW_OFFICEID" length="36" />
+        </property>
+        <property name="chwSign" type="string">
+            <column name="CHW_SIGN" length="200" />
+        </property>
+        <property name="chwUserid" type="string">
+            <column name="CHW_USERID" length="40" />
+        </property>
+        <property name="chwOrganization" type="string">
+            <column name="CHW_ORGANIZATION" length="80" />
+        </property>
+        <property name="chwAction" type="string">
+            <column name="CHW_ACTION" length="200" />
+        </property>        
+        <property name="chwAirportcode" type="string">
+            <column name="CHW_AIRPORTCODE" length="3" />
+        </property>
+        <property name="chwTerminalname" type="string">
+            <column name="CHW_TERMINALNAME" length="25" />
+        </property>
+        <property name="chwDeviceaddress" type="string">
+            <column name="CHW_DEVICEADDRESS" length="35" />
+        </property>
+        <property name="chwDevicequalifier" type="string">
+            <column name="CHW_DEVICEQUALIFIER" length="3" />
+        </property>
+        <property name="chwHistoryitemlabel" type="string">
+            <column name="CHW_HISTORYITEMLABEL" length="5" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

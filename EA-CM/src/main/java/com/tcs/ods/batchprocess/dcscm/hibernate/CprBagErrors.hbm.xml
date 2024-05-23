@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBagErrors" table="CPR_BAG_ERRORS">
+        <id name="idBagErrors" type="java.lang.Long">
+            <column name="ID_BAG_ERRORS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprBaggageInfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBaggageinfo" fetch="select">
+            <column name="ID_BAGGAGE_INFO" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprErrcode" type="string">
+            <column name="CPR_ERRCODE" length="5" />
+        </property>
+        <property name="cprErrcatg" type="string">
+            <column name="CPR_ERRCATG" length="3" />
+        </property>
+        <property name="cprErrcodeOwn" type="string">
+            <column name="CPR_ERRCODE_OWN" length="3" />
+        </property>
+        <property name="cprTxtsubQual" type="string">
+            <column name="CPR_TXTSUB_QUAL" length="3" />
+        </property>
+        <property name="cprLang" type="string">
+            <column name="CPR_LANG" length="3" />
+        </property>
+        <property name="cprSource" type="string">
+            <column name="CPR_SOURCE" length="3" />
+        </property>
+        <property name="cprEncoding" type="string">
+            <column name="CPR_ENCODING" length="3" />
+        </property>
+        <property name="cprLongfreetext" type="string">
+            <column name="CPR_LONGFREETEXT" length="2000" />
+        </property>
+    </class>
+</hibernate-mapping>

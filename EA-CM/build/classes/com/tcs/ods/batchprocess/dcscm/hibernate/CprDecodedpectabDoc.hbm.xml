@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprDecodedpectabDoc" table="CPR_DECODEDPECTAB_DOC">
+        <id name="idDecodedpectabDoc" type="java.lang.Long">
+            <column name="ID_DECODEDPECTAB_DOC" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprDecodedMsrdoc" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprDecodedMsrdoc" fetch="select">
+            <column name="ID_DECODED_MSRDOC" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprDocumentnumber" type="string">
+            <column name="CPR_DOCUMENTNUMBER" length="40" />
+        </property>
+        <property name="cprDocumentstatus" type="string">
+            <column name="CPR_DOCUMENTSTATUS" length="12" />
+        </property>
+        <property name="cprDocumentexpirydate" type="date">
+            <column name="CPR_DOCUMENTEXPIRYDATE" />
+        </property>
+        <property name="cprDocumentissuingcountrycode" type="string">
+            <column name="CPR_DOCUMENTISSUINGCOUNTRYCODE" length="12" />
+        </property>
+        <property name="cprDocumentttype" type="string">
+            <column name="CPR_DOCUMENTTTYPE" length="12" />
+        </property>
+        <property name="cprTicketnumber" type="string">
+            <column name="CPR_TICKETNUMBER" length="14" />
+        </property>
+        <property name="cprTickettype" type="string">
+            <column name="CPR_TICKETTYPE" length="4" />
+        </property>
+        <property name="cprTicketdataindicator" type="string">
+            <column name="CPR_TICKETDATAINDICATOR" length="12" />
+        </property>
+        <property name="cprTicketstatus" type="string">
+            <column name="CPR_TICKETSTATUS" length="12" />
+        </property>
+        <property name="cprCouponnumber" type="string">
+            <column name="CPR_COUPONNUMBER" length="4" />
+        </property>
+        <property name="cprFqtvnumber" type="string">
+            <column name="CPR_FQTVNUMBER" length="76" />
+        </property>
+       
+        
+    </class>
+</hibernate-mapping>

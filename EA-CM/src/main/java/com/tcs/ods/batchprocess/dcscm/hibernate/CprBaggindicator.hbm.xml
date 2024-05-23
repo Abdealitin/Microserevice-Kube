@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBaggindicator" table="CPR_BAGGINDICATOR">
+        <id name="idBaggindicator" type="java.lang.Long">
+            <column name="ID_BAGGINDICATOR" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+         <many-to-one name="cprBagInformation" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprBagInformation" fetch="select">
+            <column name="ID_BAG_INFORMATION" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprAttributetype1" type="string">
+            <column name="CPR_ATTRIBUTETYPE1" length="5" />
+        </property>
+        <property name="cprAttributetype2" type="string">
+            <column name="CPR_ATTRIBUTETYPE2" length="5" />
+        </property>
+        <property name="cprAttributetype3" type="string">
+            <column name="CPR_ATTRIBUTETYPE3" length="5" />
+        </property>
+    </class>
+</hibernate-mapping>

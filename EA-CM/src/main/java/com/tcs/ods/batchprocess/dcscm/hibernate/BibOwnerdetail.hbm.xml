@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibOwnerdetail" table="BIB_OWNERDETAIL">
+        <id name="idBagownerdetail" type="java.lang.Long">
+            <column name="ID_BAGOWNERDETAIL" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibBagdetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibBagdetail" fetch="select">
+            <column name="ID_BAGDETAIL" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibPaxsurname" type="string">
+            <column name="BIB_PAXSURNAME" length="200" />
+        </property>
+        <property name="bibPaxtype" type="string">
+            <column name="BIB_PAXTYPE" length="12" />
+        </property>
+        <property name="bibOtherpaxGivenname" type="string">
+            <column name="BIB_OTHERPAX_GIVENNAME" length="280" />
+        </property>
+        <property name="bibOtherpaxTitle" type="string">
+            <column name="BIB_OTHERPAX_TITLE" length="80" />
+        </property>
+        <property name="bibEnchanceQuantity" type="java.lang.Long">
+            <column name="BIB_ENCHANCE_QUANTITY" precision="15" scale="0" />
+        </property>
+        <property name="bibEnchanceType" type="string">
+            <column name="BIB_ENCHANCE_TYPE" length="12" />
+        </property>
+        <property name="bibEnchanceIndicator" type="string">
+            <column name="BIB_ENCHANCE_INDICATOR" length="4" />
+        </property>
+        <property name="bibEnchanceOthername" type="string">
+            <column name="BIB_ENCHANCE_OTHERNAME" length="280" />
+        </property>
+        <property name="bibEnchanceGender" type="string">
+            <column name="BIB_ENCHANCE_GENDER" length="12" />
+        </property>
+        <property name="bibEnchanceAge" type="java.lang.Short">
+            <column name="BIB_ENCHANCE_AGE" precision="3" scale="0" />
+        </property>
+        <property name="bibReferrenceQualifier" type="string">
+            <column name="BIB_REFERRENCE_QUALIFIER" length="12" />
+        </property>
+        <property name="bibPrimeId" type="string">
+            <column name="BIB_PRIME_ID" length="64" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibApplicationFreetext" table="BIB_APPLICATION_FREETEXT">
+        <id name="idApplicationfreetext" type="java.lang.Long">
+            <column name="ID_APPLICATIONFREETEXT" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibApplicationError" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibApplicationError" fetch="select">
+            <column name="ID_APPLICATIONERROR" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibFreetext" type="string">
+            <column name="BIB_FREETEXT" length="280" />
+        </property>
+    </class>
+</hibernate-mapping>

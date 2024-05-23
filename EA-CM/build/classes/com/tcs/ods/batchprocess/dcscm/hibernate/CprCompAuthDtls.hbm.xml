@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprCompAuthDtls" table="CPR_COMP_AUTH_DTLS">
+        <id name="idCompAuthDtls" type="java.lang.Long">
+            <column name="ID_COMP_AUTH_DTLS" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprQuantity" type="java.lang.Long">
+            <column name="CPR_QUANTITY" precision="36" scale="0" />
+        </property>
+        <property name="cprAuthStartdate" type="date">
+            <column name="CPR_AUTH_STARTDATE" length="7" />
+        </property>
+        <property name="cprOrigin" type="string">
+            <column name="CPR_ORIGIN" length="3" />
+        </property>
+        <property name="cprDestination" type="string">
+            <column name="CPR_DESTINATION" length="3" />
+        </property>
+        <property name="cprInhouseid" type="string">
+            <column name="CPR_INHOUSEID" length="9" />
+        </property>
+        <property name="cprIndicator" type="string">
+            <column name="CPR_INDICATOR" length="3" />
+        </property>
+        <property name="cprType" type="string">
+            <column name="CPR_TYPE" length="3" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprFqtvFreqflyerinfo" table="CPR_FQTV_FREQFLYERINFO">
+        <id name="idFqtvFreqflyerinfo" type="java.lang.Long">
+            <column name="ID_FQTV_FREQFLYERINFO" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprCarrier" type="string">
+            <column name="CPR_CARRIER" length="3" />
+        </property>
+        <property name="cprNumber" type="string">
+            <column name="CPR_NUMBER" length="25" />
+        </property>
+        <property name="cprStatus" type="string">
+            <column name="CPR_STATUS" length="3" />
+        </property>
+        <property name="cprTierlevel" type="string">
+            <column name="CPR_TIERLEVEL" length="4" />
+        </property>
+        <property name="cprPrioritycode" type="string">
+            <column name="CPR_PRIORITYCODE" length="12" />
+        </property>
+        <property name="cprSsrcode" type="string">
+            <column name="CPR_SSRCODE" length="4" />
+        </property>
+    </class>
+</hibernate-mapping>

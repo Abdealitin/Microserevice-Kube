@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 3, 2017 11:07:00 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLoadingIndc" table="CPR_LOADING_INDC">
+        <id name="idLoadingIndc" type="java.lang.Long">
+            <column name="ID_LOADING_INDC" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        
+         <many-to-one name="idLoadingdetail" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprLoadingdeatil" fetch="select">
+            <column name="ID_LOADINGDETAIL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        
+        <property name="cprIndicator" type="string">
+            <column name="CPR_INDICATOR" length="3" />
+        </property>
+        <property name="cprAction" type="string">
+            <column name="CPR_ACTION" length="3" />
+        </property>
+     <!--    <property name="idLoadingdetail" type="big_decimal">
+            <column name="ID_LOADINGDETAIL" scale="0" not-null="true" />
+        </property> -->
+    </class>
+</hibernate-mapping>

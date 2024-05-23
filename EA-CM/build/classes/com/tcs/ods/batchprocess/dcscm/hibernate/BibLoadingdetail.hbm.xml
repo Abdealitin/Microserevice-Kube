@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 4:39:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.BibLoadingdetail" table="BIB_LOADINGDETAIL">
+        <id name="idLoadingdetail" type="java.lang.Long">
+            <column name="ID_LOADINGDETAIL" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="bibFlightinfo" class="com.tcs.ods.batchprocess.dcscm.hibernate.BibFlightinfo" fetch="select">
+            <column name="ID_FLIGHTINFO" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="bibStowagedeviceid" type="string">
+            <column name="BIB_STOWAGEDEVICEID" length="140" />
+        </property>
+        <property name="bibCabinclass" type="string">
+            <column name="BIB_CABINCLASS" length="4" />
+        </property>
+        <property name="bibLoadinglocation" type="string">
+            <column name="BIB_LOADINGLOCATION" length="20" />
+        </property>
+        <property name="bibContainerdestination" type="string">
+            <column name="BIB_CONTAINERDESTINATION" length="200" />
+        </property>
+        <property name="bibFlightdateFirstdate" type="string">
+            <column name="BIB_FLIGHTDATE_FIRSTDATE"  />
+        </property>
+        <property name="bibBoardpointTruelocation" type="string">
+            <column name="BIB_BOARDPOINT_TRUELOCATION" length="12" />
+        </property>
+        <property name="bibFlightidenFlightno" type="java.lang.Short">
+            <column name="BIB_FLIGHTIDEN_FLIGHTNO" precision="4" scale="0" />
+        </property>        
+    </class>
+</hibernate-mapping>

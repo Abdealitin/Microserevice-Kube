@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatOccupation" table="CMP_SEAT_OCCUPATION">
+        <id name="idSeatoccupation" type="java.lang.Long">
+            <column name="ID_SEATOCCUPATION" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpSeatPrice" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatPrice" fetch="select">
+            <column name="ID_SEATPRICE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpSeatColoumn" type="string">
+            <column name="CMP_SEAT_COLOUMN" length="4" />
+        </property>
+        <property name="cmpSeatOccupation" type="string">
+            <column name="CMP_SEAT_OCCUPATION" length="4" />
+        </property>
+        <property name="cmpSeatRownum" type="integer">
+            <column name="CMP_SEAT_ROWNUM" precision="3" scale="0" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

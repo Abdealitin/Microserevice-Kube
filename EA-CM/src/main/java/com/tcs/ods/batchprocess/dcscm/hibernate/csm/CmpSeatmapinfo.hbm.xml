@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2017 1:52:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpSeatmapinfo" table="CMP_SEATMAPINFO">
+        <id name="idSeatmapinfo" type="java.lang.Long">
+            <column name="ID_SEATMAPINFO" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cmpMessage" class="com.tcs.ods.batchprocess.dcscm.hibernate.csm.CmpMessage" fetch="select">
+            <column name="ID_CMPMESSAGE" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cmpDepdatetime" type="java.sql.Timestamp">
+            <column name="CMP_DEPDATETIME" length="140" />
+        </property>
+       
+        <property name="cmpDatevariation" type="int">
+            <column name="CMP_DATEVARIATION" precision="1" scale="0" />
+        </property>
+        <property name="cmpDeparturelocation" type="string">
+            <column name="CMP_DEPARTURELOCATION" length="100" />
+        </property>
+        <property name="cmpArrivallocation" type="string">
+            <column name="CMP_ARRIVALLOCATION" length="100" />
+        </property>
+        <property name="cmpMarketingairline" type="string">
+            <column name="CMP_MARKETINGAIRLINE" length="140" />
+        </property>
+        <property name="cmpOperatingairline" type="string">
+            <column name="CMP_OPERATINGAIRLINE" length="140" />
+        </property>
+        <property name="cmpFlightnumber" type="string">
+            <column name="CMP_FLIGHTNUMBER" length="16" />
+        </property>
+        <property name="cmpReservationdesignator" type="string">
+            <column name="CMP_RESERVATIONDESIGNATOR" length="68" />
+        </property>
+        <property name="cmpOperationalsuffix" type="string">
+            <column name="CMP_OPERATIONALSUFFIX" length="12" />
+        </property>
+        <property name="cmpAirportcode" type="string">
+            <column name="CMP_AIRPORTCODE" length="12" />
+        </property>
+        <property name="cmpTerminalname" type="string">
+            <column name="CMP_TERMINALNAME" length="100" />
+        </property>
+        
+        <property name="cmpAirportcode2" type="string">
+            <column name="CMP_AIRPORTCODE2" length="12" />
+        </property>
+        <property name="cmpTerminalname2" type="string">
+            <column name="CMP_TERMINALNAME2" length="100" />
+        </property>
+        
+        
+        <property name="cmpIataaircrafttype" type="string">
+            <column name="CMP_IATAAIRCRAFTTYPE" length="32" />
+        </property>
+        <property name="cmpAcvversionno" type="string">
+            <column name="CMP_ACVVERSIONNO" length="48" />
+        </property>
+        <property name="cmpAcvdefaultconfigcode" type="string">
+            <column name="CMP_ACVDEFAULTCONFIGCODE" length="68" />
+        </property>
+        <property name="cmpAcvairlinedetail" type="string">
+            <column name="CMP_ACVAIRLINEDETAIL" length="140" />
+        </property>
+        <property name="cmpAcvcode" type="string">
+            <column name="CMP_ACVCODE" length="68" />
+        </property>
+        <property name="cmpAcvcharacteristic1" type="string">
+            <column name="CMP_ACVCHARACTERISTIC1" length="12" />
+        </property>
+        <property name="cmpAcvcharacteristic2" type="string">
+            <column name="CMP_ACVCHARACTERISTIC2" length="400" />
+        </property>
+        <property name="cmpAcvdescription" type="string">
+            <column name="CMP_ACVDESCRIPTION" length="280" />
+        </property>
+        <property name="cmpPricingSubjectqualifier" type="string">
+            <column name="CMP_PRICING_SUBJECTQUALIFIER" length="12" />
+        </property>
+        <property name="cmpPricingInfoType" type="string">
+            <column name="CMP_PRICING_INFO_TYPE" length="16" />
+        </property>
+        <property name="cmpPricingStatus" type="string">
+            <column name="CMP_PRICING_STATUS" length="12" />
+        </property>
+        <property name="cmpPricingCompanyid" type="string">
+            <column name="CMP_PRICING_COMPANYID" length="140" />
+        </property>
+        <property name="cmpPricingLanguage" type="string">
+            <column name="CMP_PRICING_LANGUAGE" length="12" />
+        </property>
+        <property name="cmpPricingSource" type="string">
+            <column name="CMP_PRICING_SOURCE" length="12" />
+        </property>
+        <property name="cmpPricingEncoding" type="string">
+            <column name="CMP_PRICING_ENCODING" length="12" />
+        </property>
+        <property name="cmpPricingFreetext" type="string">
+            <column name="CMP_PRICING_FREETEXT" length="796" />
+        </property>
+        <property name="cmpCommSubjectqualifier" type="string">
+            <column name="CMP_COMM_SUBJECTQUALIFIER" length="12" />
+        </property>
+        <property name="cmpCommInfoType" type="string">
+            <column name="CMP_COMM_INFO_TYPE" length="16" />
+        </property>
+        <property name="cmpCommStatus" type="string">
+            <column name="CMP_COMM_STATUS" length="12" />
+        </property>
+        <property name="cmpCommCompanyid" type="string">
+            <column name="CMP_COMM_COMPANYID" length="140" />
+        </property>
+        <property name="cmpCommLanguage" type="string">
+            <column name="CMP_COMM_LANGUAGE" length="12" />
+        </property>
+        <property name="cmpCommSource" type="string">
+            <column name="CMP_COMM_SOURCE" length="12" />
+        </property>
+        <property name="cmpCommEncoding" type="string">
+            <column name="CMP_COMM_ENCODING" length="12" />
+        </property>
+        <property name="cmpCommFreetext" type="string">
+            <column name="CMP_COMM_FREETEXT" length="796" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,259 @@
+<?xml version="1.0"?>
+<smooks-resource-list
+	xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd"
+	xmlns:edi="http://www.milyn.org/xsd/smooks/edi-1.1.xsd"
+	xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.2.xsd">
+
+    <!--
+    Configure the EDI Reader to parse the message stream into a stream of SAX events.
+    -->
+    <edi:reader mappingModel="editag/edi-map-chdwrr.xml" />
+
+	
+	<jb:bean beanId="chdwrr" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.Chdwrr" createOnElement="Chdwrr">
+        <jb:wiring property="ediGroupHeader" beanIdRef="UNG" />
+        <jb:wiring property="ediHeader" beanIdRef="UNH" />           
+        <jb:wiring property="errorCode" beanIdRef="ERRG" />
+        <jb:wiring property="application" beanIdRef="HSTI" />           
+        <jb:wiring property="ediTrailer" beanIdRef="UNT" />
+        <jb:wiring property="ediGroupTrailer" beanIdRef="UNE" />
+    </jb:bean>
+    
+    <!--  STANDARD UNG HEADER -->
+    <jb:bean beanId="UNG" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.EdiGroupHeader" createOnElement="ediGroupHeader">
+        <jb:value property="messageGroupId" decoder="String" data="#/messageGroupId" />
+        <jb:value property="applicationSenderId" decoder="String" data="#/applicationSender/applicationSenderId" />
+        <jb:value property="senderIdQualifier" decoder="String" data="#/applicationSender/senderIdQualifier" />
+        <jb:value property="applicationRecipientId" decoder="String" data="#/applicationRecipient/applicationRecipientId" />
+        <jb:value property="recipientIdQualifier" decoder="String" data="#/applicationRecipient/recipientIdQualifier" />
+        <jb:value property="preparationDate" decoder="String" data="#/preparationDateAndTime/preparationDate" />
+        <jb:value property="preparationTime" decoder="String" data="#/preparationDateAndTime/preparationTime" />
+        <jb:value property="groupReferenceNumber" decoder="String" data="#/groupReferenceNumber" />
+        <jb:value property="controllingAgency" decoder="String" data="#/controllingAgency" />
+        <jb:value property="messageVersionNumber" decoder="String" data="#/messageVersion/messageVersionNumber" />
+        <jb:value property="messageReleaseNumber" decoder="String" data="#/messageVersion/messageReleaseNumber" />
+        <jb:value property="assignedAssociation" decoder="String" data="#/messageVersion/assignedAssociation" />
+        <jb:value property="applicationPassword" decoder="String" data="#/applicationPassword" />
+    </jb:bean>
+    
+  	<!--  STANDARD UNH HEADER -->
+    <jb:bean beanId="UNH" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.EdiHeader" createOnElement="ediHeader">
+        <jb:value property="messageRefNumber" decoder="String" data="#/MessageReferenceNumber" />
+        <jb:value property="messageType" decoder="String" data="#/MessageIdentifier/Messagetype" />
+        <jb:value property="messageVersionNumber" decoder="String" data="#/MessageIdentifier/MessageVersionNbr" />
+        <jb:value property="messageRelaseNumber" decoder="String" data="#/MessageIdentifier/MessageReleaseNbr" />
+        <jb:value property="controllingAgency" decoder="String" data="#/MessageIdentifier/ControllingAgency" />
+        <jb:value property="associationAssignedCode" decoder="String" data="#/MessageIdentifier/AssociationAssignedCode" />
+        <jb:value property="commonAccessReference" decoder="String" data="#/CommonAccessRef" />
+        <jb:value property="sequenceofTransfer" decoder="Integer" data="#/StatusofTransfer/Sequenceoftransfer" />
+        <jb:value property="firstAndLastTransfer" decoder="String" data="#/StatusofTransfer/FirstandlastTransfer" />
+    </jb:bean>
+    
+    <!-- ERRG/ ERC 1A 02.1.1 (HIS) - EDI GENERAL ERRORS / APPLICATION ERROR INFORMATION -->
+    <jb:bean beanId="ERRG" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.ErrorCode" createOnElement="errorCode">
+		<jb:value property="errorCode" decoder="String" data="#/errorDetails/errorCode" />
+     	<jb:value property="errorCategory" decoder="String" data="#/errorDetails/errorCategory" />
+     	<jb:value property="errorCodeOwner" decoder="String" data="#/errorDetails/errorCodeOwner" />
+		<jb:wiring property="errorText" beanIdRef="TXF" />
+    </jb:bean> 
+    
+	<!-- ERRG/ ERC 1A 02.1.1 (HIS)/TXF 1A 03.1.1 (HIS) -EdiGeneralErrors/APPLICATION ERROR INFORMATION/Free Text information -->
+    <jb:bean beanId="TXF" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.ErrorText" createOnElement="errorText">
+		<jb:value property="textSubjectQualifier" decoder="String" data="#/freeTextDetails/textSubjectQualifier" />
+     	<jb:value property="informationType" decoder="String" data="#/freeTextDetails/informationType" />
+     	<jb:value property="status" decoder="String" data="#/freeTextDetails/status" />
+		<jb:value property="companyIdentification" decoder="String" data="#/freeTextDetails/companyIdentification" />
+     	<jb:value property="language" decoder="String" data="#/freeTextDetails/language" />
+     	<jb:value property="source" decoder="String" data="#/freeTextDetails/source" />
+		<jb:value property="encoding" decoder="String" data="#/freeTextDetails/encoding" />
+		<jb:value property="freeText" decoder="String" data="#/freeText" />
+	</jb:bean> 
+	
+	<!--HSTI/APL 1A 02.1.2 (HIS) -History Item/APPLICATION ERROR INFORMATION /APPLICATION-->
+	<jb:bean beanId="HSTI" class="java.util.ArrayList" createOnElement="Chdwrr">
+        <jb:wiring beanIdRef="APL" />
+    </jb:bean> 
+    
+    <jb:bean beanId="APL" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.Application" createOnElement="application">
+		<jb:value property="referenceNumber" decoder="String" data="#/applicationDetails/referenceNumber" />
+     	<jb:value property="referenceVersionNumber" decoder="String" data="#/applicationDetails/referenceVersionNumber" />
+     	<jb:value property="label" decoder="String" data="#/applicationDetails/label" />
+		<jb:value property="entityDescription" decoder="String" data="#/applicationDetails/entityDescription" />
+     	<jb:value property="statusIndicator" decoder="String" data="#/applicationDetails/statusIndicator" />
+		<jb:wiring property="firstHistoryLine" beanIdRef="LONGDATADETAILS" />
+		<jb:wiring property="structuredDateTimeInformation" beanIdRef="SDI" />
+		<jb:wiring property="userIdentification" beanIdRef="UID" />
+		<jb:wiring property="organisation" beanIdRef="CPY" />
+		<jb:wiring property="action" beanIdRef="STX" />
+		<jb:wiring property="column" beanIdRef="HISDLIST" />
+    </jb:bean> 
+    
+    <!--  Group 3/ATR 1A 10.1.1 (DCS_HISTORY)	 -HSTI 1A 10 1Group 3/ATTRIBUTE-->
+	<jb:bean beanId="LONGDATADETAILS" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.FirstHistoryLine" createOnElement="firstHistoryLine">
+     	<jb:value property="criteriaSetType" decoder="String" data="#/criteriaSetType" />
+     	<jb:value property="attributeDetails" decoder="String" data="#/criteriaDetails/attributeDetails" />     	
+		<jb:wiring property="secondHistoryLine" beanIdRef="LONGDATADETAILS-ATR" />
+		<jb:wiring property="airportTerminal" beanIdRef="LONGDATADETAILS-ANI" />
+		<jb:wiring property="deviceAddress" beanIdRef="LONGDATADETAILS-DCD" />
+		<jb:wiring property="historyAssociation" beanIdRef="LONGDATADETAILS-IRV" />
+    </jb:bean>
+    
+    <!--  Group 3/ATR 1A 10.1.1 (DCS_HISTORY)/ATR 1A 10.1.1 (DCS_HISTORY)	 -HSTI 1A 10 1Group 3/ATTRIBUTE/ATTRIBUTE-->
+	<jb:bean beanId="LONGDATADETAILS-ATR" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.SecondHistoryLine" createOnElement="secondHistoryLine">
+     	<jb:value property="criteriaSetType" decoder="String" data="#/criteriaSetType" />
+     	<jb:value property="attributeDetails" decoder="String" data="#/criteriaDetails/attributeDetails" />
+	</jb:bean> 
+	
+    <!--  Group 3/ATR 1A 10.1.1 (DCS_HISTORY)/ANI 1A 04.1.1 (DCS_BO) -HSTI 1A 10 1Group 3/ATTRIBUTE/Airport Node Information-->
+	<jb:bean beanId="LONGDATADETAILS-ANI" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.AirportTerminal" createOnElement="airportTerminal">
+     	<jb:value property="airportCode" decoder="String" data="#/airportCode" />
+     	<jb:value property="place" decoder="String" data="#/place" />
+		<jb:value property="locationIdentification" decoder="String" data="#/locationIdentification" />
+     	<jb:value property="name" decoder="String" data="#/terminalInformation/name" />
+	</jb:bean> 
+	
+    <!--  Group 3/ATR 1A 10.1.1 (DCS_HISTORY)/DCD IA 05.1.1 (DCS_PRINTER) -HSTI 1A 10 1Group 3/ATTRIBUTE/DEVICE CONTROL DETAILS-->
+	<jb:bean beanId="LONGDATADETAILS-DCD" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.DeviceAddress" createOnElement="deviceAddress">
+     	<jb:value property="companyIdentification" decoder="String" data="#/companyIdentification" />
+     	<jb:value property="address" decoder="String" data="#/deviceIdentification/address" />
+		<jb:value property="qualifier" decoder="String" data="#/deviceIdentification/qualifier" />
+     	<jb:value property="statusIndicator" decoder="String" data="#/statusIndicator" />
+		<jb:value property="sequenceNumber" decoder="String" data="#/sequenceNumber" />
+		<jb:value property="materialType" decoder="String" data="#/materialType" />
+		<jb:value property="dataIndicator" decoder="String" data="#/dataIndicator" />
+	</jb:bean>
+     
+	<!--  Group 3/ATR 1A 10.1.1 (DCS_HISTORY)/IRV 1A 10.1.1 (DCS_HISTORY) -HSTI 1A 10 1Group 3/ATTRIBUTE/ITEM REFERENCES AND VERSIONS-->
+	<jb:bean beanId="LONGDATADETAILS-IRV" class="java.util.ArrayList" createOnElement="firstHistoryLine">
+        <jb:wiring beanIdRef="LONGDATADETAILS-IRVLIST" />
+    </jb:bean> 	
+
+	<jb:bean beanId="LONGDATADETAILS-IRVLIST" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.HistoryAssociation" createOnElement="historyAssociation">
+     	<jb:value property="referenceQualifier1" decoder="String" data="#/referenceQualifier1" />
+		<jb:value property="referenceNumber1" decoder="String" data="#/referenceNumber1" />
+		<jb:value property="actionRequest" decoder="String" data="#/actionRequest" />
+		<jb:value property="idSectionDetails" decoder="String" data="#/idSection/idSectionDetails" />        
+	</jb:bean>
+	
+	<jb:bean beanId="SDI" class="java.util.ArrayList" createOnElement="application">
+        <jb:wiring beanIdRef="SDILIST" />
+    </jb:bean> 
+	
+	<!--  HSTI/SDI 1A 10.1.1 (HIS) -History Item/STRUCTURED DATE TIME INFORMATION-->
+	<jb:bean beanId="SDILIST" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.StructuredDateTimeInformation" createOnElement="structuredDateTimeInformation">
+        <jb:value property="businessSemantic" decoder="String" data="#/businessSemantic" />
+	    <jb:value property="periodQualifier" decoder="String" data="#/periodQualifier" />
+	    <jb:value property="year" decoder="Integer" data="#/dateTime/year" />
+	    <jb:value property="month" decoder="Integer" data="#/dateTime/month" />
+	    <jb:value property="day" decoder="Integer" data="#/dateTime/day" />
+	    <jb:value property="hour" decoder="Integer" data="#/dateTime/hour" />
+	    <jb:value property="minutes" decoder="Integer" data="#/dateTime/minutes" />
+	    <jb:value property="seconds" decoder="Integer" data="#/dateTime/seconds" />
+	    <jb:value property="milliSeconds" decoder="Integer" data="#/dateTime/milliSeconds" />
+	    <jb:value property="country" decoder="String" data="#/timeZoneInformation/country" />
+	    <jb:value property="timeZoneCode" decoder="Integer" data="#/timeZoneInformation/timeZoneCode" />
+	    <jb:value property="timeZoneSuffix" decoder="String" data="#/timeZoneInformation/timeZoneSuffix" />
+	</jb:bean>
+
+	<!--  HSTI/UID 1A 02.1.1 (HIS) -History Item/USER IDENTIFICATION-->
+	<jb:bean beanId="UID" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.UserIdentification" createOnElement="userIdentification">
+	    <jb:value property="travelAgentIdentificationDetails" decoder="Integer" data="#/originIdentification/travelAgentIdentificationDetails" />
+        <jb:value property="inHouseIdentification1" decoder="String" data="#/originIdentification/inHouseIdentification1" />
+        <jb:value property="inHouseIdentification2" decoder="String" data="#/originIdentification/inHouseIdentification2" />
+        <jb:value property="inHouseIdentification3" decoder="String" data="#/originIdentification/inHouseIdentification3" />
+        <jb:value property="originatorTypeCode" decoder="String" data="#/originatorTypeCode" />
+        <jb:value property="originator" decoder="String" data="#/originator" />
+	</jb:bean> 
+	
+	<!--  HSTI/CPY 1A 05.1.1 (HIS)-History Item/Company Information-->
+	<jb:bean beanId="CPY" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.Organisation" createOnElement="organisation">
+	    <jb:value property="industrySector" decoder="String" data="#/industrySector" />
+        <jb:value property="codeListResponsibleAgency" decoder="String" data="#/codeListResponsibleAgency" />
+	    <jb:value property="companyIdentification1" decoder="String" data="#/companyIdentification1" />
+        <jb:value property="companyName" decoder="String" data="#/companyName" />
+	    <jb:value property="accessLevel" decoder="String" data="#/accessLevel" />
+        <jb:value property="companyIdentification2" decoder="String" data="#/companyIdentification2" />
+	    <jb:value property="companyIdentificationNumber" decoder="String" data="#/companyIdentificationNumber" />
+	</jb:bean> 
+	
+	<!--  HSTI/STX IA 02.2.1 (HIS)-History Item/STATUS DETAILS-->
+	<jb:bean beanId="STX" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.Action" createOnElement="action">
+	    <jb:value property="statusIndicator1" decoder="String" data="#/statusDetails1/statusIndicator1" />
+        <jb:value property="actionRequestNotification1" decoder="String" data="#/statusDetails1/actionRequestNotification1" />
+        <jb:value property="statusType1" decoder="String" data="#/statusDetails1/statusType1" />
+        <jb:value property="description" decoder="String" data="#/statusDetails1/description" />
+        <jb:value property="statusIndicator2" decoder="String" data="#/statusDetails2/statusIndicator2" />
+        <jb:value property="actionRequestNotification2" decoder="String" data="#/statusDetails2/actionRequestNotification2" />
+        <jb:value property="statusType2" decoder="String" data="#/statusDetails2/statusType2" />
+        <jb:value property="freeText" decoder="String" data="#/statusDetails2/freeText" />
+	</jb:bean> 
+	
+ 	<!--HISD/ATR 1A 10.1.1 (HIS) -History Data/ATTRIBUTE-->
+	<jb:bean beanId="HISDLIST" class="java.util.ArrayList" createOnElement="application">
+        <jb:wiring beanIdRef="HISD" />
+    </jb:bean> 
+    
+    <jb:bean beanId="HISD" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.Column" createOnElement="column">
+		<jb:value property="criteriaSetType" decoder="String" data="#/criteriaSetType" />
+     	<jb:value property="attributeDetails" decoder="String" data="#/criteriaDetails/attributeDetails" />
+		<jb:wiring property="stringValue" beanIdRef="HISDATRLTS" />
+		<jb:wiring property="integerValue" beanIdRef="HISDATREQN" />
+		<jb:wiring property="dateValue" beanIdRef="HISDATRSDI" />
+	</jb:bean>
+	
+	<!--HISD/ATR 1A 10.1.1 (HIS)/LTS IA 02.2.1 (HIS) -History Data/ATTRIBUTE/LONG TEXT STRING-->
+	<jb:bean beanId="HISDATRLTS" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.StringValue" createOnElement="stringValue">
+     	<jb:value property="text" decoder="String" data="#/text" />
+    </jb:bean> 
+    
+	<!--HISD/ATR 1A 10.1.1 (HIS)/EQN IA 02.2.1 (HIS) -History Data/ATTRIBUTE/NUMBER OF UNITS-->
+	<jb:bean beanId="HISDATREQN" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.IntegerValue" createOnElement="integerValue">
+     	<jb:value property="numberOfUnit" decoder="Integer" data="#/quantityDetails/numberOfUnit" />
+     	<jb:value property="numberOfUnitsQualifier1" decoder="String" data="#/quantityDetails/numberOfUnitsQualifier1" />
+		<jb:value property="numberOfUnits11" decoder="Integer" data="#/numberOfUnitDetails1/numberOfUnits11" />
+     	<jb:value property="numberOfUnitsQualifier12" decoder="String" data="#/numberOfUnitDetails1/numberOfUnitsQualifier12" />
+     	<jb:value property="numberOfUnits21" decoder="Integer" data="#/numberOfUnitDetails2/numberOfUnits21" />
+     	<jb:value property="numberOfUnitsQualifier22" decoder="String" data="#/numberOfUnitDetails2/numberOfUnitsQualifier22" />
+     	<jb:value property="numberOfUnits31" decoder="Integer" data="#/numberOfUnitDetails3/numberOfUnits31" />
+     	<jb:value property="numberOfUnitsQualifier32" decoder="String" data="#/numberOfUnitDetails3/numberOfUnitsQualifier32" />
+     	<jb:value property="numberOfUnits41" decoder="Integer" data="#/numberOfUnitDetails4/numberOfUnits41" />
+     	<jb:value property="numberOfUnitsQualifier42" decoder="String" data="#/numberOfUnitDetails4/numberOfUnitsQualifier42" />
+     	<jb:value property="numberOfUnits51" decoder="Integer" data="#/numberOfUnitDetails5/numberOfUnits51" />
+     	<jb:value property="numberOfUnitsQualifier52" decoder="String" data="#/numberOfUnitDetails5/numberOfUnitsQualifier52" />
+     	<jb:value property="numberOfUnits61" decoder="Integer" data="#/numberOfUnitDetails6/numberOfUnits61" />
+     	<jb:value property="numberOfUnitsQualifier62" decoder="String" data="#/numberOfUnitDetails6/numberOfUnitsQualifier62" />
+     	<jb:value property="numberOfUnits71" decoder="Integer" data="#/numberOfUnitDetails7/numberOfUnits71" />
+     	<jb:value property="numberOfUnitsQualifier72" decoder="String" data="#/numberOfUnitDetails7/numberOfUnitsQualifier72" />
+     	<jb:value property="numberOfUnits81" decoder="Integer" data="#/numberOfUnitDetails8/numberOfUnits81" />
+     	<jb:value property="numberOfUnitsQualifier82" decoder="String" data="#/numberOfUnitDetails8/numberOfUnitsQualifier82" />
+	</jb:bean> 
+	
+	<!--HISD/ATR 1A 10.1.1 (HIS)/SDI 1A 10.1.1 (HIS) -History Data/ATTRIBUTE/STRUCTURED DATE TIME INFORMATION-->
+	<jb:bean beanId="HISDATRSDI" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.DateValue" createOnElement="dateValue">
+     	<jb:value property="businessSemantic" decoder="String" data="#/businessSemantic" />
+	    <jb:value property="periodQualifier" decoder="String" data="#/periodQualifier" />
+	    <jb:value property="year" decoder="Integer" data="#/dateTime/year" />
+	    <jb:value property="month" decoder="Integer" data="#/dateTime/month" />
+	    <jb:value property="day" decoder="Integer" data="#/dateTime/day" />
+	    <jb:value property="hour" decoder="Integer" data="#/dateTime/hour" />
+	    <jb:value property="minutes" decoder="Integer" data="#/dateTime/minutes" />
+	    <jb:value property="seconds" decoder="Integer" data="#/dateTime/seconds" />
+	    <jb:value property="milliSeconds" decoder="Integer" data="#/dateTime/milliSeconds" />
+	    <jb:value property="country" decoder="String" data="#/timeZoneInformation/country" />
+	    <jb:value property="timeZoneCode" decoder="Integer" data="#/timeZoneInformation/timeZoneCode" />
+	    <jb:value property="timeZoneSuffix" decoder="String" data="#/timeZoneInformation/timeZoneSuffix" />
+	</jb:bean> 
+	 
+    <!--  STANDARD UNT TRAILER   -->
+    <jb:bean beanId="UNT" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.EdiTrailer" createOnElement="ediTrailer">
+        <jb:value property="noofsegments" decoder="Integer" data="#/NoOfSegments" />
+        <jb:value property="Messagerefnumber" decoder="String" data="#/MessageReferenceNumber" />
+    </jb:bean>
+   
+    <!--  STANDARD UNE TRAILER -->
+    <jb:bean beanId="UNE" class="com.tcs.ods.batchprocess.dcscm.chdwrr.smooks.EdiGroupTrailer" createOnElement="ediGroupTrailer">
+        <jb:value property="groupControlCount" decoder="Integer" data="#/groupControlCount" />
+        <jb:value property="groupReference" decoder="String" data="#/groupReference" />
+    </jb:bean>
+</smooks-resource-list>
+

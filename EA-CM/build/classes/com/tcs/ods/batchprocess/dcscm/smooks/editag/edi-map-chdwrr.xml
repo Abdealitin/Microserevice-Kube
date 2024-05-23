@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medi:edimap xmlns:medi="http://www.milyn.org/schema/edi-message-mapping-1.2.xsd">
+ 
+    <medi:import truncatableSegments="true" truncatableFields="true" truncatableComponents="true" resource="edi-to-java-order-mapping-chdwrr.xml" namespace="def"/>
+ 
+    <medi:description name="chdwrr" version="12.2.1" />
+ 
+    <medi:delimiters segment="&#39;" field="+" component=":" sub-component="~"/>
+ 
+    <medi:segments xmltag="Chdwrr">  
+    	<medi:segment minOccurs="0" maxOccurs="1" segref="def:UNG" segcode="UNG" xmltag="ediGroupHeader"/>
+        <medi:segment minOccurs="1" maxOccurs="1" segref="def:UNH" segcode="UNH" xmltag="ediHeader"/> 
+        	 <medi:segmentGroup xmltag="ERRG" minOccurs="0" maxOccurs="1">
+			  <medi:segment minOccurs="1" maxOccurs="1" segref="def:ERC" segcode="ERC" xmltag="errorCode"/>
+			   <medi:segment minOccurs="0" maxOccurs="1" segref="def:TXF" segcode="TXF" xmltag="errorText"/>
+		</medi:segmentGroup>
+		<medi:segmentGroup xmltag="HSTI" minOccurs="0" maxOccurs="500">
+			  <medi:segment minOccurs="1" maxOccurs="1" segref="def:APL" segcode="APL" xmltag="application"/>
+			 <medi:segmentGroup xmltag="LONGDATADETAILS" minOccurs="0" maxOccurs="1">
+				  <medi:segment minOccurs="1" maxOccurs="1" segref="def:ATR" segcode="ATR" xmltag="firstHistoryLine"/>
+				   <medi:segment minOccurs="0" maxOccurs="1" segref="def:ATR" segcode="ATR" xmltag="secondHistoryLine"/>
+				   <medi:segment minOccurs="0" maxOccurs="1" segref="def:ANI" segcode="ANI" xmltag="airportTerminal"/>
+				  <medi:segment minOccurs="0" maxOccurs="1" segref="def:DCD" segcode="DCD" xmltag="deviceAddress"/>
+				 <medi:segment minOccurs="0" maxOccurs="2" segref="def:IRV" segcode="IRV" xmltag="historyAssociation"/>
+			  </medi:segmentGroup>
+			   <medi:segment minOccurs="1" maxOccurs="1" segref="def:SDI" segcode="SDI" xmltag="structuredDateTimeInformation"/>
+			  <medi:segment minOccurs="0" maxOccurs="1" segref="def:SDI" segcode="SDI" xmltag="structuredDateTimeInformation"/>
+			  <medi:segment minOccurs="0" maxOccurs="1" segref="def:UID" segcode="UID" xmltag="userIdentification"/>
+			  <medi:segment minOccurs="0" maxOccurs="1" segref="def:CPY" segcode="CPY" xmltag="organisation"/>
+			  <medi:segment minOccurs="0" maxOccurs="1" segref="def:STX" segcode="STX" xmltag="action"/> 
+			 <medi:segmentGroup xmltag="HISD" minOccurs="0" maxOccurs="14">
+				  <medi:segment minOccurs="1" maxOccurs="1" segref="def:ATR" segcode="ATR" xmltag="column"/>
+				   <medi:segment minOccurs="0" maxOccurs="1" segref="def:LTS" segcode="LTS" xmltag="stringValue"/>
+				  <medi:segment minOccurs="0" maxOccurs="1" segref="def:EQN" segcode="EQN" xmltag="integerValue"/>
+				  <medi:segment minOccurs="0" maxOccurs="1" segref="def:SDI" segcode="SDI" xmltag="dateValue"/> 
+			  </medi:segmentGroup>
+		</medi:segmentGroup>
+		<medi:segment minOccurs="1" maxOccurs="1" segref="def:UNT" segcode="UNT" xmltag="ediTrailer"/>
+		<medi:segment minOccurs="0" maxOccurs="1" segref="def:UNE" segcode="UNE" xmltag="ediGroupTrailer"/>
+    </medi:segments>
+    </medi:edimap>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 14, 2017 5:44:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprGtpVoucher" table="CPR_GTP_VOUCHER">
+        <id name="idGtpVoucher" type="java.lang.Long">
+            <column name="ID_GTP_VOUCHER" precision="36" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cprProductlevel" class="com.tcs.ods.batchprocess.dcscm.hibernate.ccprrr.CprProductlevel" fetch="select">
+            <column name="ID_PRODUCTLEVEL" precision="36" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="cprOrigin" type="string">
+            <column name="CPR_ORIGIN" length="3" />
+        </property>
+        <property name="cprDestination" type="string">
+            <column name="CPR_DESTINATION" length="3" />
+        </property>
+        <property name="cprDataindicator" type="string">
+            <column name="CPR_DATAINDICATOR" length="3" />
+        </property>
+        <property name="cprFreetext" type="string">
+            <column name="CPR_FREETEXT" length="70" />
+        </property>
+        <property name="cptIssuancedate" type="date">
+            <column name="CPT_ISSUANCEDATE" length="7" />
+        </property>
+        <property name="cprInhouseid" type="string">
+            <column name="CPR_INHOUSEID" length="9" />
+        </property>
+        <property name="cprAirportcode" type="string">
+            <column name="CPR_AIRPORTCODE" length="25" />
+        </property>
+        <property name="cprStatusindic" type="string">
+            <column name="CPR_STATUSINDIC" length="3" />
+        </property>
+        <property name="cprAction" type="string">
+            <column name="CPR_ACTION" length="3" />
+        </property>
+        
+    </class>
+</hibernate-mapping>
